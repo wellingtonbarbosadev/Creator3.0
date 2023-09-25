@@ -31,14 +31,6 @@ except ModuleNotFoundError:
     subprocess.run(['deactivate'], shell=True)
     import requests
 
-    sg.theme('DarkGrey14')
-    layout = [[sg.Text("Bot atualizado com sucesso.", font=('Open Sans', 10))],
-              [sg.Text("Abra novamente.", font=('Open Sans', 10))],
-              [sg.Button("OK", button_color='#1c2024')]]
-    window = sg.Window("Atualização", layout)
-    event, values = window.read()
-    window.close()
-
 try:
     from faker import Faker
 
@@ -54,14 +46,6 @@ except ModuleNotFoundError:
 
     fake = Faker('pt_BR')
 
-    sg.theme('DarkGrey14')
-    layout = [[sg.Text("Bot atualizado com sucesso.", font=('Open Sans', 10))],
-              [sg.Text("Abra novamente.", font=('Open Sans', 10))],
-              [sg.Button("OK", button_color='#1c2024')]]
-    window = sg.Window("Atualização", layout)
-    event, values = window.read()
-    window.close()
-
 try:
     import pytz
 except ModuleNotFoundError:
@@ -72,14 +56,6 @@ except ModuleNotFoundError:
     subprocess.run(['pip', 'install', 'pytz'])
     subprocess.run(['deactivate'], shell=True)
     import pytz
-
-    sg.theme('DarkGrey14')
-    layout = [[sg.Text("Bot atualizado com sucesso.", font=('Open Sans', 10))],
-              [sg.Text("Abra novamente.", font=('Open Sans', 10))],
-              [sg.Button("OK", button_color='#1c2024')]]
-    window = sg.Window("Atualização", layout)
-    event, values = window.read()
-    window.close()
 tz = pytz.timezone('America/Sao_Paulo')
 try:
     import gspread
@@ -98,12 +74,6 @@ except ModuleNotFoundError:
     from oauth2client.service_account import ServiceAccountCredentials
 
     sg.theme('DarkGrey14')
-    layout = [[sg.Text("Bot atualizado com sucesso.", font=('Open Sans', 10))],
-              [sg.Text("Abra novamente.", font=('Open Sans', 10))],
-              [sg.Button("OK", button_color='#1c2024')]]
-    window = sg.Window("Atualização", layout)
-    event, values = window.read()
-    window.close()
 
 from datetime import datetime
 import time
@@ -133,12 +103,6 @@ except ModuleNotFoundError:
     import PySimpleGUI as sg
 
     sg.theme('DarkGrey14')
-    layout = [[sg.Text("Bot atualizado com sucesso.", font=('Open Sans', 10))],
-              [sg.Text("Abra novamente.", font=('Open Sans', 10))],
-              [sg.Button("OK", button_color='#1c2024')]]
-    window = sg.Window("Atualização", layout)
-    event, values = window.read()
-    window.close()
 
 base_url = 'https://raw.githubusercontent.com/wnx3/Creator3.0/main/'
 
@@ -180,16 +144,7 @@ except ModuleNotFoundError:
     subprocess.run(['venv/scripts/activate.bat'], shell=True)
     subprocess.run(['pip', 'install', 'minuteinbox'])
     subprocess.run(['deactivate'], shell=True)
-
-    sg.theme('DarkGrey14')
-    layout = [[sg.Text("Bot atualizado com sucesso.", font=('Open Sans', 10))],
-              [sg.Text("Abra novamente.", font=('Open Sans', 10))],
-              [sg.Button("OK", button_color='#1c2024')]]
-    window = sg.Window("Atualização", layout)
-    event, values = window.read()
     from minuteinbox import Inbox
-
-    window.close()
 
 import multiprocessing
 import os
@@ -229,7 +184,17 @@ sg.theme('DarkGrey14')
 
 
 import PySimpleGUI as sg
-import mysql.connector
+try:
+    import mysql.connector
+except ModuleNotFoundError:
+    import subprocess
+    import sys
+
+    subprocess.run(['venv/scripts/activate.bat'], shell=True)
+    subprocess.run(['pip', 'install', 'mysql-connector-python'])
+    subprocess.run(['deactivate'], shell=True)
+    import mysql.connector
+
 
 def validar_login(username, password):
     try:
