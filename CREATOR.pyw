@@ -310,7 +310,7 @@ if registrado is False:
 
 
 # Define a janela de diálogo com um input e um botão
-user_mysql = values['user']
+user_mysql = 'configurando'
 check_img = 'storage\\img\\total.png'
 criada_img = 'storage\\img\\check.png'
 button_color = sg.theme_background_color()
