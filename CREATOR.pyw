@@ -1495,10 +1495,14 @@ def free_sms_beta():
                         time.sleep(5)
                         d(resourceId='com.instagram.android:id/skip_button').click()
                         time.sleep(5)
-                        d(resourceId='com.instagram.android:id/negative_button').click()
-                        time.sleep(5)
-                        d(resourceId='com.instagram.android:id/skip_button').click()
-                        time.sleep(5)
+                        try:
+                            d(resourceId='com.instagram.android:id/skip_button').click(timeout=10)
+                            time.sleep(5)
+                        except:
+                            d(resourceId='com.instagram.android:id/negative_button').click()
+                            time.sleep(5)
+                            d(resourceId='com.instagram.android:id/skip_button').click()
+                            time.sleep(5)
                         try:
                             d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click()
                         except:
@@ -13273,12 +13277,15 @@ def executar_2nr_insta():
                         try:
                             d.xpath('//android.view.View[@content-desc="Pular"]').click()
                             time.sleep(2)
-                            d(resourceId='com.instagram.android:id/skip_button').click()
-                            time.sleep(2)
-                            d(resourceId='com.instagram.android:id/negative_button').click()
-                            time.sleep(2)
-                            d(resourceId='com.instagram.android:id/skip_button').click()
-                            time.sleep(4)
+                            
+                            try:
+                                d(resourceId='com.instagram.android:id/skip_button').click(timeout=10)
+                                time.sleep(2)
+                            except:
+                                d(resourceId='com.instagram.android:id/negative_button').click()
+                                time.sleep(2)
+                                d(resourceId='com.instagram.android:id/skip_button').click()
+                                time.sleep(4)
                             try:
                                 element_id = "com.instagram.android:id/row_recommended_user_follow_button"
                                 target_text = "Seguir"
