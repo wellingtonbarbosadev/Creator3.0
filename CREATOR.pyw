@@ -926,6 +926,8 @@ def free_sms_beta():
             except:
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Página estática.')
                 window.Refresh()
+                subprocess.run(f'uiautomator2 -s 127.0.0.1:{porta} uninstall com.github.uiautomator',
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
                 stop = True
                 conteudo = config['vpn']
                 if conteudo == "AVG":
