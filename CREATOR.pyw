@@ -219,7 +219,7 @@ def get_username_from_ip(ip_atual):
     return user_mysql  
 # Verifique se o IP está na lista de IPs na planilha
 if ip_atual in valores_da_coluna:
-    print(f'O IP {ip_atual} está registrado.')
+    print(f'O IP {ip_atual} já está registrado.')
     
     user_mysql = get_username_from_ip(ip_atual)
     print(f'Olá, {user_mysql}')
