@@ -13276,7 +13276,8 @@ def executar_2nr_insta():
                         try:
                             d.xpath('//android.view.View[@content-desc="Pular"]').click()
                             time.sleep(2)
-                            
+                            d(resourceId='com.instagram.android:id/skip_button').click()
+                            time.sleep(2)
                             d(resourceId='com.instagram.android:id/negative_button').click()
                             time.sleep(2)
                             d(resourceId='com.instagram.android:id/skip_button').click()
