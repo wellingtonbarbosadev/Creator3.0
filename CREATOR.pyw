@@ -10623,8 +10623,6 @@ def executar_2nr():
                 android_id = gerar_id()
                 subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
                                shell=True)
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
-                               shell=True)
                 try:
                     subprocess.run(
                         f'adb -s 127.0.0.1:{porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.READ_CONTACTS',
@@ -10645,10 +10643,12 @@ def executar_2nr():
                     subprocess.run(
                         f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.POST_NOTIFICATIONS',
                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-                except:
+                except Exception as e:
+                    print(e)
                     pass
-                d.app_start('pl.rs.sip.softphone.newapp')
                 time.sleep(3)
+                d.app_start('pl.rs.sip.softphone.newapp')
+                
                 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                 client = gspread.authorize(creds)
