@@ -195,76 +195,122 @@ except ModuleNotFoundError:
     subprocess.run(['deactivate'], shell=True)
     import mysql.connector
 
+# Obtenha seu endereço IP atual
+def get_ip():
+    response = requests.get('https://api64.ipify.org?format=json')
+    data = response.json()
+    return data['ip']
 
-def validar_login(username, password):
-    try:
-        conn = mysql.connector.connect(
-            host='creator.mysql.uhserver.com',
-            user='wnx3',
-            password='@Rumo100k',
-            database='creator'
-        )
+# Autentique e abra a planilha usando gspread
+gc = gspread.service_account(filename='relatorio.json')  # Substitua com o caminho para sua chave de API
+sh = gc.open('contas_criadas')  # Substitua pelo nome da sua planilha
 
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM user WHERE user = %s AND senha = %s", (username, password))
-        user = cursor.fetchone()
+# Escolha a aba da planilha que você deseja verificar
+worksheet = sh.worksheet('IPs')  # Substitua pelo nome da aba
 
-        if user:
-            return True
-        else:
+# Obtenha o endereço IP atual
+ip_atual = get_ip()
+
+# Obtenha os valores da coluna onde você deseja verificar os IPs na aba da planilha
+valores_da_coluna = worksheet.col_values(1)  # Suponha que os IPs estejam na coluna A
+
+# Verifique se o IP está na lista de IPs na planilha
+if ip_atual in valores_da_coluna:
+    print(f'O IP {ip_atual} está registrado.')
+    registrado = True
+else:
+    print(f'O IP {ip_atual} não está registrado.')
+    registrado = False
+
+if registrado is False:
+    def validar_login(username, password):
+        try:
+            conn = mysql.connector.connect(
+                host='creator.mysql.uhserver.com',
+                user='wnx3',
+                password='@Rumo100k',
+                database='creator'
+            )
+
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM user WHERE user = %s AND senha = %s", (username, password))
+            user = cursor.fetchone()
+
+            if user:
+                return True
+            else:
+                return False
+
+        except Exception as e:
+            print(f"Erro ao validar o login: {str(e)}")
             return False
 
-    except Exception as e:
-        print(f"Erro ao validar o login: {str(e)}")
-        return False
+        finally:
+            cursor.close()
+            conn.close()
 
-    finally:
-        cursor.close()
-        conn.close()
-
-layout = [
-    [sg.Text("Usuário:"), sg.InputText(key='user', size=(20, 1), justification="l")],
-    [sg.Text("Senha:"), sg.InputText(key='senha', pad=(12, (0, 0)), password_char='*', size=(20, 1), justification="l")],
-    [sg.Button("Login", font=('Open Sans', 9), button_color='#1c2024', border_width=0, size=(30, 1))]
-]
-try:
-    state = config['fixtop']
-    if state:
-        window = sg.Window(f'Login', layout, keep_on_top=True)
-    else:
-        window = sg.Window(f'Login', layout, keep_on_top=False)
-except:
-    window = sg.Window(f'Login', layout, keep_on_top=False)
-
-while True:
-    event, values = window.read()
-
-    if event == sg.WINDOW_CLOSED:
-        break
-
-    if event == "Login":
-        username = values['user']
-        password = values['senha']
-
-        if validar_login(username, password):
-            login_sucedido = True
-            break
+    layout = [
+        [sg.Text("Usuário:"), sg.InputText(key='user', size=(20, 1), justification="l")],
+        [sg.Text("Senha:"), sg.InputText(key='senha', pad=(12, (0, 0)), password_char='*', size=(20, 1), justification="l")],
+        [sg.Button("Login", font=('Open Sans', 9), button_color='#1c2024', border_width=0, size=(30, 1))]
+    ]
+    try:
+        state = config['fixtop']
+        if state:
+            window = sg.Window(f'Login', layout, keep_on_top=True)
         else:
-            sg.popup("Login falhou. Tente novamente.")
-            login_sucedido = False
+            window = sg.Window(f'Login', layout, keep_on_top=False)
+    except:
+        window = sg.Window(f'Login', layout, keep_on_top=False)
 
-window.close()
+    while True:
+        event, values = window.read()
 
-if login_sucedido is True:
-    print('Login feito com sucesso.')
-    pass
-else:
-    print('Não foi possivel realizar o login.')
-    raise Exception('Não foi possivel realizar o login.')
+        if event == sg.WINDOW_CLOSED:
+            break
+
+        if event == "Login":
+            username = values['user']
+            password = values['senha']
+
+            if validar_login(username, password):
+                login_sucedido = True
+                break
+            else:
+                sg.popup("Login falhou. Tente novamente.")
+                login_sucedido = False
+
+    window.close()
+
+    if login_sucedido is True:
+        print('Login feito com sucesso.')
+        
+        def open_spreadsheet():
+            gc = gspread.service_account(filename='relatorio.json')  # Substitua com o caminho para sua chave de API
+            sh = gc.open('contas_criadas')  # Substitua pelo nome da sua planilha
+            return sh
+        username = values['user']
+        ip = get_ip()
+        
+        sh = open_spreadsheet()
+        worksheet = sh.worksheet('IPs')  # Substitua pelo nome da aba
+        
+        # Encontre a primeira linha vazia na coluna A
+        col_a = worksheet.col_values(1)
+        first_empty_row = len(col_a) + 1
+        
+        # Escreva o IP e o nome de usuário na primeira linha vazia
+        worksheet.update('A{0}'.format(first_empty_row), [[ip, username]])
+        
+        print(f'IP registrado.')
+        pass
+    else:
+        print('Não foi possivel realizar o login.')
+        raise Exception('Não foi possivel realizar o login.')
 
 
 # Define a janela de diálogo com um input e um botão
-
+user_mysql = values['user']
 check_img = 'storage\\img\\total.png'
 criada_img = 'storage\\img\\check.png'
 button_color = sg.theme_background_color()
@@ -1479,7 +1525,7 @@ def free_sms_beta():
                             sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                             values = sheet.col_values(1)
                             last_row = len(values)
-                            values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                            values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
                             cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                             for i, val in enumerate(values):
                                 cell_list[i].value = val
@@ -1792,7 +1838,7 @@ def free_sms_beta():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -2976,7 +3022,7 @@ def free_sms():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
-                                        conteudo + ' - ' + app]
+                                        conteudo + ' - ' + app, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -3092,7 +3138,7 @@ def free_sms():
                                     values = sheet.col_values(1)
                                     last_row = len(values)
                                     values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
-                                            conteudo + ' - ' + app]
+                                            conteudo + ' - ' + app, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -3344,7 +3390,7 @@ def free_sms():
                                     values = sheet.col_values(1)
                                     last_row = len(values)
                                     values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
-                                            conteudo + ' - ' + app]
+                                            conteudo + ' - ' + app, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -4473,7 +4519,7 @@ def free_sms_lite():
                         values = sheet.col_values(1)
                         last_row = len(values)
                         values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
-                                  conteudo + ' - ' + app]
+                                  conteudo + ' - ' + app, user_mysql]
                         cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                         for i, val in enumerate(values):
                             cell_list[i].value = val
@@ -11317,7 +11363,7 @@ def executar_2nr():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -11621,7 +11667,7 @@ def executar_2nr():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -11868,7 +11914,7 @@ def executar_2nr():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                          conteudo + ' - ' + app]
+                                          conteudo + ' - ' + app, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -13258,7 +13304,7 @@ def executar_2nr_insta():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -13413,7 +13459,7 @@ def executar_2nr_insta():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -13778,7 +13824,7 @@ def executar_2nr_insta():
                                         sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                         values = sheet.col_values(1)
                                         last_row = len(values)
-                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app]
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
                                         cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                                         for i, val in enumerate(values):
                                             cell_list[i].value = val
@@ -15072,7 +15118,7 @@ def insta_face_lite():
                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                     values = sheet.col_values(1)
                     last_row = len(values)
-                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app]
+                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
                     cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                     for i, val in enumerate(values):
                         cell_list[i].value = val
@@ -15341,7 +15387,7 @@ def insta_face_lite():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
-                                          conteudo + ' - ' + app]
+                                          conteudo + ' - ' + app, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -15540,7 +15586,7 @@ def insta_face_lite():
                             sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                             values = sheet.col_values(1)
                             last_row = len(values)
-                            values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app]
+                            values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
                             cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                             for i, val in enumerate(values):
                                 cell_list[i].value = val
