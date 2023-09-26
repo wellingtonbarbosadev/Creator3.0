@@ -1150,7 +1150,7 @@ def free_sms_beta():
             stop = False
             try:
                 chrome.get('https://temporary-phone-number.com/')
-                chrome.set_window_size(800,2000)
+                chrome.maximize_window()
 
                 try:
                     WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
@@ -16257,6 +16257,7 @@ def executar_creator_2nr():
                     # window.Refresh()
                 except Exception as e:
                     print(e)
+                print('\n')
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
                 window.Refresh()
                 d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
@@ -16309,7 +16310,7 @@ def executar_creator_2nr():
                     try:
                         response = requests.get(url)
                         if response.status_code == 200:
-                            print(f"Requisição bem-sucedida!")
+                            pass
                         else:
                             print(f"Falha na requisição. Código de status: {response.status_code}")
                     except requests.exceptions.RequestException as e:
@@ -16346,6 +16347,7 @@ def executar_creator_2nr():
                 troca_ip += 1
 
                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
+                print(f"Requisição bem-sucedida!")
                 d.xpath('//android.widget.LinearLayout[@content-desc="Log in"]/android.widget.TextView').click()
                 d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha)
@@ -16375,7 +16377,7 @@ def executar_creator_2nr():
                 success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                 tries = 0
                 success = 'Null'
-                while success != 'Successful verification' or tries != '30':
+                while success != 'Successful verification' or tries < '30':
                     success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                     if success == 'Successful verification':
                         break
@@ -16383,9 +16385,8 @@ def executar_creator_2nr():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Falha na verificação.')
                         window.Refresh()
                         raise Exception('Falha na verificação.')
+                    time.sleep(0.5)
                     tries += 1
-                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Captcha aceito.')
-                window.Refresh()
                 d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
                                        text_color=('lime'))
@@ -16405,13 +16406,12 @@ def executar_creator_2nr():
                         success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                         tries = 0
                         success = 'Null'
-                        while success != 'Successful verification' or tries != '30':
+                        while success != 'Successful verification' or tries < '30':
                             success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                             if success == 'Successful verification':
                                 break
+                            time.sleep(0.5)
                             tries += 1
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Captcha aceito.')
-                        window.Refresh()
                         d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
                                                text_color=('lime'))
@@ -16891,7 +16891,6 @@ while True:
                     while running:
                         current_time = time.time() - start_time
                         window["-TIME-"].update(format_time(int(current_time)))
-                        window['criadas'].update(contagem)
                         window.refresh()  # Atualiza a interface do usuário
 
 
