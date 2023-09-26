@@ -11047,17 +11047,6 @@ def executar_2nr():
                     cod = d(resourceId='pl.rs.sip.softphone.newapp:id/message').get_text(timeout=80)
                 except Exception as e:
                     print(e)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Reenviando código.')
-                    window.Refresh()
-                    d.app_start('com.instagram.lite')
-                    time.sleep(3)
-                    d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[*]/android.view.ViewGroup').click()
-                    d.app_start('pl.rs.sip.softphone.newapp')
-                try:
-                    cod = d(resourceId='pl.rs.sip.softphone.newapp:id/message').get_text(timeout=80)
-                except Exception as e:
-                    print(e)
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Código não recebido.')
                     window.Refresh()
                     seguido = False
