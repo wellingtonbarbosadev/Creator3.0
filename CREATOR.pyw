@@ -227,8 +227,14 @@ layout = [
     [sg.Text("Senha:"), sg.InputText(key='senha', pad=(12, (0, 0)), password_char='*', size=(20, 1), justification="l")],
     [sg.Button("Login", font=('Open Sans', 9), button_color='#1c2024', border_width=0, size=(30, 1))]
 ]
-
-window = sg.Window("Login", layout)
+try:
+    state = config['fixtop']
+    if state:
+        window = sg.Window(f'Login', layout, keep_on_top=True)
+    else:
+        window = sg.Window(f'Login', layout, keep_on_top=False)
+except:
+    window = sg.Window(f'Login', layout, keep_on_top=False)
 
 while True:
     event, values = window.read()
