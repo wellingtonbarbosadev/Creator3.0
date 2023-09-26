@@ -213,11 +213,18 @@ ip_atual = get_ip()
 
 # Obtenha os valores da coluna onde você deseja verificar os IPs na aba da planilha
 valores_da_coluna = worksheet.col_values(1)  # Suponha que os IPs estejam na coluna A
-
+def get_username_from_ip(ip_atual):
+    index = valores_da_coluna.index(ip_atual)  # Encontra o índice do IP na lista
+    user_mysql = worksheet.cell(index + 1, 2).value  # Obtém o nome na coluna B da mesma linha
+    return user_mysql  
 # Verifique se o IP está na lista de IPs na planilha
 if ip_atual in valores_da_coluna:
     print(f'O IP {ip_atual} está registrado.')
+    
+    user_mysql = get_username_from_ip(ip_atual)
+    print(f'Olá, {user_mysql}')
     registrado = True
+    
 else:
     print(f'O IP {ip_atual} não está registrado.')
     registrado = False
@@ -275,6 +282,8 @@ if registrado is False:
 
             if validar_login(username, password):
                 login_sucedido = True
+                user_mysql = values['user']
+                print(f'Olá, {user_mysql}')
                 break
             else:
                 sg.popup("Login falhou. Tente novamente.")
@@ -289,7 +298,6 @@ if registrado is False:
             gc = gspread.service_account(filename='relatorio.json')  # Substitua com o caminho para sua chave de API
             sh = gc.open('contas_criadas')  # Substitua pelo nome da sua planilha
             return sh
-        username = values['user']
         ip = get_ip()
         
         sh = open_spreadsheet()
@@ -303,6 +311,7 @@ if registrado is False:
         worksheet.update('A{0}'.format(first_empty_row), [[ip, username]])
         
         print(f'IP registrado.')
+        
         pass
     else:
         print('Não foi possivel realizar o login.')
@@ -310,7 +319,7 @@ if registrado is False:
 
 
 # Define a janela de diálogo com um input e um botão
-user_mysql = 'configurando'
+
 check_img = 'storage\\img\\total.png'
 criada_img = 'storage\\img\\check.png'
 button_color = sg.theme_background_color()
