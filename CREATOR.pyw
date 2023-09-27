@@ -1116,13 +1116,15 @@ def free_sms_beta():
                 user_completo)
             time.sleep(3)
             d.xpath('//android.view.View[@content-desc="Avançar"]').click()
-            
+            def get_random_port():
+                return random.randint(1024, 49151)  # Essas portas são geralmente não privilegiadas
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo Free SMS.')
             window.Refresh()
             chrome_options = uc.ChromeOptions()
             chrome_options.binary_location = '.\\driver\\chrome.exe'
             chrome_options.add_argument("--blink-settings=imagesEnabled=false")
             chrome_options.add_argument("--disable-gpu")
+            chrome_options.add_argument(f"--remote-debugging-port={get_random_port()}")
             chrome_driver_path = '.\\driver\\chromedriver.exe'
             # Configurações adicionais para o undetected_chromedriver
             import re
@@ -1268,7 +1270,10 @@ def free_sms_beta():
                 f'{num}')
             time.sleep(1)
             d.xpath('//android.view.View[@content-desc="Avançar"]').click()
-
+            new_acc = d(resourceId='android:id/button2')
+            if new_acc.exists(timeout=10):
+                d(resourceId='android:id/button2').click()
+                time.sleep(2)
             time.sleep(10)
             restricao = d.xpath('//android.view.View[@content-desc="Cadastrar-se com o email"]')
 
