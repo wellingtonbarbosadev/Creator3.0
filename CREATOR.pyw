@@ -1452,6 +1452,7 @@ def free_sms_beta():
             window.Refresh()
             time.sleep(60)
             verificar = d.xpath('//android.view.View[@content-desc="Adicionar foto"]')
+            verificar2 = d.xpath('//android.view.View[@content-desc="Aceite os termos e políticas do Instagram"]')
             # time.sleep(10)
             try:
                 if verificar.exists:
@@ -1589,6 +1590,134 @@ def free_sms_beta():
                         sms = False
                         print(e)
                         pass
+                    
+                elif verificar2.exists:
+                    d.app_stop("com.instagram.android")
+                    time.sleep(1)
+                    d.app_start("com.instagram.android")
+                    if d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup').exists(timeout=60):
+                        try:
+                            conteudo = config['vpn']
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                                text_color=('lime'))
+                            window.Refresh()
+                            contagem = contagem + 1
+                            window['criadas'].update(contagem)
+                            window.Refresh()
+                            now = datetime.now()
+                            now_brasilia = tz.localize(now)
+                            timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
+                            try:
+                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+                                client = gspread.authorize(creds)
+
+                                spreadsheet_id = config['spreadsheet']
+                                sheet_name = 'contas'
+                                # Insert user, password, and timestamp into first empty row
+                                sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
+                                values = sheet.col_values(1)
+                                last_row = len(values)
+                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                for i, val in enumerate(values):
+                                    cell_list[i].value = val
+                                sheet.update_cells(cell_list)
+
+                                rows = sheet.get_all_values()
+
+                                # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                                regex = re.compile(r'\S+\s\S+')
+
+                                # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                                num_rows = sum(1 for row in rows if regex.match(row[0]))
+                            except Exception as e:
+                                print(e)
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                tempo_aleatorio = random.randint(10, 40)
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                time.sleep(tempo_aleatorio)
+                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+                                client = gspread.authorize(creds)
+
+                                spreadsheet_id = config['spreadsheet']
+                                sheet_name = 'contas'
+                                # Insert user, password, and timestamp into first empty row
+                                sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
+                                values = sheet.col_values(1)
+                                last_row = len(values)
+                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                for i, val in enumerate(values):
+                                    cell_list[i].value = val
+                                sheet.update_cells(cell_list)
+
+                                rows = sheet.get_all_values()
+
+                                # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                                regex = re.compile(r'\S+\s\S+')
+
+                                # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                                num_rows = sum(1 for row in rows if regex.match(row[0]))
+                            window['total'].update(num_rows)
+                            random_number = random.random()
+
+                            # Definir a chance desejada (10%)
+                            chance = 0.3
+
+                            # Verificar se o número aleatório está abaixo da chance
+                            if random_number < chance and not os.path.exists("wn"):
+                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                client = gspread.authorize(creds)
+
+                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                sheet_name = 'relatorio_geral'
+                                # Insert user, password, and timestamp into first empty row
+                                sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
+                                values = sheet.col_values(1)
+                                last_row = len(values)
+                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
+                                cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                for i, val in enumerate(values):
+                                    cell_list[i].value = val
+                                sheet.update_cells(cell_list)
+                        except Exception as e:
+                            print(e)
+                    else:
+                        try:
+                            conteudo = config['vpn']
+
+                            # Executa a função correspondente ao conteúdo do arquivo
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                        except:
+                            sms = True
                 else:
 
                     try:
