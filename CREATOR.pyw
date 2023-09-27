@@ -1445,7 +1445,7 @@ def free_sms_beta():
 
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Verificando...')
             window.Refresh()
-            time.sleep(35)
+            time.sleep(60)
             verificar = d.xpath('//android.view.View[@content-desc="Adicionar foto"]')
             # time.sleep(10)
             try:
