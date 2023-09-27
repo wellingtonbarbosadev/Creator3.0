@@ -1119,17 +1119,15 @@ def free_sms_beta():
             
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo Free SMS.')
             window.Refresh()
-            chromedriver_path = r'chromedriver.exe'
-            service = Service(chromedriver_path)
-            options = uc.ChromeOptions()
-            options.add_argument("--blink-settings=imagesEnabled=false")
-            options.add_argument("--disable-gpu")
+            chrome_options = uc.ChromeOptions()
+            chrome_options.binary_location = '.\\driver\\chrome.exe'
+            chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+            chrome_options.add_argument("--disable-gpu")
+            chrome_driver_path = '.\\driver\\chromedriver.exe'
             # Configurações adicionais para o undetected_chromedriver
             import re
-            driver_executable_path = ChromeDriverManager().install()
-            version_main = int(re.findall('[0-9]+\.', driver_executable_path)[0][:-1])
-            chrome = uc.Chrome(use_subprocess=True, options=options,
-                               driver_executable_path=driver_executable_path, version_main=version_main, headless=False)
+            service = Service(chrome_driver_path)
+            chrome = uc.Chrome(options=chrome_options, service=service, headless=True, version_main=116)
             ## chrome = uc.Chrome(options=options, service=service)
             #chrome.maximize_window()
             # chrome = uc.Chrome(enable_cdp_events=True, headless=True, options=options, service=service)
