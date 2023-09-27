@@ -13258,7 +13258,7 @@ def executar_2nr_insta():
 
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Verificando...')
                 window.Refresh()
-                time.sleep(30)
+                time.sleep(45)
                 verificar = d.xpath('//android.view.View[@content-desc="Adicionar foto"]')
                 # time.sleep(10)
                 try:
