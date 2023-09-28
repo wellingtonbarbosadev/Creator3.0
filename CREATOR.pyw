@@ -1592,6 +1592,8 @@ def free_sms_beta():
                         pass
                     
                 elif verificar2.exists:
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Verificando novamente...')
+                    window.Refresh()
                     d.app_stop("com.instagram.android")
                     time.sleep(1)
                     d.app_start("com.instagram.android")
@@ -13382,7 +13384,12 @@ def executar_2nr_insta():
 
                 codigo_invalido = d.xpath('//android.view.View[@content-desc="Não recebi o código"]')
                 d.xpath('//android.view.View[@content-desc="Concordo"]').click()
-                time.sleep(3)
+                time.sleep(5)
+                errodetec = d.xpath('//android.view.View[@content-desc="Concordo"]')
+                if errodetec.exists:
+                    d.xpath('//android.view.View[@content-desc="Concordo"]').click()
+                    time.sleep(5)
+                    
                 errodetec = d.xpath('//android.view.View[@content-desc="Concordo"]')
                 if errodetec.exists:
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Instagram não deixou avançar.')
@@ -13392,7 +13399,8 @@ def executar_2nr_insta():
                 window.Refresh()
                 time.sleep(45)
                 verificar = d.xpath('//android.view.View[@content-desc="Adicionar foto"]')
-                # time.sleep(10)
+                verificar2 = d.xpath('//android.view.View[@content-desc="Aceite os termos e políticas do Instagram"]')
+
                 try:
                     if verificar.exists:
                         try:
@@ -13514,8 +13522,11 @@ def executar_2nr_insta():
                                     if element.get_text() == target_text:
                                         element.click()
                                         time.sleep(1)
-                                d.xpath(
-                                    '//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click()
+                                try:
+                                    d.xpath(
+                                        '//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click()
+                                except:
+                                    pass
                             except Exception as e:
                                 print(e)
                                 time.sleep(2)
@@ -13534,9 +13545,11 @@ def executar_2nr_insta():
                                     '//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click()
                             time.sleep(1)
                             try:
-                                d(resourceId='com.instagram.android:id/button_text').click()
+                                d(resourceId='com.instagram.android:id/button_text').click(timeout=10)
                             except:
-                                pass
+                                d.app_stop("com.instagram.android")
+                                time.sleep(1)
+                                d.app_start("com.instagram.android")
                             time.sleep(3)
                             try:
                                 d(resourceId='com.instagram.android:id/profile_tab').click()
@@ -13545,8 +13558,167 @@ def executar_2nr_insta():
                                 d(resourceId='com.instagram.android:id/tab_avatar').click()
                             sms = False
                         except Exception as e:
-                            print(e)
-                            pass
+                            d.app_stop("com.instagram.android")
+                            time.sleep(1)
+                            d.app_start("com.instagram.android")
+                            time.sleep(10)
+                            try:
+                                d(resourceId='com.instagram.android:id/profile_tab').click()
+                            except:
+                                time.sleep(2)
+                                d(resourceId='com.instagram.android:id/tab_avatar').click()
+                    elif verificar2.exists:
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Verificando novamente...')
+                        window.Refresh()
+                        d.app_stop("com.instagram.android")
+                        time.sleep(1)
+                        d.app_start("com.instagram.android")
+                        verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
+                        print(1)
+                        time.sleep(20)
+                        if verificar3.exists:
+                            try:
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                                    text_color=('lime'))
+                                window.Refresh()
+                                contagem = contagem + 1
+                                sms = False
+                                window['criadas'].update(contagem)
+                                window.Refresh()
+                                now = datetime.now()
+                                now_brasilia = tz.localize(now)
+                                timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
+                                try:
+                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+                                    client = gspread.authorize(creds)
+
+                                    spreadsheet_id = config['spreadsheet']
+                                    sheet_name = 'contas'
+                                    # Insert user, password, and timestamp into first empty row
+                                    sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
+                                    values = sheet.col_values(1)
+                                    last_row = len(values)
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                    for i, val in enumerate(values):
+                                        cell_list[i].value = val
+                                    sheet.update_cells(cell_list)
+
+                                    rows = sheet.get_all_values()
+
+                                    # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                                    regex = re.compile(r'\S+\s\S+')
+
+                                    # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                                    num_rows = sum(1 for row in rows if regex.match(row[0]))
+                                except Exception as e:
+                                    print(e)
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    tempo_aleatorio = random.randint(10, 40)
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    time.sleep(tempo_aleatorio)
+                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+                                    client = gspread.authorize(creds)
+
+                                    spreadsheet_id = config['spreadsheet']
+                                    sheet_name = 'contas'
+                                    # Insert user, password, and timestamp into first empty row
+                                    sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
+                                    values = sheet.col_values(1)
+                                    last_row = len(values)
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                    for i, val in enumerate(values):
+                                        cell_list[i].value = val
+                                    sheet.update_cells(cell_list)
+
+                                    rows = sheet.get_all_values()
+
+                                    # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                                    regex = re.compile(r'\S+\s\S+')
+
+                                    # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                                    num_rows = sum(1 for row in rows if regex.match(row[0]))
+                                window['total'].update(num_rows)
+                                random_number = random.random()
+
+                                # Definir a chance desejada (10%)
+                                chance = 0.3
+
+                                # Verificar se o número aleatório está abaixo da chance
+                                if random_number < chance and not os.path.exists("wn"):
+                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                    client = gspread.authorize(creds)
+
+                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    sheet_name = 'relatorio_geral'
+                                    # Insert user, password, and timestamp into first empty row
+                                    sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
+                                    values = sheet.col_values(1)
+                                    last_row = len(values)
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
+                                    cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                    for i, val in enumerate(values):
+                                        cell_list[i].value = val
+                                    sheet.update_cells(cell_list)
+                            except Exception as e:
+                                print(e)
+                        else:
+                            if seguido is True:
+                                seguido = False
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] SMS seguidos, Trocando de número.')
+                                window.Refresh()
+                                d.app_start('pl.rs.sip.softphone.newapp')
+                                time.sleep(4)
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
+                                d.xpath(
+                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[1]/androidx.appcompat.widget.LinearLayoutCompat').click()
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
+                                window.Refresh()
+                                sms = True
+                            elif seguido is False:
+                                seguido = True
+                            try:
+                                conteudo = config['vpn']
+
+                                # Executa a função correspondente ao conteúdo do arquivo
+                                if conteudo == "AVG":
+                                    vpn_avg()
+                                elif conteudo == "SurfShark":
+                                    vpn_surf()
+                                elif conteudo == "Nenhuma":
+                                    nenhuma_vpn()
+                                elif conteudo == "Avast":
+                                    vpn_avast()
+                                elif conteudo == "ExpressVPN":
+                                    vpn_express()
+                                elif conteudo == "PiaVPN":
+                                    vpn_pia()
+                                elif conteudo == "BetterNet":
+                                    vpn_better()
+                                elif conteudo == "CyberGhost":
+                                    vpn_cyberghost()
+                                elif conteudo == "NordVPN":
+                                    vpn_nord()
+                                elif conteudo == "HotspotShield":
+                                    vpn_hotspotshield()
+                                elif conteudo == "WindscribeVPN":
+                                    vpn_windscribe()
+                                elif conteudo == "HmaVPN":
+                                    vpn_hma()
+                                else:
+                                    window['output'].print(
+                                        "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                    window.Refresh()
+                            except:
+                                sms = True
+                                continue
                     else:
                         verificar = d(resourceId='com.instagram.android:id/profile_tab')
                         if verificar.exists:
@@ -13700,7 +13872,6 @@ def executar_2nr_insta():
                                     d(resourceId='com.instagram.android:id/tab_avatar').click()
                                 sms = False
                             except Exception as e:
-                                print(e)
                                 window['output'].print(
                                     f'[{datetime.now().strftime("%H:%M:%S")}] Reabrindo Instagram.')
                                 window.Refresh()
@@ -13792,6 +13963,7 @@ def executar_2nr_insta():
                         window.Refresh()
                     sms = True
                 while sms is False:
+                    print('passou')
                     try:
                         time.sleep(3)
                         try:
