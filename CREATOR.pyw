@@ -1116,19 +1116,17 @@ def free_sms_beta():
                 user_completo)
             time.sleep(3)
             d.xpath('//android.view.View[@content-desc="Avançar"]').click()
-            def get_random_port():
-                return random.randint(1024, 49151)  # Essas portas são geralmente não privilegiadas
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo Free SMS.')
             window.Refresh()
             chrome_options = uc.ChromeOptions()
             chrome_options.binary_location = '.\\driver\\chrome.exe'
             chrome_options.add_argument("--blink-settings=imagesEnabled=false")
             chrome_options.add_argument("--disable-gpu")
-            chrome_options.add_argument(f"--remote-debugging-port={get_random_port()}")
+            chrome_options.page_load_strategy = 'eager'
             chrome_driver_path = '.\\driver\\chromedriver.exe'
             # Configurações adicionais para o undetected_chromedriver
             import re
-            service = Service(chrome_driver_path)
+            service = Service(chrome_driver_path, port={random.randint(1024, 49151)})
             chrome = uc.Chrome(options=chrome_options, service=service, headless=True, version_main=116)
             ## chrome = uc.Chrome(options=options, service=service)
             #chrome.maximize_window()
@@ -1150,7 +1148,7 @@ def free_sms_beta():
             stop = False
             try:
                 chrome.get('https://temporary-phone-number.com/')
-                chrome.maximize_window()
+                chrome.set_window_size(800,2000)
 
                 try:
                     WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
@@ -2076,7 +2074,7 @@ def free_sms_beta():
                         pass
                     sms = True
                     pass
-            pass
+            
 
         except Exception as e:
             logger.error('Ocorreu um erro: %s', e)
@@ -13574,8 +13572,7 @@ def executar_2nr_insta():
                         time.sleep(1)
                         d.app_start("com.instagram.android")
                         verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
-                        print(1)
-                        time.sleep(20)
+                        time.sleep(40)
                         if verificar3.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
