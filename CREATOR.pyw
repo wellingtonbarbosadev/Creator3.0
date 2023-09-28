@@ -12166,7 +12166,7 @@ def executar_2nr_insta():
     maquina = config['maquina']
     tentativa = False
     seguido = False
-    regiao_vpn = Sem Dados
+    regiao_vpn = 'Sem dados'
     if config['email'] == '-2nr-' and config['app'] == '-instalite-':
         app = 'Lite'
     elif config['email'] == '-2nr-' and config['app'] == '-insta-':
