@@ -1208,6 +1208,7 @@ def free_sms_beta():
                                 pass
                     except Exception as e:
                         print(e)
+                        print('01')
                         try:
                             chrome.close()
                         except:
@@ -1537,7 +1538,7 @@ def free_sms_beta():
                             values = sheet.col_values(1)
                             last_row = len(values)
                             values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
-                            cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                            cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                             for i, val in enumerate(values):
                                 cell_list[i].value = val
                             sheet.update_cells(cell_list)
@@ -1679,7 +1680,7 @@ def free_sms_beta():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
-                                cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
                                 sheet.update_cells(cell_list)
@@ -1980,7 +1981,7 @@ def free_sms_beta():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
-                                cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
                                 sheet.update_cells(cell_list)
@@ -2052,6 +2053,7 @@ def free_sms_beta():
 
                         except Exception as e:
                             print(e)
+                            print(1)
                             sms = True
                             try:
                                 chrome.close()
@@ -2064,6 +2066,7 @@ def free_sms_beta():
                             pass
                 except Exception as e:
                     print(e)
+                    print(2)
                     try:
                         chrome.close()
                     except:
@@ -2078,6 +2081,7 @@ def free_sms_beta():
 
         except Exception as e:
             logger.error('Ocorreu um erro: %s', e)
+            print(3)
             try:
                 chrome.close()
             except:
@@ -3164,7 +3168,7 @@ def free_sms():
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
                                         conteudo + ' - ' + app, user_mysql]
-                                cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
                                 sheet.update_cells(cell_list)
@@ -3280,7 +3284,7 @@ def free_sms():
                                     last_row = len(values)
                                     values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
                                             conteudo + ' - ' + app, user_mysql]
-                                    cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                    cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
                                     sheet.update_cells(cell_list)
@@ -3532,7 +3536,7 @@ def free_sms():
                                     last_row = len(values)
                                     values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
                                             conteudo + ' - ' + app, user_mysql]
-                                    cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                    cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
                                     sheet.update_cells(cell_list)
@@ -4661,7 +4665,7 @@ def free_sms_lite():
                         last_row = len(values)
                         values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
                                   conteudo + ' - ' + app, user_mysql]
-                        cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                        cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                         for i, val in enumerate(values):
                             cell_list[i].value = val
                         sheet.update_cells(cell_list)
@@ -11510,7 +11514,7 @@ def executar_2nr():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
-                                cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
                                 sheet.update_cells(cell_list)
@@ -11826,7 +11830,7 @@ def executar_2nr():
                                     values = sheet.col_values(1)
                                     last_row = len(values)
                                     values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
-                                    cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                    cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
                                     sheet.update_cells(cell_list)
@@ -12082,7 +12086,7 @@ def executar_2nr():
                                         values = sheet.col_values(1)
                                         last_row = len(values)
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
-                                        cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                        cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                         for i, val in enumerate(values):
                                             cell_list[i].value = val
                                         sheet.update_cells(cell_list)
@@ -12162,6 +12166,7 @@ def executar_2nr_insta():
     maquina = config['maquina']
     tentativa = False
     seguido = False
+    regiao_vpn = Sem Dados
     if config['email'] == '-2nr-' and config['app'] == '-instalite-':
         app = 'Lite'
     elif config['email'] == '-2nr-' and config['app'] == '-insta-':
@@ -12616,7 +12621,7 @@ def executar_2nr_insta():
             pass
         # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
-
+        regiao_vpn = d(resourceId='com.avg.android.vpn:id/location_title').get_text()
         time.sleep(30)
 
     def vpn_windscribe():
@@ -13483,8 +13488,8 @@ def executar_2nr_insta():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
-                                cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
                                 sheet.update_cells(cell_list)
@@ -13656,8 +13661,8 @@ def executar_2nr_insta():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
-                                    cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
                                     sheet.update_cells(cell_list)
@@ -13801,8 +13806,8 @@ def executar_2nr_insta():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
-                                    cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
                                     sheet.update_cells(cell_list)
@@ -14166,8 +14171,8 @@ def executar_2nr_insta():
                                         sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                         values = sheet.col_values(1)
                                         last_row = len(values)
-                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
-                                        cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
                                             cell_list[i].value = val
                                         sheet.update_cells(cell_list)
@@ -15461,7 +15466,7 @@ def insta_face_lite():
                     values = sheet.col_values(1)
                     last_row = len(values)
                     values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
-                    cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                    cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                     for i, val in enumerate(values):
                         cell_list[i].value = val
                     sheet.update_cells(cell_list)
@@ -15730,7 +15735,7 @@ def insta_face_lite():
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
                                           conteudo + ' - ' + app, user_mysql]
-                                cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                                cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
                                 sheet.update_cells(cell_list)
@@ -15929,7 +15934,7 @@ def insta_face_lite():
                             values = sheet.col_values(1)
                             last_row = len(values)
                             values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
-                            cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                            cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                             for i, val in enumerate(values):
                                 cell_list[i].value = val
                             sheet.update_cells(cell_list)
