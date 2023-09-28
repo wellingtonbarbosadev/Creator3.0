@@ -1122,6 +1122,7 @@ def free_sms_beta():
             chrome_options.binary_location = '.\\driver\\chrome.exe'
             chrome_options.add_argument("--blink-settings=imagesEnabled=false")
             chrome_options.add_argument("--disable-gpu")
+            chrome_options.add_argument("--no-sandbox");
             chrome_options.page_load_strategy = 'eager'
             chrome_driver_path = '.\\driver\\chromedriver.exe'
             # Configurações adicionais para o undetected_chromedriver
