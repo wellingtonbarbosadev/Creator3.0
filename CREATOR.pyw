@@ -12648,6 +12648,9 @@ def executar_2nr_insta():
             pass
         d(resourceId='com.windscribe.vpn:id/on_off_button').click()
         time.sleep(10)
+        primeiro = d(resourceId='com.windscribe.vpn:id/tv_connected_city_name').get_text()
+        segundo = d(resourceId='com.windscribe.vpn:id/tv_connected_city_nick_name').get_text()
+        regiao_vpn = primeiro + ' ' + segundo
 
     def vpn_hma():
         global nome
