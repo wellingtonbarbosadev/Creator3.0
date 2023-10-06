@@ -13569,6 +13569,27 @@ def executar_2nr_insta():
                                         time.sleep(1)
                                         d.app_start("com.instagram.android")
                                         time.sleep(30)
+                                        try:
+                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            
+                                            if pagina_login.exists:
+                                                pagina_login.click()
+                                                time.sleep(5)
+                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                pagina_login.click()
+                                            else:
+                                                d(resourceId='com.instagram.android:id/profile_tab').click()
+                                        except:
+                                            time.sleep(2)
+                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            
+                                            if pagina_login.exists:
+                                                pagina_login.click()
+                                                time.sleep(5)
+                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                pagina_login.click()
+                                            else:
+                                                d(resourceId='com.instagram.android:id/tab_avatar').click()
                             
                             sms = False
                         except Exception as e:
