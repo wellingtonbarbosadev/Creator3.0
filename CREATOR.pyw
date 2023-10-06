@@ -12620,7 +12620,8 @@ def executar_2nr_insta():
             d.app_start("com.avg.android.vpn", "com.avast.android.vpn.app.wizard.WizardActivity")
             regiao_vpn = d(resourceId='com.avg.android.vpn:id/location_title').get_text()
             print(regiao_vpn)
-        except:
+        except Exception as e:
+            print(e)
             pass
         # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
