@@ -12618,13 +12618,16 @@ def executar_2nr_insta():
         try:
             d.app_stop('com.avg.android.vpn')
             d.app_start("com.avg.android.vpn", "com.avast.android.vpn.app.wizard.WizardActivity")
+            regiao_vpn = d(resourceId='com.avg.android.vpn:id/location_title').get_text()
+            print(regiao_vpn)
         except:
             pass
         # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
-        regiao_vpn = d(resourceId='com.avg.android.vpn:id/location_title').get_text()
+        
         time.sleep(30)
-
+        regiao_vpn = d(resourceId='com.avg.android.vpn:id/location_title').get_text()
+        print(regiao_vpn)
     def vpn_windscribe():
         global nome
         global sobrenome
@@ -13552,12 +13555,12 @@ def executar_2nr_insta():
                                     '//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click()
                             time.sleep(1)
                             try:
-                                d(resourceId='com.instagram.android:id/button_text').click(timeout=10)
+                                d(resourceId='com.instagram.android:id/button_text').click(timeout=20)
                             except:
                                 d.app_stop("com.instagram.android")
                                 time.sleep(1)
                                 d.app_start("com.instagram.android")
-                            time.sleep(3)
+                                time.sleep(30)
                             try:
                                 d(resourceId='com.instagram.android:id/profile_tab').click()
                             except:
@@ -13568,12 +13571,28 @@ def executar_2nr_insta():
                             d.app_stop("com.instagram.android")
                             time.sleep(1)
                             d.app_start("com.instagram.android")
-                            time.sleep(10)
+                            time.sleep(40)
                             try:
-                                d(resourceId='com.instagram.android:id/profile_tab').click()
+                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                
+                                if pagina_login.exists:
+                                    pagina_login.click()
+                                    time.sleep(5)
+                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    pagina_login.click()
+                                else:
+                                    d(resourceId='com.instagram.android:id/profile_tab').click()
                             except:
                                 time.sleep(2)
-                                d(resourceId='com.instagram.android:id/tab_avatar').click()
+                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                
+                                if pagina_login.exists:
+                                    pagina_login.click()
+                                    time.sleep(5)
+                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    pagina_login.click()
+                                else:
+                                    d(resourceId='com.instagram.android:id/tab_avatar').click()
                     elif verificar2.exists:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Verificando novamente...')
                         window.Refresh()
@@ -16732,6 +16751,7 @@ def executar_creator_2nr():
                 success = 'Null'
                 while success != 'Successful verification' or tries < '30':
                     success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
+                    print(success)
                     if success == 'Successful verification':
                         break
                     elif success == 'Veryfication failed':
@@ -16739,6 +16759,7 @@ def executar_creator_2nr():
                         window.Refresh()
                         raise Exception('Falha na verificação.')
                     time.sleep(0.5)
+                    
                     tries += 1
                 d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
@@ -16763,6 +16784,10 @@ def executar_creator_2nr():
                             success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                             if success == 'Successful verification':
                                 break
+                            elif success == 'Veryfication failed':
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Falha na verificação.')
+                                window.Refresh()
+                                raise Exception('Falha na verificação.')
                             time.sleep(0.5)
                             tries += 1
                         d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
