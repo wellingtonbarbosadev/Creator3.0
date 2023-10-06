@@ -13555,17 +13555,20 @@ def executar_2nr_insta():
                                     '//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click()
                             time.sleep(1)
                             try:
-                                d(resourceId='com.instagram.android:id/button_text').click(timeout=20)
+                                d(resourceId='com.instagram.android:id/button_text').click(timeout=10)
                             except:
-                                d.app_stop("com.instagram.android")
-                                time.sleep(1)
-                                d.app_start("com.instagram.android")
-                                time.sleep(30)
-                            try:
-                                d(resourceId='com.instagram.android:id/profile_tab').click()
-                            except:
-                                time.sleep(2)
-                                d(resourceId='com.instagram.android:id/tab_avatar').click()
+                                try:
+                                    d(resourceId='com.instagram.android:id/profile_tab').click()
+                                except:
+                                    time.sleep(2)
+                                    try:
+                                        d(resourceId='com.instagram.android:id/tab_avatar').click()
+                                    except:
+                                        d.app_stop("com.instagram.android")
+                                        time.sleep(1)
+                                        d.app_start("com.instagram.android")
+                                        time.sleep(30)
+                            
                             sms = False
                         except Exception as e:
                             d.app_stop("com.instagram.android")
@@ -13902,6 +13905,7 @@ def executar_2nr_insta():
                                 window.Refresh()
                                 d.app_stop('com.instagram.android')
                                 d.app_start('com.instagram.android')
+                                time.sleep(20)
                                 pass
                         else:
                             if seguido is True:
@@ -13988,7 +13992,6 @@ def executar_2nr_insta():
                         window.Refresh()
                     sms = True
                 while sms is False:
-                    print('passou')
                     try:
                         time.sleep(3)
                         try:
