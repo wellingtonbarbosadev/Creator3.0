@@ -13624,6 +13624,13 @@ def executar_2nr_insta():
                         d.app_stop("com.instagram.android")
                         time.sleep(1)
                         d.app_start("com.instagram.android")
+                        
+                        if d.xpath('//android.view.View[@content-desc="Esqueceu a senha?"]').exists(timeout=60):
+                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                            d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
+                            d.xpath('//android.view.View[@content-desc="Agora não"]').click()
+                            
                         verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
