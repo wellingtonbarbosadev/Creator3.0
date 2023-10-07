@@ -16795,7 +16795,6 @@ def executar_creator_2nr():
                 success = 'Null'
                 while success != 'Successful verification' or tries < '30':
                     success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
-                    print(success)
                     if success == 'Successful verification':
                         break
                     elif success == 'Veryfication failed':
