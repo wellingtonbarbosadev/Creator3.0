@@ -438,11 +438,13 @@ def free_sms_beta():
         import undetected_chromedriver as uc
     try:
         import uiautomator2 as u2
+        subprocess.run(['pip', 'install', 'packaging==21.3'])
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
         subprocess.run(['pip', 'install', 'uiautomator2'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'])
         import requests
         time.sleep(10)
         import uiautomator2 as u2
@@ -2157,11 +2159,13 @@ def free_sms():
     import string
     try:
         import uiautomator2 as u2
+        subprocess.run(['pip', 'install', 'packaging==21.3'])
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
         subprocess.run(['pip', 'install', 'uiautomator2'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'])
         import requests
         time.sleep(10)
         import uiautomator2 as u2
@@ -10192,11 +10196,13 @@ def executar_2nr():
         from rich.console import Console
     try:
         import uiautomator2 as u2
+        subprocess.run(['pip', 'install', 'packaging==21.3'])
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
         subprocess.run(['pip', 'install', 'uiautomator2'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'])
         import requests
         time.sleep(10)
         import uiautomator2 as u2
@@ -12207,11 +12213,13 @@ def executar_2nr_insta():
     import time
     try:
         import uiautomator2 as u2
+        subprocess.run(['pip', 'install', 'packaging==21.3'])
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
         subprocess.run(['pip', 'install', 'uiautomator2'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'])
         import requests
         time.sleep(10)
         import uiautomator2 as u2
@@ -14381,11 +14389,13 @@ def insta_face_lite():
 
     try:
         import uiautomator2 as u2
+        subprocess.run(['pip', 'install', 'packaging==21.3'])
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
         subprocess.run(['pip', 'install', 'uiautomator2'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'])
         import requests
         time.sleep(10)
         import uiautomator2 as u2
@@ -16093,11 +16103,13 @@ def executar_creator_2nr():
     fake = Faker('pt_BR')
     try:
         import uiautomator2 as u2
+        subprocess.run(['pip', 'install', 'packaging==21.3'])
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
         subprocess.run(['pip', 'install', 'uiautomator2'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'])
         import requests
         time.sleep(10)
         import uiautomator2 as u2
