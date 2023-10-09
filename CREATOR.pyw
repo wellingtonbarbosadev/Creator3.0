@@ -13585,6 +13585,8 @@ def executar_2nr_insta():
                                                 time.sleep(5)
                                                 d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
                                                 pagina_login.click()
+                                                time.sleep(3)
+                                                d.xpath('//android.view.View[@content-desc="Agora não"]').click()
                                             else:
                                                 d(resourceId='com.instagram.android:id/profile_tab').click()
                                         except:
@@ -13596,6 +13598,8 @@ def executar_2nr_insta():
                                                 time.sleep(5)
                                                 d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
                                                 pagina_login.click()
+                                                time.sleep(3)
+                                                d.xpath('//android.view.View[@content-desc="Agora não"]').click()
                                             else:
                                                 d(resourceId='com.instagram.android:id/tab_avatar').click()
                             
