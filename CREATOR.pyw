@@ -16667,7 +16667,21 @@ def executar_creator_2nr():
                 nome_completo_s = nome + sobrenome
                 numeros_concatenados = ''.join(str(numero) for numero in lista_user)
                 user_completo = nome_completo_s + '.' + str(numeros_concatenados)
-                test.register(username=user_completo, password=senha)
+                max_tentativas = 3
+                tentativa = 1
+
+                while tentativa <= max_tentativas:
+                    try:
+                        test.register(username=user_completo, password=senha)
+                        # Se chegou até aqui sem lançar exceção, a conta foi criada com sucesso
+                        break
+                    except Exception as e:
+                        print(f"Tentativa {tentativa} falhou. Erro: {e}")
+                        time.sleep(10)
+                        tentativa += 1
+
+                if tentativa > max_tentativas:
+                    print("Número máximo de tentativas alcançado. Falha ao criar email.")
                 email = str(test.address)
                 ##try:
                 ##    inbox = Inbox(
