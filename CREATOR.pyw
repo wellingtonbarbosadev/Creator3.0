@@ -133,6 +133,7 @@ for file_name in file_list:
         window = sg.Window("Atualização", layout)
         event, values = window.read()
         window.close()
+        raise Exception('Abra novamente.')
     else:
         pass
 try:
