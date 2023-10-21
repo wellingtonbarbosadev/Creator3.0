@@ -17738,7 +17738,6 @@ while True:
 
                     [sg.Button("Salvar", button_color='#1c2024')]
                 ]
-
                 windowconfig = sg.Window('Configurações', layout_configuracoes)
 
                 while True:
