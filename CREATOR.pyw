@@ -16088,6 +16088,7 @@ def executar_creator_2nr():
     from datetime import datetime
     import threading
     import subprocess
+    from mailtm import Email
     import string
     from appium import webdriver
     from selenium.webdriver.common.by import By
@@ -16134,7 +16135,7 @@ def executar_creator_2nr():
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
 
-    # test = Email()
+    test = Email()
 
     def listener(message):
         global nome
@@ -16666,17 +16667,18 @@ def executar_creator_2nr():
                 nome_completo_s = nome + sobrenome
                 numeros_concatenados = ''.join(str(numero) for numero in lista_user)
                 user_completo = nome_completo_s + '.' + str(numeros_concatenados)
-                # test.register(username=user_completo, password=senha)
-                try:
-                    inbox = Inbox(
-                        address="",
-                        token="",
-                    )
-                    email = inbox.address
-                    # window['output'].print("Email: " + email)
-                    # window.Refresh()
-                except Exception as e:
-                    print(e)
+                test.register(username=user_completo, password=senha)
+                email = str(test.address)
+                ##try:
+                ##    inbox = Inbox(
+                ##        address="",
+                ##        token="",
+                ##    )
+                ##    email = inbox.address
+                ##    # window['output'].print("Email: " + email)
+                ##    # window.Refresh()
+                ##except Exception as e:
+                ##    print(e)
                 print('\n')
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
                 window.Refresh()
@@ -16692,18 +16694,27 @@ def executar_creator_2nr():
 
                 codigo = None
 
-                # try:
-                #    test.start(listener, interval=5)
-                #    codigo = 0
-                #    while codigo != 5:
-                #        time.sleep(2)
-                #        codigo = codigo + 1
-                # except Exception as e:
-                #    if "Too Many Requests" in str(e):
-                #        pass
-                #    else:
-                #        pass
-
+                try:
+                   test.start(listener, interval=5)
+                   codigo = 0
+                   while codigo != 5:
+                       time.sleep(2)
+                       codigo = codigo + 1
+                except Exception as e:
+                   if "Too Many Requests" in str(e):
+                       pass
+                   else:
+                       pass
+                subject = False
+                def make_request(url):
+                    try:
+                        response = requests.get(url)
+                        if response.status_code == 200:
+                            pass
+                        else:
+                            print(f"Falha na requisição. Código de status: {response.status_code}")
+                    except requests.exceptions.RequestException as e:
+                        print(f"Erro na requisição: {e}")
                 def listener(message):
                     global nome
                     global sobrenome
@@ -16715,54 +16726,40 @@ def executar_creator_2nr():
 
                         # Acessar cada URL
                         for url in urls:
-                            if url.startswith('https://api.2nr.xyz/register/?'):
-                                response = requests.get(url)
+                            make_request(url)
+                            time.sleep(0.5)
+                        subject = True
+                
 
-                                # Verificar o código de status
-                                if response.status_code == 200:
-                                    pass
-                                else:
-                                    print(f"Erro ao acessar o link: {response.status_code}")
+                
 
-                subject = False
-
-                def make_request(url):
-                    try:
-                        response = requests.get(url)
-                        if response.status_code == 200:
-                            pass
-                        else:
-                            print(f"Falha na requisição. Código de status: {response.status_code}")
-                    except requests.exceptions.RequestException as e:
-                        print(f"Erro na requisição: {e}")
-
-                while subject == False:
-                    for mail in inbox.mails:
-                        time.sleep(10)
-                        cod = mail.content
-                        if '2nr' in mail.subject:
-                            urls = re.findall(r'href=["\']?([^"\'>]+)', mail.content)
-                            # Acessar cada URL
-                            for url in urls:
-                                make_request(url)
-                                time.sleep(0.5)
-                                # if url.startswith('https://api.2nr.xyz/register/?email'):
-                                #    try:
-                                #        new_url = url.replace('</p></div>', '')
-                                #        print(new_url)
-                                #    except:
-                                #        pass
-                                #    #response = requests.get(new_url)
-                                #    d.open_url(new_url)
-                                #    # Verificar o código de status
-                                #    #if response.status_code == 200:
-                                #    #    print('clicou')
-                                #    #    d.open_url(new_url)
-                                #    #    pass
-                                #    #else:
-                                #    #    print(f"Erro ao acessar o link: {response.status_code}")
-                                #    print('d')
-                            subject = True
+                ##while subject == False:
+                ##    for mail in inbox.mails:
+                ##        time.sleep(10)
+                ##        cod = mail.content
+                ##        if '2nr' in mail.subject:
+                ##            urls = re.findall(r'href=["\']?([^"\'>]+)', mail.content)
+                ##            # Acessar cada URL
+                ##            for url in urls:
+                ##                make_request(url)
+                ##                time.sleep(0.5)
+                ##                # if url.startswith('https://api.2nr.xyz/register/?email'):
+                ##                #    try:
+                ##                #        new_url = url.replace('</p></div>', '')
+                ##                #        print(new_url)
+                ##                #    except:
+                ##                #        pass
+                ##                #    #response = requests.get(new_url)
+                ##                #    d.open_url(new_url)
+                ##                #    # Verificar o código de status
+                ##                #    #if response.status_code == 200:
+                ##                #    #    print('clicou')
+                ##                #    #    d.open_url(new_url)
+                ##                #    #    pass
+                ##                #    #else:
+                ##                #    #    print(f"Erro ao acessar o link: {response.status_code}")
+                ##                #    print('d')
+                ##            subject = True
 
                 troca_ip += 1
 
