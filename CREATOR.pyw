@@ -16668,21 +16668,17 @@ def executar_creator_2nr():
                 nome_completo_s = nome + sobrenome
                 numeros_concatenados = ''.join(str(numero) for numero in lista_user)
                 user_completo = nome_completo_s + '.' + str(numeros_concatenados)
-                max_tentativas = 3
                 tentativa = 1
 
-                while tentativa <= max_tentativas:
+                while True:
                     try:
-                        test.register(username=user_completo, password=senha)
+                        test.register()
                         # Se chegou até aqui sem lançar exceção, a conta foi criada com sucesso
                         break
                     except Exception as e:
                         print(f"Tentativa {tentativa} falhou. Erro: {e}")
-                        time.sleep(10)
+                        time.sleep(30)
                         tentativa += 1
-
-                if tentativa > max_tentativas:
-                    print("Número máximo de tentativas alcançado. Falha ao criar email.")
                 email = str(test.address)
                 ##try:
                 ##    inbox = Inbox(
@@ -16710,7 +16706,7 @@ def executar_creator_2nr():
                 codigo = None
 
                 try:
-                   test.start(listener, interval=5)
+                   test.start(listener, interval=10)
                    codigo = 0
                    while codigo != 5:
                        time.sleep(2)
@@ -16780,6 +16776,7 @@ def executar_creator_2nr():
 
                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
                 print(f"Requisição bem-sucedida!")
+                test.stop()
                 d.xpath('//android.widget.LinearLayout[@content-desc="Log in"]/android.widget.TextView').click()
                 d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha)
