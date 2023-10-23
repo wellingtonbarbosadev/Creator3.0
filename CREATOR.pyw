@@ -16795,6 +16795,7 @@ def executar_creator_2nr():
                 arquivo.close()
                 window['criadas'].update(contagem)
                 window.Refresh()
+                time.sleep(3)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/inputNumberName').set_text(
                     random.choice(list(range(1, 100))))
                 d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
