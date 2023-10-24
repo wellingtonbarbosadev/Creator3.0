@@ -16669,119 +16669,192 @@ def executar_creator_2nr():
                 numeros_concatenados = ''.join(str(numero) for numero in lista_user)
                 user_completo = nome_completo_s + '.' + str(numeros_concatenados)
                 tentativa = 1
+                
+                email_escolhido = config['email_escolhido']
+                
+                if email_escolhido == 'MailTM':
+                    while True:
+                        try:
+                            test.register()
+                            # Se chegou até aqui sem lançar exceção, a conta foi criada com sucesso
+                            break
+                        except Exception as e:
+                            print(f"Tentativa {tentativa} falhou. Erro: {e}")
+                            time.sleep(30)
+                            tentativa += 1
+                    email = str(test.address)
+                    ##try:
+                    ##    inbox = Inbox(
+                    ##        address="",
+                    ##        token="",
+                    ##    )
+                    ##    email = inbox.address
+                    ##    # window['output'].print("Email: " + email)
+                    ##    # window.Refresh()
+                    ##except Exception as e:
+                    ##    print(e)
+                    print('\n')
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                    window.Refresh()
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
 
-                while True:
+                    # use with address and token to reuse an existing inbox
+
+                    time.sleep(2)
+
+                    codigo = None
+
                     try:
-                        test.register()
-                        # Se chegou até aqui sem lançar exceção, a conta foi criada com sucesso
-                        break
+                        test.start(listener, interval=10)
+                        codigo = 0
+                        while codigo != 5:
+                            time.sleep(2)
+                            codigo = codigo + 1
                     except Exception as e:
-                        print(f"Tentativa {tentativa} falhou. Erro: {e}")
-                        time.sleep(30)
-                        tentativa += 1
-                email = str(test.address)
-                ##try:
-                ##    inbox = Inbox(
-                ##        address="",
-                ##        token="",
-                ##    )
-                ##    email = inbox.address
-                ##    # window['output'].print("Email: " + email)
-                ##    # window.Refresh()
-                ##except Exception as e:
-                ##    print(e)
-                print('\n')
-                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
-                window.Refresh()
-                d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
-                d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
-                d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
-                d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
-                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
-
-                # use with address and token to reuse an existing inbox
-
-                time.sleep(2)
-
-                codigo = None
-
-                try:
-                   test.start(listener, interval=10)
-                   codigo = 0
-                   while codigo != 5:
-                       time.sleep(2)
-                       codigo = codigo + 1
-                except Exception as e:
-                   if "Too Many Requests" in str(e):
-                       pass
-                   else:
-                       pass
-                subject = False
-                def make_request(url):
-                    try:
-                        response = requests.get(url)
-                        if response.status_code == 200:
+                        if "Too Many Requests" in str(e):
                             pass
                         else:
-                            print(f"Falha na requisição. Código de status: {response.status_code}")
-                    except requests.exceptions.RequestException as e:
-                        print(f"Erro na requisição: {e}")
-                def listener(message):
-                    global nome
-                    global sobrenome
-                    global cod
-                    if '2nr' in message['subject']:
+                            pass
+                    subject = False
+                    def make_request(url):
+                        try:
+                            response = requests.get(url)
+                            if response.status_code == 200:
+                                pass
+                            else:
+                                print(f"Falha na requisição. Código de status: {response.status_code}")
+                        except requests.exceptions.RequestException as e:
+                            print(f"Erro na requisição: {e}")
+                    def listener(message):
+                        global nome
+                        global sobrenome
+                        global cod
+                        if '2nr' in message['subject']:
 
-                        urls = re.findall("(?P<url>https?://[^\s]+)",
-                                          message['text'] if message['text'] else message['html'])
+                            urls = re.findall("(?P<url>https?://[^\s]+)",
+                                            message['text'] if message['text'] else message['html'])
 
-                        # Acessar cada URL
-                        for url in urls:
-                            make_request(url)
-                            time.sleep(0.5)
-                        subject = True
-                
+                            # Acessar cada URL
+                            for url in urls:
+                                make_request(url)
+                                time.sleep(0.5)
+                            subject = True
+                            
+                elif email_escolhido == 'GuerrilaMail':
+                    try:
+                        from guerrillamail import GuerrillaMailSession
+                    except:
+                        subprocess.run(['venv/scripts/activate.bat'], shell=True)
+                        subprocess.run(['pip', 'install', 'python-guerrillamail'])
+                        subprocess.run(['deactivate'], shell=True)
+                        from guerrillamail import GuerrillaMailSession
+                        
+                    # Crie uma sessão Guerrilla Mail
+                    session = GuerrillaMailSession()
+                    email_address = session.get_session_state()['email_address']
+                    email = email_address
+                    ##try:
+                    ##    inbox = Inbox(
+                    ##        address="",
+                    ##        token="",
+                    ##    )
+                    ##    email = inbox.address
+                    ##    # window['output'].print("Email: " + email)
+                    ##    # window.Refresh()
+                    ##except Exception as e:
+                    ##    print(e)
+                    print('\n')
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                    window.Refresh()
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
 
-                
+                    # use with address and token to reuse an existing inbox
 
-                ##while subject == False:
-                ##    for mail in inbox.mails:
-                ##        time.sleep(10)
-                ##        cod = mail.content
-                ##        if '2nr' in mail.subject:
-                ##            urls = re.findall(r'href=["\']?([^"\'>]+)', mail.content)
-                ##            # Acessar cada URL
-                ##            for url in urls:
-                ##                make_request(url)
-                ##                time.sleep(0.5)
-                ##                # if url.startswith('https://api.2nr.xyz/register/?email'):
-                ##                #    try:
-                ##                #        new_url = url.replace('</p></div>', '')
-                ##                #        print(new_url)
-                ##                #    except:
-                ##                #        pass
-                ##                #    #response = requests.get(new_url)
-                ##                #    d.open_url(new_url)
-                ##                #    # Verificar o código de status
-                ##                #    #if response.status_code == 200:
-                ##                #    #    print('clicou')
-                ##                #    #    d.open_url(new_url)
-                ##                #    #    pass
-                ##                #    #else:
-                ##                #    #    print(f"Erro ao acessar o link: {response.status_code}")
-                ##                #    print('d')
-                ##            subject = True
+                    tentativa = 1
+                    while True:
+                        time.sleep(10)
+                        email_summary = session.get_email_list()[0]
+                        email = session.get_email(email_summary.guid)
+                        
+                        if '2nr' in email.subject:
+                            urls = re.findall("(?P<url>https?://[^\s]+)",
+                                            email.body if email.body else email.body)
+
+                            # Acessar cada URL
+                            for url in urls:
+                                try:
+                                    url = url.replace('</p></div>', '')
+                                    url = url.replace('&amp;', '&')
+                                except:
+                                    pass
+                                try:
+                                    response = requests.get(url)
+                                    if response.status_code == 200:
+                                        pass
+                                    else:
+                                        print(f"Falha na requisição. Código de status: {response.status_code}")
+                                except requests.exceptions.RequestException as e:
+                                    print(f"Erro na requisição: {e}")
+                                print('clicou')
+                                time.sleep(0.5)
+                            break
+                        print(tentativa)
+                        tentativa =+ 1
+                        if tentativa == 10:
+                            try:
+                                tentativa = 0
+                                conteudo = config['vpn']
+                                if conteudo == "AVG":
+                                    vpn_avg()
+                                elif conteudo == "SurfShark":
+                                    vpn_surf()
+                                elif conteudo == "Nenhuma":
+                                    nenhuma_vpn()
+                                elif conteudo == "Avast":
+                                    vpn_avast()
+                                elif conteudo == "ExpressVPN":
+                                    vpn_express()
+                                elif conteudo == "PiaVPN":
+                                    vpn_pia()
+                                elif conteudo == "BetterNet":
+                                    vpn_better()
+                                elif conteudo == "CyberGhost":
+                                    vpn_cyberghost()
+                                elif conteudo == "NordVPN":
+                                    vpn_nord()
+                                elif conteudo == "HotspotShield":
+                                    vpn_hotspotshield()
+                                elif conteudo == "WindscribeVPN":
+                                    vpn_windscribe()
+                                elif conteudo == "HmaVPN":
+                                    vpn_hma()
+                                else:
+                                    window['output'].print(
+                                        "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                    window.Refresh()
+
+                            except Exception as e:
+                                print(e)
+                                tentativa = 0
 
                 troca_ip += 1
-
+                email_address = session.get_session_state()['email_address']
+                email = email_address
                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
                 print(f"Requisição bem-sucedida!")
-                test.stop()
                 d.xpath('//android.widget.LinearLayout[@content-desc="Log in"]/android.widget.TextView').click()
                 d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogin').click()
-
+                time.sleep(5)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').click()
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 2NR criado com sucesso.',
                                        text_color=('cyan'))
@@ -17369,11 +17442,19 @@ while True:
                     window.Refresh()
                     time.sleep(200)
             if event == '-config-':
+                try:
+                    with open("config2nr.json", "r") as f:
+                        config = json.load(f)
+                except FileNotFoundError:
+                    config = {}
+                email_list = ["MailTM", "GuerrilaMail", "MinuteInBox"]
                 layout_configuracoes = [
                     [sg.Text("Senha dos perfis: ", font=('Open Sans', 12)),
                      sg.InputText(key="-senha2nr-", default_text=config.get("senha2nr", "@SenhaPadrao2023"))],
                     [sg.Text('VPN: ', font=('Open Sans', 12)),
                      sg.Combo(vpn_list, default_value=config.get("vpn", ""), readonly=True, key='-vpn-')],
+                    [sg.Text('Email: ', font=('Open Sans', 12)),
+                     sg.Combo(email_list, default_value=config.get("email_escolhido", ""), readonly=True, key='-email_escolhido-')],
                     [sg.Button("Salvar")]
                 ]
 
@@ -17392,7 +17473,8 @@ while True:
                         # Salvar as configurações em um arquivo JSON
                         config = {
                             "senha2nr": valores['-senha2nr-'],
-                            "vpn": valores["-vpn-"]
+                            "vpn": valores["-vpn-"],
+                            "email_escolhido": valores["-email_escolhido-"]
                         }
                         with open("config2nr.json", "w") as f:
                             json.dump(config, f)
