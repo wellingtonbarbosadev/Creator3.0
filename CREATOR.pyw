@@ -16731,8 +16731,10 @@ def executar_creator_2nr():
                 user_completo = nome_completo_s + '.' + str(numeros_concatenados)
                 tentativa = 1
                 def gerar_senha(tamanho=12):
-                    caracteres = string.ascii_letters + string.digits + string.punctuation
-                    senha = ''.join(random.choice(caracteres) for _ in range(tamanho - 3))
+                    caracteres_permitidos = string.ascii_letters + string.digits + string.punctuation
+                    caracteres_permitidos = caracteres_permitidos.replace(":", "").replace(";", "")  # Remove : e ;
+                    
+                    senha = ''.join(random.choice(caracteres_permitidos) for _ in range(tamanho - 3))
                     senha += random.choice(string.ascii_uppercase)  # Adiciona pelo menos uma letra maiúscula
                     senha += random.choice(string.digits)  # Adiciona pelo menos um número
                     senha += "@"
