@@ -16616,6 +16616,7 @@ def executar_creator_2nr():
         subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                     stdout=subprocess.DEVNULL,
                     stderr=subprocess.DEVNULL, shell=True)
+        print('\n')
         #try:
         #    # Executa o comando adb para obter o Android ID
         #    result = subprocess.run(['adb', '-s', f'{porta}', 'shell', 'settings', 'get', 'secure', 'android_id'], capture_output=True, text=True)
@@ -16729,7 +16730,16 @@ def executar_creator_2nr():
                 numeros_concatenados = ''.join(str(numero) for numero in lista_user)
                 user_completo = nome_completo_s + '.' + str(numeros_concatenados)
                 tentativa = 1
-                
+                def gerar_senha(tamanho=12):
+                    caracteres = string.ascii_letters + string.digits + string.punctuation
+                    senha = ''.join(random.choice(caracteres) for _ in range(tamanho - 2))
+                    senha += random.choice(string.ascii_uppercase)  # Adiciona pelo menos uma letra maiúscula
+                    senha += random.choice(string.digits)  # Adiciona pelo menos um número
+                    senha = ''.join(random.sample(senha, len(senha)))  # Mistura os caracteres
+                    return senha
+
+                    # Exemplo de uso
+                senha = gerar_senha()
                 email_escolhido = config['email_escolhido']
                 
                 if email_escolhido == 'MailTM':
@@ -16831,6 +16841,7 @@ def executar_creator_2nr():
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
                     window.Refresh()
                     d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                    
                     d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
                     d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
                     d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
@@ -17134,8 +17145,53 @@ def executar_creator_2nr():
                 time.sleep(3)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/inputNumberName').set_text(
                     random.choice(list(range(1, 100))))
-                d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
-
+                time.sleep(2)
+                #draw_number = 'None'
+                #try:
+                #    draw_number = d(resourceId='pl.rs.sip.softphone.newapp:id/textContent').get_text(timeout=2)
+                #except:
+                #    pass
+                #if draw_number == 'You need to draw for a phone number':
+                #    while True:
+                #        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
+                #        #subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
+                #        #        stderr=subprocess.DEVNULL, check=True, shell=True)
+                #        #d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').click()
+                #        #d(resourceId='pl.rs.sip.softphone.newapp:id/inputNumberName').set_text(
+                #        #    random.choice(list(range(1, 100))))
+                #        #time.sleep(5)
+                #        #d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
+                #        #time.sleep(2)
+                #        d.swipe(340, 480, 340, 680)
+                #        time.sleep(3)
+                #        d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
+                #        time.sleep(2)
+                #        try:
+                #            draw_number = d(resourceId='pl.rs.sip.softphone.newapp:id/textContent').get_text(timeout=2)
+                #        except:
+                #            draw_number = 'None'
+                #        try:
+                #            if draw_number == 'You need to draw for a phone number':
+                #                pass
+                #            else:
+                #                break
+                #        except Exception as e:
+                #            print(e)
+                #            break
+                number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
+                print(f'[{number}]')
+                if number is None:
+                    while True:
+                        d.swipe(340, 480, 340, 680)
+                        time.sleep(3)
+                        number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
+                        if not number is None:
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
+                            time.sleep(2)
+                            break
+                else:
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
+                    time.sleep(2)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
                 time.sleep(1)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
@@ -17154,21 +17210,83 @@ def executar_creator_2nr():
                     time.sleep(0.5)
                     
                     tries += 1
+                time.sleep(5)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
+                window.Refresh()
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
-                                    text_color=('lime'))
+                                            text_color=('lime'))
                 window.Refresh()
                 sms = False
+                criadas = 1
                 while sms is False:
+                    if criadas >= 4:
+                        raise Exception('Máximo de números criados.')
                     try:
-                        d(resourceId='pl.rs.sip.softphone.newapp:id/settings').click()
+                        if d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').exists():
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
+                                            text_color=('lime'))
+                            criadas = criadas + 1
+                            
+                        try:
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/settings').click(timeout=5)
+                            
+                        except:
+                            subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
+                                        stderr=subprocess.DEVNULL, check=True, shell=True)
                         d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
                         time.sleep(2)
-                        d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
-
+                        #d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
+                        #draw_number = 'None'
+                        #try:
+                        #    draw_number = d(resourceId='pl.rs.sip.softphone.newapp:id/textContent').get_text(timeout=2)
+                        #except:
+                        #    pass
+                        #if draw_number == 'You need to draw for a phone number':
+                        #    while True:
+                        #        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
+                        #        #subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
+                        #        #        stderr=subprocess.DEVNULL, check=True, shell=True)
+                        #        #d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').click()
+                        #        #d(resourceId='pl.rs.sip.softphone.newapp:id/inputNumberName').set_text(
+                        #        #    random.choice(list(range(1, 100))))
+                        #        #time.sleep(5)
+                        #        #d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
+                        #        #time.sleep(2)
+                        #        d.swipe(340, 480, 340, 680)
+                        #        time.sleep(3)
+                        #        d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
+                        #        time.sleep(2)
+                        #        try:
+                        #            draw_number = d(resourceId='pl.rs.sip.softphone.newapp:id/textContent').get_text(timeout=2)
+                        #        except:
+                        #            draw_number = 'None'
+                        #        try:
+                        #            if draw_number == 'You need to draw for a phone number':
+                        #                pass
+                        #            else:
+                        #                break
+                        #        except Exception as e:
+                        #            print(e)
+                        #            break
+                        number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
+                        if number is None:
+                            while True:
+                                d.swipe(340, 480, 340, 680)
+                                time.sleep(3)
+                                number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
+                                if not number is None:
+                                    d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
+                                    time.sleep(2)
+                                    break
+                                
+                        else:
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
+                            time.sleep(2)
                         d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
-                        time.sleep(1)
-                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
+                        time.sleep(3)
+                        
+                        if d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').exists():
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
                         d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                         success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                         tries = 0
@@ -17183,10 +17301,10 @@ def executar_creator_2nr():
                                 raise Exception('Falha na verificação.')
                             time.sleep(0.5)
                             tries += 1
+                        time.sleep(5)
                         d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
-                                            text_color=('lime'))
-                        window.Refresh()
+                        time.sleep(3)
+                        
                         # d(resourceId='pl.rs.sip.softphone.newapp:id/settings').click()
                         # d(resourceId='pl.rs.sip.softphone.newapp:id/settings').click()
                         # d(resourceId='pl.rs.sip.softphone.newapp:id/settings').click()
