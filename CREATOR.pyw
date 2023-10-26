@@ -439,13 +439,17 @@ def free_sms_beta():
         import undetected_chromedriver as uc
     try:
         import uiautomator2 as u2
-        subprocess.run(['pip', 'install', 'packaging==21.3'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
         subprocess.run(['pip', 'install', 'uiautomator2'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
-        subprocess.run(['pip', 'install', 'packaging==21.3'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
         import requests
         time.sleep(10)
         import uiautomator2 as u2
@@ -2160,13 +2164,17 @@ def free_sms():
     import string
     try:
         import uiautomator2 as u2
-        subprocess.run(['pip', 'install', 'packaging==21.3'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
         subprocess.run(['pip', 'install', 'uiautomator2'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
-        subprocess.run(['pip', 'install', 'packaging==21.3'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
         import requests
         time.sleep(10)
         import uiautomator2 as u2
@@ -10197,13 +10205,17 @@ def executar_2nr():
         from rich.console import Console
     try:
         import uiautomator2 as u2
-        subprocess.run(['pip', 'install', 'packaging==21.3'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
         subprocess.run(['pip', 'install', 'uiautomator2'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
-        subprocess.run(['pip', 'install', 'packaging==21.3'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
         import requests
         time.sleep(10)
         import uiautomator2 as u2
@@ -12214,13 +12226,17 @@ def executar_2nr_insta():
     import time
     try:
         import uiautomator2 as u2
-        subprocess.run(['pip', 'install', 'packaging==21.3'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
         subprocess.run(['pip', 'install', 'uiautomator2'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
-        subprocess.run(['pip', 'install', 'packaging==21.3'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
         import requests
         time.sleep(10)
         import uiautomator2 as u2
@@ -13394,7 +13410,11 @@ def executar_2nr_insta():
                 window.Refresh()
                 d.app_start('com.instagram.android')
                 time.sleep(1)
-
+                if d.xpath('//android.view.View[@content-desc="Criar nova conta"]').exists(timeout=10):
+                    d.xpath('//android.view.View[@content-desc="Avançar"]').click()
+                    print('Criar nova conta apareceu')
+                else:
+                    print('Criar nova conta não apareceu')
                 d.xpath(
                     '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                     codigo)
@@ -14394,13 +14414,17 @@ def insta_face_lite():
 
     try:
         import uiautomator2 as u2
-        subprocess.run(['pip', 'install', 'packaging==21.3'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
         subprocess.run(['pip', 'install', 'uiautomator2'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
-        subprocess.run(['pip', 'install', 'packaging==21.3'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
         import requests
         time.sleep(10)
         import uiautomator2 as u2
@@ -16109,13 +16133,17 @@ def executar_creator_2nr():
     fake = Faker('pt_BR')
     try:
         import uiautomator2 as u2
-        subprocess.run(['pip', 'install', 'packaging==21.3'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
         subprocess.run(['pip', 'install', 'uiautomator2'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
-        subprocess.run(['pip', 'install', 'packaging==21.3'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
         import requests
         time.sleep(10)
         import uiautomator2 as u2
@@ -16567,10 +16595,42 @@ def executar_creator_2nr():
             pass
         time.sleep(10)
 
+    try:
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+    except:
+        pass
+    
     while True:
         window['output'].print(linha_ret)
         window.Refresh()
-        print(troca_ip)
+        gerar_id()
+        android_id = gerar_id()
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL, shell=True)
+        #try:
+        #    # Executa o comando adb para obter o Android ID
+        #    result = subprocess.run(['adb', '-s', f'{porta}', 'shell', 'settings', 'get', 'secure', 'android_id'], capture_output=True, text=True)
+#
+        #    # Obtém o Android ID do resultado
+        #    android_id = result.stdout.strip()
+#
+        #    # Imprime o Android ID
+        #    print(f"Android ID: {android_id}")
+#
+        #except subprocess.CalledProcessError as e:
+        #    # Em caso de erro, imprime a mensagem de erro
+        #    print(f"Erro: {e}")
+        #except Exception as e:
+        #    print(f"Erro desconhecido: {e}")
         try:
             if troca_ip == 5:
                 try:
@@ -16626,7 +16686,7 @@ def executar_creator_2nr():
 
                 quantidade = 0
 
-                d.app_start('pl.rs.sip.softphone.newapp')
+                d.app_start('pl.rs.sip.softphone.newapp', use_monkey=True)
                 d.set_fastinput_ime(True)
                 try:
                     d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
@@ -16693,7 +16753,6 @@ def executar_creator_2nr():
                     ##    # window.Refresh()
                     ##except Exception as e:
                     ##    print(e)
-                    print('\n')
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
                     window.Refresh()
                     d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
@@ -16757,6 +16816,8 @@ def executar_creator_2nr():
                     session = GuerrillaMailSession()
                     email_address = session.get_session_state()['email_address']
                     email = email_address
+                    
+                    email = email.replace('@guerrillamailblock.com', '@guerrillamail.net')
                     ##try:
                     ##    inbox = Inbox(
                     ##        address="",
@@ -16767,7 +16828,6 @@ def executar_creator_2nr():
                     ##    # window.Refresh()
                     ##except Exception as e:
                     ##    print(e)
-                    print('\n')
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
                     window.Refresh()
                     d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
@@ -16783,7 +16843,6 @@ def executar_creator_2nr():
                         time.sleep(10)
                         email_summary = session.get_email_list()[0]
                         email = session.get_email(email_summary.guid)
-                        
                         if '2nr' in email.subject:
                             urls = re.findall("(?P<url>https?://[^\s]+)",
                                             email.body if email.body else email.body)
@@ -16844,20 +16903,224 @@ def executar_creator_2nr():
                             except Exception as e:
                                 print(e)
                                 tentativa = 0
+                elif email_escolhido == '1SecMail':
+                        
+                    def get_random_email():
+                        url = "https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1"
+                        response = requests.get(url)
+                        
+                        if response.status_code == 200:
+                            data = response.json()
+                            email = data[0]
+                            log, dominio = email.split('@')
+                            return log, dominio
+                        else:
+                            print("Erro na requisição. Código de status:", response.status_code)
+                            return None, None
 
+                    def check_and_read_messages(log, dominio):
+                        tentativa = 1
+                        while tentativa < 6:
+                            # Verifica se há novas mensagens
+                            check_url = f"https://www.1secmail.com/api/v1/?action=getMessages&login={log}&domain={dominio}"
+                            messages_response = requests.get(check_url)
+                            
+                            if messages_response.status_code == 200:
+                                messages_data = messages_response.json()
+                                
+                                if messages_data:
+                                    # Se houver mensagens, pega a chave ID da primeira mensagem
+                                    first_message_id = messages_data[0]['id']
+                                    
+                                    # Lê a mensagem usando a ID
+                                    read_url = f"https://www.1secmail.com/api/v1/?action=readMessage&login={log}&domain={dominio}&id={first_message_id}"
+                                    read_response = requests.get(read_url)
+                                    
+                                    if read_response.status_code == 200:
+                                        read_data = read_response.json()
+                                        
+                                        # Pega o corpo (body) da mensagem
+                                        body = read_data['body']
+                                        
+                                        # Salva a ID e o corpo da mensagem
+                                        save_message(first_message_id, body)
+                                        
+                                        # Pode sair do loop se quiser
+                                        break
+                                    else:
+                                        print("Erro ao ler a mensagem. Código de status:", read_response.status_code)
+                            else:
+                                print("Erro ao verificar mensagens. Código de status:", messages_response.status_code)
+                            
+                            # Espera um pouco antes de verificar novamente
+                            time.sleep(5)
+                            tentativa =+ 1
+                            if tentativa == 5:
+                                try:
+                                    conteudo = config['vpn']
+                                    if conteudo == "AVG":
+                                        vpn_avg()
+                                    elif conteudo == "SurfShark":
+                                        vpn_surf()
+                                    elif conteudo == "Nenhuma":
+                                        nenhuma_vpn()
+                                    elif conteudo == "Avast":
+                                        vpn_avast()
+                                    elif conteudo == "ExpressVPN":
+                                        vpn_express()
+                                    elif conteudo == "PiaVPN":
+                                        vpn_pia()
+                                    elif conteudo == "BetterNet":
+                                        vpn_better()
+                                    elif conteudo == "CyberGhost":
+                                        vpn_cyberghost()
+                                    elif conteudo == "NordVPN":
+                                        vpn_nord()
+                                    elif conteudo == "HotspotShield":
+                                        vpn_hotspotshield()
+                                    elif conteudo == "WindscribeVPN":
+                                        vpn_windscribe()
+                                    elif conteudo == "HmaVPN":
+                                        vpn_hma()
+                                    else:
+                                        window['output'].print(
+                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                        window.Refresh()
+                                except Exception as e:
+                                    print(e)
+                    def save_message(message_id, body):
+                        # Aqui você pode implementar a lógica para salvar a mensagem como desejar
+                        print(f"Mensagem recebida! ID: {message_id}")
+                        tentativa = 1
+                        urls = re.findall("(?P<url>https?://[^\s]+)",
+                                        body if body else body)
+
+                        # Acessar cada URL
+                        for url in urls:
+                            try:
+                                url = url.replace('</p></div>', '')
+                                url = url.replace('&amp;', '&')
+                            except:
+                                pass
+                            try:
+                                response = requests.get(url)
+                                if response.status_code == 200:
+                                    pass
+                                else:
+                                    pass
+                            except requests.exceptions.RequestException as e:
+                                print(f"Erro na requisição: {e}")
+                        
+                        
+                    # Obtém um e-mail aleatório
+                    log, dominio = get_random_email()
+
+                    if log and dominio:
+                        print(f"E-mail gerado: {log}@{dominio}")
+                        email = f'{log}@{dominio}'
+                        
+                    else:
+                        print("Não foi possível obter um e-mail aleatório.")
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                    window.Refresh()
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                    
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                    
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                    
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                    
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                    
+
+                    # use with address and token to reuse an existing inbox
+
+                    tentativa = 1
+                    
+                    # Verifica e lê as mensagens continuamente
+                    check_and_read_messages(log, dominio)
+                    
+                elif email_escolhido == 'MinuteInBox':
+                    
+                    try:
+                        inbox = Inbox(
+                            address="",
+                            token="",
+                        )
+                        email = inbox.address
+                        # window['output'].print("Email: " + email)
+                        # window.Refresh()
+                    except Exception as e:
+                        print(e)
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                    window.Refresh()
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+
+                    # use with address and token to reuse an existing inbox
+
+                    time.sleep(2)
+
+                    codigo = None
+
+                    #try:
+                    #    test.start(listener, interval=10)
+                    #    codigo = 0
+                    #    while codigo != 5:
+                    #        time.sleep(2)
+                    #        codigo = codigo + 1
+                    #except Exception as e:
+                    #    if "Too Many Requests" in str(e):
+                    #        pass
+                    #    else:
+                    #        pass
+                    subject = False
+                    def make_request(url):
+                        try:
+                            response = requests.get(url)
+                            if response.status_code == 200:
+                                pass
+                            else:
+                                print(f"Falha na requisição. Código de status: {response.status_code}")
+                        except requests.exceptions.RequestException as e:
+                            print(f"Erro na requisição: {e}")
+                    def listener(message):
+                        global nome
+                        global sobrenome
+                        global cod
+                        if '2nr' in message['subject']:
+
+                            urls = re.findall("(?P<url>https?://[^\s]+)",
+                                            message['text'] if message['text'] else message['html'])
+
+                            # Acessar cada URL
+                            for url in urls:
+                                make_request(url)
+                                time.sleep(0.5)
+                            subject = True
+
+                    
                 troca_ip += 1
-                email_address = session.get_session_state()['email_address']
-                email = email_address
                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
+                
                 print(f"Requisição bem-sucedida!")
                 d.xpath('//android.widget.LinearLayout[@content-desc="Log in"]/android.widget.TextView').click()
+                
                 d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email)
+                
                 d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha)
+                
                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogin').click()
+                
                 time.sleep(5)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').click()
+                
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 2NR criado com sucesso.',
-                                       text_color=('cyan'))
+                                    text_color=('cyan'))
                 contagem = contagem + 1
                 try:
                     arquivo = open('configuracoes/contas/contas2nr.txt', 'x')
@@ -16893,7 +17156,7 @@ def executar_creator_2nr():
                     tries += 1
                 d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
-                                       text_color=('lime'))
+                                    text_color=('lime'))
                 window.Refresh()
                 sms = False
                 while sms is False:
@@ -16922,7 +17185,7 @@ def executar_creator_2nr():
                             tries += 1
                         d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
-                                               text_color=('lime'))
+                                            text_color=('lime'))
                         window.Refresh()
                         # d(resourceId='pl.rs.sip.softphone.newapp:id/settings').click()
                         # d(resourceId='pl.rs.sip.softphone.newapp:id/settings').click()
@@ -16931,7 +17194,7 @@ def executar_creator_2nr():
                     except Exception as e:
                         print(e)
                         sms = True
-
+                
 
             except Exception as e:
                 print(e)
@@ -17447,7 +17710,7 @@ while True:
                         config = json.load(f)
                 except FileNotFoundError:
                     config = {}
-                email_list = ["MailTM", "GuerrilaMail", "MinuteInBox"]
+                email_list = ["MailTM", "GuerrilaMail", "MinuteInBox", "1SecMail"]
                 layout_configuracoes = [
                     [sg.Text("Senha dos perfis: ", font=('Open Sans', 12)),
                      sg.InputText(key="-senha2nr-", default_text=config.get("senha2nr", "@SenhaPadrao2023"))],
