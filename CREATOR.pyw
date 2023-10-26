@@ -13348,7 +13348,12 @@ def executar_2nr_insta():
                         raise Exception('skip')
                     except:
                         raise Exception('skip')
-
+                
+                erro_novaconta = d.xpath('//android.view.View[@content-desc="Criar nova conta"]')
+                if erro_novaconta.exists:
+                    d.xpath('//android.view.View[@content-desc="Avançar"]').click()
+                else:
+                    pass
                 d.app_start('pl.rs.sip.softphone.newapp')
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
                 window.Refresh()
@@ -13410,12 +13415,7 @@ def executar_2nr_insta():
                 window.Refresh()
                 d.app_start('com.instagram.android')
                 time.sleep(5)
-                erro_novaconta = d.xpath('//android.view.View[@content-desc="Criar nova conta"]')
-                if erro_novaconta.exists():
-                    d.xpath('//android.view.View[@content-desc="Avançar"]').click()
-                    print('Criar nova conta apareceu')
-                else:
-                    print('Criar nova conta não apareceu')
+                
                 d.xpath(
                     '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                     codigo)
@@ -16732,18 +16732,32 @@ def executar_creator_2nr():
                 user_completo = nome_completo_s + '.' + str(numeros_concatenados)
                 tentativa = 1
                 def gerar_senha(tamanho=12):
+                    if tamanho < 6:
+                        raise ValueError("A senha deve ter pelo menos 6 caracteres.")
+
+                    # Define uma lista de letras maiúsculas e minúsculas
+                    letras_maiusculas = [random.choice(string.ascii_uppercase) for _ in range(tamanho // 2)]
+                    letras_minusculas = [random.choice(string.ascii_lowercase) for _ in range(tamanho // 2)]
+
+                    # Intercale as letras maiúsculas e minúsculas
+                    senha = ''.join(''.join(pair) for pair in zip(letras_maiusculas, letras_minusculas))
+
+                    # Adiciona caracteres especiais, números e @
                     caracteres_permitidos = string.ascii_letters + string.digits + string.punctuation
-                    caracteres_permitidos = caracteres_permitidos.replace(":", "").replace(";", "")  # Remove : e ;
-                    
-                    senha = ''.join(random.choice(caracteres_permitidos) for _ in range(tamanho - 3))
+                    caracteres_permitidos = caracteres_permitidos.replace("~", "")  # Remove ~ e outros acentos
+
+                    senha += ''.join(random.choice(caracteres_permitidos) for _ in range(tamanho - len(senha) - 3))
                     senha += random.choice(string.ascii_uppercase)  # Adiciona pelo menos uma letra maiúscula
                     senha += random.choice(string.digits)  # Adiciona pelo menos um número
                     senha += "@"
-                    senha = ''.join(random.sample(senha, len(senha)))  # Mistura os caracteres
+
+                    # Mistura os caracteres
+                    senha = ''.join(random.sample(senha, len(senha)))
+
                     return senha
 
                     # Exemplo de uso
-                senha = gerar_senha()
+                senha = gerar_senha(12)
                 email_escolhido = config['email_escolhido']
                 
                 if email_escolhido == 'MailTM':
