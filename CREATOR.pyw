@@ -13409,8 +13409,9 @@ def executar_2nr_insta():
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Codigo recebido: {codigo}')
                 window.Refresh()
                 d.app_start('com.instagram.android')
-                time.sleep(1)
-                if d.xpath('//android.view.View[@content-desc="Criar nova conta"]').exists(timeout=10):
+                time.sleep(5)
+                erro_novaconta = d.xpath('//android.view.View[@content-desc="Criar nova conta"]')
+                if erro_novaconta.exists():
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     print('Criar nova conta apareceu')
                 else:
