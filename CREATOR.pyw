@@ -17194,7 +17194,8 @@ def executar_creator_2nr():
                     time.sleep(2)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
                 time.sleep(1)
-                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
+                if d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').exists():
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
                 d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                 success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                 tries = 0
@@ -17220,6 +17221,9 @@ def executar_creator_2nr():
                 criadas = 1
                 while sms is False:
                     if criadas >= 4:
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
+                                            text_color=('lime'))
+                        window.Refresh()
                         raise Exception('Máximo de números criados.')
                     try:
                         if d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').exists():
@@ -17301,7 +17305,7 @@ def executar_creator_2nr():
                                 raise Exception('Falha na verificação.')
                             time.sleep(0.5)
                             tries += 1
-                        time.sleep(5)
+                        time.sleep(3)
                         d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                         time.sleep(3)
                         
