@@ -13351,7 +13351,7 @@ def executar_2nr_insta():
                 
                 erro_novaconta = d.xpath('//android.view.View[@content-desc="Criar nova conta"]')
                 if erro_novaconta.exists:
-                    d.xpath('//android.view.View[@content-desc="Avançar"]').click()
+                    d.xpath('//android.view.View[@content-desc="Criar nova conta"]').click()
                 else:
                     pass
                 d.app_start('pl.rs.sip.softphone.newapp')
