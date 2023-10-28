@@ -17916,10 +17916,12 @@ def executar_creator_2nr():
         
         
         
+        print('\n')
         multiline_text = dialog_values['-linhas-'].split('\n')
+        print(f"Contas adicionadas: {len(multiline_text)}")
+        window['output'].print(f'{len(multiline_text)} contas adicionadas.')
         for linha in multiline_text:
-            print(f"Contas adicionadas: {len(multiline_text)}")
-            window['output'].print(f'{len(multiline_text)} contas adicionadas.')
+            
             window.Refresh()
             window['output'].print(linha_ret)
             window.Refresh()
@@ -17928,7 +17930,6 @@ def executar_creator_2nr():
             subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                         stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL, shell=True)
-            print('\n')
             # Faça o que quiser com cada linha, por exemplo, imprimir
             print(linha)
             try:
