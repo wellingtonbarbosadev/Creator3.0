@@ -17921,7 +17921,7 @@ def executar_creator_2nr():
         print(f"Contas adicionadas: {len(multiline_text)}")
         window['output'].print(f'{len(multiline_text)} contas adicionadas.')
         for linha in multiline_text:
-            
+            print('\n')
             window.Refresh()
             window['output'].print(linha_ret)
             window.Refresh()
@@ -18029,6 +18029,7 @@ def executar_creator_2nr():
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta existente.')
                 window.Refresh()
                 contagem = contagem + 1
+                troca_ip += 1
                 try:
                     arquivo = open('configuracoes/contas/contas_2nr_numerosadd.txt', 'x')
                 except FileExistsError:
