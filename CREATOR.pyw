@@ -17204,11 +17204,13 @@ def executar_creator_2nr():
                     #            print(e)
                     #            break
                     number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
-                    if number is None:
+                    tries = 0
+                    if number is None or tries == '10':
                         while True:
                             d.swipe(340, 480, 340, 680)
                             time.sleep(3)
                             number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
+                            tries += 1
                             if not number is None:
                                 d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                                 time.sleep(2)
@@ -17216,6 +17218,12 @@ def executar_creator_2nr():
                     else:
                         d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                         time.sleep(2)
+                    if tries == '10':
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                        window.Refresh()
+                        raise Exception('Máximo de números criados.')
+                        
+                    tries = 0
                     d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
                     time.sleep(1)
                     if d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').exists():
@@ -17297,19 +17305,26 @@ def executar_creator_2nr():
                             #            print(e)
                             #            break
                             number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
-                            if number is None:
+                            tries = 0
+                            if number is None or tries == '10':
                                 while True:
                                     d.swipe(340, 480, 340, 680)
                                     time.sleep(3)
                                     number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
+                                    tries += 1
                                     if not number is None:
                                         d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                                         time.sleep(2)
                                         break
-                                    
                             else:
                                 d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                                 time.sleep(2)
+                            if tries == '10':
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                                window.Refresh()
+                                raise Exception('Máximo de números criados.')
+                                
+                            tries = 0
                             try:
                                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click(timeout=5)
                                 time.sleep(3)
@@ -18021,11 +18036,15 @@ def executar_creator_2nr():
                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogin').click()
                 time.sleep(5)
                 try:
-                    d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').click()
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
                 except:
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta inexistente.')
                     window.Refresh()
                     raise Exception('Conta inexistente')
+                if not d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').exists:
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta já contem máximo de números.')
+                    window.Refresh()
+                    raise Exception('Conta já contem máximo de números.')
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta existente.')
                 window.Refresh()
                 contagem = contagem + 1
@@ -18076,20 +18095,26 @@ def executar_creator_2nr():
                 #            print(e)
                 #            break
                 number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
-                if number is None:
+                tries = 0
+                if number is None or tries == '10':
                     while True:
                         d.swipe(340, 480, 340, 680)
                         time.sleep(3)
                         number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
+                        tries += 1
                         if not number is None:
                             d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                             time.sleep(2)
-                            pular_botao = True
                             break
                 else:
                     d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                     time.sleep(2)
+                if tries == '10':
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                    window.Refresh()
+                    raise Exception('Máximo de números criados.')
                     
+                tries = 0
                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
                 time.sleep(1)
                 if d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').exists():
@@ -18171,19 +18196,26 @@ def executar_creator_2nr():
                         #            print(e)
                         #            break
                         number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
-                        if number is None:
+                        tries = 0
+                        if number is None or tries == '10':
                             while True:
                                 d.swipe(340, 480, 340, 680)
                                 time.sleep(3)
                                 number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
+                                tries += 1
                                 if not number is None:
                                     d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                                     time.sleep(2)
                                     break
-                                
                         else:
                             d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                             time.sleep(2)
+                        if tries == '10':
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                            window.Refresh()
+                            raise Exception('Máximo de números criados.')
+                            
+                        tries = 0
                         try:
                             d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click(timeout=5)
                             time.sleep(3)
