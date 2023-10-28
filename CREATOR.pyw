@@ -17206,7 +17206,7 @@ def executar_creator_2nr():
                     number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                     tries = 0
                     if number is None or tries == '10':
-                        while True:
+                        while not tries == '10':
                             d.swipe(340, 480, 340, 680)
                             time.sleep(3)
                             number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
@@ -17307,7 +17307,7 @@ def executar_creator_2nr():
                             number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                             tries = 0
                             if number is None or tries == '10':
-                                while True:
+                                while not tries == '10':
                                     d.swipe(340, 480, 340, 680)
                                     time.sleep(3)
                                     number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
@@ -18099,11 +18099,12 @@ def executar_creator_2nr():
                 number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                 tries = 0
                 if number is None or tries == '10':
-                    while True:
+                    while not tries == '10':
                         d.swipe(340, 480, 340, 680)
                         time.sleep(3)
                         number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                         tries += 1
+                        print(tries)
                         if not number is None:
                             d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                             time.sleep(2)
@@ -18199,8 +18200,8 @@ def executar_creator_2nr():
                         #            break
                         number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                         tries = 0
-                        if number is None or tries == '10':
-                            while True:
+                        if number is None:
+                            while not tries == '10':
                                 d.swipe(340, 480, 340, 680)
                                 time.sleep(3)
                                 number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
