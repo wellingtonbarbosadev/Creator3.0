@@ -16846,7 +16846,7 @@ def executar_creator_2nr():
                         email_address = session.get_session_state()['email_address']
                         email = email_address
                         
-                        email = email.replace('@guerrillamailblock.com', '@guerrillamail.net')
+                        email = email.replace('@guerrillamailblock.com', '@pokemail.net')
                         ##try:
                         ##    inbox = Inbox(
                         ##        address="",
@@ -17600,7 +17600,7 @@ def executar_creator_2nr():
                         email_address = session.get_session_state()['email_address']
                         email = email_address
                         
-                        email = email.replace('@guerrillamailblock.com', '@guerrillamail.net')
+                        email = email.replace('@guerrillamailblock.com', '@pokemail.net')
                         ##try:
                         ##    inbox = Inbox(
                         ##        address="",
