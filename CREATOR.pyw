@@ -18045,6 +18045,8 @@ def executar_creator_2nr():
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta já contem máximo de números.')
                     window.Refresh()
                     raise Exception('Conta já contem máximo de números.')
+                elif d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').exists:
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').click()
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta existente.')
                 window.Refresh()
                 contagem = contagem + 1
