@@ -17206,7 +17206,11 @@ def executar_creator_2nr():
                     number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                     tries = 0
                     if number is None or tries == '10':
-                        while not tries == '10':
+                        while True:
+                            if tries == '10':
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                                window.Refresh()
+                                raise Exception('Máximo de números criados.')
                             d.swipe(340, 480, 340, 680)
                             time.sleep(3)
                             number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
@@ -17307,7 +17311,11 @@ def executar_creator_2nr():
                             number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                             tries = 0
                             if number is None or tries == '10':
-                                while not tries == '10':
+                                while True:
+                                    if tries == '10':
+                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                                        window.Refresh()
+                                        raise Exception('Máximo de números criados.')
                                     d.swipe(340, 480, 340, 680)
                                     time.sleep(3)
                                     number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
@@ -17887,6 +17895,9 @@ def executar_creator_2nr():
                                     time.sleep(0.5)
                                 subject = True
 
+                    email = email_address
+                        
+                    email = email.replace('@guerrillamailblock.com', '@pokemail.net')
                         
                     troca_ip += 1
                     d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
@@ -18099,7 +18110,11 @@ def executar_creator_2nr():
                 number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                 tries = 0
                 if number is None or tries == '10':
-                    while not tries == '10':
+                    while True:
+                        if tries == '10':
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                            window.Refresh()
+                            raise Exception('Máximo de números criados.')
                         d.swipe(340, 480, 340, 680)
                         time.sleep(3)
                         number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
@@ -18146,7 +18161,7 @@ def executar_creator_2nr():
                 sms = False
                 criadas = 1
                 while sms is False:
-                    if criadas >= 4:
+                    if criadas >= 2:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
                                             text_color=('lime'))
                         window.Refresh()
@@ -18201,11 +18216,16 @@ def executar_creator_2nr():
                         number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                         tries = 0
                         if number is None:
-                            while not tries == '10':
+                            while True:
+                                if tries == '10':
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                                    window.Refresh()
+                                    raise Exception('Máximo de números criados.')
                                 d.swipe(340, 480, 340, 680)
                                 time.sleep(3)
                                 number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                                 tries += 1
+                                print(tries)
                                 if not number is None:
                                     d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                                     time.sleep(2)
