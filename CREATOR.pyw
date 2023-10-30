@@ -12851,7 +12851,8 @@ def executar_2nr_insta():
                                stderr=subprocess.DEVNULL, check=True, shell=True)
 
 
-            except Expception as e:
+            except Exception as e:
+                print('Verifique se o Instagram está instalado.')
                 print(e)
                 pass
             try:
