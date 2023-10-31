@@ -17390,7 +17390,7 @@ def executar_creator_2nr():
                     sms = False
                     criadas = 1
                     while sms is False:
-                        if criadas >= 4:
+                        if criadas >= 2:
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
                                                 text_color=('lime'))
                             window.Refresh()
