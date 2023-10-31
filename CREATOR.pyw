@@ -16109,6 +16109,8 @@ def executar_creator_2nr():
     import time
     import re
     import requests
+    import os
+    os.environ['WDM_LOG_LEVEL'] = '0'
     import random
     import PySimpleGUI as sg
     import json
@@ -16117,6 +16119,7 @@ def executar_creator_2nr():
     import subprocess
     from mailtm import Email
     import string
+    
     from appium import webdriver
     from selenium.webdriver.common.by import By
     from selenium.webdriver.support.ui import WebDriverWait
@@ -16761,8 +16764,129 @@ def executar_creator_2nr():
                         # Exemplo de uso
                     senha = gerar_senha(12)
                     email_escolhido = config['email_escolhido']
-                    
-                    if email_escolhido == 'MailTM':
+
+                    if email_escolhido == 'GmailTemp':
+                        from selenium import webdriver
+                        from selenium.webdriver.chrome.service import Service
+                        from webdriver_manager.chrome import ChromeDriverManager
+                        from selenium.webdriver.common.by import By
+                        from selenium.webdriver.support.ui import WebDriverWait
+                        from selenium.webdriver.support import expected_conditions as EC
+                        chrome_options = webdriver.ChromeOptions()
+                        chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+                        chrome_options.add_argument("--disable-gpu")
+                        chrome_options.add_argument("--headless")
+                        chrome_options.add_argument("--log-level=3")
+                        try:
+                            driver = webdriver.Chrome(options=chrome_options, service=Service(ChromeDriverManager().install()))
+                            
+                            driver.get('https://mail10year.com/TOOL/gmail/')
+                            driver.maximize_window()
+                            WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "change_email"))).click()
+                            time.sleep(3)
+                            email_real = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "username"))).get_attribute("value")
+                            log, dominio = email_real.split('@')
+                            numero_aleatorio = random.randint(0, 999)
+                            email = f'{log}+{numero_aleatorio:03}@{dominio}'
+                            print(email)
+                        except:
+                            driver.close()
+                            driver.quit()
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                        window.Refresh()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                        
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+
+                        # use with address and token to reuse an existing inbox
+
+                        tentativa = 1
+                        while True:
+                            if tentativa == 7:
+                                driver.close()
+                                driver.quit()
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Código não chegou.')
+                                window.Refresh()
+                                try:
+                                    tentativa = 0
+                                    conteudo = config['vpn']
+                                    if conteudo == "AVG":
+                                        vpn_avg()
+                                    elif conteudo == "SurfShark":
+                                        vpn_surf()
+                                    elif conteudo == "Nenhuma":
+                                        nenhuma_vpn()
+                                    elif conteudo == "Avast":
+                                        vpn_avast()
+                                    elif conteudo == "ExpressVPN":
+                                        vpn_express()
+                                    elif conteudo == "PiaVPN":
+                                        vpn_pia()
+                                    elif conteudo == "BetterNet":
+                                        vpn_better()
+                                    elif conteudo == "CyberGhost":
+                                        vpn_cyberghost()
+                                    elif conteudo == "NordVPN":
+                                        vpn_nord()
+                                    elif conteudo == "HotspotShield":
+                                        vpn_hotspotshield()
+                                    elif conteudo == "WindscribeVPN":
+                                        vpn_windscribe()
+                                    elif conteudo == "HmaVPN":
+                                        vpn_hma()
+                                    else:
+                                        window['output'].print(
+                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                        window.Refresh()
+
+                                except Exception as e:
+                                    print(e)
+                                    tentativa = 0
+                                raise Exception('Código não chegou.')
+                            try:
+                                time.sleep(5)
+                                WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "check_email"))).click()
+                                time.sleep(5)
+                                body = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, "copyClone"))).text
+                                
+                                if '2nr' in body:
+                                    urls = re.findall("(?P<url>https?://[^\s]+)",
+                                                        body if body else body)
+
+                                    # Acessar cada URL
+                                    for url in urls:
+                                        try:
+                                            url = url.replace('</p></div>', '')
+                                            url = url.replace('&amp;', '&')
+                                        except:
+                                            pass
+                                        try:
+                                            response = requests.get(url)
+                                            if response.status_code == 200:
+                                                pass
+                                            else:
+                                                pass
+                                        except requests.exceptions.RequestException as e:
+                                            print(f"Erro na requisição: {e}")
+                                    try:
+                                        driver.close()
+                                        driver.quit()
+                                    except:
+                                        driver.quit()
+                                        driver.close()
+                                    break
+                                
+                                
+                            except:
+                                driver.close()
+                                driver.quit()
+                                raise Exception('Ocorreu algum erro.')
+                            tentativa += 1
+
+                    elif email_escolhido == 'MailTM':
                         while True:
                             try:
                                 test.register()
@@ -16893,8 +17017,11 @@ def executar_creator_2nr():
                                             print(f"Falha na requisição. Código de status: {response.status_code}")
                                     except requests.exceptions.RequestException as e:
                                         print(f"Erro na requisição: {e}")
-                                    print('clicou')
+                                    
                                     time.sleep(0.5)
+                                email = email_address
+                        
+                                email = email.replace('@guerrillamailblock.com', '@pokemail.net')
                                 break
                             print(tentativa)
                             tentativa =+ 1
@@ -17144,7 +17271,7 @@ def executar_creator_2nr():
                     d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email)
                     
                     d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha)
-                    
+                    time.sleep(2)
                     d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogin').click()
                     
                     time.sleep(5)
@@ -17524,7 +17651,127 @@ def executar_creator_2nr():
                     senha = gerar_senha(12)
                     email_escolhido = config['email_escolhido']
                     
-                    if email_escolhido == 'MailTM':
+                    if email_escolhido == 'GmailTemp':
+                        from selenium import webdriver
+                        from selenium.webdriver.chrome.service import Service
+                        from webdriver_manager.chrome import ChromeDriverManager
+                        from selenium.webdriver.common.by import By
+                        from selenium.webdriver.support.ui import WebDriverWait
+                        from selenium.webdriver.support import expected_conditions as EC
+                        chrome_options = webdriver.ChromeOptions()
+                        chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+                        chrome_options.add_argument("--disable-gpu")
+                        chrome_options.add_argument("--headless")
+                        chrome_options.add_argument("--log-level=3")
+                        try:
+                            driver = webdriver.Chrome(options=chrome_options, service=Service(ChromeDriverManager().install()))
+                            
+                            driver.get('https://mail10year.com/TOOL/gmail/')
+                            driver.maximize_window()
+                            WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "change_email"))).click()
+                            time.sleep(3)
+                            email_real = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "username"))).get_attribute("value")
+                            log, dominio = email_real.split('@')
+                            numero_aleatorio = random.randint(0, 999)
+                            email = f'{log}+{numero_aleatorio:03}@{dominio}'
+                            print(email)
+                        except:
+                            driver.close()
+                            driver.quit()
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                        window.Refresh()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                        
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+
+                        # use with address and token to reuse an existing inbox
+
+                        tentativa = 1
+                        while True:
+                            if tentativa == 7:
+                                driver.close()
+                                driver.quit()
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Código não chegou.')
+                                window.Refresh()
+                                try:
+                                    tentativa = 0
+                                    conteudo = config['vpn']
+                                    if conteudo == "AVG":
+                                        vpn_avg()
+                                    elif conteudo == "SurfShark":
+                                        vpn_surf()
+                                    elif conteudo == "Nenhuma":
+                                        nenhuma_vpn()
+                                    elif conteudo == "Avast":
+                                        vpn_avast()
+                                    elif conteudo == "ExpressVPN":
+                                        vpn_express()
+                                    elif conteudo == "PiaVPN":
+                                        vpn_pia()
+                                    elif conteudo == "BetterNet":
+                                        vpn_better()
+                                    elif conteudo == "CyberGhost":
+                                        vpn_cyberghost()
+                                    elif conteudo == "NordVPN":
+                                        vpn_nord()
+                                    elif conteudo == "HotspotShield":
+                                        vpn_hotspotshield()
+                                    elif conteudo == "WindscribeVPN":
+                                        vpn_windscribe()
+                                    elif conteudo == "HmaVPN":
+                                        vpn_hma()
+                                    else:
+                                        window['output'].print(
+                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                        window.Refresh()
+
+                                except Exception as e:
+                                    print(e)
+                                    tentativa = 0
+                                raise Exception('Código não chegou.')
+                            try:
+                                time.sleep(5)
+                                WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "check_email"))).click()
+                                time.sleep(5)
+                                body = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, "copyClone"))).text
+                                
+                                if '2nr' in body:
+                                    urls = re.findall("(?P<url>https?://[^\s]+)",
+                                                        body if body else body)
+
+                                    # Acessar cada URL
+                                    for url in urls:
+                                        try:
+                                            url = url.replace('</p></div>', '')
+                                            url = url.replace('&amp;', '&')
+                                        except:
+                                            pass
+                                        try:
+                                            response = requests.get(url)
+                                            if response.status_code == 200:
+                                                pass
+                                            else:
+                                                pass
+                                        except requests.exceptions.RequestException as e:
+                                            print(f"Erro na requisição: {e}")
+                                    try:
+                                        driver.close()
+                                        driver.quit()
+                                    except:
+                                        driver.quit()
+                                        driver.close()
+                                    break
+                                
+                            except:
+                                driver.close()
+                                driver.quit()
+                                raise Exception('Ocorreu algum erro.')
+                            tentativa += 1
+
+                    elif email_escolhido == 'MailTM':
                         while True:
                             try:
                                 test.register()
@@ -17655,8 +17902,10 @@ def executar_creator_2nr():
                                             print(f"Falha na requisição. Código de status: {response.status_code}")
                                     except requests.exceptions.RequestException as e:
                                         print(f"Erro na requisição: {e}")
-                                    print('clicou')
                                     time.sleep(0.5)
+                                email = email_address
+                        
+                                email = email.replace('@guerrillamailblock.com', '@pokemail.net')
                                 break
                             print(tentativa)
                             tentativa =+ 1
@@ -17896,9 +18145,7 @@ def executar_creator_2nr():
                                     time.sleep(0.5)
                                 subject = True
 
-                    email = email_address
-                        
-                    email = email.replace('@guerrillamailblock.com', '@pokemail.net')
+                    
                         
                     troca_ip += 1
                     d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
@@ -17909,7 +18156,7 @@ def executar_creator_2nr():
                     d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email)
                     
                     d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha)
-                    
+                    time.sleep(2)
                     d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogin').click()
                     
                     time.sleep(5)
@@ -18045,6 +18292,7 @@ def executar_creator_2nr():
                 d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click()
                 d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha)
+                time.sleep(2)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogin').click()
                 time.sleep(5)
                 try:
@@ -18816,7 +19064,7 @@ while True:
                         config = json.load(f)
                 except FileNotFoundError:
                     config = {}
-                email_list = ["MailTM", "GuerrilaMail", "MinuteInBox", "1SecMail"]
+                email_list = ["MailTM", "GuerrilaMail", "MinuteInBox", "1SecMail", "GmailTemp"]
                 layout_configuracoes = [
                     [sg.Text("Senha dos perfis: ", font=('Open Sans', 12)),
                      sg.InputText(key="-senha2nr-", default_text=config.get("senha2nr", "@SenhaPadrao2023"))],
