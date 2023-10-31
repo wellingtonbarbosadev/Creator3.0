@@ -16771,9 +16771,7 @@ def executar_creator_2nr():
                         try:
                             from webdriver_manager.chrome import ChromeDriverManager
                         except:
-                            subprocess.run(['venv/scripts/activate.bat'], shell=True)
                             subprocess.run(['pip', 'install', 'webdriver-manager'])
-                            subprocess.run(['deactivate'], shell=True)
                             from webdriver_manager.chrome import ChromeDriverManager
                         from selenium.webdriver.common.by import By
                         from selenium.webdriver.support.ui import WebDriverWait
@@ -17663,9 +17661,7 @@ def executar_creator_2nr():
                         try:
                             from webdriver_manager.chrome import ChromeDriverManager
                         except:
-                            subprocess.run(['venv/scripts/activate.bat'], shell=True)
                             subprocess.run(['pip', 'install', 'webdriver-manager'])
-                            subprocess.run(['deactivate'], shell=True)
                             from webdriver_manager.chrome import ChromeDriverManager
                             
                         
