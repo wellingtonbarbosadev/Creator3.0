@@ -12795,10 +12795,19 @@ def executar_2nr_insta():
     window.Refresh()
     d.implicitly_wait(30.0)
     d.set_fastinput_ime(True)
+    codigo_não_recebido_seguidos = 0
     while parar is False:
         if parar is True:
             print('Parando Thread')
             break
+        if codigo_não_recebido_seguidos == 3:
+            #tempo_aleatorio = random.randint(10, 40)
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 3 códigos não recebidos seguidos.')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando 1 hora para voltar novamente.')
+            window.Refresh()
+            time.sleep(3600)
+            codigo_não_recebido_seguidos = 0
         try:
             try:
                 subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
@@ -13366,6 +13375,7 @@ def executar_2nr_insta():
                     cod = d(resourceId='pl.rs.sip.softphone.newapp:id/message').get_text(timeout=80)
 
                 except:
+                    codigo_não_recebido_seguidos += 1
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Código não recebido.')
                     window.Refresh()
                     d.app_start('pl.rs.sip.softphone.newapp')
@@ -13414,6 +13424,7 @@ def executar_2nr_insta():
                 codigo = re.sub('[^0-9]', '', cod)[:6]
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Codigo recebido: {codigo}')
                 window.Refresh()
+                codigo_não_recebido_seguidos = 0
                 d.app_start('com.instagram.android')
                 time.sleep(5)
                 
