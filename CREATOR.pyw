@@ -19150,9 +19150,9 @@ while True:
                     time.sleep(200)
             if event == '-config-':
                 if user_mysql == 'wn3':
-                    estado_user = False
-                else:
                     estado_user = True
+                else:
+                    estado_user = False
                 try:
                     with open("config2nr.json", "r") as f:
                         config = json.load(f)
@@ -19168,7 +19168,7 @@ while True:
                      sg.Combo(email_list, default_value=config.get("email_escolhido", ""), readonly=True, key='-email_escolhido-')],
                     [sg.Radio('Criar contas do 2NR', 'RADIO1', key='-criarcontas-', default=config.get("opcao", "") == "-criarcontas-"),
                      sg.Radio('Criar números', 'RADIO1', key='-criarnumeros-', default=config.get("opcao", "") == "-criarnumeros-"),
-                     sg.Radio('Ambos', 'RADIO1', key='-criarambos-', disabled=estado_user, default=config.get("opcao", "") == "-criarambos-")],
+                     sg.Radio('Ambos', 'RADIO1', key='-criarambos-', visible=estado_user, default=config.get("opcao", "") == "-criarambos-")],
                     [sg.Button("Salvar")]
                 ]
 
