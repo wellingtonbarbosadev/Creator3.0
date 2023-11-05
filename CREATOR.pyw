@@ -1,6 +1,7 @@
 from genericpath import exists
 import json
 from socket import timeout
+from tkinter import FALSE
 from types import EllipsisType
 import unicodedata
 
@@ -16709,6 +16710,17 @@ def executar_creator_2nr():
                     try:
                         d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
                     except:
+                        erro_exec = True
+                        while erro_exec is True:
+                            if d(resourceId='android:id/aerr_restart').exists:
+                                d(resourceId='android:id/aerr_restart').click()
+                                time.sleep(5)
+                                if d(resourceId='android:id/aerr_restart').exists:
+                                    d(resourceId='android:id/aerr_restart').click()
+                            else:
+                                erro_exec = False
+                                break
+                            time.sleep(3)
                         d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
                     try:
                         subprocess.run(
@@ -16795,7 +16807,7 @@ def executar_creator_2nr():
                         try:
                             driver = webdriver.Chrome(options=chrome_options, service=Service(ChromeDriverManager().install()))
                             
-                            driver.get('https://mail10year.com/TOOL/gmail/')
+                            driver.get('https://mail10year.com/TOOL/gmail/server2.php')
                             driver.maximize_window()
                             WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "change_email"))).click()
                             time.sleep(3)
@@ -16803,6 +16815,7 @@ def executar_creator_2nr():
                             log, dominio = email_real.split('@')
                             numero_aleatorio = random.randint(0, 999)
                             email = f'{log}+{numero_aleatorio:03}@{dominio}'
+                            #email = email_real
                             print(email)
                         except:
                             driver.close()
@@ -16815,6 +16828,20 @@ def executar_creator_2nr():
                         d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
                         d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
                         d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                        time.sleep(5)
+                        email_existente = d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk')
+                        if not email_existente:
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email já utilizado.')
+                            window.Refresh()
+                            numero_aleatorio = random.randint(0, 999)
+                            email = f'{log}+{numero_aleatorio:03}@{dominio}'
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Novo email: {email}')
+                            window.Refresh()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text('')
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                            time.sleep(10)
+
 
                         # use with address and token to reuse an existing inbox
 
@@ -16866,7 +16893,28 @@ def executar_creator_2nr():
                                 WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "check_email"))).click()
                                 time.sleep(5)
                                 body = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, "copyClone"))).text
-                                
+                                body = body.replace(' ', '')
+                                inicio = body.find("(") + 1
+                                fim = body.find(")")
+                                #print(body)
+                                body = body[inicio:fim]
+                                body = body.replace('3D', '')
+
+                                inicio_email = body.find("email=") + len("email=")
+                                inicio_token = body.find("&token=") + len("&token=")
+
+                                # Extrair as partes relevantes da string
+                                email_parte = body[inicio_email:inicio_token]
+                                token_parte = body[inicio_token:]
+
+                                # Remover '=' exceto em "&token="
+                                email_parte_formatado = "email=" + email_parte.replace("=", "")
+                                token_parte_formatado = "&token=" + token_parte.replace("=", "")
+
+                                # Juntar as partes formatadas
+                                body = "https://api.2nr.xyz/register/?" + email_parte_formatado + token_parte_formatado
+                                body = body.replace('&token&token=', '&token=')
+                                #print(body)
                                 if '2nr' in body:
                                     urls = re.findall("(?P<url>https?://[^\s]+)",
                                                         body if body else body)
@@ -17348,7 +17396,7 @@ def executar_creator_2nr():
                     #            break
                     number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                     tries = 0
-                    if number is None or tries == '10':
+                    if number is None or tries == 10:
                         while True:
                             if tries == '10':
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
@@ -17365,7 +17413,7 @@ def executar_creator_2nr():
                     else:
                         d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                         time.sleep(2)
-                    if tries == '10':
+                    if tries == 10:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                         window.Refresh()
                         raise Exception('Máximo de números criados.')
@@ -17379,14 +17427,20 @@ def executar_creator_2nr():
                     success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                     tries = 0
                     success = 'Null'
-                    while success != 'Successful verification' or tries < '30':
+                    while success != 'Successful verification' or tries < 30:
                         success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                         if success == 'Successful verification':
                             break
                         elif success == 'Veryfication failed':
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Falha na verificação.')
-                            window.Refresh()
-                            raise Exception('Falha na verificação.')
+                            while True:
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Falha na verificação.')
+                                window.Refresh()
+                                d.swipe(340, 480, 340, 880)
+                                time.sleep(7)
+                                success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
+                                if success == 'Successful verification':
+                                    break
+                            #raise Exception('Falha na verificação.')
                         time.sleep(0.5)
                         
                         tries += 1
@@ -17398,8 +17452,9 @@ def executar_creator_2nr():
                     window.Refresh()
                     sms = False
                     criadas = 1
+                    tentativa2 = 1
                     while sms is False:
-                        if criadas >= 2:
+                        if criadas >= 4:
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
                                                 text_color=('lime'))
                             window.Refresh()
@@ -17416,6 +17471,10 @@ def executar_creator_2nr():
                             except:
                                 subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
                                             stderr=subprocess.DEVNULL, check=True, shell=True)
+                                if tentativa2 == 2:
+                                    tentativa2 = 0
+                                    raise Exception('')
+                                tentativa2 += 1
                             d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
                             time.sleep(2)
                             #d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
@@ -17453,9 +17512,9 @@ def executar_creator_2nr():
                             #            break
                             number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                             tries = 0
-                            if number is None or tries == '10':
+                            if number is None or tries == 10:
                                 while True:
-                                    if tries == '10':
+                                    if tries == 10:
                                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                                         window.Refresh()
                                         raise Exception('Máximo de números criados.')
@@ -17487,7 +17546,7 @@ def executar_creator_2nr():
                             success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                             tries = 0
                             success = 'Null'
-                            while success != 'Successful verification' or tries < '30':
+                            while success != 'Successful verification' or tries < 30:
                                 success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                                 if success == 'Successful verification':
                                     break
@@ -18379,7 +18438,7 @@ def executar_creator_2nr():
                 #            break
                 number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                 tries = 0
-                if number is None or tries == '10':
+                if number is None or tries == 10:
                     while True:
                         if tries == '10':
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
@@ -18397,7 +18456,7 @@ def executar_creator_2nr():
                 else:
                     d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                     time.sleep(2)
-                if tries == '10':
+                if tries == 10:
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                     window.Refresh()
                     raise Exception('Máximo de números criados.')
@@ -18411,14 +18470,20 @@ def executar_creator_2nr():
                 success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                 tries = 0
                 success = 'Null'
-                while success != 'Successful verification' or tries < '30':
+                while success != 'Successful verification' or tries < 30:
                     success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                     if success == 'Successful verification':
                         break
                     elif success == 'Veryfication failed':
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Falha na verificação.')
-                        window.Refresh()
-                        raise Exception('Falha na verificação.')
+                        while True:
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Falha na verificação.')
+                            window.Refresh()
+                            d.swipe(340, 480, 340, 880)
+                            time.sleep(7)
+                            success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
+                            if success == 'Successful verification':
+                                break
+                        #raise Exception('Falha na verificação.')
                     time.sleep(0.5)
                     
                     tries += 1
@@ -18448,6 +18513,10 @@ def executar_creator_2nr():
                         except:
                             subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
+                            if tentativa2 == 2:
+                                tentativa2 = 0
+                                raise Exception('')
+                            tentativa2 += 1
                         d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
                         time.sleep(2)
                         #d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
@@ -18487,7 +18556,7 @@ def executar_creator_2nr():
                         tries = 0
                         if number is None:
                             while True:
-                                if tries == '10':
+                                if tries == 10:
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                                     window.Refresh()
                                     raise Exception('Máximo de números criados.')
@@ -19080,6 +19149,10 @@ while True:
                     window.Refresh()
                     time.sleep(200)
             if event == '-config-':
+                if user_mysql == 'wn3':
+                    estado_user = False
+                else:
+                    estado_user = True
                 try:
                     with open("config2nr.json", "r") as f:
                         config = json.load(f)
@@ -19095,7 +19168,7 @@ while True:
                      sg.Combo(email_list, default_value=config.get("email_escolhido", ""), readonly=True, key='-email_escolhido-')],
                     [sg.Radio('Criar contas do 2NR', 'RADIO1', key='-criarcontas-', default=config.get("opcao", "") == "-criarcontas-"),
                      sg.Radio('Criar números', 'RADIO1', key='-criarnumeros-', default=config.get("opcao", "") == "-criarnumeros-"),
-                     sg.Radio('Ambos', 'RADIO1', key='-criarambos-', default=config.get("opcao", "") == "-criarambos-")],
+                     sg.Radio('Ambos', 'RADIO1', key='-criarambos-', disabled=estado_user, default=config.get("opcao", "") == "-criarambos-")],
                     [sg.Button("Salvar")]
                 ]
 
