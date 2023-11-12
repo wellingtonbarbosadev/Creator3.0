@@ -16704,9 +16704,29 @@ def executar_creator_2nr():
                     senha = config['senha2nr']
 
                     quantidade = 0
-
+                    if d(resourceId='android:id/aerr_restart').exists:
+                        d(resourceId='android:id/aerr_restart').click()
+                        time.sleep(5)
+                        while True:
+                            if d(resourceId='android:id/aerr_restart').exists:
+                                d(resourceId='android:id/aerr_restart').click()
+                                time.sleep(5)
+                            else:
+                                erro_exec = False
+                                break
                     d.app_start('pl.rs.sip.softphone.newapp', use_monkey=True)
                     d.set_fastinput_ime(True)
+                    if d(resourceId='android:id/aerr_restart').exists:
+                        d(resourceId='android:id/aerr_restart').click()
+                        time.sleep(5)
+                        while True:
+                            if d(resourceId='android:id/aerr_restart').exists:
+                                d(resourceId='android:id/aerr_restart').click()
+                                time.sleep(5)
+                            else:
+                                erro_exec = False
+                                break
+                    time.sleep(3)
                     try:
                         d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
                     except:
@@ -16715,8 +16735,13 @@ def executar_creator_2nr():
                             if d(resourceId='android:id/aerr_restart').exists:
                                 d(resourceId='android:id/aerr_restart').click()
                                 time.sleep(5)
-                                if d(resourceId='android:id/aerr_restart').exists:
-                                    d(resourceId='android:id/aerr_restart').click()
+                                while True:
+                                    if d(resourceId='android:id/aerr_restart').exists:
+                                        d(resourceId='android:id/aerr_restart').click()
+                                        time.sleep(5)
+                                    else:
+                                        erro_exec = False
+                                        break
                             else:
                                 erro_exec = False
                                 break
@@ -16813,8 +16838,8 @@ def executar_creator_2nr():
                             time.sleep(3)
                             email_real = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "username"))).get_attribute("value")
                             log, dominio = email_real.split('@')
-                            numero_aleatorio = random.randint(0, 999)
-                            email = f'{log}+{numero_aleatorio:03}@{dominio}'
+                            numero_aleatorio = random.randint(0, 9999)
+                            email = f'{log}+{numero_aleatorio:04}@{dominio}'
                             #email = email_real
                             print(email)
                         except:
@@ -16833,8 +16858,8 @@ def executar_creator_2nr():
                         if not email_existente:
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email já utilizado.')
                             window.Refresh()
-                            numero_aleatorio = random.randint(0, 999)
-                            email = f'{log}+{numero_aleatorio:03}@{dominio}'
+                            numero_aleatorio = random.randint(0, 9999)
+                            email = f'{log}+{numero_aleatorio:04}@{dominio}'
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Novo email: {email}')
                             window.Refresh()
                             d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text('')
@@ -17378,7 +17403,7 @@ def executar_creator_2nr():
                     #        #time.sleep(5)
                     #        #d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                     #        #time.sleep(2)
-                    #        d.swipe(340, 480, 340, 680)
+                    #        d.swipe(340, 480, 340, 880)
                     #        time.sleep(3)
                     #        d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                     #        time.sleep(2)
@@ -17402,7 +17427,7 @@ def executar_creator_2nr():
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                                 window.Refresh()
                                 raise Exception('Máximo de números criados.')
-                            d.swipe(340, 480, 340, 680)
+                            d.swipe(340, 480, 340, 880)
                             time.sleep(3)
                             number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                             tries += 1
@@ -17494,7 +17519,7 @@ def executar_creator_2nr():
                             #        #time.sleep(5)
                             #        #d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                             #        #time.sleep(2)
-                            #        d.swipe(340, 480, 340, 680)
+                            #        d.swipe(340, 480, 340, 880)
                             #        time.sleep(3)
                             #        d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                             #        time.sleep(2)
@@ -17518,7 +17543,7 @@ def executar_creator_2nr():
                                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                                         window.Refresh()
                                         raise Exception('Máximo de números criados.')
-                                    d.swipe(340, 480, 340, 680)
+                                    d.swipe(340, 480, 340, 880)
                                     time.sleep(3)
                                     number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                                     tries += 1
@@ -18420,7 +18445,7 @@ def executar_creator_2nr():
                 #        #time.sleep(5)
                 #        #d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                 #        #time.sleep(2)
-                #        d.swipe(340, 480, 340, 680)
+                #        d.swipe(340, 480, 340, 880)
                 #        time.sleep(3)
                 #        d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                 #        time.sleep(2)
@@ -18444,7 +18469,7 @@ def executar_creator_2nr():
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                             window.Refresh()
                             raise Exception('Máximo de números criados.')
-                        d.swipe(340, 480, 340, 680)
+                        d.swipe(340, 480, 340, 880)
                         time.sleep(3)
                         number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                         tries += 1
@@ -18536,7 +18561,7 @@ def executar_creator_2nr():
                         #        #time.sleep(5)
                         #        #d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                         #        #time.sleep(2)
-                        #        d.swipe(340, 480, 340, 680)
+                        #        d.swipe(340, 480, 340, 880)
                         #        time.sleep(3)
                         #        d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                         #        time.sleep(2)
@@ -18560,7 +18585,7 @@ def executar_creator_2nr():
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                                     window.Refresh()
                                     raise Exception('Máximo de números criados.')
-                                d.swipe(340, 480, 340, 680)
+                                d.swipe(340, 480, 340, 880)
                                 time.sleep(3)
                                 number = d(resourceId='pl.rs.sip.softphone.newapp:id/phoneNumber').get_text()
                                 tries += 1
