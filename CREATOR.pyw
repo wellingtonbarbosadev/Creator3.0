@@ -12801,14 +12801,14 @@ def executar_2nr_insta():
         if parar is True:
             print('Parando Thread')
             break
-        if codigo_não_recebido_seguidos == 3:
-            #tempo_aleatorio = random.randint(10, 40)
-            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 3 códigos não recebidos seguidos.')
-            window.Refresh()
-            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando 1 hora para voltar novamente.')
-            window.Refresh()
-            time.sleep(3600)
-            codigo_não_recebido_seguidos = 0
+        #if codigo_não_recebido_seguidos == 3:
+        #    #tempo_aleatorio = random.randint(10, 40)
+        #    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 3 códigos não recebidos seguidos.')
+        #    window.Refresh()
+        #    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando 1 hora para voltar novamente.')
+        #    window.Refresh()
+        #    time.sleep(3600)
+        #    codigo_não_recebido_seguidos = 0
         try:
             try:
                 subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
@@ -13562,6 +13562,10 @@ def executar_2nr_insta():
                             d(resourceId='com.instagram.android:id/negative_button').click()
                             time.sleep(2)
                             d(resourceId='com.instagram.android:id/skip_button').click()
+                            skip_button = d(resourceId='com.instagram.android:id/skip_button')
+                            time.sleep(2)
+                            if skip_button.exists:
+                                d(resourceId='com.instagram.android:id/skip_button').click()
                             time.sleep(4)
                             try:
                                 element_id = "com.instagram.android:id/row_recommended_user_follow_button"
@@ -13589,7 +13593,7 @@ def executar_2nr_insta():
 
                                 # Encontre todos os elementos que correspondem ao ID fornecido
                                 elements = d(resourceId=element_id)
-                                window['output'].print("Seguindo sugeridos...")
+                                #window['output'].print("Seguindo sugeridos...")
                                 window.Refresh()
                                 for element in elements:
                                     if element.get_text() == target_text:
@@ -18521,7 +18525,7 @@ def executar_creator_2nr():
                 sms = False
                 criadas = 1
                 while sms is False:
-                    if criadas >= 2:
+                    if criadas >= 4:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
                                             text_color=('lime'))
                         window.Refresh()
