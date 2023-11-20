@@ -16199,7 +16199,7 @@ def executar_creator_2nr():
             for url in urls:
                 if url.startswith('https://api.2nr.xyz/register/?'):
                     response = requests.get(url)
-
+                    print(url)
                     # Verificar o código de status
                     if response.status_code == 200:
                         pass
@@ -16977,11 +16977,110 @@ def executar_creator_2nr():
                                 driver.quit()
                                 raise Exception('Ocorreu algum erro.')
                             tentativa += 1
+                    elif email_escolhido == 'GmailTemp2':
+                        from wsgiref.headers import tspecials
+                        try:
+                            from tempinbox import TempEmail
+                        except:
+                            import requests
+                            import os
+                            from pathlib import Path
 
+                            url = "https://www.dropbox.com/scl/fi/ll7cbtfled6dy1209fw4r/nome_do_arquivo.tar.gz?rlkey=aljtozyyj9vzzhcnqwr86tfnd&dl=1"
+                            nome_do_arquivo = "gmail2.tar.gz"
+                            caminho_do_arquivo = Path(__file__).parent / nome_do_arquivo
+
+                            # Baixar o arquivo da URL
+                            response = requests.get(url)
+                            with open(caminho_do_arquivo, 'wb') as arquivo:
+                                arquivo.write(response.content)
+
+                            # Instalar o pacote localmente usando pip com aspas duplas no caminho
+                            os.system(f'pip install "{caminho_do_arquivo}"')
+                        ##try:
+                        ##    inbox = Inbox(
+                        ##        address="",
+                        ##        token="",
+                        ##    )
+                        ##    email = inbox.address
+                        ##    # window['output'].print("Email: " + email)
+                        ##    # window.Refresh()
+                        ##except Exception as e:
+                        ##    print(e)
+                        client = TempEmail()
+
+                        # Generate a temporary email address with specific options
+                        email = client.generate_temp_email(domain=False, dot_gmail=True, plus_gmail=True)["email"][0]
+                        print(email)
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                        window.Refresh()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+
+                        # use with address and token to reuse an existing inbox
+
+                        time.sleep(2)
+
+                        codigo = None
+                        tentativa = 1
+                        while True:
+                            email_list = client.get_mail_list(email)
+                            time.sleep(10)
+                            # Acessando a lista de mensagens
+                            message_list = email_list.get('messageData', [])
+
+                            # Verificando se há mensagens na lista
+                            message_list = email_list.get('messageData', [])
+
+                            # Verificando se há mensagens na lista
+                            id_msg = 0
+                            if message_list:
+                                for message in message_list:
+                                    # Acessando o assunto da mensagem
+                                    subject = message.get('subject', '')
+                                    id_msg += 1
+                                    # Verificar se o assunto contém '2nr'
+                                    if '2nr' in subject:
+                                        break
+                                    else:
+                                        print("Aguardando código...")
+                                    
+                            email_list = client.get_mail_list(email)
+                            if '2nr' in subject:
+                                break
+                            else:
+                                tentativa += 1
+                                if tentativa == 10:
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
+                                    window.Refresh()
+                                    raise Exception('Email não chegou.')
+                        # Get the content of a specific email (ID=2)
+                        email_content = client.get_mail_content(email, id=id_msg)
+                        urls = re.findall("(?P<url>https?://[^\s]+)",
+                                        email_content if email_content else email_content)
+                        # Acessar cada URL
+                        for url in urls:
+                            try:
+                                url = url.replace('</p></div>', '')
+                                url = url.replace('&amp;', '&')
+                            except:
+                                pass
+                            try:
+                                response = requests.get(url)
+                                if response.status_code == 200:
+                                    pass
+                                else:
+                                    pass
+                            except requests.exceptions.RequestException as e:
+                                print(f"Erro na requisição: {e}")
+ 
                     elif email_escolhido == 'MailTM':
                         while True:
                             try:
-                                test.register()
+                                test.register(username=None, password='rumo100k')
                                 # Se chegou até aqui sem lançar exceção, a conta foi criada com sucesso
                                 break
                             except Exception as e:
@@ -17047,6 +17146,7 @@ def executar_creator_2nr():
                                 for url in urls:
                                     make_request(url)
                                     time.sleep(0.5)
+                                    print(url)
                                 subject = True
                                 
                     elif email_escolhido == 'GuerrilaMail':
@@ -17879,6 +17979,106 @@ def executar_creator_2nr():
                                 driver.quit()
                                 raise Exception('Ocorreu algum erro.')
                             tentativa += 1
+
+                    elif email_escolhido == 'GmailTemp2':
+                        from wsgiref.headers import tspecials
+                        try:
+                            from tempinbox import TempEmail
+                        except:
+                            import requests
+                            import os
+                            from pathlib import Path
+
+                            url = "https://www.dropbox.com/scl/fi/ll7cbtfled6dy1209fw4r/nome_do_arquivo.tar.gz?rlkey=aljtozyyj9vzzhcnqwr86tfnd&dl=1"
+                            nome_do_arquivo = "gmail2.tar.gz"
+                            caminho_do_arquivo = Path(__file__).parent / nome_do_arquivo
+
+                            # Baixar o arquivo da URL
+                            response = requests.get(url)
+                            with open(caminho_do_arquivo, 'wb') as arquivo:
+                                arquivo.write(response.content)
+
+                            # Instalar o pacote localmente usando pip com aspas duplas no caminho
+                            os.system(f'pip install "{caminho_do_arquivo}"')
+                        ##try:
+                        ##    inbox = Inbox(
+                        ##        address="",
+                        ##        token="",
+                        ##    )
+                        ##    email = inbox.address
+                        ##    # window['output'].print("Email: " + email)
+                        ##    # window.Refresh()
+                        ##except Exception as e:
+                        ##    print(e)
+                        client = TempEmail()
+
+                        # Generate a temporary email address with specific options
+                        email = client.generate_temp_email(domain=False, dot_gmail=True, plus_gmail=True)["email"][0]
+                        print(email)
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                        window.Refresh()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+
+                        # use with address and token to reuse an existing inbox
+
+                        time.sleep(2)
+
+                        codigo = None
+                        tentativa = 1
+                        while True:
+                            email_list = client.get_mail_list(email)
+                            time.sleep(10)
+                            # Acessando a lista de mensagens
+                            message_list = email_list.get('messageData', [])
+
+                            # Verificando se há mensagens na lista
+                            message_list = email_list.get('messageData', [])
+
+                            # Verificando se há mensagens na lista
+                            id_msg = 0
+                            if message_list:
+                                for message in message_list:
+                                    # Acessando o assunto da mensagem
+                                    subject = message.get('subject', '')
+                                    id_msg += 1
+                                    # Verificar se o assunto contém '2nr'
+                                    if '2nr' in subject:
+                                        break
+                                    else:
+                                        print("Aguardando código...")
+                                    
+                            email_list = client.get_mail_list(email)
+                            if '2nr' in subject:
+                                break
+                            else:
+                                tentativa += 1
+                                if tentativa == 10:
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
+                                    window.Refresh()
+                                    raise Exception('Email não chegou.')
+                        # Get the content of a specific email (ID=2)
+                        email_content = client.get_mail_content(email, id=id_msg)
+                        urls = re.findall("(?P<url>https?://[^\s]+)",
+                                        email_content if email_content else email_content)
+                        # Acessar cada URL
+                        for url in urls:
+                            try:
+                                url = url.replace('</p></div>', '')
+                                url = url.replace('&amp;', '&')
+                            except:
+                                pass
+                            try:
+                                response = requests.get(url)
+                                if response.status_code == 200:
+                                    pass
+                                else:
+                                    pass
+                            except requests.exceptions.RequestException as e:
+                                print(f"Erro na requisição: {e}")
 
                     elif email_escolhido == 'MailTM':
                         while True:
@@ -19187,7 +19387,7 @@ while True:
                         config = json.load(f)
                 except FileNotFoundError:
                     config = {}
-                email_list = ["MailTM", "GuerrilaMail", "MinuteInBox", "1SecMail", "GmailTemp"]
+                email_list = ["MailTM", "GuerrilaMail", "MinuteInBox", "1SecMail", "GmailTemp", "GmailTemp2"]
                 layout_configuracoes = [
                     [sg.Text("Senha dos perfis: ", font=('Open Sans', 12)),
                      sg.InputText(key="-senha2nr-", default_text=config.get("senha2nr", "@SenhaPadrao2023"))],
