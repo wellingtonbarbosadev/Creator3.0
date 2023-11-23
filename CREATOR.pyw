@@ -12654,7 +12654,7 @@ def executar_2nr_insta():
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
         
         time.sleep(30)
-        
+
     def vpn_windscribe():
         global nome
         global sobrenome
@@ -13661,6 +13661,15 @@ def executar_2nr_insta():
                     senha)
                     time.sleep(3)
                     d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.view.ViewGroup').click()
+                    time.sleep(5)
+                    new_acc = d(resourceId='android:id/button2')
+                    if new_acc.exists:
+                        d(resourceId='android:id/button2').click()
+                    time.sleep(2)
+                    try:
+                        d.xpath('//android.view.View[@content-desc="Agora não"]').click_exists(timeout=10.0)
+                    except Exception as e:
+                        pass
 
                 elif layout3.exists:
                     layout_usado = 'layout3'
