@@ -12623,6 +12623,7 @@ def executar_2nr_insta():
         global nome
         global sobrenome
         global sms
+        global regiao_vpn
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da AVG', text_color='red')
         window.Refresh()
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
@@ -12796,6 +12797,8 @@ def executar_2nr_insta():
     window.Refresh()
     d.implicitly_wait(30.0)
     d.set_fastinput_ime(True)
+    if not os.path.exists('./erros'):
+        os.makedirs('./erros')
     codigo_não_recebido_seguidos = 0
     while parar is False:
         if parar is True:
@@ -12818,6 +12821,12 @@ def executar_2nr_insta():
 
             except:
                 pass
+            try:
+                subprocess.run(
+                    f'adb -s 127.0.0.1:{porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
+                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
             gerar_id()
             android_id = gerar_id()
             subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
@@ -12825,6 +12834,7 @@ def executar_2nr_insta():
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo 2NR')
             window.Refresh()
+
             try:
                 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
@@ -13059,7 +13069,7 @@ def executar_2nr_insta():
                         raise Exception('skip')
                     except Exception as e:
                         print(e)
-                    raise Exception('Erro.')
+                    raise Exception('skip')
                 try:
                     qtd_num2 = d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[*]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.TextView[1]')
@@ -13171,10 +13181,13 @@ def executar_2nr_insta():
                 layout1 = d.xpath('//android.view.View[@content-desc="Crie um nome de usuário"]')
                 layout2 = d(resourceId='android:id/button2')
                 layout3 = d.xpath('//android.view.View[@content-desc="Qual é o número do seu celular?"]')
+                layout4 = d.xpath('//android.view.View[@content-desc="Crie uma senha"]')
                 if layout1.exists:
+                    layout_usado = 'layout1'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout1 novo encontrado.')
                     window.Refresh()
                     d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    time.sleep(4)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
                     d.xpath(
@@ -13219,7 +13232,8 @@ def executar_2nr_insta():
                     if new_acc.exists(timeout=10):
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
-                    restricao = d.xpath('//android.view.View[@content-desc="Cadastrar-se com o email"]')
+                    time.sleep(5)
+                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -13411,7 +13425,9 @@ def executar_2nr_insta():
                     # time.sleep(100)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
+
                 elif layout2.exists:
+                    layout_usado = 'layout2'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout2 novo encontrado.')
                     window.Refresh()
                     time.sleep(3)
@@ -13443,7 +13459,8 @@ def executar_2nr_insta():
                     if new_acc.exists(timeout=10):
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
-                    restricao = d.xpath('//android.view.View[@content-desc="Cadastrar-se com o email"]')
+                    time.sleep(5)
+                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -13633,16 +13650,21 @@ def executar_2nr_insta():
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                         codigo)
                     # time.sleep(100)
+                    time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
                     d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
-                    d(resourceId='//android.view.View[@content-desc="Avançar"]').click()
+                    time.sleep(4)
+                    d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.view.ViewGroup').click()
                     time.sleep(4)
                     d.xpath(
                     '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                     senha)
-                    time.sleep(1)
+                    time.sleep(3)
+                    d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.view.ViewGroup').click()
+
                 elif layout3.exists:
+                    layout_usado = 'layout3'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout3 novo encontrado.')
                     window.Refresh()
                     d.xpath(
@@ -13654,7 +13676,8 @@ def executar_2nr_insta():
                     if new_acc.exists(timeout=10):
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
-                    restricao = d.xpath('//android.view.View[@content-desc="Cadastrar-se com o email"]')
+                    time.sleep(5)
+                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -13849,14 +13872,15 @@ def executar_2nr_insta():
                     d.xpath(
                     '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                     senha)
-                    time.sleep(1)
+                    time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
+                    time.sleep(4)
                     new_acc = d(resourceId='android:id/button2')
                     if new_acc.exists:
                         d(resourceId='android:id/button2').click()
                     time.sleep(2)
                     try:
-                        d.xpath('//android.view.View[@content-desc="Agora não"]').click_exists(timeout=20.0)
+                        d.xpath('//android.view.View[@content-desc="Agora não"]').click_exists(timeout=10.0)
                     except Exception as e:
                         print(e)
                     time.sleep(3)
@@ -13899,7 +13923,260 @@ def executar_2nr_insta():
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(3)
 
+                elif layout4.exists:
+                    layout_usado = 'layout4'
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout4 novo encontrado.')
+                    window.Refresh()
+                    d.xpath(
+                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                    senha)
+                    time.sleep(3)
+                    d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.view.ViewGroup').click()
+                    time.sleep(4)
+                    try:
+                        d.xpath('//android.view.View[@content-desc="Agora não"]').click_exists(timeout=20.0)
+                    except Exception as e:
+                        print(e)
+                    time.sleep(4)
+                    new_acc = d(resourceId='android:id/button2')
+                    if new_acc.exists(timeout=20):
+                        d(resourceId='android:id/button2').click()
+                        time.sleep(2)
+                    d.xpath('//android.view.View[@content-desc="Avançar"]').click()
+                    time.sleep(2)
+                    d.xpath('//android.view.View[@content-desc="Avançar"]').click()
+                    idade_aleatoria = random.randint(18, 35)
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window.Refresh()
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        str(idade_aleatoria))
+                    d.xpath('//android.view.View[@content-desc="Avançar"]').click()
+                    new_acc = d(resourceId='android:id/button2')
+                    if new_acc.exists(timeout=10):
+                        d(resourceId='android:id/button2').click()
+                        time.sleep(2)
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Usuário: {user_completo}')
+                    window.Refresh()
+                    time.sleep(3)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        '')
+                    time.sleep(1)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
+                    time.sleep(3)
+                    d.xpath('//android.view.View[@content-desc="Avançar"]').click()
+                    time.sleep(3)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        f'+48{num}')
+                    time.sleep(1)
+                    d.xpath('//android.view.View[@content-desc="Avançar"]').click()
+                    new_acc = d(resourceId='android:id/button2')
+                    if new_acc.exists(timeout=10):
+                        d(resourceId='android:id/button2').click()
+                        time.sleep(2)
+                    time.sleep(5)
+                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    if restricao.exists and tentativa is True:
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
+                        window.Refresh()
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Já foi feita uma tentativa. Apagando número.')
+                        window.Refresh()
+                        tentativa = False
+
+                        d.app_start('pl.rs.sip.softphone.newapp')
+                        time.sleep(4)
+                        d.xpath(
+                            '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[1]/androidx.appcompat.widget.LinearLayoutCompat').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
+                        window.Refresh()
+                        try:
+                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                                        stdout=subprocess.DEVNULL,
+                                        stderr=subprocess.DEVNULL, check=True, shell=True)
+
+
+                        except:
+                            pass
+                        try:
+                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                                        stdout=subprocess.DEVNULL,
+                                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                        except:
+                            pass
+
+                        conteudo = config['vpn']
+                        if conteudo == "AVG":
+                            vpn_avg()
+                        elif conteudo == "SurfShark":
+                            vpn_surf()
+                        elif conteudo == "Nenhuma":
+                            nenhuma_vpn()
+                        elif conteudo == "Avast":
+                            vpn_avast()
+                        elif conteudo == "ExpressVPN":
+                            vpn_express()
+                        elif conteudo == "PiaVPN":
+                            vpn_pia()
+                        elif conteudo == "BetterNet":
+                            vpn_better()
+                        elif conteudo == "CyberGhost":
+                            vpn_cyberghost()
+                        elif conteudo == "NordVPN":
+                            vpn_nord()
+                        elif conteudo == "HotspotShield":
+                            vpn_hotspotshield()
+                        elif conteudo == "WindscribeVPN":
+                            vpn_windscribe()
+                        elif conteudo == "HmaVPN":
+                            vpn_hma()
+                        else:
+                            window['output'].print(
+                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                            window.Refresh()
+                        raise Exception('skip')
+
+                    elif restricao.exists and tentativa is False:
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
+                        window.Refresh()
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Tentando mais uma vez.')
+                        window.Refresh()
+                        tentativa = True
+                        try:
+                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                                        stdout=subprocess.DEVNULL,
+                                        stderr=subprocess.DEVNULL, check=True, shell=True)
+
+
+                        except:
+                            pass
+                        try:
+                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                                        stdout=subprocess.DEVNULL,
+                                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                        except:
+                            pass
+                        try:
+                            conteudo = config['vpn']
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                            raise Exception('skip')
+                        except:
+                            raise Exception('skip')
+                    
+                    erro_novaconta = d.xpath('//android.view.View[@content-desc="Criar nova conta"]')
+                    if erro_novaconta.exists:
+                        d.xpath('//android.view.View[@content-desc="Criar nova conta"]').click()
+                    else:
+                        pass
+                    d.app_start('pl.rs.sip.softphone.newapp')
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
+                    window.Refresh()
+
+                    time.sleep(20)
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
+                    window.Refresh()
+                    try:
+                        cod = d(resourceId='pl.rs.sip.softphone.newapp:id/message').get_text(timeout=80)
+
+                    except:
+                        codigo_não_recebido_seguidos += 1
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Código não recebido.')
+                        window.Refresh()
+                        d.app_start('pl.rs.sip.softphone.newapp')
+                        time.sleep(4)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
+                        time.sleep(1)
+                        d.xpath(
+                            '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[1]/androidx.appcompat.widget.LinearLayoutCompat').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
+                        window.Refresh()
+                        try:
+                            conteudo = config['vpn']
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                            continue
+                        except:
+                            pass
+                    codigo = re.sub('[^0-9]', '', cod)[:6]
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Codigo recebido: {codigo}')
+                    window.Refresh()
+                    codigo_não_recebido_seguidos = 0
+                    d.app_start('com.instagram.android')
+                    time.sleep(5)
+                    
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        codigo)
+                    # time.sleep(100)
+                    d.xpath('//android.view.View[@content-desc="Avançar"]').click()
+                    time.sleep(4)
+
                 else:
+                    layout_usado = 'layout_normal'
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout normal encontrado.')
+                    window.Refresh()
+                    #raise Exception('Manutenção.')
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
@@ -13975,7 +14252,8 @@ def executar_2nr_insta():
                     if new_acc.exists(timeout=10):
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
-                    restricao = d.xpath('//android.view.View[@content-desc="Cadastrar-se com o email"]')
+                    time.sleep(5)
+                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -14556,7 +14834,8 @@ def executar_2nr_insta():
                                     window['output'].print(
                                         "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                                     window.Refresh()
-                            except:
+                            except Exception as e:
+                                raise Exception('skip')
                                 sms = True
                                 continue
                     else:
@@ -14769,8 +15048,8 @@ def executar_2nr_insta():
                                     window['output'].print(
                                         "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                                     window.Refresh()
-                            except:
-                                sms = True
+                            except Exception as e:
+                                raise Exception('skip')
                                 continue
                 except Exception as e:
                     print(e)
@@ -14803,6 +15082,7 @@ def executar_2nr_insta():
                             "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                         window.Refresh()
                     sms = True
+                    raise Exception('skip')
                 while sms is False:
                     try:
                         time.sleep(3)
@@ -14901,8 +15181,8 @@ def executar_2nr_insta():
                                         "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                                     window.Refresh()
 
-                            except:
-                                sms = True
+                            except Exception as e:
+                                raise Exception('skip')
                         d(resourceId='com.instagram.android:id/button_text').click()
                         # Clicar em concluir cadastro
                         time.sleep(3)
@@ -15105,38 +15385,42 @@ def executar_2nr_insta():
                                         "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                                     window.Refresh()
 
-                            except:
+                            except Exception as e:
                                 sms = True
-                                try:
-                                    d.screenshot('ultimo_erro.png')
-                                except Exception as e:
-                                    print(e)
-                                    pass
+                                if not e == 'skip' or not e == 'Manutenção.':
+                                    try:
+                                        d.screenshot(f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
+                                    except Exception as e:
+                                        print(e)
+                                        pass
                     except Exception as e:
                         print(e)
-                        try:
-                            d.screenshot('ultimo_erro.png')
-                        except Exception as e:
-                            print(e)
-                            pass
+                        if not e == 'skip' or not e == 'Manutenção.':
+                            try:
+                                d.screenshot(f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
+                            except Exception as e:
+                                print(e)
+                                pass
                         sms = True
 
 
             except Exception as e:
                 print(e)
-                try:
-                    d.screenshot('ultimo_erro.png')
-                except Exception as e:
-                    print(e)
-                    pass
+                if not e == 'skip' or not e == 'Manutenção.':
+                    try:
+                        d.screenshot(f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
+                    except Exception as e:
+                        print(e)
+                        pass
 
         except Exception as e:
             print(e)
-            try:
-                d.screenshot('ultimo_erro.png')
-            except Exception as e:
-                print(e)
-                pass
+            if not e == 'skip' or not e == 'Manutenção.':
+                try:
+                    d.screenshot(f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
+                except Exception as e:
+                    print(e)
+                    pass
 
             pass
 
