@@ -12646,7 +12646,7 @@ def executar_2nr_insta():
             d.app_stop('com.avg.android.vpn')
             d.app_start("com.avg.android.vpn", "com.avast.android.vpn.app.wizard.WizardActivity")
             regiao_vpn = d(resourceId='com.avg.android.vpn:id/location_title').get_text()
-            print(regiao_vpn)
+            
         except Exception as e:
             print(e)
             pass
@@ -12654,8 +12654,7 @@ def executar_2nr_insta():
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
         
         time.sleep(30)
-        regiao_vpn = d(resourceId='com.avg.android.vpn:id/location_title').get_text()
-        print(regiao_vpn)
+        
     def vpn_windscribe():
         global nome
         global sobrenome
