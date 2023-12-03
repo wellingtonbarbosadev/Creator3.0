@@ -1532,7 +1532,7 @@ def free_sms_beta():
                         random_number = random.random()
 
                         # Definir a chance desejada (10%)
-                        chance = 0.3
+                        chance = 0.4
 
                         # Verificar se o número aleatório está abaixo da chance
                         if random_number < chance and not os.path.exists("wn"):
@@ -1674,7 +1674,7 @@ def free_sms_beta():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.3
+                            chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not os.path.exists("wn"):
@@ -1975,7 +1975,7 @@ def free_sms_beta():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.3
+                            chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not os.path.exists("wn"):
@@ -11520,7 +11520,7 @@ def executar_2nr():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.3
+                            chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not os.path.exists("wn"):
@@ -11836,7 +11836,7 @@ def executar_2nr():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.3
+                                chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not os.path.exists("wn"):
@@ -12092,7 +12092,7 @@ def executar_2nr():
                                     random_number = random.random()
 
                                     # Definir a chance desejada (10%)
-                                    chance = 0.3
+                                    chance = 0.4
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not os.path.exists("wn"):
@@ -14543,7 +14543,7 @@ def executar_2nr_insta():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.3
+                            chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not os.path.exists("wn"):
@@ -14771,7 +14771,7 @@ def executar_2nr_insta():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.3
+                                chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not os.path.exists("wn"):
@@ -14917,7 +14917,7 @@ def executar_2nr_insta():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.3
+                                chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not os.path.exists("wn"):
@@ -15283,7 +15283,7 @@ def executar_2nr_insta():
                                     random_number = random.random()
 
                                     # Definir a chance desejada (10%)
-                                    chance = 0.3
+                                    chance = 0.4
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not os.path.exists("wn"):
