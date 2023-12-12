@@ -13174,7 +13174,10 @@ def executar_2nr_insta():
                 user_completo = random.randint(1, len(user_completo1))
                 # Insira o ponto no índice aleatório
                 string_with_dot = user_completo1[:user_completo] + '_' + user_completo1[user_completo:]
-                user_completo = string_with_dot.lower()
+                user_completo_antigo = string_with_dot.lower()
+
+                escolha = random.choice(["_", "."])
+                user_completo = nome + escolha + sobrenome + str(numeros_concatenados) + ''.join(lista_letras)
                 ######################################################################
                 time.sleep(10)
                 layout1 = d.xpath('//android.view.View[@content-desc="Crie um nome de usuário"]')
@@ -15144,7 +15147,10 @@ def executar_2nr_insta():
                         user_completo = random.randint(1, len(user_completo1))
                         # Insira o ponto no índice aleatório
                         string_with_dot = user_completo1[:user_completo] + '_' + user_completo1[user_completo:]
-                        user_completo = string_with_dot.lower()
+                        user_completo_antigo = string_with_dot.lower()
+
+                        escolha = random.choice(["_", "."])
+                        user_completo = nome + escolha + sobrenome + str(numeros_concatenados) + ''.join(lista_letras)
                         print(user_completo)
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Usuário: ' + user_completo)
                         window.Refresh()
