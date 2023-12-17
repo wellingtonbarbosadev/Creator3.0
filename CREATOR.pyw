@@ -20432,7 +20432,7 @@ while True:
                 if user_mysql == 'wn3':
                     estado_user = True
                 else:
-                    estado_user = False
+                    estado_user = True
                 try:
                     with open("config2nr.json", "r") as f:
                         config = json.load(f)
