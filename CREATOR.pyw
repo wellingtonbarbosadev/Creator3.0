@@ -14386,6 +14386,12 @@ def executar_2nr_insta():
                         d.xpath('//android.view.View[@content-desc="Criar nova conta"]').click()
                     else:
                         pass
+                    time.sleep(3)
+                    selecionar_sms = d.xpath('//android.view.View[@content-desc="Enviar código por SMS"]')
+                    if selecionar_sms.exists:
+                        selecionar_sms.click()
+                        time.sleep(1)
+                        d.xpath('//android.view.View[@content-desc="Enviar código"]').click()
                     d.app_start('pl.rs.sip.softphone.newapp')
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
                     window.Refresh()
