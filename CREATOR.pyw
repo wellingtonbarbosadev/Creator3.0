@@ -18076,7 +18076,21 @@ def executar_creator_2nr():
                         d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
                         d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
                         d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
-
+                        time.sleep(5)
+                        email_existente = d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk')
+                        if not email_existente:
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email já utilizado.')
+                            window.Refresh()
+                            email_real = email
+                            log, dominio = email_real.split('@')
+                            numero_aleatorio = random.randint(0, 9999)
+                            email = f'{log}+{numero_aleatorio:04}@{dominio}'
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Novo email: {email}')
+                            window.Refresh()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text('')
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                            time.sleep(10)
                         # use with address and token to reuse an existing inbox
 
                         time.sleep(2)
@@ -18110,7 +18124,7 @@ def executar_creator_2nr():
                                 break
                             else:
                                 tentativa += 1
-                                if tentativa == 10:
+                                if tentativa == 30:
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
                                     window.Refresh()
                                     raise Exception('Email não chegou.')
@@ -18495,20 +18509,21 @@ def executar_creator_2nr():
                                     print(f"Falha na requisição. Código de status: {response.status_code}")
                             except requests.exceptions.RequestException as e:
                                 print(f"Erro na requisição: {e}")
-                        def listener(message):
-                            global nome
-                            global sobrenome
-                            global cod
-                            if '2nr' in message['subject']:
+                        subject = False
+                        while subject == False:
+                            for mail in inbox.mails:
+                                cod = mail.subject
+                                print(mail.subject)
+                                if '2nr' in mail.subject:
+                                    print(mail.content)
+                                    urls = re.findall("(?P<url>https?://[^\s]+)",
+                                                    mail.content if mail.content else mail.content)
 
-                                urls = re.findall("(?P<url>https?://[^\s]+)",
-                                                message['text'] if message['text'] else message['html'])
-
-                                # Acessar cada URL
-                                for url in urls:
-                                    make_request(url)
-                                    time.sleep(0.5)
-                                subject = True
+                                    # Acessar cada URL
+                                    for url in urls:
+                                        make_request(url)
+                                        time.sleep(0.5)
+                                    subject = True
 
                         
                     troca_ip += 1
@@ -19079,7 +19094,21 @@ def executar_creator_2nr():
                         d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
                         d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
                         d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
-
+                        time.sleep(5)
+                        email_existente = d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk')
+                        if not email_existente:
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email já utilizado.')
+                            window.Refresh()
+                            email_real = email
+                            log, dominio = email_real.split('@')
+                            numero_aleatorio = random.randint(0, 9999)
+                            email = f'{log}+{numero_aleatorio:04}@{dominio}'
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Novo email: {email}')
+                            window.Refresh()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text('')
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                            time.sleep(10)
                         # use with address and token to reuse an existing inbox
 
                         time.sleep(2)
@@ -19113,7 +19142,7 @@ def executar_creator_2nr():
                                 break
                             else:
                                 tentativa += 1
-                                if tentativa == 10:
+                                if tentativa == 50:
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
                                     window.Refresh()
                                     raise Exception('Email não chegou.')
@@ -19496,20 +19525,21 @@ def executar_creator_2nr():
                                     print(f"Falha na requisição. Código de status: {response.status_code}")
                             except requests.exceptions.RequestException as e:
                                 print(f"Erro na requisição: {e}")
-                        def listener(message):
-                            global nome
-                            global sobrenome
-                            global cod
-                            if '2nr' in message['subject']:
+                        subject = False
+                        while subject == False:
+                            for mail in inbox.mails:
+                                cod = mail.subject
+                                print(mail.subject)
+                                if '2nr' in mail.subject:
+                                    print(mail.content)
+                                    urls = re.findall("(?P<url>https?://[^\s]+)",
+                                                    mail.content if mail.content else mail.content)
 
-                                urls = re.findall("(?P<url>https?://[^\s]+)",
-                                                message['text'] if message['text'] else message['html'])
-
-                                # Acessar cada URL
-                                for url in urls:
-                                    make_request(url)
-                                    time.sleep(0.5)
-                                subject = True
+                                    # Acessar cada URL
+                                    for url in urls:
+                                        make_request(url)
+                                        time.sleep(0.5)
+                                    subject = True
 
                     
                         
