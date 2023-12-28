@@ -6740,7 +6740,7 @@ def free_sms_beta3():
 
             pass
 
-def free_sms_beta_receive_smss():
+def receive_smss():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
     senha = config['senha']
@@ -11753,7 +11753,7 @@ def quackr_io():
                         chrome_options.add_argument("--disable-gpu")
                         chrome_options.add_argument("--no-sandbox")
                         chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
-                        chrome_options.add_extension('./storage/adblock.crx')
+                        chrome_options.add_extension('.\\storage\\adblock.crx')
                         chrome_options.page_load_strategy = 'eager'
                         # Configurando o Selenium para usar o Chrome Driver local
                         service = Service(executable_path=chromedriver_path)
@@ -11762,7 +11762,16 @@ def quackr_io():
                         chrome.set_window_size(800,2000)
                         chrome.execute_script("document.body.style.zoom='50%'")
                         
-                        time.sleep(2)
+                        time.sleep(7)
+                        agree_button = WebDriverWait(chrome, 5).until(
+                            EC.presence_of_element_located((By.XPATH, "//button[.//span[contains(text(), 'AGREE')]]"))
+                        )
+
+                        # Se o elemento for encontrado, clique nele
+                        if agree_button:
+                            chrome.execute_script("arguments[0].click();", agree_button)
+                        else:
+                            pass
                         teste = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, "/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[1]/button")))
                         chrome.execute_script("arguments[0].click();", teste)
                         import random
@@ -11902,6 +11911,10 @@ def quackr_io():
                     tentativa = 0
                     try:
                         while not encontrado and tentativa < 6:
+                            if "#google_vignette" in chrome.current_url:
+                                chrome.refresh()
+                                chrome.execute_script("document.body.style.zoom='50%'")
+                                time.sleep(3)
                             elemento = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[3]'))).text
                             #print(elemento)
                             time_second = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[1]'))).text
@@ -29549,6 +29562,8 @@ while True:
 
                     # Define o layout da janela de diálogo
                     lista_site = ['quackr.io', 'Em breve']
+                    if user_mysql == "wn3":
+                        lista_site.append('receive-smss.com')
                     dialog_layout = [
                         [sg.Text('Provedor: ', font=('Open Sans', 12)),
                          sg.Combo(lista_site, default_value=config2.get("site_escolhido", ""), readonly=True, key='-site_escolhido-')],
@@ -29580,6 +29595,11 @@ while True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Quackr.io selecionado.')
                         window.Refresh()
                         minha_thread = threading.Thread(target=quackr_io)
+                        minha_thread.start()
+                    if site_escolhido == "receive-smss.com":
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] receive-smss.com selecionado.')
+                        window.Refresh()
+                        minha_thread = threading.Thread(target=receive_smss)
                         minha_thread.start()
             if event == 'clear':
                 window['output'].update('')
