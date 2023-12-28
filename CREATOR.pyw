@@ -11747,12 +11747,12 @@ def quackr_io():
                         from selenium.webdriver.support import expected_conditions as EC
                         url = "https://quackr.io/temporary-phone-number-generator/"
 
-                        chromedriver_path = '.\\chrome-win\\chromedriver.exe'
+                        chromedriver_path = '.\\driver\\chromedriver.exe'
                         chrome_options = uc.ChromeOptions()
                         #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
                         chrome_options.add_argument("--disable-gpu")
                         chrome_options.add_argument("--no-sandbox")
-                        chrome_options.binary_location = '.\\chrome-win\\chrome.exe'
+                        chrome_options.binary_location = '.\\driver\\chrome.exe'
                         chrome_options.add_extension('./storage/adblock.crx')
                         chrome_options.page_load_strategy = 'eager'
                         # Configurando o Selenium para usar o Chrome Driver local
