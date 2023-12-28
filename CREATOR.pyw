@@ -2,8 +2,11 @@ from genericpath import exists
 import json
 from socket import timeout
 from tkinter import FALSE
+import os
 from types import EllipsisType
 import unicodedata
+
+caminho_atual = os.path.dirname(__file__)
 
 letras = 'abcdefghijklmnopqrstuvwxyz'
 
@@ -9989,8 +9992,8 @@ def quackr_io():
     pasta_destino = './storage/driver/'
 
     baixar_arquivo(url, caminho_arquivo, pasta_destino)
-    if os.path.exists(file_path):
-        result = f"O arquivo 'adblock.crx' já existe em '{file_path}'."
+    if os.path.exists("./storage/adblock/"):
+        result = f"A pasta 'adblock' já existe em '{file_path}'."
     else:
         # URL para download
         url = 'https://www.dropbox.com/scl/fi/2tu2g6ulqwr2xk20kut1x/adblock.crx?rlkey=55rysc1sspa7t81ldybg8t6iy&dl=1'
@@ -10001,6 +10004,35 @@ def quackr_io():
             with open(file_path, 'wb') as file:
                 file.write(response.content)
             print("Arquivo 'adblock.crx' baixado e salvo em './storage/adblock.crx'.")
+            # Caminho do arquivo original (altere para o seu caminho de arquivo)
+            caminho_original = './storage/adblock.crx'
+            novo_caminho = './storage/adblock.zip'
+
+            # Renomear o arquivo
+            os.rename(caminho_original, novo_caminho)
+
+            # Caminho do arquivo zip
+            caminho_zip = './storage/adblock.zip'
+
+            # Diretório de destino para extrair
+            diretorio_destino = './storage/adblock/'
+
+            # Remover um arquivo anterior, se existir
+            arquivo_antigo = './storage/adblock'
+            if os.path.exists(arquivo_antigo):
+                os.remove(arquivo_antigo)
+
+            # Criar o diretório de destino se ele não existir
+            if not os.path.exists(diretorio_destino):
+                os.makedirs(diretorio_destino)
+
+            # Extrair o arquivo zip
+            with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+                zip_ref.extractall(diretorio_destino)
+
+            print("Arquivo extraído com sucesso!")
+            os.remove('./storage/adblock.zip')
+            
         else:
             result = "Não foi possível baixar o arquivo. Status Code: " + str(response.status_code)
     # RANGE_NAME = 'contas!A:D'
@@ -11755,19 +11787,24 @@ def quackr_io():
                         chrome_options.add_argument('--ignore-certificate-errors')
                         chrome_options.add_argument("--no-sandbox")
                         chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
-                        chrome_options.add_extension('.\\storage\\adblock.crx')
+                        #chrome_options.add_extension('.\\storage\\adblock.crx')
+                        chrome_options.add_argument(f"--load-extension={caminho_atual}\\storage\\adblock\\")
                         chrome_options.page_load_strategy = 'eager'
+
                         # Configurando o Selenium para usar o Chrome Driver local
                         service = Service(executable_path=chromedriver_path)
-                        chrome = uc.Chrome(service=service, headless=False, version_main=116, options=chrome_options)
+                        chrome = uc.Chrome(service=service, headless=True, version_main=116, options=chrome_options)
                         chrome.get(url)
                         chrome.set_window_size(800,2000)
                         chrome.execute_script("document.body.style.zoom='50%'")
                         
                         time.sleep(7)
-                        agree_button = WebDriverWait(chrome, 5).until(
-                            EC.presence_of_element_located((By.XPATH, "//button[.//span[contains(text(), 'AGREE')]]"))
-                        )
+                        try:
+                            agree_button = WebDriverWait(chrome, 5).until(
+                                EC.presence_of_element_located((By.XPATH, "//button[.//span[contains(text(), 'AGREE')]]"))
+                            )
+                        except:
+                            agree_button = False
 
                         # Se o elemento for encontrado, clique nele
                         if agree_button:
