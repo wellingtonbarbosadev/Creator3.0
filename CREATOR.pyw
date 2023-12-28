@@ -9976,8 +9976,6 @@ def quackr_io():
         with open(caminho_arquivo, 'wb') as file:
             for dados in resposta.iter_content(chunk_size=4096):
                 file.write(dados)
-                sys.stdout.write('\r{}%'.format(file.tell() * 100 / tamanho_total))
-                sys.stdout.flush()
         
         # Extrai o arquivo
         with zipfile.ZipFile(caminho_arquivo, 'r') as zip_ref:
