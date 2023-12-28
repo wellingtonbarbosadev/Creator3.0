@@ -11751,6 +11751,8 @@ def quackr_io():
                         chrome_options = uc.ChromeOptions()
                         #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
                         chrome_options.add_argument("--disable-gpu")
+                        chrome_options.add_argument('--ignore-ssl-errors=yes')
+                        chrome_options.add_argument('--ignore-certificate-errors')
                         chrome_options.add_argument("--no-sandbox")
                         chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
                         chrome_options.add_extension('.\\storage\\adblock.crx')
