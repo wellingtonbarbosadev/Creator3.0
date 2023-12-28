@@ -11757,7 +11757,7 @@ def quackr_io():
                         chrome_options.page_load_strategy = 'eager'
                         # Configurando o Selenium para usar o Chrome Driver local
                         service = Service(executable_path=chromedriver_path)
-                        chrome = uc.Chrome(service=service, headless=True, version_main=116, options=chrome_options)
+                        chrome = uc.Chrome(service=service, headless=False, version_main=116, options=chrome_options)
                         chrome.get(url)
                         chrome.set_window_size(800,2000)
                         chrome.execute_script("document.body.style.zoom='50%'")
@@ -11795,6 +11795,8 @@ def quackr_io():
                         
                     except Exception as e:
                         print(e)
+                        print("Aguardando 5 minutos")
+                        time.sleep(300)
                         raise Exception('erro no navegador')
                         pass
                     d.xpath(
