@@ -386,12 +386,12 @@ contagem = 0
 import subprocess
 
 try:
-    comando = f"adb connect 127.0.0.1:{porta}"
+    comando = f"adb connect {porta}"
     subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-    subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+    subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
-    subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server',
+    subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
 except:
@@ -485,7 +485,7 @@ def free_sms_beta2():
         subprocess.run(['deactivate'], shell=True)
         from webdriver_manager.chrome import ChromeDriverManager
 
-    d = u2.connect(f'127.0.0.1:{porta}')
+    d = u2.connect(f'{porta}')
     import os
     import time
     import requests
@@ -540,15 +540,15 @@ def free_sms_beta2():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -571,10 +571,10 @@ def free_sms_beta2():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -586,7 +586,7 @@ def free_sms_beta2():
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
         time.sleep(5)
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -600,15 +600,15 @@ def free_sms_beta2():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -617,7 +617,7 @@ def free_sms_beta2():
             d.app_start("com.privateinternetaccess.android", ".ui.LauncherActivity")
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
@@ -635,15 +635,15 @@ def free_sms_beta2():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -665,9 +665,9 @@ def free_sms_beta2():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -693,17 +693,17 @@ def free_sms_beta2():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -725,14 +725,14 @@ def free_sms_beta2():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -759,7 +759,7 @@ def free_sms_beta2():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect'))).click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -792,15 +792,15 @@ def free_sms_beta2():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -824,9 +824,9 @@ def free_sms_beta2():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -848,9 +848,9 @@ def free_sms_beta2():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -873,9 +873,9 @@ def free_sms_beta2():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -904,35 +904,35 @@ def free_sms_beta2():
     window.Refresh()
 
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
     except:
         pass
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
-    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
+    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
     #               stderr=subprocess.DEVNULL)
 
     try:
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
     except Exception as e:
         pass
@@ -977,7 +977,7 @@ def free_sms_beta2():
             except:
                 pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
 
 
@@ -985,7 +985,7 @@ def free_sms_beta2():
             pass
         gerar_id()
         android_id = gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         stop = False
         try:
             d.app_start('com.instagram.android')
@@ -998,7 +998,7 @@ def free_sms_beta2():
             except:
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Página estática.')
                 window.Refresh()
-                subprocess.run(f'uiautomator2 -s 127.0.0.1:{porta} uninstall com.github.uiautomator',
+                subprocess.run(f'uiautomator2 -s {porta} uninstall com.github.uiautomator',
                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
                 stop = True
                 conteudo = config['vpn']
@@ -1233,7 +1233,7 @@ def free_sms_beta2():
             except Exception as e:
                 print('_____________________________________')
                 try:
-                    subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                    subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                    stdout=subprocess.DEVNULL,
                                    stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -1262,7 +1262,7 @@ def free_sms_beta2():
                 except:
                     pass
                 try:
-                    subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                    subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                    stdout=subprocess.DEVNULL,
                                    stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -1293,7 +1293,7 @@ def free_sms_beta2():
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                 window.Refresh()
                 try:
-                    subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                    subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                    stdout=subprocess.DEVNULL,
                                    stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -1805,7 +1805,7 @@ def free_sms_beta2():
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                     window.Refresh()
                     seguido = False
-                    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                     # Clicar no botão de perfil
 
                     time.sleep(3)
@@ -2182,7 +2182,7 @@ def free_sms():
         import requests
         time.sleep(10)
         import uiautomator2 as u2
-    d = u2.connect(f'127.0.0.1:{porta}')
+    d = u2.connect(f'{porta}')
     from selenium.webdriver.common.by import By
     from selenium.webdriver.support.ui import WebDriverWait
     from selenium.webdriver.support import expected_conditions as EC
@@ -2214,15 +2214,15 @@ def free_sms():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -2242,14 +2242,14 @@ def free_sms():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -2267,15 +2267,15 @@ def free_sms():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -2289,7 +2289,7 @@ def free_sms():
         time.sleep(5)
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
 
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -2303,15 +2303,15 @@ def free_sms():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -2321,7 +2321,7 @@ def free_sms():
             d.app_start('com.privateinternetaccess.android')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
@@ -2339,15 +2339,15 @@ def free_sms():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -2357,7 +2357,7 @@ def free_sms():
             d.app_start('com.expressvpn.vpn')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.expressvpn.vpn:id/obiButton').click()
@@ -2376,14 +2376,14 @@ def free_sms():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -2396,7 +2396,7 @@ def free_sms():
             pass
         time.sleep(10)
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -2412,15 +2412,15 @@ def free_sms():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -2431,7 +2431,7 @@ def free_sms():
         except:
             pass
         time.sleep(15)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -2447,14 +2447,14 @@ def free_sms():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -2478,7 +2478,7 @@ def free_sms():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -2511,15 +2511,15 @@ def free_sms():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -2537,7 +2537,7 @@ def free_sms():
         time.sleep(2)
         d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
@@ -2551,14 +2551,14 @@ def free_sms():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -2568,7 +2568,7 @@ def free_sms():
             d.app_start("com.avg.android.vpn", "com.avast.android.vpn.app.wizard.WizardActivity")
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
 
         time.sleep(30)
@@ -2582,9 +2582,9 @@ def free_sms():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -2607,9 +2607,9 @@ def free_sms():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -2640,42 +2640,42 @@ def free_sms():
     console = Console()
 
     device = [
-        {'name': 'Bluestacks1', 'port': porta, 'udid': f'127.0.0.1:{porta}'},
+        {'name': 'Bluestacks1', 'port': porta, 'udid': f'{porta}'},
     ]
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
-    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
+    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
     #               stderr=subprocess.DEVNULL)
 
     try:
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
     except Exception as e:
         pass
@@ -2729,7 +2729,7 @@ def free_sms():
            print('Parando Thread')
            break
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -2770,10 +2770,10 @@ def free_sms():
                 except:
                     pass
                 try:
-                    comando = f"adb disconnect 127.0.0.1:{porta}"
+                    comando = f"adb disconnect {porta}"
                     subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
                     time.sleep(5)
-                    subprocess.run(f"adb connect 127.0.0.1:{porta}", stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                    subprocess.run(f"adb connect {porta}", stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                                 check=True, shell=True)
 
                 except:
@@ -2781,7 +2781,7 @@ def free_sms():
                 time.sleep(10)
             first = False
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                             stderr=subprocess.DEVNULL, check=True, shell=True)
 
 
@@ -2789,7 +2789,7 @@ def free_sms():
                 pass
             gerar_id()
             android_id = gerar_id()
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
             try:
 
                 try:
@@ -2848,7 +2848,7 @@ def free_sms():
                     except Exception as e:
                         print('_____________________________________')
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -2870,7 +2870,7 @@ def free_sms():
                         chrome.quit()
                         driver.quit()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -2897,7 +2897,7 @@ def free_sms():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -3401,7 +3401,7 @@ def free_sms():
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                             window.Refresh()
                             seguido = False
-                            # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                            # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                             # Clicar no botão de perfil
 
                             time.sleep(3)
@@ -3721,7 +3721,7 @@ def temporary_phone_number_com():
         import requests
         time.sleep(10)
         import uiautomator2 as u2
-    d = u2.connect(f'127.0.0.1:{porta}')
+    d = u2.connect(f'{porta}')
     import requests
     import hashlib
     import subprocess
@@ -3847,15 +3847,15 @@ def temporary_phone_number_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -3875,14 +3875,14 @@ def temporary_phone_number_com():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -3900,15 +3900,15 @@ def temporary_phone_number_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -3922,7 +3922,7 @@ def temporary_phone_number_com():
         time.sleep(5)
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
 
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -3936,15 +3936,15 @@ def temporary_phone_number_com():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -3954,7 +3954,7 @@ def temporary_phone_number_com():
             d.app_start('com.privateinternetaccess.android')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
@@ -3972,15 +3972,15 @@ def temporary_phone_number_com():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -3990,7 +3990,7 @@ def temporary_phone_number_com():
             d.app_start('com.expressvpn.vpn')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.expressvpn.vpn:id/obiButton').click()
@@ -4009,14 +4009,14 @@ def temporary_phone_number_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -4029,7 +4029,7 @@ def temporary_phone_number_com():
             pass
         time.sleep(10)
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -4045,15 +4045,15 @@ def temporary_phone_number_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -4064,7 +4064,7 @@ def temporary_phone_number_com():
         except:
             pass
         time.sleep(15)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -4080,14 +4080,14 @@ def temporary_phone_number_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -4111,7 +4111,7 @@ def temporary_phone_number_com():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -4144,15 +4144,15 @@ def temporary_phone_number_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -4170,7 +4170,7 @@ def temporary_phone_number_com():
         time.sleep(2)
         d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
@@ -4185,14 +4185,14 @@ def temporary_phone_number_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -4205,7 +4205,7 @@ def temporary_phone_number_com():
         except Exception as e:
             print(e)
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
         
         time.sleep(30)
@@ -4219,9 +4219,9 @@ def temporary_phone_number_com():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -4247,9 +4247,9 @@ def temporary_phone_number_com():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -4278,30 +4278,30 @@ def temporary_phone_number_com():
     window.Refresh()
 
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
-    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
+    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
     #               stderr=subprocess.DEVNULL)
 
     try:
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
     except Exception as e:
         pass
@@ -4396,7 +4396,7 @@ def temporary_phone_number_com():
         #    codigo_não_recebido_seguidos = 0
         try:
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -4405,13 +4405,13 @@ def temporary_phone_number_com():
                 pass
             try:
                 subprocess.run(
-                    f'adb -s 127.0.0.1:{porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
+                    f'adb -s {porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
             except:
                 pass
             gerar_id()
             android_id = gerar_id()
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
             window['output'].print(linha_ret)
             window.Refresh()
             try:
@@ -4561,7 +4561,7 @@ def temporary_phone_number_com():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -4569,7 +4569,7 @@ def temporary_phone_number_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -4613,7 +4613,7 @@ def temporary_phone_number_com():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -4621,7 +4621,7 @@ def temporary_phone_number_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -4788,7 +4788,7 @@ def temporary_phone_number_com():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -4796,7 +4796,7 @@ def temporary_phone_number_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -4840,7 +4840,7 @@ def temporary_phone_number_com():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -4848,7 +4848,7 @@ def temporary_phone_number_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -5014,7 +5014,7 @@ def temporary_phone_number_com():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -5022,7 +5022,7 @@ def temporary_phone_number_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -5066,7 +5066,7 @@ def temporary_phone_number_com():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -5074,7 +5074,7 @@ def temporary_phone_number_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -5316,7 +5316,7 @@ def temporary_phone_number_com():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -5324,7 +5324,7 @@ def temporary_phone_number_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -5368,7 +5368,7 @@ def temporary_phone_number_com():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -5376,7 +5376,7 @@ def temporary_phone_number_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -6460,7 +6460,7 @@ def temporary_phone_number_com():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                         window.Refresh()
                         seguido = False
-                        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                        # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                         # Clicar no botão de perfil
 
                         time.sleep(3)
@@ -6893,7 +6893,7 @@ def freereceivesms_com():
         import requests
         time.sleep(10)
         import uiautomator2 as u2
-    d = u2.connect(f'127.0.0.1:{porta}')
+    d = u2.connect(f'{porta}')
     import requests
     import hashlib
     import subprocess
@@ -7019,15 +7019,15 @@ def freereceivesms_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -7047,14 +7047,14 @@ def freereceivesms_com():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -7072,15 +7072,15 @@ def freereceivesms_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -7094,7 +7094,7 @@ def freereceivesms_com():
         time.sleep(5)
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
 
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -7108,15 +7108,15 @@ def freereceivesms_com():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -7126,7 +7126,7 @@ def freereceivesms_com():
             d.app_start('com.privateinternetaccess.android')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
@@ -7144,15 +7144,15 @@ def freereceivesms_com():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -7162,7 +7162,7 @@ def freereceivesms_com():
             d.app_start('com.expressvpn.vpn')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.expressvpn.vpn:id/obiButton').click()
@@ -7181,14 +7181,14 @@ def freereceivesms_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -7201,7 +7201,7 @@ def freereceivesms_com():
             pass
         time.sleep(10)
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -7217,15 +7217,15 @@ def freereceivesms_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -7236,7 +7236,7 @@ def freereceivesms_com():
         except:
             pass
         time.sleep(15)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -7252,14 +7252,14 @@ def freereceivesms_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -7283,7 +7283,7 @@ def freereceivesms_com():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -7316,15 +7316,15 @@ def freereceivesms_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -7342,7 +7342,7 @@ def freereceivesms_com():
         time.sleep(2)
         d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
@@ -7357,14 +7357,14 @@ def freereceivesms_com():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -7377,7 +7377,7 @@ def freereceivesms_com():
         except Exception as e:
             print(e)
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
         
         time.sleep(30)
@@ -7391,9 +7391,9 @@ def freereceivesms_com():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -7419,9 +7419,9 @@ def freereceivesms_com():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -7450,30 +7450,30 @@ def freereceivesms_com():
     window.Refresh()
 
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
-    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
+    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
     #               stderr=subprocess.DEVNULL)
 
     try:
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
     except Exception as e:
         pass
@@ -7568,7 +7568,7 @@ def freereceivesms_com():
         #    codigo_não_recebido_seguidos = 0
         try:
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -7577,13 +7577,13 @@ def freereceivesms_com():
                 pass
             try:
                 subprocess.run(
-                    f'adb -s 127.0.0.1:{porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
+                    f'adb -s {porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
             except:
                 pass
             gerar_id()
             android_id = gerar_id()
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
             window['output'].print(linha_ret)
             window.Refresh()
             try:
@@ -7733,7 +7733,7 @@ def freereceivesms_com():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -7741,7 +7741,7 @@ def freereceivesms_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -7785,7 +7785,7 @@ def freereceivesms_com():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -7793,7 +7793,7 @@ def freereceivesms_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -7960,7 +7960,7 @@ def freereceivesms_com():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -7968,7 +7968,7 @@ def freereceivesms_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -8012,7 +8012,7 @@ def freereceivesms_com():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -8020,7 +8020,7 @@ def freereceivesms_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -8186,7 +8186,7 @@ def freereceivesms_com():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -8194,7 +8194,7 @@ def freereceivesms_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -8238,7 +8238,7 @@ def freereceivesms_com():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -8246,7 +8246,7 @@ def freereceivesms_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -8488,7 +8488,7 @@ def freereceivesms_com():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -8496,7 +8496,7 @@ def freereceivesms_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -8540,7 +8540,7 @@ def freereceivesms_com():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -8548,7 +8548,7 @@ def freereceivesms_com():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -9616,7 +9616,7 @@ def freereceivesms_com():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                         window.Refresh()
                         seguido = False
-                        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                        # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                         # Clicar no botão de perfil
 
                         time.sleep(3)
@@ -10048,7 +10048,7 @@ def receive_smss():
         import requests
         time.sleep(10)
         import uiautomator2 as u2
-    d = u2.connect(f'127.0.0.1:{porta}')
+    d = u2.connect(f'{porta}')
     import requests
     import hashlib
     import subprocess
@@ -10099,15 +10099,15 @@ def receive_smss():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -10127,14 +10127,14 @@ def receive_smss():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -10152,15 +10152,15 @@ def receive_smss():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -10174,7 +10174,7 @@ def receive_smss():
         time.sleep(5)
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
 
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -10188,15 +10188,15 @@ def receive_smss():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -10206,7 +10206,7 @@ def receive_smss():
             d.app_start('com.privateinternetaccess.android')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
@@ -10224,15 +10224,15 @@ def receive_smss():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -10242,7 +10242,7 @@ def receive_smss():
             d.app_start('com.expressvpn.vpn')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.expressvpn.vpn:id/obiButton').click()
@@ -10261,14 +10261,14 @@ def receive_smss():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -10281,7 +10281,7 @@ def receive_smss():
             pass
         time.sleep(10)
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -10297,15 +10297,15 @@ def receive_smss():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -10316,7 +10316,7 @@ def receive_smss():
         except:
             pass
         time.sleep(15)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -10332,14 +10332,14 @@ def receive_smss():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -10363,7 +10363,7 @@ def receive_smss():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -10396,15 +10396,15 @@ def receive_smss():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -10422,7 +10422,7 @@ def receive_smss():
         time.sleep(2)
         d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
@@ -10437,14 +10437,14 @@ def receive_smss():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -10457,7 +10457,7 @@ def receive_smss():
         except Exception as e:
             print(e)
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
         
         time.sleep(30)
@@ -10471,9 +10471,9 @@ def receive_smss():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -10499,9 +10499,9 @@ def receive_smss():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -10530,30 +10530,30 @@ def receive_smss():
     window.Refresh()
 
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
-    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
+    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
     #               stderr=subprocess.DEVNULL)
 
     try:
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
     except Exception as e:
         pass
@@ -10648,7 +10648,7 @@ def receive_smss():
         #    codigo_não_recebido_seguidos = 0
         try:
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -10657,13 +10657,13 @@ def receive_smss():
                 pass
             try:
                 subprocess.run(
-                    f'adb -s 127.0.0.1:{porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
+                    f'adb -s {porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
             except:
                 pass
             gerar_id()
             android_id = gerar_id()
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
             window['output'].print(linha_ret)
             window.Refresh()
             try:
@@ -10813,7 +10813,7 @@ def receive_smss():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -10821,7 +10821,7 @@ def receive_smss():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -10865,7 +10865,7 @@ def receive_smss():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -10873,7 +10873,7 @@ def receive_smss():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -11040,7 +11040,7 @@ def receive_smss():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -11048,7 +11048,7 @@ def receive_smss():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -11092,7 +11092,7 @@ def receive_smss():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -11100,7 +11100,7 @@ def receive_smss():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -11266,7 +11266,7 @@ def receive_smss():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -11274,7 +11274,7 @@ def receive_smss():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -11318,7 +11318,7 @@ def receive_smss():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -11326,7 +11326,7 @@ def receive_smss():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -11568,7 +11568,7 @@ def receive_smss():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -11576,7 +11576,7 @@ def receive_smss():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -11620,7 +11620,7 @@ def receive_smss():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -11628,7 +11628,7 @@ def receive_smss():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -12746,7 +12746,7 @@ def receive_smss():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                         window.Refresh()
                         seguido = False
-                        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                        # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                         # Clicar no botão de perfil
 
                         time.sleep(3)
@@ -13174,7 +13174,7 @@ def quackr_io():
         import requests
         time.sleep(10)
         import uiautomator2 as u2
-    d = u2.connect(f'127.0.0.1:{porta}')
+    d = u2.connect(f'{porta}')
     import requests
     import hashlib
     import subprocess
@@ -13300,15 +13300,15 @@ def quackr_io():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -13328,14 +13328,14 @@ def quackr_io():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -13353,15 +13353,15 @@ def quackr_io():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -13375,7 +13375,7 @@ def quackr_io():
         time.sleep(5)
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
 
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -13389,15 +13389,15 @@ def quackr_io():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -13407,7 +13407,7 @@ def quackr_io():
             d.app_start('com.privateinternetaccess.android')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
@@ -13425,15 +13425,15 @@ def quackr_io():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -13443,7 +13443,7 @@ def quackr_io():
             d.app_start('com.expressvpn.vpn')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.expressvpn.vpn:id/obiButton').click()
@@ -13462,14 +13462,14 @@ def quackr_io():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -13482,7 +13482,7 @@ def quackr_io():
             pass
         time.sleep(10)
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -13498,15 +13498,15 @@ def quackr_io():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -13517,7 +13517,7 @@ def quackr_io():
         except:
             pass
         time.sleep(15)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -13533,14 +13533,14 @@ def quackr_io():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -13564,7 +13564,7 @@ def quackr_io():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -13597,15 +13597,15 @@ def quackr_io():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -13623,7 +13623,7 @@ def quackr_io():
         time.sleep(2)
         d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
@@ -13638,14 +13638,14 @@ def quackr_io():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -13658,7 +13658,7 @@ def quackr_io():
         except Exception as e:
             print(e)
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
         
         time.sleep(30)
@@ -13672,9 +13672,9 @@ def quackr_io():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -13700,9 +13700,9 @@ def quackr_io():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -13731,30 +13731,30 @@ def quackr_io():
     window.Refresh()
 
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
-    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
+    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
     #               stderr=subprocess.DEVNULL)
 
     try:
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
     except Exception as e:
         pass
@@ -13827,6 +13827,7 @@ def quackr_io():
     if not os.path.exists('./erros'):
         os.makedirs('./erros')
     codigo_não_recebido_seguidos = 0
+    criou = False
     while parar is False:
         if parar is True:
             print('Parando Thread')
@@ -13849,7 +13850,7 @@ def quackr_io():
         #    codigo_não_recebido_seguidos = 0
         try:
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -13858,13 +13859,13 @@ def quackr_io():
                 pass
             try:
                 subprocess.run(
-                    f'adb -s 127.0.0.1:{porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
+                    f'adb -s {porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
             except:
                 pass
             gerar_id()
             android_id = gerar_id()
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
             window['output'].print(linha_ret)
             window.Refresh()
             try:
@@ -14014,7 +14015,7 @@ def quackr_io():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -14022,7 +14023,7 @@ def quackr_io():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -14066,7 +14067,7 @@ def quackr_io():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -14074,7 +14075,7 @@ def quackr_io():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -14241,7 +14242,7 @@ def quackr_io():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -14249,7 +14250,7 @@ def quackr_io():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -14293,7 +14294,7 @@ def quackr_io():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -14301,7 +14302,7 @@ def quackr_io():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -14467,7 +14468,7 @@ def quackr_io():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -14475,7 +14476,7 @@ def quackr_io():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -14519,7 +14520,7 @@ def quackr_io():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -14527,7 +14528,7 @@ def quackr_io():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -14769,7 +14770,7 @@ def quackr_io():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -14777,7 +14778,7 @@ def quackr_io():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -14821,7 +14822,7 @@ def quackr_io():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -14829,7 +14830,7 @@ def quackr_io():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -15029,7 +15030,8 @@ def quackr_io():
                         from selenium.webdriver.support.ui import WebDriverWait
                         from selenium.webdriver.support import expected_conditions as EC
                         url = "https://quackr.io/temporary-phone-number-generator/"
-
+                        if criou:
+                            url = url_atual
                         chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
                         chrome_options = uc.ChromeOptions()
                         #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
@@ -15045,41 +15047,50 @@ def quackr_io():
                         # Configurando o Selenium para usar o Chrome Driver local
                         service = Service(executable_path=chromedriver_path)
                         chrome = uc.Chrome(service=service, headless=True, version_main=116, options=chrome_options)
-                        chrome.get(url)
-                        chrome.set_window_size(800,2000)
-                        chrome.execute_script("document.body.style.zoom='50%'")
-                        
-                        time.sleep(7)
-                        try:
-                            agree_button = WebDriverWait(chrome, 5).until(
-                                EC.presence_of_element_located((By.XPATH, "//button[.//span[contains(text(), 'AGREE')]]"))
-                            )
-                        except:
-                            agree_button = False
-
-                        # Se o elemento for encontrado, clique nele
-                        if agree_button:
-                            chrome.execute_script("arguments[0].click();", agree_button)
+                        if criou:
+                            chrome.get(url)
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Utilizando o mesmo número.')
+                            window.Refresh()
+                            chrome.set_window_size(800,2000)
+                            chrome.execute_script("document.body.style.zoom='50%'")
                         else:
-                            pass
-                        teste = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, "/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[1]/button")))
-                        chrome.execute_script("arguments[0].click();", teste)
-                        import random
-                        paises_num = ['31', '8', '7', '21', '28']
-                        pais = random.choice(paises_num)
-                        button_with_text = WebDriverWait(chrome, 20).until(
-                        EC.element_to_be_clickable((By.XPATH, f'/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[2]/div/a[{pais}]'))
-                        )
-                        # Clica no botão
-                        
-                        chrome.execute_script("arguments[0].click();", button_with_text)
-                        chrome.execute_script("document.body.style.zoom='50%'")
-                        chrome.execute_script("arguments[0].click();", WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
-                        (By.CLASS_NAME, 'button.is-success'))))
+                            chrome.get(url)
+                            chrome.set_window_size(800,2000)
+                            chrome.execute_script("document.body.style.zoom='50%'")
+                            
+                            time.sleep(7)
+                            try:
+                                agree_button = WebDriverWait(chrome, 5).until(
+                                    EC.presence_of_element_located((By.XPATH, "//button[.//span[contains(text(), 'AGREE')]]"))
+                                )
+                            except:
+                                agree_button = False
+
+                            # Se o elemento for encontrado, clique nele
+                            if agree_button:
+                                chrome.execute_script("arguments[0].click();", agree_button)
+                            else:
+                                pass
+                            teste = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, "/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[1]/button")))
+                            chrome.execute_script("arguments[0].click();", teste)
+                            import random
+                            paises_num = ['31', '8', '7', '21', '28']
+                            pais = random.choice(paises_num)
+                            button_with_text = WebDriverWait(chrome, 20).until(
+                            EC.element_to_be_clickable((By.XPATH, f'/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[2]/div/a[{pais}]'))
+                            )
+                            # Clica no botão
+                            
+                            chrome.execute_script("arguments[0].click();", button_with_text)
+                            chrome.execute_script("document.body.style.zoom='50%'")
+                            chrome.execute_script("arguments[0].click();", WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
+                            (By.CLASS_NAME, 'button.is-success'))))
                         num = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
                         (By.CSS_SELECTOR, 'h1[tooltip="Copied"]'))).text
                         chrome.execute_script("document.body.style.zoom='50%'")
+                        url_atual = chrome.current_url
                         print(num)
+                        criou = False
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número: {num}')
                         window.Refresh()
                         
@@ -15229,7 +15240,7 @@ def quackr_io():
                     except Exception as e:
                         print(e)
                         print('erro')
-                        time.sleep(30)
+                        chrome.save_screenshot('erro_navegador.png')
                         chrome.quit()
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Algum erro')
                         window.Refresh()
@@ -15345,6 +15356,7 @@ def quackr_io():
                 email = num
                 try:
                     if verificar.exists:
+                        criou = True
                         try:
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
                                                    text_color=('lime'))
@@ -15574,6 +15586,7 @@ def quackr_io():
                         time.sleep(40)
                         if verificar3.exists:
                             try:
+                                criou = True
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
                                                     text_color=('lime'))
                                 window.Refresh()
@@ -15704,6 +15717,7 @@ def quackr_io():
                         verificar = d(resourceId='com.instagram.android:id/profile_tab')
                         if verificar.exists:
                             try:
+                                criou = True
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
                                                     text_color=('lime'))
                                 window.Refresh()
@@ -15958,7 +15972,7 @@ def quackr_io():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                         window.Refresh()
                         seguido = False
-                        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                        # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                         # Clicar no botão de perfil
 
                         time.sleep(3)
@@ -16390,7 +16404,7 @@ def free_sms_lite():
         subprocess.run(['pip', 'install', 'webdriver-manager'])
         subprocess.run(['deactivate'], shell=True)
         from webdriver_manager.chrome import ChromeDriverManager
-    d = u2.connect(f'127.0.0.1:{porta}')
+    d = u2.connect(f'{porta}')
     import os
     import time
     import requests
@@ -16432,10 +16446,10 @@ def free_sms_lite():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -16447,7 +16461,7 @@ def free_sms_lite():
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
         time.sleep(5)
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -16461,15 +16475,15 @@ def free_sms_lite():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -16478,7 +16492,7 @@ def free_sms_lite():
             d.app_start("com.privateinternetaccess.android", ".ui.LauncherActivity")
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
@@ -16496,15 +16510,15 @@ def free_sms_lite():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -16526,9 +16540,9 @@ def free_sms_lite():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -16554,17 +16568,17 @@ def free_sms_lite():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -16586,14 +16600,14 @@ def free_sms_lite():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -16620,7 +16634,7 @@ def free_sms_lite():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect'))).click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -16653,15 +16667,15 @@ def free_sms_lite():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -16685,9 +16699,9 @@ def free_sms_lite():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -16709,9 +16723,9 @@ def free_sms_lite():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -16734,9 +16748,9 @@ def free_sms_lite():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -16765,26 +16779,26 @@ def free_sms_lite():
     window.Refresh()
 
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
     except:
         pass
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
@@ -16822,13 +16836,13 @@ def free_sms_lite():
             print('Parando Thread')
             break
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         gerar_id()
         android_id = gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
 
             window['output'].print(linha_ret)
@@ -16918,7 +16932,7 @@ def free_sms_lite():
             except Exception as e:
                 print('_____________________________________')
                 try:
-                    subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite',
+                    subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite',
                                    stdout=subprocess.DEVNULL,
                                    stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -16932,7 +16946,7 @@ def free_sms_lite():
             except:
                 chrome.quit()
                 try:
-                    subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite',
+                    subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite',
                                    stdout=subprocess.DEVNULL,
                                    stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -17023,7 +17037,7 @@ def free_sms_lite():
                 window.Refresh()
                 tentativa = True
                 try:
-                    subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite',
+                    subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite',
                                    stdout=subprocess.DEVNULL,
                                    stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -17471,7 +17485,7 @@ def free_sms_lite():
                     window.Refresh()
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                     window.Refresh()
-                    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                     # Clicar no botão de perfil
                     try:
                         time.sleep(3)
@@ -17740,7 +17754,7 @@ def insta_face_litee():
         import requests
         time.sleep(10)
         import uiautomator2 as u2
-    d = u2.connect(f'127.0.0.1:{porta}')
+    d = u2.connect(f'{porta}')
     import os
     import time
     import requests
@@ -17782,15 +17796,15 @@ def insta_face_litee():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -17814,15 +17828,15 @@ def insta_face_litee():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -17836,7 +17850,7 @@ def insta_face_litee():
         time.sleep(5)
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
 
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -17850,15 +17864,15 @@ def insta_face_litee():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -17868,7 +17882,7 @@ def insta_face_litee():
             d.app_start('com.privateinternetaccess.android')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
@@ -17886,15 +17900,15 @@ def insta_face_litee():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -17904,7 +17918,7 @@ def insta_face_litee():
             d.app_start('com.expressvpn.vpn')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.expressvpn.vpn:id/obiButton').click()
@@ -17923,14 +17937,14 @@ def insta_face_litee():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
@@ -17940,7 +17954,7 @@ def insta_face_litee():
             pass
         time.sleep(10)
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -17956,15 +17970,15 @@ def insta_face_litee():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -17975,7 +17989,7 @@ def insta_face_litee():
         except:
             pass
         time.sleep(15)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -17991,14 +18005,14 @@ def insta_face_litee():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -18022,7 +18036,7 @@ def insta_face_litee():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -18055,15 +18069,15 @@ def insta_face_litee():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -18081,7 +18095,7 @@ def insta_face_litee():
         time.sleep(2)
         d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
@@ -18095,14 +18109,14 @@ def insta_face_litee():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -18112,7 +18126,7 @@ def insta_face_litee():
             d.app_start('com.avg.android.vpn')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
 
         time.sleep(30)
@@ -18126,9 +18140,9 @@ def insta_face_litee():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -18151,9 +18165,9 @@ def insta_face_litee():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -18175,14 +18189,14 @@ def insta_face_litee():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -18204,26 +18218,26 @@ def insta_face_litee():
 
     num = 'InstaFace'
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
     except:
         pass
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
@@ -18265,20 +18279,20 @@ def insta_face_litee():
             break
         codigo = 0
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         gerar_id()
         android_id = gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            # subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm grant com.facebook.lite android.permission.READ_CONTACTS', stdout=subprocess.DEVNULL,
+            # subprocess.run(f'adb -s {porta} shell pm grant com.facebook.lite android.permission.READ_CONTACTS', stdout=subprocess.DEVNULL,
             #        stderr=subprocess.DEVNULL, shell=True)
             window['output'].print(linha_ret)
             window.Refresh()
@@ -18524,7 +18538,7 @@ def insta_face_litee():
                 window.Refresh()
 
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
             except:
                 pass
@@ -18759,7 +18773,7 @@ def insta_face_litee():
                     window.Refresh()
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                     window.Refresh()
-                    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                     # Clicar no botão de perfil
                     try:
                         time.sleep(3)
@@ -19080,15 +19094,15 @@ def criarporcima():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -19111,15 +19125,15 @@ def criarporcima():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -19134,7 +19148,7 @@ def criarporcima():
         WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.ID, 'hotspotshield.android.vpn:id/btnVpnConnect'))).click()
 
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -19148,15 +19162,15 @@ def criarporcima():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -19165,7 +19179,7 @@ def criarporcima():
             driver.start_activity("com.privateinternetaccess.android", ".ui.LauncherActivity")
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         WebDriverWait(driver, 5).until(
@@ -19185,15 +19199,15 @@ def criarporcima():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -19202,7 +19216,7 @@ def criarporcima():
             driver.start_activity("com.expressvpn.vpn", ".ui.SplashActivity")
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         WebDriverWait(driver, 5).until(
@@ -19223,14 +19237,14 @@ def criarporcima():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
@@ -19251,7 +19265,7 @@ def criarporcima():
         WebDriverWait(driver, 30).until(
             EC.element_to_be_clickable((By.ID, 'com.nordvpn.android:id/primary_quick_connect_button'))).click()
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -19267,15 +19281,15 @@ def criarporcima():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -19294,7 +19308,7 @@ def criarporcima():
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.ID, 'com.avg.android.vpn:id/view_switch'))).click()
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -19310,14 +19324,14 @@ def criarporcima():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -19344,7 +19358,7 @@ def criarporcima():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect'))).click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -19377,15 +19391,15 @@ def criarporcima():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -19405,7 +19419,7 @@ def criarporcima():
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.ID, 'de.mobileconcepts.cyberghost:id/button'))).click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
@@ -19419,14 +19433,14 @@ def criarporcima():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -19435,7 +19449,7 @@ def criarporcima():
             driver.start_activity("com.avg.android.vpn", "com.avast.android.vpn.app.wizard.WizardActivity")
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
 
         # time.sleep(10)
@@ -19456,49 +19470,49 @@ def criarporcima():
     console = Console()
 
     device = [
-        {'name': 'Bluestacks1', 'port': porta, 'udid': f'127.0.0.1:{porta}'},
+        {'name': 'Bluestacks1', 'port': porta, 'udid': f'{porta}'},
     ]
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
-    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
+    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
     #               stderr=subprocess.DEVNULL)
     try:
-        subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+        subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
 
     try:
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
     except Exception as e:
         print(e)
@@ -19579,14 +19593,14 @@ def criarporcima():
             num_rows = sum(1 for row in rows if regex.match(row[0]))
             window['total'].update(num_rows)
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
 
 
             except:
                 pass
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
             except Exception as e:
@@ -19718,7 +19732,7 @@ def criarporcima():
                     window.Refresh()
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                     window.Refresh()
-                    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                     # Clicar no botão de perfil
                     try:
                         time.sleep(3)
@@ -20025,9 +20039,9 @@ def executar_mailtm():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
@@ -20048,9 +20062,9 @@ def executar_mailtm():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
@@ -20063,7 +20077,7 @@ def executar_mailtm():
         WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.ID, 'hotspotshield.android.vpn:id/btnVpnConnect'))).click()
 
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -20077,16 +20091,16 @@ def executar_mailtm():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
             driver.start_activity("com.privateinternetaccess.android", ".ui.LauncherActivity")
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         WebDriverWait(driver, 5).until(
@@ -20107,16 +20121,16 @@ def executar_mailtm():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
             driver.start_activity("com.expressvpn.vpn", ".ui.SplashActivity")
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         WebDriverWait(driver, 5).until(
@@ -20137,9 +20151,9 @@ def executar_mailtm():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
@@ -20160,7 +20174,7 @@ def executar_mailtm():
         WebDriverWait(driver, 30).until(
             EC.element_to_be_clickable((By.ID, 'com.nordvpn.android:id/primary_quick_connect_button'))).click()
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -20176,15 +20190,15 @@ def executar_mailtm():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -20203,7 +20217,7 @@ def executar_mailtm():
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.ID, 'com.avg.android.vpn:id/view_switch'))).click()
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -20219,9 +20233,9 @@ def executar_mailtm():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -20248,7 +20262,7 @@ def executar_mailtm():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect'))).click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -20281,9 +20295,9 @@ def executar_mailtm():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -20301,7 +20315,7 @@ def executar_mailtm():
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.ID, 'de.mobileconcepts.cyberghost:id/button'))).click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
@@ -20314,16 +20328,16 @@ def executar_mailtm():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
             driver.start_activity("com.avg.android.vpn", "com.avast.android.vpn.app.wizard.WizardActivity")
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         # time.sleep(10)
@@ -20381,7 +20395,7 @@ def executar_mailtm():
             time.sleep(2)
             num = driver.find_elements(By.XPATH,
                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[*]/android.view.ViewGroup[3]/android.view.View')
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
             try:
                 WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH,
@@ -20667,7 +20681,7 @@ def executar_mailtm():
         while abc:
             global sms
             sms = True
-            # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+            # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
 
             try:
                 WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH,
@@ -20704,12 +20718,12 @@ def executar_mailtm():
                 gerar_email_firts_reg()
             except Exception as e:
                 print(e)
-                comando = f"adb connect 127.0.0.1:{porta}"
+                comando = f"adb connect {porta}"
                 subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-                subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, shell=True)
-                subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server',
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, shell=True)
 
@@ -20958,35 +20972,35 @@ def executar_mailtm():
     console = Console()
 
     device = [
-        {'name': 'Bluestacks1', 'port': porta, 'udid': f'127.0.0.1:{porta}'},
+        {'name': 'Bluestacks1', 'port': porta, 'udid': f'{porta}'},
     ]
-    comando = f"adb connect 127.0.0.1:{porta}"
+    comando = f"adb connect {porta}"
     subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-    subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test', stdout=subprocess.DEVNULL,
+    subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test', stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
-    subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
+    subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
-    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
+    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
     #               stderr=subprocess.DEVNULL)
     window.Refresh()
 
@@ -20995,7 +21009,7 @@ def executar_mailtm():
     cont = True
     while cont is True:
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -21024,19 +21038,19 @@ def executar_mailtm():
         num_rows = sum(1 for row in rows if regex.match(row[0]))
         window['total'].update(num_rows)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+            subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, shell=True)
         except:
             pass
         window.Refresh()
         # try:
-        #    subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        #    subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
         #                   stderr=subprocess.DEVNULL, check=True, shell=True)
         # except:
         #    pass
@@ -21060,10 +21074,10 @@ def executar_mailtm():
             driver.activate_app('com.instagram.lite')
             gerar_id()
             android_id = gerar_id()
-            # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+            # subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
             #               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
             time.sleep(5)
-            # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True,
+            # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True,
             #               stdout=subprocess.DEVNULL,
             #               stderr=subprocess.DEVNULL)
             error = driver.find_elements(By.XPATH,
@@ -21096,12 +21110,12 @@ def executar_mailtm():
             except Exception as e:
                 print(e)
                 sms = True
-                comando = f"adb connect 127.0.0.1:{porta}"
+                comando = f"adb connect {porta}"
                 subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-                subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, shell=True)
-                subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server',
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, shell=True)
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Erro não catalogado.')
@@ -21154,7 +21168,7 @@ def executar_mailtm():
                     window.Refresh()
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                     window.Refresh()
-                    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                     # Clicar no botão de perfil
                     try:
                         time.sleep(3)
@@ -21360,15 +21374,15 @@ def executar_mailtm():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterado para publico.')
                         window.Refresh()
                         time.sleep(0.5)
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_BACK',
+                        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, check=True, shell=True)
                         time.sleep(0.5)
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_BACK',
+                        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, check=True, shell=True)
                         time.sleep(0.5)
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_BACK',
+                        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, check=True, shell=True)
                         time.sleep(0.5)
@@ -21408,21 +21422,21 @@ def executar_mailtm():
                     sms = True
         except Exception as e:
             logger.error('Ocorreu um erro: %s', e)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+            subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server',
+            subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, shell=True)
-            comando = f"adb connect 127.0.0.1:{porta}"
+            comando = f"adb connect {porta}"
             subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+            subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server',
+            subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, shell=True)
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Erro não catalogado.')
@@ -21519,9 +21533,9 @@ def executar_minuteinbox():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
@@ -21542,9 +21556,9 @@ def executar_minuteinbox():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
@@ -21557,7 +21571,7 @@ def executar_minuteinbox():
         WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.ID, 'hotspotshield.android.vpn:id/btnVpnConnect'))).click()
 
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -21571,16 +21585,16 @@ def executar_minuteinbox():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
             driver.start_activity("com.privateinternetaccess.android", ".ui.LauncherActivity")
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         WebDriverWait(driver, 5).until(
@@ -21601,16 +21615,16 @@ def executar_minuteinbox():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
             driver.start_activity("com.expressvpn.vpn", ".ui.SplashActivity")
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         WebDriverWait(driver, 5).until(
@@ -21631,9 +21645,9 @@ def executar_minuteinbox():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
@@ -21654,7 +21668,7 @@ def executar_minuteinbox():
         WebDriverWait(driver, 30).until(
             EC.element_to_be_clickable((By.ID, 'com.nordvpn.android:id/primary_quick_connect_button'))).click()
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -21670,15 +21684,15 @@ def executar_minuteinbox():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -21697,7 +21711,7 @@ def executar_minuteinbox():
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.ID, 'com.avg.android.vpn:id/view_switch'))).click()
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -21713,9 +21727,9 @@ def executar_minuteinbox():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -21742,7 +21756,7 @@ def executar_minuteinbox():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect'))).click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -21775,9 +21789,9 @@ def executar_minuteinbox():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -21795,7 +21809,7 @@ def executar_minuteinbox():
         WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.ID, 'de.mobileconcepts.cyberghost:id/button'))).click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
@@ -21808,16 +21822,16 @@ def executar_minuteinbox():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
             driver.start_activity("com.avg.android.vpn", "com.avast.android.vpn.app.wizard.WizardActivity")
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         # time.sleep(10)
@@ -21873,7 +21887,7 @@ def executar_minuteinbox():
             time.sleep(2)
             num = driver.find_elements(By.XPATH,
                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[*]/android.view.ViewGroup[3]/android.view.View')
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
             try:
                 WebDriverWait(driver, 5).until(EC.element_to_be_clickable((By.XPATH,
@@ -22099,7 +22113,7 @@ def executar_minuteinbox():
         while abc:
             global sms
             sms = True
-            # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+            # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
 
             try:
                 WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH,
@@ -22135,12 +22149,12 @@ def executar_minuteinbox():
                     window.Refresh()
                 gerar_email_firts_reg()
             except Exception as e:
-                comando = f"adb connect 127.0.0.1:{porta}"
+                comando = f"adb connect {porta}"
                 subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-                subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, shell=True)
-                subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server',
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, shell=True)
 
@@ -22368,35 +22382,35 @@ def executar_minuteinbox():
     console = Console()
 
     device = [
-        {'name': 'Bluestacks1', 'port': porta, 'udid': f'127.0.0.1:{porta}'},
+        {'name': 'Bluestacks1', 'port': porta, 'udid': f'{porta}'},
     ]
-    comando = f"adb connect 127.0.0.1:{porta}"
+    comando = f"adb connect {porta}"
     subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-    subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test', stdout=subprocess.DEVNULL,
+    subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test', stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
-    subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
+    subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
-    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
+    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
     #               stderr=subprocess.DEVNULL)
     window.Refresh()
     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Iniciando criação.\n')
@@ -22404,7 +22418,7 @@ def executar_minuteinbox():
     cont = True
     while cont is True:
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -22432,17 +22446,17 @@ def executar_minuteinbox():
         num_rows = sum(1 for row in rows if regex.match(row[0]))
         window['total'].update(num_rows)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+        subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
         window.Refresh()
         # try:
-        #    subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        #    subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
         #                   stderr=subprocess.DEVNULL, check=True, shell=True)
         # except:
         #    pass
@@ -22466,10 +22480,10 @@ def executar_minuteinbox():
             driver.activate_app('com.instagram.lite')
             gerar_id()
             android_id = gerar_id()
-            # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+            # subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
             #               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
             time.sleep(5)
-            # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True,
+            # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True,
             #               stdout=subprocess.DEVNULL,
             #               stderr=subprocess.DEVNULL)
             error = driver.find_elements(By.XPATH,
@@ -22502,12 +22516,12 @@ def executar_minuteinbox():
             except Exception as e:
                 print(e)
                 sms = True
-                comando = f"adb connect 127.0.0.1:{porta}"
+                comando = f"adb connect {porta}"
                 subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-                subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, shell=True)
-                subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server',
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, shell=True)
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Erro não catalogado.')
@@ -22560,7 +22574,7 @@ def executar_minuteinbox():
                     window.Refresh()
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                     window.Refresh()
-                    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                     # Clicar no botão de perfil
                     try:
                         time.sleep(3)
@@ -22763,15 +22777,15 @@ def executar_minuteinbox():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterado para publico.')
                         window.Refresh()
                         time.sleep(0.5)
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_BACK',
+                        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, check=True, shell=True)
                         time.sleep(0.5)
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_BACK',
+                        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, check=True, shell=True)
                         time.sleep(0.5)
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_BACK',
+                        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, check=True, shell=True)
                         time.sleep(0.5)
@@ -22811,21 +22825,21 @@ def executar_minuteinbox():
                     sms = True
         except Exception as e:
             logger.error('Ocorreu um erro: %s', e)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+            subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server',
+            subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, shell=True)
-            comando = f"adb connect 127.0.0.1:{porta}"
+            comando = f"adb connect {porta}"
             subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+            subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, shell=True)
-            subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server',
+            subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, shell=True)
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Erro não catalogado.')
@@ -22893,7 +22907,7 @@ def executar_2nr():
         import requests
         time.sleep(10)
         import uiautomator2 as u2
-    d = u2.connect(f'127.0.0.1:{porta}')
+    d = u2.connect(f'{porta}')
     import os
     import time
     import requests
@@ -22933,15 +22947,15 @@ def executar_2nr():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -22961,14 +22975,14 @@ def executar_2nr():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -22986,15 +23000,15 @@ def executar_2nr():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -23008,7 +23022,7 @@ def executar_2nr():
         time.sleep(5)
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
 
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -23022,15 +23036,15 @@ def executar_2nr():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -23040,7 +23054,7 @@ def executar_2nr():
             d.app_start('com.privateinternetaccess.android')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
@@ -23058,15 +23072,15 @@ def executar_2nr():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -23076,7 +23090,7 @@ def executar_2nr():
             d.app_start('com.expressvpn.vpn')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.expressvpn.vpn:id/obiButton').click()
@@ -23095,14 +23109,14 @@ def executar_2nr():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
@@ -23112,7 +23126,7 @@ def executar_2nr():
             pass
         time.sleep(10)
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -23128,15 +23142,15 @@ def executar_2nr():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -23147,7 +23161,7 @@ def executar_2nr():
         except:
             pass
         time.sleep(15)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -23163,14 +23177,14 @@ def executar_2nr():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -23194,7 +23208,7 @@ def executar_2nr():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -23227,15 +23241,15 @@ def executar_2nr():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -23253,7 +23267,7 @@ def executar_2nr():
         time.sleep(2)
         d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
@@ -23267,14 +23281,14 @@ def executar_2nr():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -23284,7 +23298,7 @@ def executar_2nr():
             d.app_start("com.avg.android.vpn", "com.avast.android.vpn.app.wizard.WizardActivity")
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
 
         time.sleep(30)
@@ -23298,9 +23312,9 @@ def executar_2nr():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -23323,9 +23337,9 @@ def executar_2nr():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -23354,28 +23368,28 @@ def executar_2nr():
     window.Refresh()
 
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
 
     try:
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
     except Exception as e:
         print(e)
@@ -23433,7 +23447,7 @@ def executar_2nr():
 
         try:
             try:
-                subprocess.run(f'uiautomator2 -s 127.0.0.1:{porta} uninstall com.instagram.lite',
+                subprocess.run(f'uiautomator2 -s {porta} uninstall com.instagram.lite',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
             except Exception as e:
@@ -23478,14 +23492,14 @@ def executar_2nr():
                 time.sleep(60)
                 raise Exception('skip')
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
 
 
             except:
                 pass
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -23493,7 +23507,7 @@ def executar_2nr():
             except:
                 pass
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
             except Exception as e:
@@ -23506,17 +23520,17 @@ def executar_2nr():
 
                 gerar_id()
                 android_id = gerar_id()
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+                subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                                shell=True)
                 try:
                     subprocess.run(
-                        f'adb -s 127.0.0.1:{porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.READ_CONTACTS',
+                        f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.READ_CONTACTS',
                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
                     subprocess.run(
-                        f'adb -s 127.0.0.1:{porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.CAMERA',
+                        f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.CAMERA',
                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
                     subprocess.run(
-                        f'adb -s 127.0.0.1:{porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.RECORD_AUDIO',
+                        f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.RECORD_AUDIO',
                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
                     try:
                         subprocess.run(
@@ -23599,7 +23613,7 @@ def executar_2nr():
                         f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao clicar em login. Tentando novamente.')
                     window.Refresh()
                     subprocess.run(
-                        f'uiautomator2 -s 127.0.0.1:{porta} uninstall com.github.uiautomator',
+                        f'uiautomator2 -s {porta} uninstall com.github.uiautomator',
                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
                     raise Exception('Ocorreu um erro ao clicar em login.')
                 time.sleep(5)
@@ -23788,7 +23802,7 @@ def executar_2nr():
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                     window.Refresh()
                     try:
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite',
+                        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -23796,7 +23810,7 @@ def executar_2nr():
                     except:
                         pass
                     try:
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                        subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, check=True, shell=True)
                     except:
@@ -23842,7 +23856,7 @@ def executar_2nr():
                     window.Refresh()
                     tentativa = True
                     try:
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite',
+                        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -23850,7 +23864,7 @@ def executar_2nr():
                     except:
                         pass
                     try:
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                        subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, check=True, shell=True)
                     except:
@@ -24321,7 +24335,7 @@ def executar_2nr():
                     continue
                 if os.path.exists('teste'):
                     try:
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite',
+                        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, check=True, shell=True)
                     except:
@@ -24616,7 +24630,7 @@ def executar_2nr():
                             window.Refresh()
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                             window.Refresh()
-                            # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                            # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                             # Clicar no botão de perfil
                             try:
                                 time.sleep(3)
@@ -24914,7 +24928,7 @@ def executar_2nr_insta():
         import requests
         time.sleep(10)
         import uiautomator2 as u2
-    d = u2.connect(f'127.0.0.1:{porta}')
+    d = u2.connect(f'{porta}')
     import requests
     import hashlib
     import subprocess
@@ -24965,15 +24979,15 @@ def executar_2nr_insta():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -24993,14 +25007,14 @@ def executar_2nr_insta():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -25018,15 +25032,15 @@ def executar_2nr_insta():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -25040,7 +25054,7 @@ def executar_2nr_insta():
         time.sleep(5)
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
 
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -25054,15 +25068,15 @@ def executar_2nr_insta():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -25072,7 +25086,7 @@ def executar_2nr_insta():
             d.app_start('com.privateinternetaccess.android')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
@@ -25090,15 +25104,15 @@ def executar_2nr_insta():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -25108,7 +25122,7 @@ def executar_2nr_insta():
             d.app_start('com.expressvpn.vpn')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.expressvpn.vpn:id/obiButton').click()
@@ -25127,14 +25141,14 @@ def executar_2nr_insta():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -25147,7 +25161,7 @@ def executar_2nr_insta():
             pass
         time.sleep(10)
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -25163,15 +25177,15 @@ def executar_2nr_insta():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -25182,7 +25196,7 @@ def executar_2nr_insta():
         except:
             pass
         time.sleep(15)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -25198,14 +25212,14 @@ def executar_2nr_insta():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -25229,7 +25243,7 @@ def executar_2nr_insta():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -25262,15 +25276,15 @@ def executar_2nr_insta():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -25288,7 +25302,7 @@ def executar_2nr_insta():
         time.sleep(2)
         d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
@@ -25303,14 +25317,14 @@ def executar_2nr_insta():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -25323,7 +25337,7 @@ def executar_2nr_insta():
         except Exception as e:
             print(e)
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
         
         time.sleep(30)
@@ -25337,9 +25351,9 @@ def executar_2nr_insta():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -25365,9 +25379,9 @@ def executar_2nr_insta():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -25396,30 +25410,30 @@ def executar_2nr_insta():
     window.Refresh()
 
     try:
-        comando = f"adb connect 127.0.0.1:{porta}"
+        comando = f"adb connect {porta}"
         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                        stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
     gerar_id()
     android_id = gerar_id()
-    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
     time.sleep(2)
-    # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
+    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
     #               stderr=subprocess.DEVNULL)
 
     try:
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
     except Exception as e:
         pass
@@ -25486,7 +25500,7 @@ def executar_2nr_insta():
         #    codigo_não_recebido_seguidos = 0
         try:
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -25495,13 +25509,13 @@ def executar_2nr_insta():
                 pass
             try:
                 subprocess.run(
-                    f'adb -s 127.0.0.1:{porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
+                    f'adb -s {porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
             except:
                 pass
             gerar_id()
             android_id = gerar_id()
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
             window['output'].print(linha_ret)
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo 2NR')
@@ -25538,7 +25552,7 @@ def executar_2nr_insta():
                 raise Exception('skip')
 
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -25548,16 +25562,16 @@ def executar_2nr_insta():
                 print(e)
                 pass
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, check=True, shell=True)
             except Exception as e:
                 print(e)
                 pass
             try:
-                subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server.test',
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
                                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
-                subprocess.run(f'adb -s 127.0.0.1:{porta} clear io.appium.uiautomator2.server',
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server',
                                stdout=subprocess.DEVNULL,
                                stderr=subprocess.DEVNULL, shell=True)
             except:
@@ -25569,17 +25583,17 @@ def executar_2nr_insta():
 
                 gerar_id()
                 android_id = gerar_id()
-                subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+                subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                                shell=True)
                 try:
                     subprocess.run(
-                        f'adb -s 127.0.0.1:{porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.READ_CONTACTS',
+                        f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.READ_CONTACTS',
                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
                     subprocess.run(
-                        f'adb -s 127.0.0.1:{porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.CAMERA',
+                        f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.CAMERA',
                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
                     subprocess.run(
-                        f'adb -s 127.0.0.1:{porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.RECORD_AUDIO',
+                        f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.RECORD_AUDIO',
                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
                     try:
                         subprocess.run(
@@ -25663,7 +25677,7 @@ def executar_2nr_insta():
                         f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao clicar em login. Tentando novamente.')
                     window.Refresh()
                     subprocess.run(
-                        f'uiautomator2 -s 127.0.0.1:{porta} uninstall com.github.uiautomator',
+                        f'uiautomator2 -s {porta} uninstall com.github.uiautomator',
                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
                     raise Exception('Ocorreu um erro ao clicar em login.')
                 time.sleep(5)
@@ -25926,7 +25940,7 @@ def executar_2nr_insta():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -25934,7 +25948,7 @@ def executar_2nr_insta():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -25978,7 +25992,7 @@ def executar_2nr_insta():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -25986,7 +26000,7 @@ def executar_2nr_insta():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -26153,7 +26167,7 @@ def executar_2nr_insta():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -26161,7 +26175,7 @@ def executar_2nr_insta():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -26205,7 +26219,7 @@ def executar_2nr_insta():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -26213,7 +26227,7 @@ def executar_2nr_insta():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -26379,7 +26393,7 @@ def executar_2nr_insta():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -26387,7 +26401,7 @@ def executar_2nr_insta():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -26431,7 +26445,7 @@ def executar_2nr_insta():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -26439,7 +26453,7 @@ def executar_2nr_insta():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -26681,7 +26695,7 @@ def executar_2nr_insta():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -26689,7 +26703,7 @@ def executar_2nr_insta():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -26733,7 +26747,7 @@ def executar_2nr_insta():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -26741,7 +26755,7 @@ def executar_2nr_insta():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -26955,7 +26969,7 @@ def executar_2nr_insta():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -26963,7 +26977,7 @@ def executar_2nr_insta():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -27007,7 +27021,7 @@ def executar_2nr_insta():
                         window.Refresh()
                         tentativa = True
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
 
@@ -27015,7 +27029,7 @@ def executar_2nr_insta():
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                         stdout=subprocess.DEVNULL,
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
                         except:
@@ -27787,7 +27801,7 @@ def executar_2nr_insta():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                         window.Refresh()
                         seguido = False
-                        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings get secure android_id', shell=True)
+                        # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True)
                         # Clicar no botão de perfil
 
                         time.sleep(3)
@@ -28260,15 +28274,15 @@ def insta_face_lite():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -28288,14 +28302,14 @@ def insta_face_lite():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -28313,15 +28327,15 @@ def insta_face_lite():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -28335,7 +28349,7 @@ def insta_face_lite():
         time.sleep(5)
         d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
 
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -28349,15 +28363,15 @@ def insta_face_lite():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -28367,7 +28381,7 @@ def insta_face_lite():
             d.app_start('com.privateinternetaccess.android')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
@@ -28385,15 +28399,15 @@ def insta_face_lite():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -28403,7 +28417,7 @@ def insta_face_lite():
             d.app_start('com.expressvpn.vpn')
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #            stderr=subprocess.DEVNULL, check=True, shell=True)
 
         d(resourceId='com.expressvpn.vpn:id/obiButton').click()
@@ -28422,14 +28436,14 @@ def insta_face_lite():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         sms = True
         try:
@@ -28440,7 +28454,7 @@ def insta_face_lite():
             pass
         time.sleep(10)
         time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -28456,15 +28470,15 @@ def insta_face_lite():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -28475,7 +28489,7 @@ def insta_face_lite():
         except:
             pass
         time.sleep(15)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
@@ -28491,14 +28505,14 @@ def insta_face_lite():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
@@ -28522,7 +28536,7 @@ def insta_face_lite():
             # WebDriverWait(driver, 20).until(
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
@@ -28555,15 +28569,15 @@ def insta_face_lite():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -28581,7 +28595,7 @@ def insta_face_lite():
         time.sleep(2)
         d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
         # time.sleep(5)
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
@@ -28595,14 +28609,14 @@ def insta_face_lite():
         window.Refresh()
         gerar_id()
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear pl.rs.sip.softphone.newapp',
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -28612,7 +28626,7 @@ def insta_face_lite():
             d.app_start("com.avg.android.vpn", "com.avast.android.vpn.app.wizard.WizardActivity")
         except:
             pass
-        # subprocess.run(f'adb -s 127.0.0.1:{porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
         #               stderr=subprocess.DEVNULL, check=True, shell=True)
 
         time.sleep(30)
@@ -28626,9 +28640,9 @@ def insta_face_lite():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -28651,9 +28665,9 @@ def insta_face_lite():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
         window.Refresh()
         gerar_id()
-        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}', shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
-            subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
@@ -29358,23 +29372,23 @@ def insta_face_lite():
                     except:
                         pass
                     try:
-                        comando = f"adb connect 127.0.0.1:{porta}"
+                        comando = f"adb connect {porta}"
                         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True,
                                        shell=True)
                     except:
                         pass
                     try:
-                        comando = f"adb connect 127.0.0.1:{porta}"
+                        comando = f"adb connect {porta}"
                         subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True,
                                        shell=True)
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global window_animation_scale 0',
+                        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, shell=True)
                         subprocess.run(
-                            f'adb -s 127.0.0.1:{porta} shell settings put global transition_animation_scale 0',
+                            f'adb -s {porta} shell settings put global transition_animation_scale 0',
                             stdout=subprocess.DEVNULL,
                             stderr=subprocess.DEVNULL, shell=True)
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put global animator_duration_scale 0',
+                        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, shell=True)
                     except:
@@ -29387,16 +29401,16 @@ def insta_face_lite():
 
                     gerar_id()
                     android_id = gerar_id()
-                    subprocess.run(f'adb -s 127.0.0.1:{porta} shell settings put secure android_id {android_id}',
+                    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
                                    stdout=subprocess.DEVNULL,
                                    stderr=subprocess.DEVNULL, shell=True)
                     try:
-                        subprocess.run(f'adb -s 127.0.0.1:{porta} shell pm clear com.instagram.android',
+                        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                        stdout=subprocess.DEVNULL,
                                        stderr=subprocess.DEVNULL, check=True, shell=True)
                     except:
                         pass
-                    d = u2.connect(f'127.0.0.1:{porta}')
+                    d = u2.connect(f'{porta}')
 
                     d.set_fastinput_ime(True)
                     d.app_start('com.instagram.android')
@@ -32618,8 +32632,11 @@ while True:
         dialog_layout = [
             [sg.Text('Digite a porta:', font=('Open Sans', 10))],
             [sg.Input(key='port', font=('Open Sans', 10))],
-            [sg.Button('Avançar', font=('Open Sans', 10), button_color='#1c2024')]
-        ]
+            [sg.Radio('Emulador', 'dispositivo', key='-emulador-', default=True),
+             sg.Radio('Celular', 'dispositivo', key='-celular-')],
+            [sg.Button('Avançar', font=('Open Sans', 10), button_color='#1c2024'),
+            sg.Button('?', button_color=('white', sg.theme_background_color()), border_width=0, tooltip='Mostrar dispositivos')]
+] 
         try:
             state = config['fixtop']
             if state:
@@ -32636,10 +32653,29 @@ while True:
             # Finaliza a janela de diálogo se o usuário fechar a janela
             if dialog_event == sg.WINDOW_CLOSED:
                 break
+            if dialog_event == '?':
+                def get_adb_devices():
+                    processo = subprocess.Popen(['adb', 'devices'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                    saida, erro = processo.communicate()
+                    saida = saida.replace('List of devices attached\n', '')
+                    return erro if erro else saida
+                        # Conteúdo para o pop-up
+                adb_output = get_adb_devices()
 
+                # Layout do pop-up com texto selecionável
+                popup_layout = [
+                    [sg.Text('Dispositivos:', font=('Open Sans', 10))],
+                    [sg.Multiline(adb_output, size=(20, 4), disabled=True)],
+                    [sg.Button('Fechar', font=('Open Sans', 10), button_color='#1c2024')]]
+                sg.Window('...', popup_layout).read(close=True)
             # Avança para a janela principal se o usuário clicar no botão
             if dialog_event == 'Avançar':
-                porta = dialog_values['port']
+                if dialog_values['-emulador-']:
+                    port = dialog_values['port']
+                    porta = f'127.0.0.1:{port}'
+                elif dialog_values['-celular-']:
+                    porta = dialog_values['port']
+                
                 break
 
         dialog_window.close()
