@@ -1,5 +1,6 @@
 from genericpath import exists
 import json
+from operator import truediv
 from socket import timeout
 from tkinter import FALSE
 import os
@@ -34100,6 +34101,192 @@ def executar_creator_2nr():
                                     print(url)
                                 subject = True
                                 
+                    elif email_escolhido == 'wnmail.shop':
+                            
+                        import requests
+                        from requests.auth import HTTPBasicAuth
+                        user = random.randint(000000,999999)
+                        # Substitua com as suas credenciais e dados
+                        cpanel_user = 'wnmailsh'
+                        cpanel_password = 'V.5k7lV3l8PB*q'
+                        cpanel_domain = 'mi3-ss120.a2hosting.com'
+                        email_user = user
+                        email_domain = 'wnmail.shop'
+                        email_password = senha
+                        quota = 1  # 0 para ilimitada, ou defina um limite específico
+
+                        # URL para a função add_pop da API UAPI
+                        url = f'https://{cpanel_domain}:2083/execute/Email/add_pop'
+                        params = {
+                            'email': email_user,
+                            'domain': email_domain,
+                            'password': email_password,
+                            'quota': quota,
+                            'send_welcome_email': 0,  # Altere para 1 se quiser enviar um e-mail de boas-vindas
+                            'skip_update_db': 1
+                        }
+
+                        # Faça a solicitação para a API
+                        response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password), verify=True)
+
+                        # Verifique a resposta
+                        if response.status_code == 200:
+                            print("Conta de e-mail criada com sucesso!")
+                            email = response.json()['data']
+                            email = email.replace('+', '@')
+                            email2 = email
+                            print('Email: ', email)
+                            print('Senha: ', senha)
+
+                        else:
+                            print("Falha na criação da conta de e-mail.")
+                            print(response.text)
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                        window.Refresh()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                        
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+
+                        # use with address and token to reuse an existing inbox
+
+                        tentativa = 1
+                        sair = False
+                        while sair is False:
+                            try:
+                                def get_email_body(msg):
+                                    if msg.is_multipart():
+                                        for part in msg.walk():
+                                            content_type = part.get_content_type()
+                                            content_disposition = str(part.get("Content-Disposition"))
+
+                                            if "attachment" not in content_disposition:
+                                                if content_type == "text/plain" or content_type == "text/html":
+                                                    return part.get_payload(decode=True).decode()
+                                    else:
+                                        content_type = msg.get_content_type()
+                                        if content_type == "text/plain" or content_type == "text/html":
+                                            return msg.get_payload(decode=True).decode()
+                                    return ""
+                                import imaplib
+                                import email
+                                time.sleep(10)
+
+                                email_user = email2
+                                email_password = senha
+
+                                # Configurações do servidor IMAP
+                                imap_host = 'mi3-ss120.a2hosting.com'  # Substitua com o host do servidor IMAP do seu provedor
+                                imap_port = 993  # Porta comum para IMAP sobre SSL
+
+                                # Conectar ao servidor IMAP
+                                mail = imaplib.IMAP4_SSL(imap_host, imap_port)
+
+                                # Autenticar
+                                mail.login(email_user, email_password)
+
+                                # Selecionar caixa de entrada
+                                mail.select("inbox")
+
+                                # Buscar e-mails
+                                status, messages = mail.search(None, 'ALL')
+                                #print(f'Status da busca: {status}')
+
+                                # Verificar se messages não está vazio
+                                # Verificar se messages não está vazio
+                                if status == 'OK' and messages:
+                                    try:
+                                        last_mail_id = messages[0].split()[-1]  # Pegar o último ID da mensagem
+                                    except Exception as e:
+                                        if 'list index out of range' in str(e):
+                                            raise Exception('')
+                                    status, data = mail.fetch(last_mail_id, '(RFC822)')
+                                    if status == 'OK':
+                                        for response_part in data:
+                                            if isinstance(response_part, tuple):
+                                                msg = email.message_from_bytes(response_part[1])
+                                                email_subject = msg['subject']
+                                                email_from = msg['from']
+                                                email_body = get_email_body(msg)
+                                                #print('From:', email_from)
+                                                #print('Subject:', email_subject)
+                                                #print('Body:', email_body)
+                                                #print('\n')
+                                else:
+                                    print("Nenhuma mensagem encontrada ou erro na busca.")
+
+                                if '2nr' in email_subject:
+                                    urls = re.findall("(?P<url>https?://[^\s]+)",
+                                                    email_body if email_body else email_body)
+
+                                    # Acessar cada URL
+                                    for url in urls:
+                                        try:
+                                            url = url.replace('</p></div>', '')
+                                            url = url.replace('&amp;', '&')
+                                        except:
+                                            pass
+                                        try:
+                                            response = requests.get(url)
+                                            if response.status_code == 200:
+                                                email = email2
+                                                sair = True
+                                                mail.close()
+                                                mail.logout()
+                                                pass
+                                            else:
+                                                mail.close()
+                                                mail.logout()
+                                                print(f"Falha na requisição. Código de status: {response.status_code}")
+                                        except requests.exceptions.RequestException as e:
+                                            print(f"Erro na requisição: {e}")
+                                        
+                                        time.sleep(0.5)
+                                    
+                                
+
+                                print(tentativa)
+                                tentativa =+ 1
+                                if tentativa == 10:
+                                    try:
+                                        tentativa = 0
+                                        conteudo = config['vpn']
+                                        if conteudo == "AVG":
+                                            vpn_avg()
+                                        elif conteudo == "SurfShark":
+                                            vpn_surf()
+                                        elif conteudo == "Nenhuma":
+                                            nenhuma_vpn()
+                                        elif conteudo == "Avast":
+                                            vpn_avast()
+                                        elif conteudo == "ExpressVPN":
+                                            vpn_express()
+                                        elif conteudo == "PiaVPN":
+                                            vpn_pia()
+                                        elif conteudo == "BetterNet":
+                                            vpn_better()
+                                        elif conteudo == "CyberGhost":
+                                            vpn_cyberghost()
+                                        elif conteudo == "NordVPN":
+                                            vpn_nord()
+                                        elif conteudo == "HotspotShield":
+                                            vpn_hotspotshield()
+                                        elif conteudo == "WindscribeVPN":
+                                            vpn_windscribe()
+                                        elif conteudo == "HmaVPN":
+                                            vpn_hma()
+                                        else:
+                                            window['output'].print(
+                                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                            window.Refresh()
+
+                                    except Exception as e:
+                                        print(e)
+                                        tentativa = 0
+                            except:
+                                    pass
                     elif email_escolhido == 'GuerrilaMail':
                         try:
                             from guerrillamail import GuerrillaMailSession
@@ -35044,6 +35231,191 @@ def executar_creator_2nr():
                                     pass
                             except requests.exceptions.RequestException as e:
                                 print(f"Erro na requisição: {e}")
+
+                    elif email_escolhido == 'wnmail.shop':
+                            
+                        import requests
+                        from requests.auth import HTTPBasicAuth
+                        user = random.randint(000000,999999)
+                        # Substitua com as suas credenciais e dados
+                        cpanel_user = 'wnmailsh'
+                        cpanel_password = 'V.5k7lV3l8PB*q'
+                        cpanel_domain = 'mi3-ss120.a2hosting.com'
+                        email_user = user
+                        email_domain = 'wnmail.shop'
+                        email_password = senha
+                        quota = 1  # 0 para ilimitada, ou defina um limite específico
+
+                        # URL para a função add_pop da API UAPI
+                        url = f'https://{cpanel_domain}:2083/execute/Email/add_pop'
+                        params = {
+                            'email': email_user,
+                            'domain': email_domain,
+                            'password': email_password,
+                            'quota': quota,
+                            'send_welcome_email': 0,  # Altere para 1 se quiser enviar um e-mail de boas-vindas
+                            'skip_update_db': 1
+                        }
+
+                        # Faça a solicitação para a API
+                        response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password), verify=True)
+
+                        # Verifique a resposta
+                        if response.status_code == 200:
+                            print("Conta de e-mail criada com sucesso!")
+                            email = response.json()['data']
+                            email = email.replace('+', '@')
+                            email2 = email
+                            print(email)
+                        else:
+                            print("Falha na criação da conta de e-mail.")
+                            print(response.text)
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                        window.Refresh()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                        
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+
+                        # use with address and token to reuse an existing inbox
+
+                        tentativa = 1
+                        sair = False
+                        while sair is False:
+                            try:
+                                def get_email_body(msg):
+                                    if msg.is_multipart():
+                                        for part in msg.walk():
+                                            content_type = part.get_content_type()
+                                            content_disposition = str(part.get("Content-Disposition"))
+
+                                            if "attachment" not in content_disposition:
+                                                if content_type == "text/plain" or content_type == "text/html":
+                                                    return part.get_payload(decode=True).decode()
+                                    else:
+                                        content_type = msg.get_content_type()
+                                        if content_type == "text/plain" or content_type == "text/html":
+                                            return msg.get_payload(decode=True).decode()
+                                    return ""
+                                import imaplib
+                                import email
+                                time.sleep(10)
+
+                                email_user = email2
+                                email_password = senha
+
+                                # Configurações do servidor IMAP
+                                imap_host = 'mi3-ss120.a2hosting.com'  # Substitua com o host do servidor IMAP do seu provedor
+                                imap_port = 993  # Porta comum para IMAP sobre SSL
+
+                                # Conectar ao servidor IMAP
+                                mail = imaplib.IMAP4_SSL(imap_host, imap_port)
+
+                                # Autenticar
+                                mail.login(email_user, email_password)
+
+                                # Selecionar caixa de entrada
+                                mail.select("inbox")
+
+                                # Buscar e-mails
+                                status, messages = mail.search(None, 'ALL')
+                                #print(f'Status da busca: {status}')
+
+                                # Verificar se messages não está vazio
+                                # Verificar se messages não está vazio
+                                if status == 'OK' and messages:
+                                    try:
+                                        last_mail_id = messages[0].split()[-1]  # Pegar o último ID da mensagem
+                                    except Exception as e:
+                                        if 'list index out of range' in str(e):
+                                            raise Exception('')
+                                    status, data = mail.fetch(last_mail_id, '(RFC822)')
+                                    if status == 'OK':
+                                        for response_part in data:
+                                            if isinstance(response_part, tuple):
+                                                msg = email.message_from_bytes(response_part[1])
+                                                email_subject = msg['subject']
+                                                email_from = msg['from']
+                                                email_body = get_email_body(msg)
+                                                #print('From:', email_from)
+                                                #print('Subject:', email_subject)
+                                                #print('Body:', email_body)
+                                                #print('\n')
+                                else:
+                                    print("Nenhuma mensagem encontrada ou erro na busca.")
+
+                                if '2nr' in email_subject:
+                                    urls = re.findall("(?P<url>https?://[^\s]+)",
+                                                    email_body if email_body else email_body)
+
+                                    # Acessar cada URL
+                                    for url in urls:
+                                        try:
+                                            url = url.replace('</p></div>', '')
+                                            url = url.replace('&amp;', '&')
+                                        except:
+                                            pass
+                                        try:
+                                            response = requests.get(url)
+                                            if response.status_code == 200:
+                                                email = email2
+                                                sair = True
+                                                mail.close()
+                                                mail.logout()
+                                                pass
+                                            else:
+                                                mail.close()
+                                                mail.logout()
+                                                print(f"Falha na requisição. Código de status: {response.status_code}")
+                                        except requests.exceptions.RequestException as e:
+                                            print(f"Erro na requisição: {e}")
+                                        
+                                        time.sleep(0.5)
+                                    
+                                
+
+                                print(tentativa)
+                                tentativa =+ 1
+                                if tentativa == 10:
+                                    try:
+                                        tentativa = 0
+                                        conteudo = config['vpn']
+                                        if conteudo == "AVG":
+                                            vpn_avg()
+                                        elif conteudo == "SurfShark":
+                                            vpn_surf()
+                                        elif conteudo == "Nenhuma":
+                                            nenhuma_vpn()
+                                        elif conteudo == "Avast":
+                                            vpn_avast()
+                                        elif conteudo == "ExpressVPN":
+                                            vpn_express()
+                                        elif conteudo == "PiaVPN":
+                                            vpn_pia()
+                                        elif conteudo == "BetterNet":
+                                            vpn_better()
+                                        elif conteudo == "CyberGhost":
+                                            vpn_cyberghost()
+                                        elif conteudo == "NordVPN":
+                                            vpn_nord()
+                                        elif conteudo == "HotspotShield":
+                                            vpn_hotspotshield()
+                                        elif conteudo == "WindscribeVPN":
+                                            vpn_windscribe()
+                                        elif conteudo == "HmaVPN":
+                                            vpn_hma()
+                                        else:
+                                            window['output'].print(
+                                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                            window.Refresh()
+
+                                    except Exception as e:
+                                        print(e)
+                                        tentativa = 0
+                            except:
+                                    pass
 
                     elif email_escolhido == 'MailTM':
                         while True:
@@ -36256,7 +36628,10 @@ while True:
         dialog_layout = [
             [sg.Text('Digite a porta:', font=('Open Sans', 10))],
             [sg.Input(key='port', font=('Open Sans', 10))],
-            [sg.Button('Avançar', font=('Open Sans', 10), button_color='#1c2024')]
+            [sg.Radio('Emulador', 'dispositivo', key='-emulador-', default=True),
+             sg.Radio('Celular', 'dispositivo', key='-celular-')],
+            [sg.Button('Avançar', font=('Open Sans', 10), button_color='#1c2024'),
+            sg.Button('?', button_color=('white', sg.theme_background_color()), border_width=0, tooltip='Mostrar dispositivos')]
         ]
         try:
             state = config['fixtop']
@@ -36274,10 +36649,30 @@ while True:
             # Finaliza a janela de diálogo se o usuário fechar a janela
             if dialog_event == sg.WINDOW_CLOSED:
                 break
+            if dialog_event == '?':
+                def get_adb_devices():
+                    processo = subprocess.Popen(['adb', 'devices'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                    saida, erro = processo.communicate()
+                    saida = saida.replace('List of devices attached\n', '')
+                    return erro if erro else saida
+                        # Conteúdo para o pop-up
+                adb_output = get_adb_devices()
 
+                # Layout do pop-up com texto selecionável
+                popup_layout = [
+                    [sg.Text('Dispositivos:', font=('Open Sans', 10))],
+                    [sg.Multiline(adb_output, size=(20, 4), disabled=True)],
+                    [sg.Button('Fechar', font=('Open Sans', 10), button_color='#1c2024')]]
+                sg.Window('...', popup_layout).read(close=True)
+            # Avança para a janela principal se o usuário clicar no botão
             # Avança para a janela principal se o usuário clicar no botão
             if dialog_event == 'Avançar':
-                porta = dialog_values['port']
+                if dialog_values['-emulador-']:
+                    port = dialog_values['port']
+                    porta = f'127.0.0.1:{port}'
+                elif dialog_values['-celular-']:
+                    porta = dialog_values['port']
+                
                 break
 
         dialog_window.close()
@@ -36432,7 +36827,7 @@ while True:
                         config = json.load(f)
                 except FileNotFoundError:
                     config = {}
-                email_list = ["MailTM", "GuerrilaMail", "MinuteInBox", "1SecMail", "GmailTemp", "GmailTemp2"]
+                email_list = ["wnmail.shop", "MailTM", "GuerrilaMail", "MinuteInBox", "1SecMail", "GmailTemp", "GmailTemp2"]
                 layout_configuracoes = [
                     [sg.Text("Senha dos perfis: ", font=('Open Sans', 12)),
                      sg.InputText(key="-senha2nr-", default_text=config.get("senha2nr", "@SenhaPadrao2023"))],
