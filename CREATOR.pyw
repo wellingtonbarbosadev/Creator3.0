@@ -1229,6 +1229,8 @@ def instaface_criarface():
                         file.write(f"{email2} {senha}\n")
                     break
                 else:
+                    subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL, check=True, shell=True)
                     d.app_stop('com.facebook.katana')
                     d.app_start('com.facebook.katana')
                 time.sleep(10)
