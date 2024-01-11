@@ -370,7 +370,8 @@ layout_configuracoes = [
      sg.Radio('Mail.TM', 'RADIO1', key='-mailtm-', default=config.get("email", "") == "-mailtm-"),
      sg.Radio('MinuteInBox', 'RADIO1', key='-minuteinbox-', default=config.get("email", "") == "-minuteinbox-"),
      sg.Radio('2NR', 'RADIO1', key='-2nr-', default=config.get("email", "") == "-2nr-"),
-     sg.Radio('Free SMS', 'RADIO1', key='-freesms-', default=config.get("email", "") == "-freesms-")],
+     sg.Radio('Free SMS', 'RADIO1', key='-freesms-', default=config.get("email", "") == "-freesms-"),
+     sg.Radio('InstaFace', 'RADIO1', key='-instaface-', default=config.get("email", "") == "-instaface-")],
     [sg.Radio('Instagram Lite', 'RADIO2', key='-instalite-', default=config.get("app", "") == "-instalite-"),
      sg.Radio('Instagram', 'RADIO2', key='-insta-', default=config.get("app", "") == "-insta-")],
     [sg.HorizontalSeparator()],
@@ -406,6 +407,833 @@ def contagem():
     window['contagem'].update(contagem)
     window.Refresh()
 
+def instaface_criarface():
+    try:
+        with open("config.json", "r") as f:
+            config = json.load(f)
+    except FileNotFoundError:
+        config = {}
+    try:
+        with open("configuracoes\\config4.json", "r") as f:
+            config4 = json.load(f)
+    except FileNotFoundError:
+        config4 = {}
+    SPREADSHEET_ID = config['spreadsheet']
+    conteudo = config['vpn']
+    senha = config['senha']
+    maquina = config['maquina']
+    email = 'InstaFace'
+    tentativa = False
+    seguido = False
+    global sms
+    global nomes
+    global sobrenomes
+    global nome
+    global contagem
+    global sobrenome
+    global lista_user
+    window['Executar'].update(disabled=True)
+    window.Refresh()
+    import os
+    import time
+    import requests
+    import hashlib
+    import subprocess
+
+    
+    import os
+    import time
+    try:
+        import uiautomator2 as u2
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
+    except:
+        subprocess.run(['venv/scripts/activate.bat'], shell=True)
+        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['deactivate'], shell=True)
+        subprocess.run(['pip', 'install', '--upgrade', 'requests'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
+        import requests
+        time.sleep(10)
+        import uiautomator2 as u2
+    d = u2.connect(f'{porta}')
+    import requests
+    import hashlib
+    import subprocess
+    from faker import Faker
+    linha_ret = '_________________________________________________\n'
+    window.Refresh()
+    import random
+    from datetime import datetime
+    import string
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+    from selenium.webdriver.chrome.options import Options
+    from selenium.common.exceptions import NoSuchElementException
+    from mailtm import Email
+    import re
+    import logging
+    import base64
+    from email.header import decode_header
+    logger = logging.getLogger(__name__)
+    handler = logging.FileHandler('log.txt')
+    handler.setLevel(logging.ERROR)
+    logger.addHandler(handler)
+    def gerar_id():
+        chars = string.ascii_lowercase + string.digits
+        android_id = ''.join(random.choice(chars) for i in range(16))
+        return android_id
+
+    def delete_email(cpanel_user, cpanel_password, cpanel_domain, email_user, email_domain):
+        # URL para a função delete_pop da API UAPI
+        url = f'https://{cpanel_domain}:2083/execute/Email/delete_pop'
+        params = {
+            'email': email_user,
+            'domain': email_domain,
+        }
+
+        # Faça a solicitação para a API
+        response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password), verify=True)
+
+        # Verifique a resposta
+        if response.status_code == 200:
+            print("Conta de e-mail excluída com sucesso!")
+        else:
+            print("Falha na exclusão da conta de e-mail.")
+            print(response.text)
+
+    def trocar_ip():
+
+        def gerar_id():
+            chars = string.ascii_lowercase + string.digits
+            android_id = ''.join(random.choice(chars) for i in range(16))
+            return android_id
+
+        def vpn_avast():
+            global nome
+            global sobrenome
+            global sms
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da Avast', text_color='red')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+            sms = True
+            try:
+                d.app_stop("com.avast.android.vpn")
+                d.app_start("com.avast.android.vpn", ".app.wizard.WizardActivity")
+                time.sleep(10)
+            except Exception as e:
+                print(e)
+            abc = False
+
+        def nenhuma_vpn():
+            global nome
+            global sobrenome
+            global sms
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+            sms = True
+            time.sleep(10)
+
+        def vpn_hotspotshield():
+            global nome
+            global sobrenome
+            global sms
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da HotspotShield',
+                                text_color='red')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+            sms = True
+            try:
+                d.app_stop('hotspotshield.android.vpn')
+                d.app_start('hotspotshield.android.vpn')
+            except Exception as e:
+                print(e)
+            d(resourceId='hotspotshield.android.vpn:id/tryAgainButton').click()
+            time.sleep(5)
+            d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
+
+            # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+            #            stderr=subprocess.DEVNULL, check=True, shell=True)
+
+            abc = False
+
+        def vpn_pia():
+            global nome
+            global sobrenome
+            global sms
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da PiaVPN', text_color='red')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+            sms = True
+            try:
+                d.app_stop('com.privateinternetaccess.android')
+                d.app_start('com.privateinternetaccess.android')
+            except:
+                pass
+            # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+            #            stderr=subprocess.DEVNULL, check=True, shell=True)
+
+            d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
+            time.sleep(3)
+            d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
+
+            abc = False
+
+        def vpn_express():
+            global nome
+            global sobrenome
+            global sms
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da ExpressVPN', text_color='red')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+            sms = True
+            try:
+                d.app_stop('com.expressvpn.vpn')
+                d.app_start('com.expressvpn.vpn')
+            except:
+                pass
+            # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+            #            stderr=subprocess.DEVNULL, check=True, shell=True)
+
+            d(resourceId='com.expressvpn.vpn:id/obiButton').click()
+            time.sleep(3)
+            d(resourceId='com.expressvpn.vpn:id/obiButton').click()
+
+            abc = False
+
+        def vpn_nord():
+            global nome
+            global sobrenome
+            global sms
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da NordVPN', text_color='red')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+            sms = True
+            try:
+                d.app_stop('com.nordvpn.android')
+                time.sleep(5)
+                d.app_start('com.nordvpn.android', use_monkey=True)
+            except:
+                pass
+            time.sleep(10)
+            time.sleep(5)
+            subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL, check=True, shell=True)
+
+            abc = False
+
+        def vpn_surf():
+            global nome
+            global sobrenome
+            global sms
+            sms = True
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da SurfShark', text_color='red')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+
+            try:
+                d.app_stop('com.surfshark.vpnclient.android')
+                d.app_start('com.surfshark.vpnclient.android')
+            except:
+                pass
+            time.sleep(15)
+            subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL, check=True, shell=True)
+
+            abc = False
+
+        def vpn_better():
+            global nome
+            global sobrenome
+            global sms
+            sms = True
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da BetterNet', text_color='red')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL, check=True, shell=True)
+
+            try:
+                d.app_stop('com.freevpnintouch')
+                d.app_start('com.freevpnintouch')
+            except:
+                pass
+            time.sleep(10)
+            dialog = d(resourceId='com.freevpnintouch:id/dialogCtaPositive')
+            connect = d(resourceId='com.freevpnintouch:id/buttonConnect').get_text(timeout=80)
+            if dialog.exists:
+                d(resourceId='com.freevpnintouch:id/dialogCtaPositive').click()
+                time.sleep(3)
+                d(resourceId='com.freevpnintouch:id/buttonConnect').click()
+                # time.sleep(5)
+                d(resourceId='com.freevpnintouch:id/buttonConnect').click()
+            while connect == 'CONNECT':
+                d(resourceId='com.freevpnintouch:id/buttonConnect').click()
+                time.sleep(4)
+                connect = d(resourceId='com.freevpnintouch:id/buttonConnect').get_text(timeout=80)
+                # WebDriverWait(driver, 20).until(
+                # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
+            # time.sleep(5)
+            subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL, check=True, shell=True)
+            ip = '127.0.0.1:' + porta
+
+            output = subprocess.check_output(['adb', '-s', ip, 'shell', 'ifconfig'])
+
+            # Verifica se a conexão VPN está ativa
+            if not re.search(b"tun0", output):
+                window['output'].print("Não conectado na BetterNet.")
+                window.Refresh()
+                try:
+                    connect = d(resourceId='com.freevpnintouch:id/buttonConnect').get_text(timeout=80)
+                    d.app_stop('com.freevpnintouch')
+                    d.app_start('com.freevpnintouch')
+                    while connect == 'CONNECT':
+                        d(resourceId='com.freevpnintouch:id/buttonConnect').click()
+                        time.sleep(4)
+                        connect = d(resourceId='com.freevpnintouch:id/buttonConnect').get_text(timeout=80)
+                except:
+                    pass
+            abc = False
+
+        def vpn_cyberghost():
+            global nome
+            global sobrenome
+            global sms
+            sms = True
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da CyberGhost', text_color='red')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+
+            try:
+                d.app_stop('de.mobileconcepts.cyberghost')
+                d.app_start('de.mobileconcepts.cyberghost')
+            except:
+                pass
+            # time.sleep(3)
+            d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
+            rate = d(resourceId='de.mobileconcepts.cyberghost:id/rate_me_text')
+            if rate.exists:
+                d(resourceId='android:id/button2').click()
+            time.sleep(2)
+            d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
+            # time.sleep(5)
+            subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL, check=True, shell=True)
+            abc = False
+
+        def vpn_avg():
+            global nome
+            global sobrenome
+            global sms
+            global regiao_vpn
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da AVG', text_color='red')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+            sms = True
+            try:
+                d.app_stop('com.avg.android.vpn')
+                d.app_start("com.avg.android.vpn", "com.avast.android.vpn.app.wizard.WizardActivity")
+                regiao_vpn = d(resourceId='com.avg.android.vpn:id/location_title').get_text()
+                
+            except Exception as e:
+                print(e)
+                pass
+            # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+            #               stderr=subprocess.DEVNULL, check=True, shell=True)
+            
+            time.sleep(30)
+
+        def vpn_windscribe():
+            global nome
+            global sobrenome
+            global sms
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da Windscribe', text_color='red')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+            sms = True
+            try:
+                # subprocess.run(f'adb shell am start -n com.avg.android.vpn/com.avast.android.vpn.app.wizard.WizardActivity', shell=True)
+                d.app_stop("com.windscribe.vpn")
+                d.app_start("com.windscribe.vpn")
+            except:
+                pass
+            d(resourceId='com.windscribe.vpn:id/on_off_button').click()
+            time.sleep(10)
+            primeiro = d(resourceId='com.windscribe.vpn:id/tv_connected_city_name').get_text()
+            segundo = d(resourceId='com.windscribe.vpn:id/tv_connected_city_nick_name').get_text()
+            regiao_vpn = primeiro + ' ' + segundo
+
+        def vpn_hma():
+            global nome
+            global sobrenome
+            global sms
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da HMA', text_color='red')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+            sms = True
+            try:
+                # subprocess.run(f'adb shell am start -n com.avg.android.vpn/com.avast.android.vpn.app.wizard.WizardActivity', shell=True)
+
+                d.app_stop("com.hidemyass.hidemyassprovpn")
+                time.sleep(3)
+                d.app_start('com.hidemyass.hidemyassprovpn', 'com.avast.android.vpn.activity.HmaOnboardingActivity')
+            except:
+                pass
+            time.sleep(10)
+
+        def lte_4g():
+            global nome
+            global sobrenome
+            global sms
+            global regiao_vpn
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP do 4G', text_color='red')
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+            window.Refresh()
+            gerar_id()
+            subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+            try:
+                subprocess.run(f'adb -s {porta} shell settings put global airplane_mode_on 1', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except Exception as e:
+                print(e)
+            time.sleep(5)
+            try:
+                subprocess.run(f'adb -s {porta} shell settings put global airplane_mode_on 0', stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except Exception as e:
+                print(e)
+            sms = True
+            time.sleep(30)
+
+        try:
+            conteudo = config4['metodo']
+            if conteudo == "AVG":
+                vpn_avg()
+            elif conteudo == "SurfShark":
+                vpn_surf()
+            elif conteudo == "Nenhuma":
+                nenhuma_vpn()
+            elif conteudo == "Avast":
+                vpn_avast()
+            elif conteudo == "ExpressVPN":
+                vpn_express()
+            elif conteudo == "PiaVPN":
+                vpn_pia()
+            elif conteudo == "BetterNet":
+                vpn_better()
+            elif conteudo == "CyberGhost":
+                vpn_cyberghost()
+            elif conteudo == "NordVPN":
+                vpn_nord()
+            elif conteudo == "HotspotShield":
+                vpn_hotspotshield()
+            elif conteudo == "WindscribeVPN":
+                vpn_windscribe()
+            elif conteudo == "HmaVPN":
+                vpn_hma()
+            elif conteudo == "-4g-":
+                lte_4g()
+
+        except Exception as e:
+            print(e)
+            pass
+
+    #window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Senha sendo utilizada: {senha}')
+    #window.Refresh()
+
+    try:
+        comando = f"adb connect {porta}"
+        subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+    except:
+        pass
+
+    gerar_id()
+    android_id = gerar_id()
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
+    try:
+        subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana', stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+    except Exception as e:
+        pass
+    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Efetuando troca de IP.')
+    window.Refresh()
+    trocar_ip()
+    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Iniciando criação.\n')
+    window.Refresh()
+    d.implicitly_wait(30.0)
+    d.set_fastinput_ime(True)
+    while parar is False:
+        if parar is True:
+            print('Parando Thread')
+        try:
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.facebook.katana',
+                               stdout=subprocess.DEVNULL,
+                               stderr=subprocess.DEVNULL, check=True, shell=True)
+            except:
+                pass
+            window['output'].print(linha_ret)
+            window.Refresh()
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo facebook.')
+            window.Refresh()
+            d.app_start('com.facebook.katana')
+            # MUDAR IDIOMAR
+            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.View').click(timeout=120)
+            d.xpath('//android.view.View[@content-desc="English (US)"]').click(timeout=30)
+            #
+
+            d.xpath('//android.view.View[@content-desc="Create new account"]').click(timeout=60)
+            d.xpath('//android.view.View[@content-desc="Get started"]').click(timeout=60)
+
+            # GERAR USER
+            lista_user = random.choices(range(0, 9), k=2)
+            lista_letras = random.choices(letras, k=1)
+            nomea = fake.first_name_female().replace(" ", "")
+            nome = unicodedata.normalize('NFKD', nomea).encode('ASCII', 'ignore').decode('ASCII')
+            sobrenomea = fake.last_name().replace(" ", "").lower()
+            sobrenome = unicodedata.normalize('NFKD', sobrenomea).encode('ASCII', 'ignore').decode('ASCII')
+            nome_completo = nome + ' ' + sobrenome
+            nome_completo_s = nome + sobrenome
+            numeros_concatenados = ''.join(str(numero) for numero in lista_user)
+            user_completo1 = nome_completo_s + '' + str(numeros_concatenados) + ''.join(lista_letras)
+            user_completo = random.randint(1, len(user_completo1))
+            string_with_dot = user_completo1[:user_completo] + '_' + user_completo1[user_completo:]
+            user_completo_antigo = string_with_dot.lower()
+            escolha = random.choice(["_", "."])
+            user_completo = nome + escolha + sobrenome + str(numeros_concatenados) + ''.join(lista_letras)
+            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(nome)
+            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(sobrenome)
+            d.xpath('//android.view.View[@content-desc="Next"]').click(timeout=60)
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Nome escolhido: {nome_completo}')
+            window.Refresh()
+            #
+
+            # SELECIONAR IDADE
+            d(resourceId='android:id/button2').click(timeout=60)
+            d.xpath('//android.view.View[@content-desc="Next"]').click(timeout=60)
+            time.sleep(0.5)
+            d.xpath('//android.view.View[@content-desc="Next"]').click(timeout=60)
+            idade_aleatoria = random.randint(18, 35)
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+            window.Refresh()
+            d(className='android.widget.EditText').set_text(str(idade_aleatoria))
+            time.sleep(0.5)
+            d.xpath('//android.view.View[@content-desc="Next"]').click(timeout=60)
+            d.xpath('//*[@text="OK"]').click(timeout=60)
+            #
+
+            d.xpath('//android.view.View[@content-desc="Female"]').click(timeout=60)
+            d.xpath('//android.view.View[@content-desc="Next"]').click(timeout=60)
+
+            permission_deny = d(resourceId='com.android.permissioncontroller:id/permission_deny_button')
+            if permission_deny.exists(timeout=5):
+                permission_deny.click(timeout=10)
+            
+            # CRIAR EMAIL
+            def gerar_senha(tamanho=12):
+                if tamanho < 6:
+                    raise ValueError("A senha deve ter pelo menos 6 caracteres.")
+
+                letras_maiusculas = [random.choice(string.ascii_uppercase) for _ in range(tamanho // 2)]
+                letras_minusculas = [random.choice(string.ascii_lowercase) for _ in range(tamanho // 2)]
+
+                senha = ''.join(''.join(pair) for pair in zip(letras_maiusculas, letras_minusculas))
+
+                caracteres_permitidos = string.ascii_letters + string.digits + string.punctuation
+                caracteres_permitidos = caracteres_permitidos.replace("~", "")
+
+                senha += ''.join(random.choice(caracteres_permitidos) for _ in range(tamanho - len(senha) - 3))
+                senha += random.choice(string.ascii_uppercase)
+                senha += random.choice(string.digits)
+                senha += "@"
+
+                
+                senha = ''.join(random.sample(senha, len(senha)))
+
+                return senha
+
+                # Exemplo de uso
+            senha = gerar_senha(12)
+            try:
+                d.xpath('//android.view.View[@content-desc="Sign up with email"]').click(timeout=5)
+            except:
+                pass
+            from requests.auth import HTTPBasicAuth
+            # Substitua com as suas credenciais e dados
+            cpanel_user = 'wnmailsh'
+            cpanel_password = 'V.5k7lV3l8PB*q'
+            cpanel_domain = 'mi3-ss120.a2hosting.com'
+            email_user = user_completo
+            email_domain = 'wnmail.shop'
+            email_password = senha
+            quota = 1  # 0 para ilimitada, ou defina um limite específico
+
+            # URL para a função add_pop da API UAPI
+            url = f'https://{cpanel_domain}:2083/execute/Email/add_pop'
+            params = {
+                'email': email_user,
+                'domain': email_domain,
+                'password': email_password,
+                'quota': quota,
+                'send_welcome_email': 0,  # Altere para 1 se quiser enviar um e-mail de boas-vindas
+                'skip_update_db': 1
+            }
+
+            # Faça a solicitação para a API
+            response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password), verify=True)
+
+            # Verifique a resposta
+            if response.status_code == 200:
+                print("Conta de e-mail criada com sucesso!")
+                email = response.json()['data']
+                email = email.replace('+', '@')
+                email2 = email
+                print('Email: ', email)
+                print('Senha: ', senha)
+
+            else:
+                print("Falha na criação da conta de e-mail.")
+                print(response.text)
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+            window.Refresh()
+            d(className='android.widget.EditText').set_text(email)
+            d.xpath('//android.view.View[@content-desc="Next"]').click(timeout=60)
+            time.sleep(3)
+            d(className='android.widget.EditText').set_text(senha)
+            d.xpath('//android.view.View[@content-desc="Next"]').click(timeout=60)
+            d.xpath('//android.view.View[@content-desc="Not now"]').click(timeout=60)
+            print(d(text="I agree").exists)
+            d.xpath('//android.view.View[@content-desc="I agree"]').click(timeout=60)
+
+            #tela_confirmacao = d.xpath('//android.view.View[@content-desc="Enter the confirmation code"]')
+            print('teste')
+            #time.sleep(30)
+            while True:
+                print(d(text='Enter the confirmation code').exists)
+                print(d.xpath('//android.view.ViewGroup[@content-desc="Continue"]').exists)
+                print(d.xpath('//android.view.View[@content-desc="I agree"]').exists)
+                print('\n')
+                if d(text='Enter the confirmation code').exists:
+                    print('teste2')
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
+                    window.Refresh()
+                    break
+                elif d.xpath('//android.view.ViewGroup[@content-desc="Continue"]').exists:
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] SMS', text_color='red')
+                    window.Refresh()
+                    cpanel_user = 'wnmailsh'
+                    cpanel_password = 'V.5k7lV3l8PB*q'
+                    cpanel_domain = 'mi3-ss120.a2hosting.com'
+                    email_user = email_user
+                    email_domain = 'wnmail.shop'
+
+                    # Chamada da função para deletar o e-mail
+                    delete_email(cpanel_user, cpanel_password, cpanel_domain, email_user, email_domain)
+                    trocar_ip()
+                    raise Exception('Algo ocorreu')
+                elif d.xpath('//android.view.View[@content-desc="I agree"]').exists:
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
+                    window.Refresh()
+                    cpanel_user = 'wnmailsh'
+                    cpanel_password = 'V.5k7lV3l8PB*q'
+                    cpanel_domain = 'mi3-ss120.a2hosting.com'
+                    email_user = email_user
+                    email_domain = 'wnmail.shop'
+
+                    # Chamada da função para deletar o e-mail
+                    delete_email(cpanel_user, cpanel_password, cpanel_domain, email_user, email_domain)
+                    raise Exception('Restrição')
+                time.sleep(5)
+            
+            
+            import imaplib
+            import email
+
+            email_user = email2
+            email_password = senha
+
+            # Configurações do servidor IMAP
+            imap_host = 'mi3-ss120.a2hosting.com'  # Substitua com o host do servidor IMAP do seu provedor
+            imap_port = 993  # Porta comum para IMAP sobre SSL
+
+            # Conectar ao servidor IMAP
+            mail = imaplib.IMAP4_SSL(imap_host, imap_port)
+
+            # Autenticar
+            mail.login(email_user, email_password)
+
+            # Selecionar caixa de entrada
+            
+            #print(f'Status da busca: {status}')
+
+            def decode_mime_words(s):
+                return ''.join(
+                    word.decode(encoding or 'utf8') if isinstance(word, bytes) else word
+                    for word, encoding in decode_header(s)
+                )
+            while True:
+                mail.select("inbox")
+
+                # Buscar e-mails
+                status, messages = mail.search(None, 'ALL')
+                if status == 'OK' and messages[0]:
+                    last_mail_id = messages[0].split()[-1]
+                    status, data = mail.fetch(last_mail_id, '(RFC822)')
+                    if status == 'OK':
+                        for response_part in data:
+                            if isinstance(response_part, tuple):
+                                msg = email.message_from_bytes(response_part[1])
+                                email_subject = decode_mime_words(msg['subject'])
+                                email_from = msg['from']
+                        if 'Facebook' in email_subject:
+                            match = re.search(r'\d+\s*\d+\s*\d+\s*\d+\s*\d+',
+                                            email_subject)  # Extrai seis grupos de dígitos, permitindo espaços entre eles
+                            if match:
+                                numeros = ''.join(match.group().split())
+                                codigo = numeros
+                                print(codigo)
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Codigo recebido: {codigo}')
+                                window.Refresh()
+                                break
+                else:
+                    pass
+            d(className='android.widget.EditText').set_text(str(codigo))
+            time.sleep(0.5)
+            d.xpath('//android.view.View[@content-desc="Next"]').click(timeout=60)
+            while True:
+                skip_button = d(text='Skip')
+                if skip_button.exists or d(text='Allow Facebook to access your location?').exists or d.xpath('//android.view.ViewGroup[@content-desc="Allow Facebook to access your location?"]').exists or d.xpath('//android.widget.Button[@content-desc="Search Facebook"]').exists or d(text='Not now').exists or d(text='Turn on contact uploading to find friends faster').exists or d.xpath('//android.view.ViewGroup[@content-desc="Search"]').exists or d.xpath('//android.widget.ImageView[@content-desc="Facebook logo"]').exists or d.xpath('//android.view.ViewGroup[@content-desc="Messaging"]').exists:
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Facebook criado com sucesso', text_color='cyan')
+                    window.Refresh()
+                    contagem = contagem + 1
+                    window['criadas'].update(contagem)
+                    window.Refresh()
+                    with open('configuracoes\\contas\\contas_facebook.txt', 'a') as file:
+                        file.write(f"{email2} {senha}\n")
+                    break
+                else:
+                    d.app_stop('com.facebook.katana')
+                    d.app_start('com.facebook.katana')
+                time.sleep(10)
+        except Exception as e:
+            print(e)
 
 def free_sms_beta2():
     SPREADSHEET_ID = config['spreadsheet']
@@ -34005,7 +34833,7 @@ def executar_creator_2nr():
                                 break
                             else:
                                 tentativa += 1
-                                if tentativa == 30:
+                                if tentativa == 10:
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
                                     window.Refresh()
                                     raise Exception('Email não chegou.')
@@ -34201,6 +35029,44 @@ def executar_creator_2nr():
                                         last_mail_id = messages[0].split()[-1]  # Pegar o último ID da mensagem
                                     except Exception as e:
                                         if 'list index out of range' in str(e):
+                                            print(tentativa)
+                                            tentativa += 1
+                                            if tentativa == 10:
+                                                try:
+                                                    tentativa = 0
+                                                    conteudo = config['vpn']
+                                                    if conteudo == "AVG":
+                                                        vpn_avg()
+                                                    elif conteudo == "SurfShark":
+                                                        vpn_surf()
+                                                    elif conteudo == "Nenhuma":
+                                                        nenhuma_vpn()
+                                                    elif conteudo == "Avast":
+                                                        vpn_avast()
+                                                    elif conteudo == "ExpressVPN":
+                                                        vpn_express()
+                                                    elif conteudo == "PiaVPN":
+                                                        vpn_pia()
+                                                    elif conteudo == "BetterNet":
+                                                        vpn_better()
+                                                    elif conteudo == "CyberGhost":
+                                                        vpn_cyberghost()
+                                                    elif conteudo == "NordVPN":
+                                                        vpn_nord()
+                                                    elif conteudo == "HotspotShield":
+                                                        vpn_hotspotshield()
+                                                    elif conteudo == "WindscribeVPN":
+                                                        vpn_windscribe()
+                                                    elif conteudo == "HmaVPN":
+                                                        vpn_hma()
+                                                    else:
+                                                        window['output'].print(
+                                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                                        window.Refresh()
+
+                                                except Exception as e:
+                                                    print(e)
+                                                    tentativa = 0
                                             raise Exception('')
                                     status, data = mail.fetch(last_mail_id, '(RFC822)')
                                     if status == 'OK':
@@ -34246,45 +35112,45 @@ def executar_creator_2nr():
                                         time.sleep(0.5)
                                     
                                 
+                                else:
+                                    print(tentativa)
+                                    tentativa += 1
+                                    if tentativa == 10:
+                                        try:
+                                            tentativa = 0
+                                            conteudo = config['vpn']
+                                            if conteudo == "AVG":
+                                                vpn_avg()
+                                            elif conteudo == "SurfShark":
+                                                vpn_surf()
+                                            elif conteudo == "Nenhuma":
+                                                nenhuma_vpn()
+                                            elif conteudo == "Avast":
+                                                vpn_avast()
+                                            elif conteudo == "ExpressVPN":
+                                                vpn_express()
+                                            elif conteudo == "PiaVPN":
+                                                vpn_pia()
+                                            elif conteudo == "BetterNet":
+                                                vpn_better()
+                                            elif conteudo == "CyberGhost":
+                                                vpn_cyberghost()
+                                            elif conteudo == "NordVPN":
+                                                vpn_nord()
+                                            elif conteudo == "HotspotShield":
+                                                vpn_hotspotshield()
+                                            elif conteudo == "WindscribeVPN":
+                                                vpn_windscribe()
+                                            elif conteudo == "HmaVPN":
+                                                vpn_hma()
+                                            else:
+                                                window['output'].print(
+                                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                                window.Refresh()
 
-                                print(tentativa)
-                                tentativa =+ 1
-                                if tentativa == 10:
-                                    try:
-                                        tentativa = 0
-                                        conteudo = config['vpn']
-                                        if conteudo == "AVG":
-                                            vpn_avg()
-                                        elif conteudo == "SurfShark":
-                                            vpn_surf()
-                                        elif conteudo == "Nenhuma":
-                                            nenhuma_vpn()
-                                        elif conteudo == "Avast":
-                                            vpn_avast()
-                                        elif conteudo == "ExpressVPN":
-                                            vpn_express()
-                                        elif conteudo == "PiaVPN":
-                                            vpn_pia()
-                                        elif conteudo == "BetterNet":
-                                            vpn_better()
-                                        elif conteudo == "CyberGhost":
-                                            vpn_cyberghost()
-                                        elif conteudo == "NordVPN":
-                                            vpn_nord()
-                                        elif conteudo == "HotspotShield":
-                                            vpn_hotspotshield()
-                                        elif conteudo == "WindscribeVPN":
-                                            vpn_windscribe()
-                                        elif conteudo == "HmaVPN":
-                                            vpn_hma()
-                                        else:
-                                            window['output'].print(
-                                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
-                                            window.Refresh()
-
-                                    except Exception as e:
-                                        print(e)
-                                        tentativa = 0
+                                        except Exception as e:
+                                            print(e)
+                                            tentativa = 0
                             except:
                                     pass
                     elif email_escolhido == 'GuerrilaMail':
@@ -34354,7 +35220,7 @@ def executar_creator_2nr():
                                 email = email.replace('@guerrillamailblock.com', '@pokemail.net')
                                 break
                             print(tentativa)
-                            tentativa =+ 1
+                            tentativa += 1
                             if tentativa == 10:
                                 try:
                                     tentativa = 0
@@ -34442,7 +35308,7 @@ def executar_creator_2nr():
                                 
                                 # Espera um pouco antes de verificar novamente
                                 time.sleep(5)
-                                tentativa =+ 1
+                                tentativa += 1
                                 if tentativa == 5:
                                     try:
                                         conteudo = config['vpn']
@@ -35266,7 +36132,8 @@ def executar_creator_2nr():
                             email = response.json()['data']
                             email = email.replace('+', '@')
                             email2 = email
-                            print(email)
+                            print('Email: ', email2)
+                            print('Senha: ', senha)
                         else:
                             print("Falha na criação da conta de e-mail.")
                             print(response.text)
@@ -35284,54 +36151,96 @@ def executar_creator_2nr():
                         tentativa = 1
                         sair = False
                         while sair is False:
-                            try:
-                                def get_email_body(msg):
-                                    if msg.is_multipart():
-                                        for part in msg.walk():
-                                            content_type = part.get_content_type()
-                                            content_disposition = str(part.get("Content-Disposition"))
+                            def get_email_body(msg):
+                                if msg.is_multipart():
+                                    for part in msg.walk():
+                                        content_type = part.get_content_type()
+                                        content_disposition = str(part.get("Content-Disposition"))
 
-                                            if "attachment" not in content_disposition:
-                                                if content_type == "text/plain" or content_type == "text/html":
-                                                    return part.get_payload(decode=True).decode()
+                                        if "attachment" not in content_disposition:
+                                            if content_type == "text/plain" or content_type == "text/html":
+                                                return part.get_payload(decode=True).decode()
+                                else:
+                                    content_type = msg.get_content_type()
+                                    if content_type == "text/plain" or content_type == "text/html":
+                                        return msg.get_payload(decode=True).decode()
+                                return ""
+                            import imaplib
+                            import email
+                            time.sleep(10)
+
+                            email_user = email2
+                            email_password = senha
+
+                            # Configurações do servidor IMAP
+                            imap_host = 'mi3-ss120.a2hosting.com'  # Substitua com o host do servidor IMAP do seu provedor
+                            imap_port = 993  # Porta comum para IMAP sobre SSL
+
+                            # Conectar ao servidor IMAP
+                            mail = imaplib.IMAP4_SSL(imap_host, imap_port)
+
+                            # Autenticar
+                            mail.login(email_user, email_password)
+
+                            # Selecionar caixa de entrada
+                            mail.select("inbox")
+
+                            # Buscar e-mails
+                            status, messages = mail.search(None, 'ALL')
+                            #print(f'Status da busca: {status}')
+
+                            # Verificar se messages não está vazio
+                            # Verificar se messages não está vazio
+                            if status == 'OK' and messages:
+                                try:
+                                    last_mail_id = messages[0].split()[-1]  # Pegar o último ID da mensagem
+                                except Exception as e:
+                                    if 'list index out of range' in str(e):
+                                        print(tentativa)
+                                        if tentativa == 0:
+                                            break
+                                        tentativa += 1
+                                        if tentativa == 10:
+                                            try:
+                                                tentativa = 0
+                                                conteudo = config['vpn']
+                                                if conteudo == "AVG":
+                                                    vpn_avg()
+                                                elif conteudo == "SurfShark":
+                                                    vpn_surf()
+                                                elif conteudo == "Nenhuma":
+                                                    nenhuma_vpn()
+                                                elif conteudo == "Avast":
+                                                    vpn_avast()
+                                                elif conteudo == "ExpressVPN":
+                                                    vpn_express()
+                                                elif conteudo == "PiaVPN":
+                                                    vpn_pia()
+                                                elif conteudo == "BetterNet":
+                                                    vpn_better()
+                                                elif conteudo == "CyberGhost":
+                                                    vpn_cyberghost()
+                                                elif conteudo == "NordVPN":
+                                                    vpn_nord()
+                                                elif conteudo == "HotspotShield":
+                                                    vpn_hotspotshield()
+                                                elif conteudo == "WindscribeVPN":
+                                                    vpn_windscribe()
+                                                elif conteudo == "HmaVPN":
+                                                    vpn_hma()
+                                                else:
+                                                    window['output'].print(
+                                                        "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                                    window.Refresh()
+
+                                            except Exception as e:
+                                                print(e)
+                                                tentativa = 0
                                     else:
-                                        content_type = msg.get_content_type()
-                                        if content_type == "text/plain" or content_type == "text/html":
-                                            return msg.get_payload(decode=True).decode()
-                                    return ""
-                                import imaplib
-                                import email
-                                time.sleep(10)
-
-                                email_user = email2
-                                email_password = senha
-
-                                # Configurações do servidor IMAP
-                                imap_host = 'mi3-ss120.a2hosting.com'  # Substitua com o host do servidor IMAP do seu provedor
-                                imap_port = 993  # Porta comum para IMAP sobre SSL
-
-                                # Conectar ao servidor IMAP
-                                mail = imaplib.IMAP4_SSL(imap_host, imap_port)
-
-                                # Autenticar
-                                mail.login(email_user, email_password)
-
-                                # Selecionar caixa de entrada
-                                mail.select("inbox")
-
-                                # Buscar e-mails
-                                status, messages = mail.search(None, 'ALL')
-                                #print(f'Status da busca: {status}')
-
-                                # Verificar se messages não está vazio
-                                # Verificar se messages não está vazio
-                                if status == 'OK' and messages:
-                                    try:
-                                        last_mail_id = messages[0].split()[-1]  # Pegar o último ID da mensagem
-                                    except Exception as e:
-                                        if 'list index out of range' in str(e):
-                                            raise Exception('')
+                                        print('Erro')
+                                try:
                                     status, data = mail.fetch(last_mail_id, '(RFC822)')
+                                
                                     if status == 'OK':
                                         for response_part in data:
                                             if isinstance(response_part, tuple):
@@ -35343,9 +36252,11 @@ def executar_creator_2nr():
                                                 #print('Subject:', email_subject)
                                                 #print('Body:', email_body)
                                                 #print('\n')
-                                else:
-                                    print("Nenhuma mensagem encontrada ou erro na busca.")
-
+                                except:
+                                    print('Código não chegou')
+                            else:
+                                print("Nenhuma mensagem encontrada ou erro na busca.")
+                            try:
                                 if '2nr' in email_subject:
                                     urls = re.findall("(?P<url>https?://[^\s]+)",
                                                     email_body if email_body else email_body)
@@ -35375,48 +36286,51 @@ def executar_creator_2nr():
                                         time.sleep(0.5)
                                     
                                 
+                                else:
+                                    print(tentativa)
+                                    if tentativa == 0:
+                                        break
+                                    tentativa += 1
+                                    if tentativa == 10:
+                                        try:
+                                            tentativa = 0
+                                            conteudo = config['vpn']
+                                            if conteudo == "AVG":
+                                                vpn_avg()
+                                            elif conteudo == "SurfShark":
+                                                vpn_surf()
+                                            elif conteudo == "Nenhuma":
+                                                nenhuma_vpn()
+                                            elif conteudo == "Avast":
+                                                vpn_avast()
+                                            elif conteudo == "ExpressVPN":
+                                                vpn_express()
+                                            elif conteudo == "PiaVPN":
+                                                vpn_pia()
+                                            elif conteudo == "BetterNet":
+                                                vpn_better()
+                                            elif conteudo == "CyberGhost":
+                                                vpn_cyberghost()
+                                            elif conteudo == "NordVPN":
+                                                vpn_nord()
+                                            elif conteudo == "HotspotShield":
+                                                vpn_hotspotshield()
+                                            elif conteudo == "WindscribeVPN":
+                                                vpn_windscribe()
+                                            elif conteudo == "HmaVPN":
+                                                vpn_hma()
+                                            else:
+                                                window['output'].print(
+                                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                                window.Refresh()
 
-                                print(tentativa)
-                                tentativa =+ 1
-                                if tentativa == 10:
-                                    try:
-                                        tentativa = 0
-                                        conteudo = config['vpn']
-                                        if conteudo == "AVG":
-                                            vpn_avg()
-                                        elif conteudo == "SurfShark":
-                                            vpn_surf()
-                                        elif conteudo == "Nenhuma":
-                                            nenhuma_vpn()
-                                        elif conteudo == "Avast":
-                                            vpn_avast()
-                                        elif conteudo == "ExpressVPN":
-                                            vpn_express()
-                                        elif conteudo == "PiaVPN":
-                                            vpn_pia()
-                                        elif conteudo == "BetterNet":
-                                            vpn_better()
-                                        elif conteudo == "CyberGhost":
-                                            vpn_cyberghost()
-                                        elif conteudo == "NordVPN":
-                                            vpn_nord()
-                                        elif conteudo == "HotspotShield":
-                                            vpn_hotspotshield()
-                                        elif conteudo == "WindscribeVPN":
-                                            vpn_windscribe()
-                                        elif conteudo == "HmaVPN":
-                                            vpn_hma()
-                                        else:
-                                            window['output'].print(
-                                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
-                                            window.Refresh()
-
-                                    except Exception as e:
-                                        print(e)
-                                        tentativa = 0
+                                        except Exception as e:
+                                            print(e)
+                                            tentativa = 0
+                                            sair = True
+                                            break
                             except:
-                                    pass
-
+                                print('Código não chegou')
                     elif email_escolhido == 'MailTM':
                         while True:
                             try:
@@ -35554,7 +36468,7 @@ def executar_creator_2nr():
                                 email = email.replace('@guerrillamailblock.com', '@pokemail.net')
                                 break
                             print(tentativa)
-                            tentativa =+ 1
+                            tentativa += 1
                             if tentativa == 10:
                                 try:
                                     tentativa = 0
@@ -35642,7 +36556,7 @@ def executar_creator_2nr():
                                 
                                 # Espera um pouco antes de verificar novamente
                                 time.sleep(5)
-                                tentativa =+ 1
+                                tentativa += 1
                                 if tentativa == 5:
                                     try:
                                         conteudo = config['vpn']
@@ -36380,9 +37294,23 @@ while True:
                     window.Refresh()
                     minha_thread = threading.Thread(target=executar_2nr_insta)
                     minha_thread.start()
+
                 elif config['email'] == '-instaface-':
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] InstaFace selecionado.')
+                    window['Executar'].update(disabled=True)
                     window.Refresh()
+                    try:
+                        with open('configuracoes\\config3.json', 'r') as file:
+                            config2 = json.load(file)
+                    except FileNotFoundError:
+                        config2 = {}
+
+                    dialog_layout = [
+                        [sg.Radio('Criar Facebook', 'RADIO1', key='-instaface_criarface-', default=config2.get("metodo", "") == "-instaface_criarface-"),
+                         sg.Radio('Criar Instagram', 'RADIO1', key='-instaface_criarinsta-', default=config2.get("metodo", "") == "-instaface_criarinsta-")],
+                        [sg.Button('Executar', button_color='#1c2024')]
+                    ]
+                    
+                    
 
                     try:
                         with open('configuracoes\\config3.json', 'r') as file:
@@ -36390,24 +37318,14 @@ while True:
                     except FileNotFoundError:
                         config2 = {}
 
-                    # Define o layout da janela de diálogo
-                    dialog_layout = [
-                        [sg.Text('API GoLogin:'), sg.Input(key='-API-', default_text=config2.get('api', ''))],
-                        [sg.Text('IP:'), sg.Input(key='-IP-', default_text=config2.get('ip', ''))],
-                        [sg.Text('Porta:'), sg.Input(key='-Porta-', default_text=config2.get('porta', ''))],
-                        [sg.Text('Usuário:'), sg.Input(key='-Usuario-', default_text=config2.get('usuario', ''))],
-                        [sg.Text('Senha:'),
-                         sg.Input(key='-Senha-', password_char='*', default_text=config2.get('senha', ''))],
-                        [sg.Button('Executar')]
-                    ]
                     try:
                         state = config['fixtop']
                         if state:
-                            dialog_window = sg.Window('Configurações do iProxy.', dialog_layout, keep_on_top=True)
+                            dialog_window = sg.Window('Selecione a opção:', dialog_layout, keep_on_top=True)
                         else:
-                            dialog_window = sg.Window('Configurações do iProxy.', dialog_layout, keep_on_top=False)
+                            dialog_window = sg.Window('Selecione a opção:', dialog_layout, keep_on_top=False)
                     except:
-                        dialog_window = sg.Window('Configurações do iProxy.', dialog_layout, keep_on_top=False)
+                        dialog_window = sg.Window('Selecione a opção:', dialog_layout, keep_on_top=False)
 
                     # Loop principal da janela de diálogo
                     while True:
@@ -36419,23 +37337,72 @@ while True:
 
                         # Avança para a janela principal se o usuário clicar no botão
                         if dialog_event == 'Executar':
-                            apigologin = dialog_values['-API-']
-                            ip = dialog_values['-IP-']
-                            porta2 = dialog_values['-Porta-']
-                            usuario = dialog_values['-Usuario-']
-                            senha2 = dialog_values['-Senha-']
-                            config2 = {'api': apigologin, 'ip': ip, 'porta': porta2, 'usuario': usuario,
-                                       'senha': senha2}
-
+                            if dialog_values['-instaface_criarface-']:
+                                metodo = '-instaface_criarface-'
+                            elif dialog_values['-instaface_criarinsta-']:
+                                metodo = '-instaface_criarinsta-'
+                            config2 = {
+                                "metodo": metodo
+                            }
                             # Salva os valores no arquivo JSON
                             with open('configuracoes\\config3.json', 'w') as file:
                                 json.dump(config2, file)
 
-                            break
+                            dialog_window.close()
 
-                    dialog_window.close()
-                    minha_thread = threading.Thread(target=insta_face_lite)
-                    minha_thread.start()
+                        
+                        if config2['metodo'] == '-instaface_criarface-':
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] InstaFace - Criar Facebook selecionado.')
+                            window.Refresh()
+                            try:
+                                with open('configuracoes\\config4.json', 'r') as file:
+                                    config4 = json.load(file)
+                            except FileNotFoundError:
+                                config4 = {}
+                            vpn_list = ["Nenhuma", "AVG", "Avast", "SurfShark", "ExpressVPN", "PiaVPN", "BetterNet", "NordVPN", "CyberGhost",
+                            "HotspotShield", "HmaVPN", "WindscribeVPN"]
+                            dialog_layout = [
+                                [sg.Radio('4g', 'RADIO1', key='-4g-', default=config4.get("metodo", "") == "-4g-"),
+                                 sg.Radio('VPN', 'RADIO1', key='-vpn-', default=config4.get("metodo", "") == "-vpn-")],
+                                [sg.HorizontalSeparator()],
+                                [sg.Combo(vpn_list, default_value=config4.get("metodo", ""), readonly=True, key='-vpnlista-', visible=False)],
+                                [sg.Button('Executar', button_color='#1c2024')]
+                            ]
+
+                            # Criação da janela de diálogo
+                            state = config.get('fixtop', False)
+                            dialog_window = sg.Window('Selecione a opção:', dialog_layout, keep_on_top=state)
+
+                            # Loop principal da janela de diálogo
+                            while True:
+                                dialog_event, dialog_values = dialog_window.read(timeout=100)
+                                if dialog_values['-4g-']:  # Se o botão de rádio '4g' for selecionado
+                                    dialog_window['-vpnlista-'].update(visible=False)
+
+                                elif dialog_values['-vpn-']:
+                                    dialog_window['-vpnlista-'].update(visible=True)
+
+                                if dialog_event == sg.WINDOW_CLOSED:
+                                    break
+
+                                if dialog_event == 'Executar':
+                                    if dialog_values['-4g-']:
+                                        ip = '-4g-'
+                                    elif dialog_values['-vpn-']:
+                                        ip = dialog_values['-vpnlista-']
+                                    config4 = {"metodo": ip}
+                                    with open('configuracoes\\config4.json', 'w') as file:
+                                        json.dump(config4, file)
+                                    break
+
+                            dialog_window.close()
+                            minha_thread = threading.Thread(target=instaface_criarface)
+                            minha_thread.start()
+                        elif config['email'] == '-instaface_criarinsta-':
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] InstaFace - Criar Instagram selecionado.')
+                            window.Refresh()
+                            minha_thread = threading.Thread(target=instaface_criarinsta)
+                            minha_thread.start()
                 elif config['email'] == '-freesms-' and config['app'] == '-insta-':
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Free SMS selecionado.')
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Instagram selecionado.')
@@ -36547,8 +37514,7 @@ while True:
                      sg.Radio('MinuteInBox', 'RADIO1', key='-minuteinbox-',
                               default=config.get("email", "") == "-minuteinbox-"),
                      sg.Radio('2NR', 'RADIO1', key='-2nr-', default=config.get("email", "") == "-2nr-"),
-                     sg.Radio('InstaFace Lite', 'RADIO1', key='-instaface-',
-                              default=config.get("email", "") == "-instaface-", visible=False),
+                     sg.Radio('InstaFace', 'RADIO1', key='-instaface-', default=config.get("email", "") == "-instaface-"),
                      sg.Radio('Free SMS2', 'RADIO1', visible=beta_folder_exists, key='-freesms-',
                               default=config.get("email", "") == "-freesms-"),
                      sg.Radio('Free SMS', 'RADIO1', visible=True, key='-freesmsbeta-',
