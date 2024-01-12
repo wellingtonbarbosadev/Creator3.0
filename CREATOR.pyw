@@ -898,16 +898,58 @@ def instaface_criarface():
             except:
                 pass
             try:
-                subprocess.run(f'adb -s {porta} shell settings put global airplane_mode_on 1', stdout=subprocess.DEVNULL,
-                            stderr=subprocess.DEVNULL, check=True, shell=True)
-            except Exception as e:
-                print(e)
-            time.sleep(5)
-            try:
-                subprocess.run(f'adb -s {porta} shell settings put global airplane_mode_on 0', stdout=subprocess.DEVNULL,
-                            stderr=subprocess.DEVNULL, check=True, shell=True)
-            except Exception as e:
-                print(e)
+                d.app_start('com.arlosoft.macrodroid')
+                d(resourceId='com.arlosoft.macrodroid:id/onOffSwitch').click(timeout=20)
+                d(resourceId='com.arlosoft.macrodroid:id/onOffSwitch').click(timeout=20)
+                time.sleep(12)
+                d.app_stop('com.arlosoft.macrodroid')
+            except:
+                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Baixando APK')
+                window.Refresh()
+                d.app_install('https://www.dropbox.com/scl/fi/xtkw77snupht13pbjohpm/MacroDroid_PRO-v5.39.3_Tekmods.com.apk?rlkey=la183j4i24keqyjhrez5ajw3d&dl=1')
+                d.app_start('com.arlosoft.macrodroid')
+                d(resourceId='com.arlosoft.macrodroid:id/button_skip').click(timeout=20)
+                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Configurando MacroDroid')
+                window.Refresh()
+                d.xpath('//android.widget.FrameLayout[@content-desc="Macros"]').click()
+                d(resourceId='com.arlosoft.macrodroid:id/macro_list_add_button').click()
+                d(resourceId='com.arlosoft.macrodroid:id/edit_macro_addTriggerButton').click()
+                d(text='Específico do MacroDroid').click()
+                d(text='Macro habilitada').click()
+                d(resourceId='com.arlosoft.macrodroid:id/edit_macro_addActionButton').click()
+                d(text='Conectividade').click()
+                d(text='Ativar/desativar modo avião').click()
+                d(text='Hack ADB').click()
+                d(text='OK').click()
+                d(text='OK').click()
+                d(resourceId='com.arlosoft.macrodroid:id/edit_macro_addActionButton').click()
+                d(text='Específico do MacroDroid').click()
+                d(text='Esperar por disparo').click()
+                d(resourceId='com.arlosoft.macrodroid:id/add_trigger_button').click()
+                d(text='Bateria/Potência').click()
+                d(text='Botão lateral pressionado várias vezes').click()
+                d(text='OK').click()
+                d(text='Continuar após o tempo limite').click()
+                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text('')
+                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text('10')
+                d(text='OK').click()
+                d(resourceId='com.arlosoft.macrodroid:id/edit_macro_addActionButton').click()
+                d(text='Conectividade').click()
+                d(text='Ativar/desativar modo avião').click()
+                d(text='Hack ADB').click()
+                d(text='OK').click()
+                d(text='Desativa o modo avião').click()
+                d(text='OK').click()
+                d(text='Digite o nome da macro').set_text('Trocar IP')
+                d(resourceId='com.arlosoft.macrodroid:id/acceptButton').click()
+                time.sleep(2)
+                d.app_stop('com.arlosoft.macrodroid')
+                try:
+                    subprocess.run(f'adb -s {porta} shell pm grant com.arlosoft.macrodroid android.permission.WRITE_SECURE_SETTINGS', stdout=subprocess.DEVNULL,
+                                stderr=subprocess.DEVNULL, check=True, shell=True)
+                except Exception as e:
+                    print(e)
+
             sms = True
             time.sleep(30)
 
@@ -1119,19 +1161,15 @@ def instaface_criarface():
             d(className='android.widget.EditText').set_text(senha)
             d.xpath('//android.view.View[@content-desc="Next"]').click(timeout=60)
             d.xpath('//android.view.View[@content-desc="Not now"]').click(timeout=60)
-            print(d(text="I agree").exists)
             d.xpath('//android.view.View[@content-desc="I agree"]').click(timeout=60)
 
-            #tela_confirmacao = d.xpath('//android.view.View[@content-desc="Enter the confirmation code"]')
-            print('teste')
-            #time.sleep(30)
+            
             while True:
-                print(d(text='Enter the confirmation code').exists)
-                print(d.xpath('//android.view.ViewGroup[@content-desc="Continue"]').exists)
-                print(d.xpath('//android.view.View[@content-desc="I agree"]').exists)
-                print('\n')
+                #print(d(text='Enter the confirmation code').exists)
+                #print(d.xpath('//android.view.ViewGroup[@content-desc="Continue"]').exists)
+                #print(d.xpath('//android.view.View[@content-desc="I agree"]').exists)
+                #print('\n')
                 if d(text='Enter the confirmation code').exists:
-                    print('teste2')
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
                     window.Refresh()
                     break
@@ -1147,7 +1185,7 @@ def instaface_criarface():
                     # Chamada da função para deletar o e-mail
                     delete_email(cpanel_user, cpanel_password, cpanel_domain, email_user, email_domain)
                     trocar_ip()
-                    raise Exception('Algo ocorreu')
+                    raise Exception('')
                 elif d.xpath('//android.view.View[@content-desc="I agree"]').exists:
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
                     window.Refresh()
@@ -1218,6 +1256,10 @@ def instaface_criarface():
             time.sleep(0.5)
             d.xpath('//android.view.View[@content-desc="Next"]').click(timeout=60)
             while True:
+                if not d.xpath('//android.view.View[@content-desc="Enter the confirmation code"]').exists:
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando 15 segundos')
+                    window.Refresh()
+                    time.sleep(15)
                 skip_button = d(text='Skip')
                 if skip_button.exists or d(text='Allow Facebook to access your location?').exists or d.xpath('//android.view.ViewGroup[@content-desc="Allow Facebook to access your location?"]').exists or d.xpath('//android.widget.Button[@content-desc="Search Facebook"]').exists or d(text='Not now').exists or d(text='Turn on contact uploading to find friends faster').exists or d.xpath('//android.view.ViewGroup[@content-desc="Search"]').exists or d.xpath('//android.widget.ImageView[@content-desc="Facebook logo"]').exists or d.xpath('//android.view.ViewGroup[@content-desc="Messaging"]').exists or d.xpath('//android.view.ViewGroup[@content-desc="Go to profile"]').exists or d.xpath('//android.view.View[@content-desc="Feed, tab 1 of 5"]').exists:
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Facebook criado com sucesso', text_color='cyan')
@@ -1228,12 +1270,26 @@ def instaface_criarface():
                     with open('configuracoes\\contas\\contas_facebook.txt', 'a') as file:
                         file.write(f"{email2} {senha}\n")
                     break
+                elif d.xpath('//android.view.ViewGroup[@content-desc="Appeal"]').exists or d.xpath('//android.view.ViewGroup[@content-desc="Read more about this rule"]').exists:
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] SMS', text_color='red')
+                    window.Refresh()
+                    cpanel_user = 'wnmailsh'
+                    cpanel_password = 'V.5k7lV3l8PB*q'
+                    cpanel_domain = 'mi3-ss120.a2hosting.com'
+                    email_user = email_user
+                    email_domain = 'wnmail.shop'
+
+                    # Chamada da função para deletar o e-mail
+                    delete_email(cpanel_user, cpanel_password, cpanel_domain, email_user, email_domain)
+                    trocar_ip()
+                    raise Exception('')
                 else:
                     subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL, check=True, shell=True)
                     d.app_stop('com.facebook.katana')
                     d.app_start('com.facebook.katana')
-                time.sleep(10)
+                    time.sleep(10)
+                
         except Exception as e:
             print(e)
 
