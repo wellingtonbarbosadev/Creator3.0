@@ -951,7 +951,7 @@ def instaface_criarface():
                     print(e)
 
             sms = True
-            time.sleep(30)
+            time.sleep(20)
 
         try:
             conteudo = config4['metodo']
