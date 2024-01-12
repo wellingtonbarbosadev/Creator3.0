@@ -1219,7 +1219,7 @@ def instaface_criarface():
             d.xpath('//android.view.View[@content-desc="Next"]').click(timeout=60)
             while True:
                 skip_button = d(text='Skip')
-                if skip_button.exists or d(text='Allow Facebook to access your location?').exists or d.xpath('//android.view.ViewGroup[@content-desc="Allow Facebook to access your location?"]').exists or d.xpath('//android.widget.Button[@content-desc="Search Facebook"]').exists or d(text='Not now').exists or d(text='Turn on contact uploading to find friends faster').exists or d.xpath('//android.view.ViewGroup[@content-desc="Search"]').exists or d.xpath('//android.widget.ImageView[@content-desc="Facebook logo"]').exists or d.xpath('//android.view.ViewGroup[@content-desc="Messaging"]').exists:
+                if skip_button.exists or d(text='Allow Facebook to access your location?').exists or d.xpath('//android.view.ViewGroup[@content-desc="Allow Facebook to access your location?"]').exists or d.xpath('//android.widget.Button[@content-desc="Search Facebook"]').exists or d(text='Not now').exists or d(text='Turn on contact uploading to find friends faster').exists or d.xpath('//android.view.ViewGroup[@content-desc="Search"]').exists or d.xpath('//android.widget.ImageView[@content-desc="Facebook logo"]').exists or d.xpath('//android.view.ViewGroup[@content-desc="Messaging"]').exists or d.xpath('//android.view.ViewGroup[@content-desc="Go to profile"]').exists or d.xpath('//android.view.View[@content-desc="Feed, tab 1 of 5"]').exists:
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Facebook criado com sucesso', text_color='cyan')
                     window.Refresh()
                     contagem = contagem + 1
