@@ -901,7 +901,7 @@ def instaface_criarface():
                 d.app_start('com.arlosoft.macrodroid')
                 d(resourceId='com.arlosoft.macrodroid:id/onOffSwitch').click(timeout=20)
                 d(resourceId='com.arlosoft.macrodroid:id/onOffSwitch').click(timeout=20)
-                time.sleep(12)
+                time.sleep(20)
                 d.app_stop('com.arlosoft.macrodroid')
             except:
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Baixando APK')
@@ -951,7 +951,7 @@ def instaface_criarface():
                     print(e)
 
             sms = True
-            time.sleep(20)
+            time.sleep(5)
 
         try:
             conteudo = config4['metodo']
