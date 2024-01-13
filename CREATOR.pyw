@@ -1035,7 +1035,7 @@ def instaface_criarface():
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo facebook.')
             window.Refresh()
-            d.app_start('com.facebook.katana')
+            d.app_start('com.facebook.katana', use_monkey=True)
             # MUDAR IDIOMAR
             d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.View').click(timeout=120)
             d.xpath('//android.view.View[@content-desc="English (US)"]').click(timeout=30)
@@ -1173,7 +1173,7 @@ def instaface_criarface():
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
                     window.Refresh()
                     break
-                elif d.xpath('//android.view.ViewGroup[@content-desc="Continue"]').exists:
+                elif d.xpath('//android.view.ViewGroup[@content-desc="Continue"]').exists or d(text='Wrong Credentials').exists or d(text='Invalid username or password').exists:
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] SMS', text_color='red')
                     window.Refresh()
                     cpanel_user = 'wnmailsh'
@@ -1287,7 +1287,7 @@ def instaface_criarface():
                     subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL, check=True, shell=True)
                     d.app_stop('com.facebook.katana')
-                    d.app_start('com.facebook.katana')
+                    d.app_start('com.facebook.katana', use_monkey=True)
                     time.sleep(10)
                 
         except Exception as e:
