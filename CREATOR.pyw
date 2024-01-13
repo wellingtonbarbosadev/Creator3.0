@@ -1087,7 +1087,8 @@ def instaface_criarface():
             permission_deny = d(resourceId='com.android.permissioncontroller:id/permission_deny_button')
             if permission_deny.exists(timeout=5):
                 permission_deny.click(timeout=10)
-            
+            elif d(text='DENY').exists:
+                d(text='DENY').click()
             # CRIAR EMAIL
             def gerar_senha(tamanho=12):
                 if tamanho < 6:
