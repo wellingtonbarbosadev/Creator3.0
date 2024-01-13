@@ -920,26 +920,26 @@ def instaface_criarface():
                 d(text='Conectividade').click()
                 d(text='Ativar/desativar modo avião').click()
                 d(text='Hack ADB').click()
-                d(text='OK').click()
-                d(text='OK').click()
+                d(resourceId='android:id/button1').click()
+                d(resourceId='android:id/button1').click()
                 d(resourceId='com.arlosoft.macrodroid:id/edit_macro_addActionButton').click()
                 d(text='Específico do MacroDroid').click()
                 d(text='Esperar por disparo').click()
                 d(resourceId='com.arlosoft.macrodroid:id/add_trigger_button').click()
                 d(text='Bateria/Potência').click()
                 d(text='Botão lateral pressionado várias vezes').click()
-                d(text='OK').click()
+                d(resourceId='android:id/button1').click()
                 d(text='Continuar após o tempo limite').click()
                 d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text('')
                 d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text('10')
-                d(text='OK').click()
+                d(resourceId='android:id/button1').click()
                 d(resourceId='com.arlosoft.macrodroid:id/edit_macro_addActionButton').click()
                 d(text='Conectividade').click()
                 d(text='Ativar/desativar modo avião').click()
                 d(text='Hack ADB').click()
-                d(text='OK').click()
+                d(resourceId='android:id/button1').click()
                 d(text='Desativa o modo avião').click()
-                d(text='OK').click()
+                d(resourceId='android:id/button1').click()
                 d(text='Digite o nome da macro').set_text('Trocar IP')
                 d(resourceId='com.arlosoft.macrodroid:id/acceptButton').click()
                 time.sleep(2)
@@ -1037,7 +1037,7 @@ def instaface_criarface():
             window.Refresh()
             d.app_start('com.facebook.katana', use_monkey=True)
             # MUDAR IDIOMAR
-            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.View').click(timeout=120)
+            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.View').click(timeout=120)
             d.xpath('//android.view.View[@content-desc="English (US)"]').click(timeout=30)
             #
 
@@ -1198,6 +1198,8 @@ def instaface_criarface():
                     # Chamada da função para deletar o e-mail
                     delete_email(cpanel_user, cpanel_password, cpanel_domain, email_user, email_domain)
                     raise Exception('Restrição')
+                elif d(text='Use code instead').exists:
+                    d(text='Use code instead').click()
                 time.sleep(5)
             
             
