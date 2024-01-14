@@ -3,6 +3,7 @@ import json
 from operator import truediv
 from socket import timeout
 from tkinter import FALSE
+global parar
 import os
 from types import EllipsisType
 import unicodedata
@@ -407,6 +408,702 @@ def contagem():
     window['contagem'].update(contagem)
     window.Refresh()
 
+
+def instaface_criarinsta():
+    global parar
+    global chrome
+    dados_brutos = f"""
+        {texto_digitado}
+    """
+    import email
+    from selenium import webdriver
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.chrome.service import Service
+    from webdriver_manager.chrome import ChromeDriverManager
+    import time
+    import traceback
+    import random
+    import base64
+    import re
+    from email.header import decode_header
+    import requests
+    import unicodedata
+    from faker import Faker
+    fake = Faker('pt_BR')
+    from selenium.common.exceptions import NoSuchElementException
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support.ui import Select
+    from selenium.webdriver.support import expected_conditions as EC
+    import undetected_chromedriver as uc
+    try:
+        with open("config.json", "r") as f:
+            config = json.load(f)
+    except FileNotFoundError:
+        config = {}
+    try:
+        with open("configuracoes\\config4.json", "r") as f:
+            config4 = json.load(f)
+    except FileNotFoundError:
+        config4 = {}
+    SPREADSHEET_ID = config['spreadsheet']
+    #try:
+    #    conteudo = config4['metodo']
+    #except Exception as e:
+    #    print(config4['metodo'])
+    #    print(e)
+    #    pass
+    senha = config['senha']
+    maquina = config['maquina']
+    email = 'InstaFace'
+    tentativa = False
+    seguido = False
+    global sms
+    linha_ret = '_________________________________________________\n'
+    global nomes
+    global sobrenomes
+    global nome
+    global contagem
+    global sobrenome
+    global lista_user
+    window['Executar'].update(disabled=True)
+    window.Refresh()
+    import os
+    import time
+    import requests
+    import hashlib
+    import subprocess
+    import os
+    import time
+    from selenium.webdriver.remote.webelement import WebElement
+    import zipfile
+
+    def digitar_como_humano(elemento: WebElement, texto: str, min_delay=0.1, max_delay=0.2):
+        """
+        Digita o texto em um elemento da página, simulando digitação humana.
+        
+        :param elemento: O elemento do Selenium onde o texto será digitado.
+        :param texto: O texto a ser digitado no elemento.
+        :param min_delay: Atraso mínimo entre as teclas, em segundos.
+        :param max_delay: Atraso máximo entre as teclas, em segundos.
+        """
+        for char in texto:
+            elemento.send_keys(char)
+            time.sleep(random.uniform(min_delay, max_delay))
+    def baixar_arquivo(url, caminho_arquivo, pasta_destino):
+        # Verifica e cria a pasta destino, se necessário
+        if os.path.exists(pasta_destino):
+            return
+        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Baixando navegador...')
+        window.Refresh()
+        # Se a pasta não existir, cria a pasta destino
+        os.makedirs(pasta_destino)
+
+        # Continua com o download do arquivo
+        resposta = requests.get(url, stream=True)
+        tamanho_total = int(resposta.headers.get('content-length', 0))
+
+        with open(caminho_arquivo, 'wb') as file:
+            for dados in resposta.iter_content(chunk_size=4096):
+                file.write(dados)
+        
+        # Extrai o arquivo
+        with zipfile.ZipFile(caminho_arquivo, 'r') as zip_ref:
+            zip_ref.extractall(pasta_destino)
+        
+        # Apaga o arquivo zip após a extração
+        os.remove(caminho_arquivo)
+        print("\nDownload e extração concluídos.")
+
+    url = 'https://www.dropbox.com/scl/fi/9juftou3q4k4kj2o7mzhq/chrome-win.zip?rlkey=84n9pwxouhu9punpcjg32onbz&dl=1'
+    caminho_arquivo = './storage/driver/driver.zip'
+    pasta_destino = './storage/driver/'
+
+    baixar_arquivo(url, caminho_arquivo, pasta_destino)
+
+    # Dividindo a string em linhas e, em seguida, cada linha em email e senha
+    lista_contas = [linha.split() for linha in dados_brutos.strip().split('\n') if linha]
+
+    for conta in lista_contas:
+        if parar is True:
+            print('parou')
+            break
+        tentativa_restricao_fb = 0
+        passar_conta = False
+        tentativa = 1
+        total_contas_criadas_fb = 0
+        while passar_conta is False and parar is False:
+            try:
+                window['output'].print(linha_ret)
+                window.Refresh()
+                email_fb, senha_fb = conta
+                print(email_fb)
+                print(senha_fb)
+                url = f"https://instagram.com/"
+
+                chromedriver_path = '.\\chrome-win\\chromedriver.exe'
+                chrome_options = uc.ChromeOptions()
+                #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+                chrome_options.add_argument("--disable-gpu")
+                chrome_options.add_argument("--no-sandbox")
+                chrome_options.add_argument("--lang=pt-BR")
+                chrome_options.add_argument("--disable-notifications")
+                chrome_options.add_argument("--disable-popup-blocking")
+                chrome_options.add_argument("--disable-save-password-bubble")
+
+                chrome_options.add_experimental_option("prefs", {
+                    "credentials_enable_service": False,
+                    "profile.password_manager_enabled": False,
+                    "profile.default_content_setting_values.notifications": 2
+                })
+                #chrome_options.page_load_strategy = 'eager'
+                chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
+                # Configurando o Selenium para usar o Chrome Driver local
+                service = Service(executable_path=chromedriver_path)
+
+                chrome = uc.Chrome(service=service, options=chrome_options, headless=navvisivel, version_main=116)
+                chrome.get(url)
+                chrome.set_window_size(1920,1080)
+                try:
+                    captcha_click = WebDriverWait(chrome, 6).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Permitir todos os cookies')]")))
+                    chrome.execute_script("arguments[0].click();", captcha_click)
+                except:
+                    pass
+                fb_click = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'Entrar com o Facebook')]")))
+                chrome.execute_script("arguments[0].click();", fb_click)
+                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Logando em {email_fb}')
+                window.Refresh()
+                try:
+                    captcha_click = WebDriverWait(chrome, 6).until(EC.element_to_be_clickable((By.XPATH, "//button[@title='Permitir todos os cookies']")))
+                    chrome.execute_script("arguments[0].click();", captcha_click)
+                except:
+                    pass
+                digit_email_fb = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.ID, "email")))
+                digitar_como_humano(digit_email_fb, email_fb)
+                digit_senha_fb = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.ID, "pass")))
+                digitar_como_humano(digit_senha_fb, senha_fb)
+                WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.ID, "loginbutton"))).click()
+                instagram_existe = False
+                while True:
+                    time.sleep(10)
+                    disclosure = chrome.find_elements(By.XPATH, "//button[contains(text(), 'Sim, terminar de adicionar')]")
+                    if 'checkpoint' in chrome.current_url or 'suspended' in chrome.current_url:
+                        print('SMS')
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] SMS', text_color='red')
+                        window.Refresh()
+                        passar_conta = True
+                        raise Exception('')
+                    elif 'dialog' in chrome.current_url and not 'https://www.facebook.com/login/device-based/regular/login/?login_attempt' in chrome.current_url:
+                        WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "__CONFIRM__"))).click()
+                        break
+                    elif len(disclosure) == 1:
+                        break
+                    elif chrome.current_url == 'https://www.instagram.com/':
+                            print('Conta já tem instagram')
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta já possui instagram')
+                            window.Refresh()
+                            instagram_existe = True
+                            break
+                    elif 'https://www.facebook.com/login/device-based/regular/login/?login_attempt' in chrome.current_url:
+                        tentativa_restricao_fb += 1
+                        print('Tentando novamente')
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Tentando novamente')
+                        window.Refresh()
+                        chrome.back()
+                        WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.ID, "pass"))).send_keys(senha_fb)
+                        WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.ID, "loginbutton"))).click()
+                
+                        if tentativa_restricao_fb == 2:
+                            print('Não foi possivel utilizar essa conta')
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar essa conta')
+                            window.Refresh()
+                            passar_conta = True
+                            raise Exception('')
+                        else:
+                            pass
+                    elif len(chrome.find_elements(By.CSS_SELECTOR, "div[data-visualcompletion='loading-state']")) == 1:
+                        if tentativa == 2:
+                            print('Não foi possivel utilizar essa conta')
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar essa conta')
+                            window.Refresh()
+                            print('teste')
+                            passar_conta = True
+                            raise Exception('')
+                        tentativa = 2
+                        try:
+                            seletor_do_spinner = "div[data-visualcompletion='loading-state']"
+                            # Espera até que o elemento de carregamento não esteja mais visível na página
+                            WebDriverWait(chrome, 10).until(
+                                EC.invisibility_of_element_located((By.CSS_SELECTOR, seletor_do_spinner))
+                            )
+                        except:
+                            print("O tempo de espera excedeu enquanto esperava que o spinner de carregamento desaparecesse.")
+                    elif len(WebDriverWait(chrome, 6).until(EC.presence_of_all_elements_located((By.XPATH, "//button[@title='Permitir todos os cookies']")))) == 1:
+                        
+                        try:
+                            captcha_click = WebDriverWait(chrome, 6).until(EC.element_to_be_clickable((By.XPATH, "//button[@title='Permitir todos os cookies']")))
+                            chrome.execute_script("arguments[0].click();", captcha_click)
+                        except:
+                            pass
+
+                if instagram_existe is False:
+                    letras = 'abcdefghijklmnopqrstuvwxyz'
+                    lista_user = random.choices(range(0, 9), k=2)
+                    lista_letras = random.choices(letras, k=1)
+                    nomea = fake.first_name_female().replace(" ", "")
+                    nome = unicodedata.normalize('NFKD', nomea).encode('ASCII', 'ignore').decode('ASCII')
+                    sobrenomea = fake.last_name().replace(" ", "").lower()
+                    sobrenome = unicodedata.normalize('NFKD', sobrenomea).encode('ASCII', 'ignore').decode('ASCII')
+                    nome_completo = nome + ' ' + sobrenome
+                    nome_completo_s = nome + sobrenome
+                    numeros_concatenados = ''.join(str(numero) for numero in lista_user)
+                    user_completo1 = nome_completo_s + '' + str(numeros_concatenados) + ''.join(lista_letras)
+                    user_completo = random.randint(1, len(user_completo1))
+                    string_with_dot = user_completo1[:user_completo] + '_' + user_completo1[user_completo:]
+                    user_completo_antigo = string_with_dot.lower()
+                    escolha = random.choice(["_", "."])
+                    user_completo = nome + escolha + sobrenome + str(numeros_concatenados) + ''.join(lista_letras)
+                    time.sleep(5)
+                    while not 'disclosure' in chrome.current_url:
+                        chrome.get("https://www.instagram.com/")
+                        WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH,
+                                                                                    "/html/body/div[2]/div/div/div[1]/div/div/div/div[1]/section/main/article/div[2]/div[1]/div[2]/form/div/div[last()]/button"))).click()
+                        time.sleep(5)
+                        if len(chrome.find_elements(By.NAME, "__CONFIRM__")) == 1:
+                            chrome.find_element(By.NAME, "__CONFIRM__").click()
+                        time.sleep(10)
+                    
+                    WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Sim, terminar de adicionar')]"))).click()
+                    
+                    from requests.auth import HTTPBasicAuth
+                    # Substitua com as suas credenciais e dados
+                    lista_letras_email = random.choices(letras, k=9)
+                    email_string = ''.join(lista_letras_email)
+                    cpanel_user = 'wnmailsh'
+                    cpanel_password = 'V.5k7lV3l8PB*q'
+                    cpanel_domain = 'mi3-ss120.a2hosting.com'
+                    email_user = email_string
+                    email_domain = 'wnmail.shop'
+                    email_password = senha
+                    quota = 1  # 0 para ilimitada, ou defina um limite específico
+
+                    # URL para a função add_pop da API UAPI
+                    url = f'https://{cpanel_domain}:2083/execute/Email/add_pop'
+                    params = {
+                        'email': email_user,
+                        'domain': email_domain,
+                        'password': email_password,
+                        'quota': quota,
+                        'send_welcome_email': 0,  # Altere para 1 se quiser enviar um e-mail de boas-vindas
+                        'skip_update_db': 1
+                    }
+
+                    # Faça a solicitação para a API
+                    response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password), verify=True)
+
+                    # Verifique a resposta
+                    if response.status_code == 200:
+                        print("Conta de e-mail criada com sucesso!")
+                        email2 = response.json()['data']
+                        email2 = email2.replace('+', '@')
+                        print('Email: ', email2)
+                        print('Senha: ', senha)
+
+                    else:
+                        print("Falha na criação da conta de e-mail.")
+                        print(response.text)
+                    digit_email = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "emailOrPhone")))
+                    digitar_como_humano(digit_email, email2)
+                    #WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "fullName"))).click()
+                    time.sleep(1)
+                    #WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "fullName"))).clear()
+                    
+
+                    #WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "fullName"))).send_keys(nome_completo)
+                    digit_user = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "username")))
+                    digitar_como_humano(digit_user, user_completo)
+                    digit_senha = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "password")))
+                    digitar_como_humano(digit_senha, senha)
+                    url_antiga = chrome.current_url
+                    WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and contains(text(), 'Cadastre-se')]"))).click()
+                    criou_depois = False
+                    while True:
+                        if criou_depois:
+                            criou_depois = False
+                            break
+                        if url_antiga != chrome.current_url:
+                            if 'checkpoint' in chrome.current_url or 'suspended' in chrome.current_url:
+                                print('SMS')
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] SMS', text_color='red')
+                                window.Refresh()
+                                passar_conta = True
+                                raise Exception('')
+                            elif chrome.current_url == 'https://www.instagram.com/':
+                                print('criou')
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.', text_color='lime')
+                                window.Refresh()
+                                contagem = contagem + 1
+                                window['criadas'].update(contagem)
+                                window.Refresh()
+                                with open('configuracoes\\contas\\contas_instagram.txt', 'a') as file:
+                                    file.write(f"{user_completo} {senha}\n")
+
+                                break
+                        if len(chrome.find_elements(By.ID, 'ssfErrorAlert')) == 1:
+                            print('Erro relog')
+                            chrome.get('https://www.instagram.com/')
+                            url_antiga = chrome.current_url
+                            
+                            digit_user = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "username")))
+                            digitar_como_humano(digit_user, user_completo)
+                            digit_senha = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "password")))
+                            digitar_como_humano(digit_senha, senha)
+                            entrar = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'Entrar')]")))
+                            chrome.execute_script("arguments[0].click();", entrar)
+                            tentativa = 0
+                            while True:
+                                if url_antiga != chrome.current_url:
+                                    if 'checkpoint' in chrome.current_url or 'suspended' in chrome.current_url:
+                                        print('SMS')
+                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] SMS', text_color='red')
+                                        window.Refresh()
+                                        passar_conta = True
+                                        raise Exception('')
+                                    elif len(chrome.find_elements(By.XPATH, "//span[contains(text(), 'Perfil')]")) == 1:
+                                        print('criou')
+                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.', text_color='lime')
+                                        window.Refresh()
+                                        contagem = contagem + 1
+                                        window['criadas'].update(contagem)
+                                        window.Refresh()
+                                        with open('configuracoes\\contas\\contas_instagram.txt', 'a') as file:
+                                            file.write(f"{user_completo} {senha}\n")
+                                        criou_depois = True
+                                        break
+                                    elif 'disclosure' in chrome.current_url:
+                                        print('Não foi possivel utilizar esta conta')
+                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar esta conta')
+                                        window.Refresh()
+                                        passar_conta = True
+                                        raise Exception('')
+                                elif len(chrome.find_elements(By.XPATH, "//span[.//div[contains(text(), 'Sua senha está incorreta.')]]")) == 1:
+                                    print('Não foi possivel utilizar esta conta')
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar esta conta')
+                                    window.Refresh()
+                                    passar_conta = True
+                                    raise Exception('')
+                                time.sleep(5)
+                                tentativa += 1
+                                if tentativa == 5:
+                                    print('Não foi possivel utilizar esta conta')
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar esta conta')
+                                    window.Refresh()
+                                    passar_conta = True
+                                    raise Exception('')
+                                    
+                                
+
+                if instagram_existe is True:
+                    WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Perfil')]"))).click()
+                    user_completo = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.TAG_NAME, "h2"))).text
+                    print(user_completo)
+                chrome.get('https://accountscenter.instagram.com/accounts/')
+                if instagram_existe is False:
+                    now = datetime.now()
+                    now_brasilia = tz.localize(now)
+                    timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
+                    try:
+                        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                        creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+                        client = gspread.authorize(creds)
+
+                        spreadsheet_id = config['spreadsheet']
+                        sheet_name = 'contas'
+                        # Insert user, password, and timestamp into first empty row
+                        sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
+                        values = sheet.col_values(1)
+                        last_row = len(values)
+                        values = [user_completo + ' ' + senha, 'InstaFace', timestamp, maquina, user_mysql]
+                        cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                        for i, val in enumerate(values):
+                            cell_list[i].value = val
+                            sheet.update_cells(cell_list)
+
+                            rows = sheet.get_all_values()
+
+                            # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                            regex = re.compile(r'\S+\s\S+')
+
+                            # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                            num_rows = sum(1 for row in rows if regex.match(row[0]))
+                    except Exception as e:
+                        print(e)
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                        tempo_aleatorio = random.randint(10, 40)
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                        time.sleep(tempo_aleatorio)
+                        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                        creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+                        client = gspread.authorize(creds)
+
+                        spreadsheet_id = config['spreadsheet']
+                        sheet_name = 'contas'
+                        # Insert user, password, and timestamp into first empty row
+                        sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
+                        values = sheet.col_values(1)
+                        last_row = len(values)
+                        values = [user_completo + ' ' + senha, 'InstaFace', timestamp, maquina, user_mysql]
+                        cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                        for i, val in enumerate(values):
+                            cell_list[i].value = val
+                            sheet.update_cells(cell_list)
+
+                            rows = sheet.get_all_values()
+
+                            # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                            regex = re.compile(r'\S+\s\S+')
+
+                            # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                            num_rows = sum(1 for row in rows if regex.match(row[0]))
+                    window['total'].update(num_rows)
+                    random_number = random.random()
+
+                        # Definir a chance desejada (10%)
+                    chance = 0.4
+
+                        # Verificar se o número aleatório está abaixo da chance
+                    if random_number < chance and not user_mysql == "wn3":
+                        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                        client = gspread.authorize(creds)
+                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                        sheet_name = 'relatorio_geral'
+                        # Insert user, password, and timestamp into first empty row
+                        sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
+                        values = sheet.col_values(1)
+                        last_row = len(values)
+                        values = [user_completo + ' ' + senha, 'InstaFace', timestamp, maquina, user_mysql]
+                        cell_list = sheet.range(f'A{last_row + 1}:E{last_row + 1}')
+                        for i, val in enumerate(values):
+                            cell_list[i].value = val
+                        sheet.update_cells(cell_list)
+                instagram_existe = False
+                WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Remover')]"))).click()
+                WebDriverWait(chrome, 10).until(EC.presence_of_all_elements_located((By.XPATH, "//span[contains(text(), 'Continuar')]")))
+                
+                continuar_buttons = chrome.find_elements(By.XPATH, "//span[contains(text(), 'Continuar')]")
+                ultimo_continuar_button = continuar_buttons[-1] if continuar_buttons else None
+
+                if ultimo_continuar_button:
+                    ultimo_continuar_button.click()
+                else:
+                    #print("Botão não encontrado")
+                    pass
+                try:
+                    # Localiza todos os botões com o texto especificado
+                    botoes = WebDriverWait(chrome, 10).until(
+                        EC.presence_of_all_elements_located((By.XPATH, "//span[starts-with(text(), 'Sim, remover')]/ancestor::div[@role='button']"))
+                    )
+                    #print(f"Número de botões encontrados: {len(botoes)}")
+
+                    # Itera sobre cada botão e tenta clicar
+                    for botao in botoes:
+                        try:
+                            botao.click()
+                            #print("Botão clicado com sucesso.")
+                            break  # Sai do loop após clicar com sucesso em um botão
+                        except Exception as e:
+                            #print(f"Não foi possível clicar no botão.")
+                            pass
+
+                except:
+                    print("Botões não encontrados ou a página demorou muito para carregar.")
+                time.sleep(5)
+                chrome.get('https://accountscenter.instagram.com/personal_info/')
+                WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Informações de contato')]"))).click()
+                WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Adicionar novo contato')]"))).click()
+                WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Adicionar email')]"))).click()
+
+                # GERAR EMAIL
+                from requests.auth import HTTPBasicAuth
+                # Substitua com as suas credenciais e dados
+                cpanel_user = 'wnmailsh'
+                cpanel_password = 'V.5k7lV3l8PB*q'
+                cpanel_domain = 'mi3-ss120.a2hosting.com'
+                email_user = user_completo
+                email_domain = 'wnmail.shop'
+                email_password = senha
+                quota = 1  # 0 para ilimitada, ou defina um limite específico
+
+                # URL para a função add_pop da API UAPI
+                url = f'https://{cpanel_domain}:2083/execute/Email/add_pop'
+                params = {
+                    'email': email_user,
+                    'domain': email_domain,
+                    'password': email_password,
+                    'quota': quota,
+                    'send_welcome_email': 0,  # Altere para 1 se quiser enviar um e-mail de boas-vindas
+                    'skip_update_db': 1
+                }
+
+                # Faça a solicitação para a API
+                response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password), verify=True)
+
+                # Verifique a resposta
+                if response.status_code == 200:
+                    print("Conta de e-mail criada com sucesso!")
+                    email2 = response.json()['data']
+                    email2 = email2.replace('+', '@')
+                    print('Email: ', email2)
+                    print('Senha: ', senha)
+
+                else:
+                    print("Falha na criação da conta de e-mail.")
+                    print(response.text)
+
+                email_label = WebDriverWait(chrome, 10).until(
+                    EC.presence_of_element_located((By.XPATH, "//label[contains(text(), 'Insira o endereço de email')]"))
+                )
+                email_input_id = email_label.get_attribute("for")
+                email_input = WebDriverWait(chrome, 10).until(
+                    EC.presence_of_element_located((By.ID, email_input_id))
+                )
+                digitar_como_humano(email_input, email2)
+                noform = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "noform")))
+                chrome.execute_script("arguments[0].click();", noform)
+                time.sleep(2)
+                teste = chrome.find_element(By.XPATH, "//span[contains(text(), 'Avançar')]")
+                chrome.execute_script("arguments[0].click();", teste)
+                print('Aguardando código')
+                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código')
+                window.Refresh()
+
+                # AGUARDAR CÓDIGO   
+                import imaplib
+                import email
+
+                email_user = email2
+                email_password = senha
+
+                # Configurações do servidor IMAP
+                imap_host = 'mi3-ss120.a2hosting.com'  # Substitua com o host do servidor IMAP do seu provedor
+                imap_port = 993  # Porta comum para IMAP sobre SSL
+
+                # Conectar ao servidor IMAP
+                mail = imaplib.IMAP4_SSL(imap_host, imap_port)
+                import re
+                # Autenticar
+                mail.login(email_user, email_password)
+
+                # Selecionar caixa de entrada
+                
+                #print(f'Status da busca: {status}')
+
+                def decode_mime_words(s):
+                    return ''.join(
+                        word.decode(encoding or 'utf8') if isinstance(word, bytes) else word
+                        for word, encoding in decode_header(s)
+                    )
+                def get_email_body(msg):
+                    if msg.is_multipart():
+                        for part in msg.walk():
+                            content_type = part.get_content_type()
+                            content_disposition = str(part.get("Content-Disposition"))
+
+                            if "attachment" not in content_disposition:
+                                if content_type == "text/plain" or content_type == "text/html":
+                                    return part.get_payload(decode=True).decode()
+                    else:
+                        content_type = msg.get_content_type()
+                        if content_type == "text/plain" or content_type == "text/html":
+                            return msg.get_payload(decode=True).decode()
+                    return ""
+                while True:
+                    mail.select("inbox")
+
+                    # Buscar e-mails
+                    status, messages = mail.search(None, 'ALL')
+                    if status == 'OK' and messages[0]:
+                        last_mail_id = messages[0].split()[-1]
+                        status, data = mail.fetch(last_mail_id, '(RFC822)')
+                        if status == 'OK':
+                            for response_part in data:
+                                if isinstance(response_part, tuple):
+                                    msg = email.message_from_bytes(response_part[1])
+                                    email_subject = decode_mime_words(msg['subject'])
+                                    email_from = msg['from']
+                                    email_body = get_email_body(msg)
+                            if 'Instagram' in email_body:
+                                codigo_confirmacao = re.findall(r'\d{6}', email_body)
+
+                                # Pegar o primeiro resultado, se houver
+                                codigo = codigo_confirmacao[0] if codigo_confirmacao else None
+                                print(codigo)
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Código recebido: {codigo}')
+                                window.Refresh()
+                                break
+                    else:
+                        pass
+
+                #WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, '''//label[contains(text(), 'Insira o código de confirmação')]'''))).send_keys(codigo)
+
+                codigo_label = WebDriverWait(chrome, 10).until(
+                    EC.presence_of_element_located((By.XPATH, '''//label[contains(text(), 'Insira o código de confirmação')]'''))
+                )
+                codigo_input_id = codigo_label.get_attribute("for")
+                codigo_input = WebDriverWait(chrome, 10).until(
+                    EC.presence_of_element_located((By.ID, codigo_input_id))
+                )
+                digitar_como_humano(codigo_input, codigo)
+
+                avancar = WebDriverWait(chrome, 10).until(EC.presence_of_all_elements_located((By.XPATH, "//span[contains(text(), 'Avançar')]")))
+                avancar[-1].click()
+                WebDriverWait(chrome, 10).until(EC.visibility_of_element_located((By.XPATH, "//span[contains(text(), 'Você adicionou seu email às contas selecionadas')]")))
+                print('Email alterado')
+                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email alterado com sucesso')
+                window.Refresh()
+                total_contas_criadas_fb += 1
+                print(f'Total de contas criadas nesse facebook: {total_contas_criadas_fb}\n')
+                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Total de contas criadas nesse facebook: {total_contas_criadas_fb}')
+                window.Refresh()
+                time.sleep(3)
+                fechar = WebDriverWait(chrome, 10).until(EC.presence_of_all_elements_located((By.XPATH, "//span[contains(text(), 'Fechar')]")))
+                fechar[-1].click()
+                chrome.get('https://instagram.com/accounts/logout')
+                try:
+                    chrome.close()
+                except:
+                    pass
+                try:
+                    chrome.quit()
+                except:
+                    pass
+        
+            except Exception as e:
+                #print(e)
+                if not str(e) == '':
+                    traceback.print_exc()
+                if 'main thread is not in main loop' in str(e):
+                    try:
+                        chrome.close()
+                    except:
+                        pass
+                    try:
+                        chrome.quit()
+                    except:
+                        pass
+                    break
+                print('\n')
+                try:
+                    chrome.close()
+                except:
+                    pass
+                try:
+                    chrome.quit()
+                except:
+                    pass
+
+        
+
 def instaface_criarface():
     try:
         with open("config.json", "r") as f:
@@ -419,7 +1116,7 @@ def instaface_criarface():
     except FileNotFoundError:
         config4 = {}
     SPREADSHEET_ID = config['spreadsheet']
-    conteudo = config['vpn']
+    #conteudo = config4['metodo']
     senha = config['senha']
     maquina = config['maquina']
     email = 'InstaFace'
@@ -1272,6 +1969,31 @@ def instaface_criarface():
                     window.Refresh()
                     with open('configuracoes\\contas\\contas_facebook.txt', 'a') as file:
                         file.write(f"{email2} {senha}\n")
+                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                    creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+                    client = gspread.authorize(creds)
+
+                    spreadsheet_id = config['spreadsheet']
+                    sheet_name = 'contas_fb'
+                    # Insert user, password, and timestamp into first empty row
+                    sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
+                    values = sheet.col_values(1)
+                    last_row = len(values)
+                    values = [user_completo + ' ' + senha]
+                    #cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
+                    cell_list = sheet.range(f'A{last_row + 1}:A{last_row + 1}')
+                    for i, val in enumerate(values):
+                        cell_list[i].value = val
+                    sheet.update_cells(cell_list)
+                    rows = sheet.get_all_values()
+
+                            # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                    regex = re.compile(r'\S+\s\S+')
+
+                            # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                    num_rows = sum(1 for row in rows if regex.match(row[0]))
+                    window['total'].update(num_rows)
+                    window.Refresh()
                     break
                 elif d.xpath('//android.view.ViewGroup[@content-desc="Appeal"]').exists or d.xpath('//android.view.ViewGroup[@content-desc="Read more about this rule"]').exists:
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] SMS', text_color='red')
@@ -2428,7 +3150,7 @@ def free_sms_beta2():
                         chance = 0.4
 
                         # Verificar se o número aleatório está abaixo da chance
-                        if random_number < chance and not os.path.exists("wn"):
+                        if random_number < chance and not user_mysql == "wn3":
                             scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                             creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                             client = gspread.authorize(creds)
@@ -2570,7 +3292,7 @@ def free_sms_beta2():
                             chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
-                            if random_number < chance and not os.path.exists("wn"):
+                            if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
@@ -2871,7 +3593,7 @@ def free_sms_beta2():
                             chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
-                            if random_number < chance and not os.path.exists("wn"):
+                            if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
@@ -6808,7 +7530,7 @@ def temporary_phone_number_com():
                             chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
-                            if random_number < chance and not os.path.exists("wn"):
+                            if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
@@ -7036,7 +7758,7 @@ def temporary_phone_number_com():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -7166,7 +7888,7 @@ def temporary_phone_number_com():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -7534,7 +8256,7 @@ def temporary_phone_number_com():
                                     chance = 0.4
 
                                     # Verificar se o número aleatório está abaixo da chance
-                                    if random_number < chance and not os.path.exists("wn"):
+                                    if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                         creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                         client = gspread.authorize(creds)
@@ -10003,7 +10725,7 @@ def smstome_com():
                             chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
-                            if random_number < chance and not os.path.exists("wn"):
+                            if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
@@ -10231,7 +10953,7 @@ def smstome_com():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -10361,7 +11083,7 @@ def smstome_com():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -10729,7 +11451,7 @@ def smstome_com():
                                     chance = 0.4
 
                                     # Verificar se o número aleatório está abaixo da chance
-                                    if random_number < chance and not os.path.exists("wn"):
+                                    if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                         creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                         client = gspread.authorize(creds)
@@ -13160,7 +13882,7 @@ def freereceivesms_com():
                             chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
-                            if random_number < chance and not os.path.exists("wn"):
+                            if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
@@ -13388,7 +14110,7 @@ def freereceivesms_com():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -13518,7 +14240,7 @@ def freereceivesms_com():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -13886,7 +14608,7 @@ def freereceivesms_com():
                                     chance = 0.4
 
                                     # Verificar se o número aleatório está abaixo da chance
-                                    if random_number < chance and not os.path.exists("wn"):
+                                    if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                         creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                         client = gspread.authorize(creds)
@@ -16290,7 +17012,7 @@ def receive_smss():
                             chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
-                            if random_number < chance and not os.path.exists("wn"):
+                            if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
@@ -16518,7 +17240,7 @@ def receive_smss():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -16648,7 +17370,7 @@ def receive_smss():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -17016,7 +17738,7 @@ def receive_smss():
                                     chance = 0.4
 
                                     # Verificar se o número aleatório está abaixo da chance
-                                    if random_number < chance and not os.path.exists("wn"):
+                                    if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                         creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                         client = gspread.authorize(creds)
@@ -19514,7 +20236,7 @@ def quackr_io():
                             chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
-                            if random_number < chance and not os.path.exists("wn"):
+                            if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
@@ -19743,7 +20465,7 @@ def quackr_io():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -19874,7 +20596,7 @@ def quackr_io():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -20242,7 +20964,7 @@ def quackr_io():
                                     chance = 0.4
 
                                     # Verificar se o número aleatório está abaixo da chance
-                                    if random_number < chance and not os.path.exists("wn"):
+                                    if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                         creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                         client = gspread.authorize(creds)
@@ -28296,7 +29018,7 @@ def executar_2nr():
                             chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
-                            if random_number < chance and not os.path.exists("wn"):
+                            if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
@@ -28612,7 +29334,7 @@ def executar_2nr():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -28868,7 +29590,7 @@ def executar_2nr():
                                     chance = 0.4
 
                                     # Verificar se o número aleatório está abaixo da chance
-                                    if random_number < chance and not os.path.exists("wn"):
+                                    if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                         creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                         client = gspread.authorize(creds)
@@ -31328,7 +32050,7 @@ def executar_2nr_insta():
                             chance = 0.4
 
                             # Verificar se o número aleatório está abaixo da chance
-                            if random_number < chance and not os.path.exists("wn"):
+                            if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
@@ -31556,7 +32278,7 @@ def executar_2nr_insta():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -31702,7 +32424,7 @@ def executar_2nr_insta():
                                 chance = 0.4
 
                                 # Verificar se o número aleatório está abaixo da chance
-                                if random_number < chance and not os.path.exists("wn"):
+                                if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
@@ -32071,7 +32793,7 @@ def executar_2nr_insta():
                                     chance = 0.4
 
                                     # Verificar se o número aleatório está abaixo da chance
-                                    if random_number < chance and not os.path.exists("wn"):
+                                    if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                                         creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                         client = gspread.authorize(creds)
@@ -37280,6 +38002,15 @@ while True:
                 parar = True
                 time_thread.join()
                 try:
+                    chrome.close()
+                except:
+                    pass
+                try:
+                    chrome.quit()
+                except:
+                    pass
+                minha_thread.join()
+                try:
                     chrome.quit()
                 except:
                     pass
@@ -37459,10 +38190,38 @@ while True:
                             dialog_window.close()
                             minha_thread = threading.Thread(target=instaface_criarface)
                             minha_thread.start()
-                        elif config['email'] == '-instaface_criarinsta-':
+                        elif config2['metodo'] == '-instaface_criarinsta-':
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] InstaFace - Criar Instagram selecionado.')
                             window.Refresh()
-                            minha_thread = threading.Thread(target=instaface_criarinsta)
+                            def create_dialog_window():
+                                layout = [
+                                    [sg.Multiline(key='-MULTILINE-', size=(40, 10))],  # Campo de texto multiline
+                                    [sg.Checkbox("Navegador oculto", key="-navvisivel-", enable_events=True)],
+                                    [sg.Button('Executar', button_color='#1c2024'), sg.Button('Cancelar', button_color='#1c2024')]  # Botões Executar e Cancelar
+                                ]
+
+                                return sg.Window('Adicione as contas', layout, modal=True)
+
+                            # Criar a janela de diálogo
+                            dialog_window = create_dialog_window()
+
+                            # Loop de eventos
+                            while True:
+                                event, values = dialog_window.read()
+
+                                # Verificar ação do usuário
+                                if event == sg.WIN_CLOSED or event == 'Cancelar':
+                                    break
+                                elif event == 'Executar':
+                                    # Salvar o texto digitado em uma variável
+                                    texto_digitado = values['-MULTILINE-']
+                                    navvisivel = values['-navvisivel-']
+                                    print("Contas:", texto_digitado)  # Exibir o texto (opcional)
+                                    break
+
+                            # Fechar a janela de diálogo
+                            dialog_window.close()
+                            minha_thread = threading.Thread(target=instaface_criarinsta, args=(), daemon=True)
                             minha_thread.start()
                 elif config['email'] == '-freesms-' and config['app'] == '-insta-':
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Free SMS selecionado.')
@@ -37651,6 +38410,16 @@ while True:
                         layout_configuracoes[6][0].update(value=config.get("spreadsheet", ""))
                         layout_configuracoes[7][0].update(value=config.get("2nr", ""))
 
+        window.close()
+        try:
+            chrome.close()
+        except:
+            pass
+        try:
+            chrome.quit()
+        except:
+            pass
+        minha_thread.join()
     if event == 'CREATOR 2NR':
         dialog_layout = [
             [sg.Text('Digite a porta:', font=('Open Sans', 10))],
@@ -38288,3 +39057,4 @@ while True:
                         windowconfig.close()
 
 inicio.close()
+
