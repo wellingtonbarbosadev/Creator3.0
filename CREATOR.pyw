@@ -1629,7 +1629,10 @@ def instaface_criarface():
                 d(text='Continuar após o tempo limite').click()
                 d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text('')
                 d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text('10')
-                d(resourceId='android:id/button1').click()
+                try:
+                    d(text='ESTÁ BEM').click(timeout=10)
+                except:
+                    d(text='OK').click(timeout=10)
                 d(resourceId='com.arlosoft.macrodroid:id/edit_macro_addActionButton').click()
                 d(text='Conectividade').click()
                 d(text='Ativar/desativar modo avião').click()
