@@ -19337,9 +19337,93 @@ def quackr_io():
                     layout_usado = 'layout3'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout3 novo encontrado.')
                     window.Refresh()
+                    try:
+                        from selenium import webdriver
+                        from selenium.webdriver.common.by import By
+                        from selenium.webdriver.chrome.service import Service
+                        try:
+                            import undetected_chromedriver as uc
+                        except:
+                            subprocess.run(['venv/scripts/activate.bat'], shell=True)
+                            subprocess.run(['pip', 'install', 'undetected_chromedriver'])
+                            import undetected_chromedriver as uc
+                        import time
+                        from selenium.webdriver.support.ui import WebDriverWait
+                        from selenium.webdriver.support import expected_conditions as EC
+                        url = "https://quackr.io/temporary-phone-number-generator/"
+                        if criou:
+                            url = url_atual
+                        chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
+                        chrome_options = uc.ChromeOptions()
+                        #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+                        chrome_options.add_argument("--disable-gpu")
+                        chrome_options.add_argument('--ignore-ssl-errors=yes')
+                        chrome_options.add_argument('--ignore-certificate-errors')
+                        chrome_options.add_argument("--no-sandbox")
+                        chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
+                        #chrome_options.add_extension('.\\storage\\adblock.crx')
+                        chrome_options.add_argument(f"--load-extension={caminho_atual}\\storage\\adblock\\")
+                        chrome_options.page_load_strategy = 'eager'
+
+                        # Configurando o Selenium para usar o Chrome Driver local
+                        service = Service(executable_path=chromedriver_path)
+                        chrome = uc.Chrome(service=service, headless=True, version_main=116, options=chrome_options)
+                        if criou:
+                            chrome.get(url)
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Utilizando o mesmo número.')
+                            window.Refresh()
+                            chrome.set_window_size(800,2000)
+                            chrome.execute_script("document.body.style.zoom='50%'")
+                        else:
+                            chrome.get(url)
+                            chrome.set_window_size(800,2000)
+                            chrome.execute_script("document.body.style.zoom='50%'")
+                            
+                            time.sleep(7)
+                            try:
+                                agree_button = WebDriverWait(chrome, 5).until(
+                                    EC.presence_of_element_located((By.XPATH, "//button[.//span[contains(text(), 'AGREE')]]"))
+                                )
+                            except:
+                                agree_button = False
+
+                            # Se o elemento for encontrado, clique nele
+                            if agree_button:
+                                chrome.execute_script("arguments[0].click();", agree_button)
+                            else:
+                                pass
+                            teste = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, "/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[1]/button")))
+                            chrome.execute_script("arguments[0].click();", teste)
+                            import random
+                            paises_num = ['31', '8', '7', '21', '28']
+                            pais = random.choice(paises_num)
+                            button_with_text = WebDriverWait(chrome, 20).until(
+                            EC.element_to_be_clickable((By.XPATH, f'/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[2]/div/a[{pais}]'))
+                            )
+                            # Clica no botão
+                            
+                            chrome.execute_script("arguments[0].click();", button_with_text)
+                            chrome.execute_script("document.body.style.zoom='50%'")
+                            chrome.execute_script("arguments[0].click();", WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
+                            (By.CLASS_NAME, 'button.is-success'))))
+                        num = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
+                        (By.CSS_SELECTOR, 'h1[tooltip="Copied"]'))).text
+                        chrome.execute_script("document.body.style.zoom='50%'")
+                        url_atual = chrome.current_url
+                        print(num)
+                        criou = False
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número: {num}')
+                        window.Refresh()
+                        
+                    except Exception as e:
+                        print(e)
+                        print("Aguardando 5 minutos")
+                        time.sleep(300)
+                        raise Exception('erro no navegador')
+                        pass
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
-                        f'+48{num}')
+                        f'{num}')
                     time.sleep(1)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     new_acc = d(resourceId='android:id/button2')
@@ -19347,38 +19431,18 @@ def quackr_io():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
-                    if restricao.exists and tentativa is True:
+                    restricao = d.xpath('//android.view.View[@content-desc="Qual é o número do seu celular?"]')
+                    if restricao.exists:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
-                        window['output'].print(
-                            f'[{datetime.now().strftime("%H:%M:%S")}] Já foi feita uma tentativa. Apagando número.')
-                        window.Refresh()
-                        tentativa = False
-
-                        d.app_start('pl.rs.sip.softphone.newapp')
-                        time.sleep(4)
-                        d.xpath(
-                            '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[1]/androidx.appcompat.widget.LinearLayoutCompat').click()
-                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
-                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
-                        window.Refresh()
                         try:
-                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
-                                        stdout=subprocess.DEVNULL,
-                                        stderr=subprocess.DEVNULL, check=True, shell=True)
-
-
+                            chrome.close()
                         except:
                             pass
                         try:
-                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
-                                        stdout=subprocess.DEVNULL,
-                                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                            chrome.quit()
                         except:
                             pass
-
                         conteudo = config['vpn']
                         if conteudo == "AVG":
                             vpn_avg()
@@ -19409,136 +19473,188 @@ def quackr_io():
                                 "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                             window.Refresh()
                         raise Exception('skip')
-
-                    elif restricao.exists and tentativa is False:
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
-                        window.Refresh()
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Tentando mais uma vez.')
-                        window.Refresh()
-                        tentativa = True
-                        try:
-                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
-                                        stdout=subprocess.DEVNULL,
-                                        stderr=subprocess.DEVNULL, check=True, shell=True)
-
-
-                        except:
-                            pass
-                        try:
-                            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
-                                        stdout=subprocess.DEVNULL,
-                                        stderr=subprocess.DEVNULL, check=True, shell=True)
-                        except:
-                            pass
-                        try:
-                            conteudo = config['vpn']
-                            if conteudo == "AVG":
-                                vpn_avg()
-                            elif conteudo == "SurfShark":
-                                vpn_surf()
-                            elif conteudo == "Nenhuma":
-                                nenhuma_vpn()
-                            elif conteudo == "Avast":
-                                vpn_avast()
-                            elif conteudo == "ExpressVPN":
-                                vpn_express()
-                            elif conteudo == "PiaVPN":
-                                vpn_pia()
-                            elif conteudo == "BetterNet":
-                                vpn_better()
-                            elif conteudo == "CyberGhost":
-                                vpn_cyberghost()
-                            elif conteudo == "NordVPN":
-                                vpn_nord()
-                            elif conteudo == "HotspotShield":
-                                vpn_hotspotshield()
-                            elif conteudo == "WindscribeVPN":
-                                vpn_windscribe()
-                            elif conteudo == "HmaVPN":
-                                vpn_hma()
-                            else:
-                                window['output'].print(
-                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
-                                window.Refresh()
-                            raise Exception('skip')
-                        except:
-                            raise Exception('skip')
                     
                     erro_novaconta = d.xpath('//android.view.View[@content-desc="Criar nova conta"]')
                     if erro_novaconta.exists:
                         d.xpath('//android.view.View[@content-desc="Criar nova conta"]').click()
                     else:
                         pass
-                    d.app_start('pl.rs.sip.softphone.newapp')
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
-                    window.Refresh()
-
-                    time.sleep(20)
-                    d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
-                    window.Refresh()
-                    try:
-                        cod = d(resourceId='pl.rs.sip.softphone.newapp:id/message').get_text(timeout=80)
-
-                    except:
-                        codigo_não_recebido_seguidos += 1
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Código não recebido.')
-                        window.Refresh()
-                        d.app_start('pl.rs.sip.softphone.newapp')
-                        time.sleep(4)
-                        d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
-                        time.sleep(1)
-                        d.xpath(
-                            '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[1]/androidx.appcompat.widget.LinearLayoutCompat').click()
-                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
-                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
+                    time.sleep(12)
+                    restricao = d.xpath('//android.view.View[@content-desc="Qual é o número do seu celular?"]')
+                    if restricao.exists:
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
                         try:
-                            conteudo = config['vpn']
-                            if conteudo == "AVG":
-                                vpn_avg()
-                            elif conteudo == "SurfShark":
-                                vpn_surf()
-                            elif conteudo == "Nenhuma":
-                                nenhuma_vpn()
-                            elif conteudo == "Avast":
-                                vpn_avast()
-                            elif conteudo == "ExpressVPN":
-                                vpn_express()
-                            elif conteudo == "PiaVPN":
-                                vpn_pia()
-                            elif conteudo == "BetterNet":
-                                vpn_better()
-                            elif conteudo == "CyberGhost":
-                                vpn_cyberghost()
-                            elif conteudo == "NordVPN":
-                                vpn_nord()
-                            elif conteudo == "HotspotShield":
-                                vpn_hotspotshield()
-                            elif conteudo == "WindscribeVPN":
-                                vpn_windscribe()
-                            elif conteudo == "HmaVPN":
-                                vpn_hma()
-                            else:
-                                window['output'].print(
-                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
-                                window.Refresh()
-                            continue
+                            chrome.close()
                         except:
                             pass
-                    codigo = re.sub('[^0-9]', '', cod)[:6]
+                        try:
+                            chrome.quit()
+                        except:
+                            pass
+                        conteudo = config['vpn']
+                        if conteudo == "AVG":
+                            vpn_avg()
+                        elif conteudo == "SurfShark":
+                            vpn_surf()
+                        elif conteudo == "Nenhuma":
+                            nenhuma_vpn()
+                        elif conteudo == "Avast":
+                            vpn_avast()
+                        elif conteudo == "ExpressVPN":
+                            vpn_express()
+                        elif conteudo == "PiaVPN":
+                            vpn_pia()
+                        elif conteudo == "BetterNet":
+                            vpn_better()
+                        elif conteudo == "CyberGhost":
+                            vpn_cyberghost()
+                        elif conteudo == "NordVPN":
+                            vpn_nord()
+                        elif conteudo == "HotspotShield":
+                            vpn_hotspotshield()
+                        elif conteudo == "WindscribeVPN":
+                            vpn_windscribe()
+                        elif conteudo == "HmaVPN":
+                            vpn_hma()
+                        else:
+                            window['output'].print(
+                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                            window.Refresh()
+                        raise Exception('skip')
+                    selecionar_sms = d.xpath('//android.view.View[@content-desc="Enviar código por SMS"]')
+                    if selecionar_sms.exists:
+                        selecionar_sms.click()
+                        time.sleep(1)
+                        d.xpath('//android.view.View[@content-desc="Enviar código"]').click()
+                    
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
+                    window.Refresh()
+                    encontrado = False
+                    tentativa = 0
+                    try:
+                        while not encontrado and tentativa < 6:
+                            if "#google_vignette" in chrome.current_url:
+                                chrome.refresh()
+                                chrome.execute_script("document.body.style.zoom='50%'")
+                                time.sleep(3)
+                            elemento = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[3]'))).text
+                            #print(elemento)
+                            time_second = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[1]'))).text
+                            
+                            #print(time_second)
+                            if 'Instagram' in elemento and (
+                                    'seconds' in time_second or '1 minute ago' in time_second or '2 minute ago' in time_second):
+                                encontrado = True
+                                match = re.search(r'\d+\s*\d+\s*\d+\s*\d+\s*\d+\s*\d+',
+                                                elemento)  # Extrai seis grupos de dígitos, permitindo espaços entre eles
+                                if match:
+                                    numeros = ''.join(match.group().split())
+
+                            else:
+                                # Clique no outro elemento
+                                tentativa = tentativa + 1
+                                chrome.refresh()
+                                chrome.execute_script("document.body.style.zoom='50%'")
+                                time.sleep(10)
+                    except Exception as e:
+                        print(e)
+                        print('erro')
+                        chrome.save_screenshot('erro_navegador.png')
+                        chrome.quit()
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Algum erro')
+                        window.Refresh()
+                        conteudo = config['vpn']
+                        if conteudo == "AVG":
+                            vpn_avg()
+                        elif conteudo == "SurfShark":
+                            vpn_surf()
+                        elif conteudo == "Avast":
+                            vpn_avast()
+                        elif conteudo == "ExpressVPN":
+                            vpn_express()
+                        elif conteudo == "PiaVPN":
+                            vpn_pia()
+                        elif conteudo == "WindscribeVPN":
+                            vpn_windscribe()
+                        elif conteudo == "BetterNet":
+                            vpn_better()
+                        elif conteudo == "CyberGhost":
+                            vpn_cyberghost()
+                        elif conteudo == "HmaVPN":
+                            vpn_hma()
+                        elif conteudo == "NordVPN":
+                            vpn_nord()
+                        elif conteudo == "HotspotShield":
+                            vpn_hotspotshield()
+                            break
+                        else:
+                            window['output'].print(
+                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                            window.Refresh()
+                        raise Exception("Algum erro")
+                        try:
+                            chrome.close()
+                        except:
+                            pass
+                        try:
+                            chrome.quit()
+                        except:
+                            pass
+                    if tentativa == 6:
+                        chrome.quit()
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Codigo não recebido.')
+                        window.Refresh()
+                        conteudo = config['vpn']
+                        if conteudo == "AVG":
+                            vpn_avg()
+                        elif conteudo == "SurfShark":
+                            vpn_surf()
+                        elif conteudo == "Avast":
+                            vpn_avast()
+                        elif conteudo == "ExpressVPN":
+                            vpn_express()
+                        elif conteudo == "PiaVPN":
+                            vpn_pia()
+                        elif conteudo == "WindscribeVPN":
+                            vpn_windscribe()
+                        elif conteudo == "BetterNet":
+                            vpn_better()
+                        elif conteudo == "CyberGhost":
+                            vpn_cyberghost()
+                        elif conteudo == "HmaVPN":
+                            vpn_hma()
+                        elif conteudo == "NordVPN":
+                            vpn_nord()
+                        elif conteudo == "HotspotShield":
+                            vpn_hotspotshield()
+                            break
+                        else:
+                            window['output'].print(
+                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                            window.Refresh()
+                        raise Exception("Codigo não recebido.")
+                    codigo = numeros
+                    print(numeros)
+                    try:
+                        chrome.close()
+                    except:
+                        pass
+                    try:
+                        chrome.quit()
+                    except:
+                        pass
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Codigo recebido: {codigo}')
                     window.Refresh()
-                    codigo_não_recebido_seguidos = 0
-                    d.app_start('com.instagram.android')
-                    time.sleep(3)
-                    
+                    time.sleep(5)
+                    email = f"{num} - quackr.io"
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                         codigo)
                     # time.sleep(100)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
+                    
                     d.xpath(
                     '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                     senha)
