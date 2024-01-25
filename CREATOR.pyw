@@ -9115,11 +9115,12 @@ def insta_5sim_normal():
                     saldo = client.get_balance()
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Saldo: {saldo["balance"]}')
                     window.Refresh()
-                except:
+                except Exception as e:
                     print(e)
                     print('Verifique seu token')
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Verifique seu token.')
                     window.Refresh()
+                    raise Exception('')
                 print(f'''Saldo: {saldo['balance']}''')
                 precos_instagram_russia = client.price_requests_by_country_and_product(country='russia', product='instagram')
                 operadoras_disponiveis = {}
