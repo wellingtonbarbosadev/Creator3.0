@@ -3,6 +3,7 @@ import json
 from operator import truediv
 from socket import timeout
 from tkinter import FALSE
+
 global parar
 import os
 from types import EllipsisType
@@ -188,9 +189,8 @@ except FileNotFoundError:
 
 sg.theme('DarkGrey14')
 
-
-
 import PySimpleGUI as sg
+
 try:
     import mysql.connector
 except ModuleNotFoundError:
@@ -202,11 +202,13 @@ except ModuleNotFoundError:
     subprocess.run(['deactivate'], shell=True)
     import mysql.connector
 
+
 # Obtenha seu endereço IP atual
 def get_ip():
     response = requests.get('https://api64.ipify.org?format=json')
     data = response.json()
     return data['ip']
+
 
 # Autentique e abra a planilha usando gspread
 gc = gspread.service_account(filename='relatorio.json')  # Substitua com o caminho para sua chave de API
@@ -220,10 +222,14 @@ ip_atual = get_ip()
 
 # Obtenha os valores da coluna onde você deseja verificar os IPs na aba da planilha
 valores_da_coluna = worksheet.col_values(1)  # Suponha que os IPs estejam na coluna A
+
+
 def get_username_from_ip(ip_atual):
     index = valores_da_coluna.index(ip_atual)  # Encontra o índice do IP na lista
     user_mysql = worksheet.cell(index + 1, 2).value  # Obtém o nome na coluna B da mesma linha
     return user_mysql
+
+
 # Verifique se o IP está na lista de IPs na planilha
 if ip_atual in valores_da_coluna:
     print(f'O IP {ip_atual} já está registrado.')
@@ -263,9 +269,11 @@ if registrado is False:
             cursor.close()
             conn.close()
 
+
     layout = [
         [sg.Text("Usuário:"), sg.InputText(key='user', size=(20, 1), justification="l")],
-        [sg.Text("Senha:"), sg.InputText(key='senha', pad=(12, (0, 0)), password_char='*', size=(20, 1), justification="l")],
+        [sg.Text("Senha:"),
+         sg.InputText(key='senha', pad=(12, (0, 0)), password_char='*', size=(20, 1), justification="l")],
         [sg.Button("Login", font=('Open Sans', 9), button_color='#1c2024', border_width=0, size=(30, 1))]
     ]
     try:
@@ -301,10 +309,13 @@ if registrado is False:
     if login_sucedido is True:
         print('Login feito com sucesso.')
 
+
         def open_spreadsheet():
             gc = gspread.service_account(filename='relatorio.json')  # Substitua com o caminho para sua chave de API
             sh = gc.open('contas_criadas')  # Substitua pelo nome da sua planilha
             return sh
+
+
         ip = get_ip()
 
         sh = open_spreadsheet()
@@ -323,7 +334,6 @@ if registrado is False:
     else:
         print('Não foi possivel realizar o login.')
         raise Exception('Não foi possivel realizar o login.')
-
 
 # Define a janela de diálogo com um input e um botão
 
@@ -446,9 +456,9 @@ def instaface_criarinsta():
     except FileNotFoundError:
         config4 = {}
     SPREADSHEET_ID = config['spreadsheet']
-    #try:
+    # try:
     #    conteudo = config4['metodo']
-    #except Exception as e:
+    # except Exception as e:
     #    print(config4['metodo'])
     #    print(e)
     #    pass
@@ -489,6 +499,7 @@ def instaface_criarinsta():
         for char in texto:
             elemento.send_keys(char)
             time.sleep(random.uniform(min_delay, max_delay))
+
     def baixar_arquivo(url, caminho_arquivo, pasta_destino):
         # Verifica e cria a pasta destino, se necessário
         if os.path.exists(pasta_destino):
@@ -542,7 +553,7 @@ def instaface_criarinsta():
 
                 chromedriver_path = '.\\chrome-win\\chromedriver.exe'
                 chrome_options = uc.ChromeOptions()
-                #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+                # chrome_options.add_argument("--blink-settings=imagesEnabled=false")
                 chrome_options.add_argument("--disable-gpu")
                 chrome_options.add_argument("--no-sandbox")
                 chrome_options.add_argument("--lang=pt-BR")
@@ -555,25 +566,28 @@ def instaface_criarinsta():
                     "profile.password_manager_enabled": False,
                     "profile.default_content_setting_values.notifications": 2
                 })
-                #chrome_options.page_load_strategy = 'eager'
+                # chrome_options.page_load_strategy = 'eager'
                 chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
                 # Configurando o Selenium para usar o Chrome Driver local
                 service = Service(executable_path=chromedriver_path)
 
                 chrome = uc.Chrome(service=service, options=chrome_options, headless=navvisivel, version_main=116)
                 chrome.get(url)
-                chrome.set_window_size(1920,1080)
+                chrome.set_window_size(1920, 1080)
                 try:
-                    captcha_click = WebDriverWait(chrome, 6).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Permitir todos os cookies')]")))
+                    captcha_click = WebDriverWait(chrome, 6).until(EC.element_to_be_clickable(
+                        (By.XPATH, "//button[contains(text(), 'Permitir todos os cookies')]")))
                     chrome.execute_script("arguments[0].click();", captcha_click)
                 except:
                     pass
-                fb_click = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'Entrar com o Facebook')]")))
+                fb_click = WebDriverWait(chrome, 10).until(
+                    EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'Entrar com o Facebook')]")))
                 chrome.execute_script("arguments[0].click();", fb_click)
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Logando em {email_fb}')
                 window.Refresh()
                 try:
-                    captcha_click = WebDriverWait(chrome, 6).until(EC.element_to_be_clickable((By.XPATH, "//button[@title='Permitir todos os cookies']")))
+                    captcha_click = WebDriverWait(chrome, 6).until(
+                        EC.element_to_be_clickable((By.XPATH, "//button[@title='Permitir todos os cookies']")))
                     chrome.execute_script("arguments[0].click();", captcha_click)
                 except:
                     pass
@@ -585,7 +599,8 @@ def instaface_criarinsta():
                 instagram_existe = False
                 while True:
                     time.sleep(10)
-                    disclosure = chrome.find_elements(By.XPATH, "//button[contains(text(), 'Sim, terminar de adicionar')]")
+                    disclosure = chrome.find_elements(By.XPATH,
+                                                      "//button[contains(text(), 'Sim, terminar de adicionar')]")
                     if 'checkpoint' in chrome.current_url or 'suspended' in chrome.current_url:
                         print('SMS')
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] SMS', text_color='red')
@@ -614,7 +629,8 @@ def instaface_criarinsta():
 
                         if tentativa_restricao_fb == 2:
                             print('Não foi possivel utilizar essa conta')
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar essa conta')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar essa conta')
                             window.Refresh()
                             passar_conta = True
                             raise Exception('')
@@ -623,7 +639,8 @@ def instaface_criarinsta():
                     elif len(chrome.find_elements(By.CSS_SELECTOR, "div[data-visualcompletion='loading-state']")) == 1:
                         if tentativa == 2:
                             print('Não foi possivel utilizar essa conta')
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar essa conta')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar essa conta')
                             window.Refresh()
                             print('teste')
                             passar_conta = True
@@ -636,11 +653,14 @@ def instaface_criarinsta():
                                 EC.invisibility_of_element_located((By.CSS_SELECTOR, seletor_do_spinner))
                             )
                         except:
-                            print("O tempo de espera excedeu enquanto esperava que o spinner de carregamento desaparecesse.")
-                    elif len(WebDriverWait(chrome, 6).until(EC.presence_of_all_elements_located((By.XPATH, "//button[@title='Permitir todos os cookies']")))) == 1:
+                            print(
+                                "O tempo de espera excedeu enquanto esperava que o spinner de carregamento desaparecesse.")
+                    elif len(WebDriverWait(chrome, 6).until(EC.presence_of_all_elements_located(
+                            (By.XPATH, "//button[@title='Permitir todos os cookies']")))) == 1:
 
                         try:
-                            captcha_click = WebDriverWait(chrome, 6).until(EC.element_to_be_clickable((By.XPATH, "//button[@title='Permitir todos os cookies']")))
+                            captcha_click = WebDriverWait(chrome, 6).until(
+                                EC.element_to_be_clickable((By.XPATH, "//button[@title='Permitir todos os cookies']")))
                             chrome.execute_script("arguments[0].click();", captcha_click)
                         except:
                             pass
@@ -672,7 +692,8 @@ def instaface_criarinsta():
                             chrome.find_element(By.NAME, "__CONFIRM__").click()
                         time.sleep(10)
 
-                    WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Sim, terminar de adicionar')]"))).click()
+                    WebDriverWait(chrome, 10).until(EC.element_to_be_clickable(
+                        (By.XPATH, "//button[contains(text(), 'Sim, terminar de adicionar')]"))).click()
 
                     from requests.auth import HTTPBasicAuth
                     # Substitua com as suas credenciais e dados
@@ -698,7 +719,8 @@ def instaface_criarinsta():
                     }
 
                     # Faça a solicitação para a API
-                    response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password), verify=True)
+                    response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password),
+                                             verify=True)
 
                     # Verifique a resposta
                     if response.status_code == 200:
@@ -713,18 +735,18 @@ def instaface_criarinsta():
                         print(response.text)
                     digit_email = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "emailOrPhone")))
                     digitar_como_humano(digit_email, email2)
-                    #WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "fullName"))).click()
+                    # WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "fullName"))).click()
                     time.sleep(1)
-                    #WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "fullName"))).clear()
+                    # WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "fullName"))).clear()
 
-
-                    #WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "fullName"))).send_keys(nome_completo)
+                    # WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "fullName"))).send_keys(nome_completo)
                     digit_user = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "username")))
                     digitar_como_humano(digit_user, user_completo)
                     digit_senha = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "password")))
                     digitar_como_humano(digit_senha, senha)
                     url_antiga = chrome.current_url
-                    WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and contains(text(), 'Cadastre-se')]"))).click()
+                    WebDriverWait(chrome, 10).until(EC.element_to_be_clickable(
+                        (By.XPATH, "//button[@type='submit' and contains(text(), 'Cadastre-se')]"))).click()
                     criou_depois = False
                     while True:
                         if criou_depois:
@@ -739,7 +761,9 @@ def instaface_criarinsta():
                                 raise Exception('')
                             elif chrome.current_url == 'https://www.instagram.com/':
                                 print('criou')
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.', text_color='lime')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color='lime')
                                 window.Refresh()
                                 contagem = contagem + 1
                                 window['criadas'].update(contagem)
@@ -753,24 +777,30 @@ def instaface_criarinsta():
                             chrome.get('https://www.instagram.com/')
                             url_antiga = chrome.current_url
 
-                            digit_user = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "username")))
+                            digit_user = WebDriverWait(chrome, 10).until(
+                                EC.element_to_be_clickable((By.NAME, "username")))
                             digitar_como_humano(digit_user, user_completo)
-                            digit_senha = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "password")))
+                            digit_senha = WebDriverWait(chrome, 10).until(
+                                EC.element_to_be_clickable((By.NAME, "password")))
                             digitar_como_humano(digit_senha, senha)
-                            entrar = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'Entrar')]")))
+                            entrar = WebDriverWait(chrome, 10).until(
+                                EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'Entrar')]")))
                             chrome.execute_script("arguments[0].click();", entrar)
                             tentativa = 0
                             while True:
                                 if url_antiga != chrome.current_url:
                                     if 'checkpoint' in chrome.current_url or 'suspended' in chrome.current_url:
                                         print('SMS')
-                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] SMS', text_color='red')
+                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] SMS',
+                                                               text_color='red')
                                         window.Refresh()
                                         passar_conta = True
                                         raise Exception('')
                                     elif len(chrome.find_elements(By.XPATH, "//span[contains(text(), 'Perfil')]")) == 1:
                                         print('criou')
-                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.', text_color='lime')
+                                        window['output'].print(
+                                            f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                            text_color='lime')
                                         window.Refresh()
                                         contagem = contagem + 1
                                         window['criadas'].update(contagem)
@@ -781,13 +811,16 @@ def instaface_criarinsta():
                                         break
                                     elif 'disclosure' in chrome.current_url:
                                         print('Não foi possivel utilizar esta conta')
-                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar esta conta')
+                                        window['output'].print(
+                                            f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar esta conta')
                                         window.Refresh()
                                         passar_conta = True
                                         raise Exception('')
-                                elif len(chrome.find_elements(By.XPATH, "//span[.//div[contains(text(), 'Sua senha está incorreta.')]]")) == 1:
+                                elif len(chrome.find_elements(By.XPATH,
+                                                              "//span[.//div[contains(text(), 'Sua senha está incorreta.')]]")) == 1:
                                     print('Não foi possivel utilizar esta conta')
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar esta conta')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar esta conta')
                                     window.Refresh()
                                     passar_conta = True
                                     raise Exception('')
@@ -795,16 +828,17 @@ def instaface_criarinsta():
                                 tentativa += 1
                                 if tentativa == 5:
                                     print('Não foi possivel utilizar esta conta')
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar esta conta')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel utilizar esta conta')
                                     window.Refresh()
                                     passar_conta = True
                                     raise Exception('')
 
-
-
                 if instagram_existe is True:
-                    WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Perfil')]"))).click()
-                    user_completo = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.TAG_NAME, "h2"))).text
+                    WebDriverWait(chrome, 10).until(
+                        EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Perfil')]"))).click()
+                    user_completo = WebDriverWait(chrome, 10).until(
+                        EC.element_to_be_clickable((By.TAG_NAME, "h2"))).text
                     print(user_completo)
                 chrome.get('https://accountscenter.instagram.com/accounts/')
                 if instagram_existe is False:
@@ -837,9 +871,11 @@ def instaface_criarinsta():
                             num_rows = sum(1 for row in rows if regex.match(row[0]))
                     except Exception as e:
                         print(e)
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                         tempo_aleatorio = random.randint(10, 40)
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                         time.sleep(tempo_aleatorio)
                         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                         creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
@@ -887,8 +923,10 @@ def instaface_criarinsta():
                             cell_list[i].value = val
                         sheet.update_cells(cell_list)
                 instagram_existe = False
-                WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Remover')]"))).click()
-                WebDriverWait(chrome, 10).until(EC.presence_of_all_elements_located((By.XPATH, "//span[contains(text(), 'Continuar')]")))
+                WebDriverWait(chrome, 10).until(
+                    EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Remover')]"))).click()
+                WebDriverWait(chrome, 10).until(
+                    EC.presence_of_all_elements_located((By.XPATH, "//span[contains(text(), 'Continuar')]")))
 
                 continuar_buttons = chrome.find_elements(By.XPATH, "//span[contains(text(), 'Continuar')]")
                 ultimo_continuar_button = continuar_buttons[-1] if continuar_buttons else None
@@ -896,32 +934,36 @@ def instaface_criarinsta():
                 if ultimo_continuar_button:
                     ultimo_continuar_button.click()
                 else:
-                    #print("Botão não encontrado")
+                    # print("Botão não encontrado")
                     pass
                 try:
                     # Localiza todos os botões com o texto especificado
                     botoes = WebDriverWait(chrome, 10).until(
-                        EC.presence_of_all_elements_located((By.XPATH, "//span[starts-with(text(), 'Sim, remover')]/ancestor::div[@role='button']"))
+                        EC.presence_of_all_elements_located(
+                            (By.XPATH, "//span[starts-with(text(), 'Sim, remover')]/ancestor::div[@role='button']"))
                     )
-                    #print(f"Número de botões encontrados: {len(botoes)}")
+                    # print(f"Número de botões encontrados: {len(botoes)}")
 
                     # Itera sobre cada botão e tenta clicar
                     for botao in botoes:
                         try:
                             botao.click()
-                            #print("Botão clicado com sucesso.")
+                            # print("Botão clicado com sucesso.")
                             break  # Sai do loop após clicar com sucesso em um botão
                         except Exception as e:
-                            #print(f"Não foi possível clicar no botão.")
+                            # print(f"Não foi possível clicar no botão.")
                             pass
 
                 except:
                     print("Botões não encontrados ou a página demorou muito para carregar.")
                 time.sleep(5)
                 chrome.get('https://accountscenter.instagram.com/personal_info/')
-                WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Informações de contato')]"))).click()
-                WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Adicionar novo contato')]"))).click()
-                WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Adicionar email')]"))).click()
+                WebDriverWait(chrome, 10).until(EC.element_to_be_clickable(
+                    (By.XPATH, "//span[contains(text(), 'Informações de contato')]"))).click()
+                WebDriverWait(chrome, 10).until(EC.element_to_be_clickable(
+                    (By.XPATH, "//span[contains(text(), 'Adicionar novo contato')]"))).click()
+                WebDriverWait(chrome, 10).until(
+                    EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Adicionar email')]"))).click()
 
                 # GERAR EMAIL
                 from requests.auth import HTTPBasicAuth
@@ -946,7 +988,8 @@ def instaface_criarinsta():
                 }
 
                 # Faça a solicitação para a API
-                response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password), verify=True)
+                response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password),
+                                         verify=True)
 
                 # Verifique a resposta
                 if response.status_code == 200:
@@ -961,7 +1004,8 @@ def instaface_criarinsta():
                     print(response.text)
 
                 email_label = WebDriverWait(chrome, 10).until(
-                    EC.presence_of_element_located((By.XPATH, "//label[contains(text(), 'Insira o endereço de email')]"))
+                    EC.presence_of_element_located(
+                        (By.XPATH, "//label[contains(text(), 'Insira o endereço de email')]"))
                 )
                 email_input_id = email_label.get_attribute("for")
                 email_input = WebDriverWait(chrome, 10).until(
@@ -996,13 +1040,14 @@ def instaface_criarinsta():
 
                 # Selecionar caixa de entrada
 
-                #print(f'Status da busca: {status}')
+                # print(f'Status da busca: {status}')
 
                 def decode_mime_words(s):
                     return ''.join(
                         word.decode(encoding or 'utf8') if isinstance(word, bytes) else word
                         for word, encoding in decode_header(s)
                     )
+
                 def get_email_body(msg):
                     if msg.is_multipart():
                         for part in msg.walk():
@@ -1017,6 +1062,7 @@ def instaface_criarinsta():
                         if content_type == "text/plain" or content_type == "text/html":
                             return msg.get_payload(decode=True).decode()
                     return ""
+
                 while True:
                     mail.select("inbox")
 
@@ -1038,16 +1084,18 @@ def instaface_criarinsta():
                                 # Pegar o primeiro resultado, se houver
                                 codigo = codigo_confirmacao[0] if codigo_confirmacao else None
                                 print(codigo)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Código recebido: {codigo}')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Código recebido: {codigo}')
                                 window.Refresh()
                                 break
                     else:
                         pass
 
-                #WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, '''//label[contains(text(), 'Insira o código de confirmação')]'''))).send_keys(codigo)
+                # WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, '''//label[contains(text(), 'Insira o código de confirmação')]'''))).send_keys(codigo)
 
                 codigo_label = WebDriverWait(chrome, 10).until(
-                    EC.presence_of_element_located((By.XPATH, '''//label[contains(text(), 'Insira o código de confirmação')]'''))
+                    EC.presence_of_element_located(
+                        (By.XPATH, '''//label[contains(text(), 'Insira o código de confirmação')]'''))
                 )
                 codigo_input_id = codigo_label.get_attribute("for")
                 codigo_input = WebDriverWait(chrome, 10).until(
@@ -1055,18 +1103,22 @@ def instaface_criarinsta():
                 )
                 digitar_como_humano(codigo_input, codigo)
 
-                avancar = WebDriverWait(chrome, 10).until(EC.presence_of_all_elements_located((By.XPATH, "//span[contains(text(), 'Avançar')]")))
+                avancar = WebDriverWait(chrome, 10).until(
+                    EC.presence_of_all_elements_located((By.XPATH, "//span[contains(text(), 'Avançar')]")))
                 avancar[-1].click()
-                WebDriverWait(chrome, 10).until(EC.visibility_of_element_located((By.XPATH, "//span[contains(text(), 'Você adicionou seu email às contas selecionadas')]")))
+                WebDriverWait(chrome, 10).until(EC.visibility_of_element_located(
+                    (By.XPATH, "//span[contains(text(), 'Você adicionou seu email às contas selecionadas')]")))
                 print('Email alterado')
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email alterado com sucesso')
                 window.Refresh()
                 total_contas_criadas_fb += 1
                 print(f'Total de contas criadas nesse facebook: {total_contas_criadas_fb}\n')
-                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Total de contas criadas nesse facebook: {total_contas_criadas_fb}')
+                window['output'].print(
+                    f'[{datetime.now().strftime("%H:%M:%S")}] Total de contas criadas nesse facebook: {total_contas_criadas_fb}')
                 window.Refresh()
                 time.sleep(3)
-                fechar = WebDriverWait(chrome, 10).until(EC.presence_of_all_elements_located((By.XPATH, "//span[contains(text(), 'Fechar')]")))
+                fechar = WebDriverWait(chrome, 10).until(
+                    EC.presence_of_all_elements_located((By.XPATH, "//span[contains(text(), 'Fechar')]")))
                 fechar[-1].click()
                 chrome.get('https://instagram.com/accounts/logout')
                 try:
@@ -1079,7 +1131,7 @@ def instaface_criarinsta():
                     pass
 
             except Exception as e:
-                #print(e)
+                # print(e)
                 if not str(e) == '':
                     traceback.print_exc()
                 if 'main thread is not in main loop' in str(e):
@@ -1103,7 +1155,6 @@ def instaface_criarinsta():
                     pass
 
 
-
 def instaface_criarface():
     try:
         with open("config.json", "r") as f:
@@ -1116,7 +1167,7 @@ def instaface_criarface():
     except FileNotFoundError:
         config4 = {}
     SPREADSHEET_ID = config['spreadsheet']
-    #conteudo = config4['metodo']
+    # conteudo = config4['metodo']
     senha = config['senha']
     maquina = config['maquina']
     email = 'InstaFace'
@@ -1136,7 +1187,6 @@ def instaface_criarface():
     import requests
     import hashlib
     import subprocess
-
 
     import os
     import time
@@ -1180,6 +1230,7 @@ def instaface_criarface():
     handler = logging.FileHandler('log.txt')
     handler.setLevel(logging.ERROR)
     logger.addHandler(handler)
+
     def gerar_id():
         chars = string.ascii_lowercase + string.digits
         android_id = ''.join(random.choice(chars) for i in range(16))
@@ -1317,7 +1368,8 @@ def instaface_criarface():
             global nome
             global sobrenome
             global sms
-            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da ExpressVPN', text_color='red')
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da ExpressVPN',
+                                   text_color='red')
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
             window.Refresh()
@@ -1377,7 +1429,8 @@ def instaface_criarface():
             global sobrenome
             global sms
             sms = True
-            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da SurfShark', text_color='red')
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da SurfShark',
+                                   text_color='red')
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
             window.Refresh()
@@ -1406,7 +1459,8 @@ def instaface_criarface():
             global sobrenome
             global sms
             sms = True
-            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da BetterNet', text_color='red')
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da BetterNet',
+                                   text_color='red')
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
             window.Refresh()
@@ -1464,7 +1518,8 @@ def instaface_criarface():
             global sobrenome
             global sms
             sms = True
-            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da CyberGhost', text_color='red')
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da CyberGhost',
+                                   text_color='red')
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
             window.Refresh()
@@ -1528,7 +1583,8 @@ def instaface_criarface():
             global nome
             global sobrenome
             global sms
-            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da Windscribe', text_color='red')
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da Windscribe',
+                                   text_color='red')
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
             window.Refresh()
@@ -1603,7 +1659,8 @@ def instaface_criarface():
             except:
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Baixando APK')
                 window.Refresh()
-                d.app_install('https://www.dropbox.com/scl/fi/xtkw77snupht13pbjohpm/MacroDroid_PRO-v5.39.3_Tekmods.com.apk?rlkey=la183j4i24keqyjhrez5ajw3d&dl=1')
+                d.app_install(
+                    'https://www.dropbox.com/scl/fi/xtkw77snupht13pbjohpm/MacroDroid_PRO-v5.39.3_Tekmods.com.apk?rlkey=la183j4i24keqyjhrez5ajw3d&dl=1')
                 d.app_start('com.arlosoft.macrodroid')
                 d(resourceId='com.arlosoft.macrodroid:id/button_skip').click(timeout=20)
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Configurando MacroDroid')
@@ -1627,8 +1684,12 @@ def instaface_criarface():
                 d(text='Botão lateral pressionado várias vezes').click()
                 d(resourceId='android:id/button1').click()
                 d(text='Continuar após o tempo limite').click()
-                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text('')
-                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text('10')
+                d.xpath(
+                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text(
+                    '')
+                d.xpath(
+                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text(
+                    '10')
                 try:
                     d(text='ESTÁ BEM').click(timeout=10)
                 except:
@@ -1645,8 +1706,10 @@ def instaface_criarface():
                 time.sleep(2)
                 d.app_stop('com.arlosoft.macrodroid')
                 try:
-                    subprocess.run(f'adb -s {porta} shell pm grant com.arlosoft.macrodroid android.permission.WRITE_SECURE_SETTINGS', stdout=subprocess.DEVNULL,
-                                   stderr=subprocess.DEVNULL, check=True, shell=True)
+                    subprocess.run(
+                        f'adb -s {porta} shell pm grant com.arlosoft.macrodroid android.permission.WRITE_SECURE_SETTINGS',
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL, check=True, shell=True)
                 except Exception as e:
                     print(e)
 
@@ -1686,8 +1749,8 @@ def instaface_criarface():
             print(e)
             pass
 
-    #window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Senha sendo utilizada: {senha}')
-    #window.Refresh()
+    # window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Senha sendo utilizada: {senha}')
+    # window.Refresh()
 
     try:
         comando = f"adb connect {porta}"
@@ -1737,7 +1800,9 @@ def instaface_criarface():
             window.Refresh()
             d.app_start('com.facebook.katana', use_monkey=True)
             # MUDAR IDIOMAR
-            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.View').click(timeout=120)
+            d.xpath(
+                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.View').click(
+                timeout=120)
             d.xpath('//android.view.View[@content-desc="English (US)"]').click(timeout=30)
             #
 
@@ -1760,8 +1825,12 @@ def instaface_criarface():
             user_completo_antigo = string_with_dot.lower()
             escolha = random.choice(["_", "."])
             user_completo = nome + escolha + sobrenome + str(numeros_concatenados) + ''.join(lista_letras)
-            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(nome)
-            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(sobrenome)
+            d.xpath(
+                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                nome)
+            d.xpath(
+                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                sobrenome)
             d.xpath('//android.view.View[@content-desc="Next"]').click(timeout=60)
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Nome escolhido: {nome_completo}')
             window.Refresh()
@@ -1789,6 +1858,7 @@ def instaface_criarface():
                 permission_deny.click(timeout=10)
             elif d(text='DENY').exists:
                 d(text='DENY').click()
+
             # CRIAR EMAIL
             def gerar_senha(tamanho=12):
                 if tamanho < 6:
@@ -1807,12 +1877,12 @@ def instaface_criarface():
                 senha += random.choice(string.digits)
                 senha += "@"
 
-
                 senha = ''.join(random.sample(senha, len(senha)))
 
                 return senha
 
                 # Exemplo de uso
+
             senha = gerar_senha(12)
             try:
                 d.xpath('//android.view.View[@content-desc="Sign up with email"]').click(timeout=5)
@@ -1864,17 +1934,17 @@ def instaface_criarface():
             d.xpath('//android.view.View[@content-desc="Not now"]').click(timeout=60)
             d.xpath('//android.view.View[@content-desc="I agree"]').click(timeout=60)
 
-
             while True:
-                #print(d(text='Enter the confirmation code').exists)
-                #print(d.xpath('//android.view.ViewGroup[@content-desc="Continue"]').exists)
-                #print(d.xpath('//android.view.View[@content-desc="I agree"]').exists)
-                #print('\n')
+                # print(d(text='Enter the confirmation code').exists)
+                # print(d.xpath('//android.view.ViewGroup[@content-desc="Continue"]').exists)
+                # print(d.xpath('//android.view.View[@content-desc="I agree"]').exists)
+                # print('\n')
                 if d(text='Enter the confirmation code').exists:
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
                     window.Refresh()
                     break
-                elif d.xpath('//android.view.ViewGroup[@content-desc="Continue"]').exists or d(text='Wrong Credentials').exists or d(text='Invalid username or password').exists:
+                elif d.xpath('//android.view.ViewGroup[@content-desc="Continue"]').exists or d(
+                        text='Wrong Credentials').exists or d(text='Invalid username or password').exists:
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] SMS', text_color='red')
                     window.Refresh()
                     cpanel_user = 'wnmailsh'
@@ -1903,7 +1973,6 @@ def instaface_criarface():
                     d(text='Use code instead').click()
                 time.sleep(5)
 
-
             import imaplib
             import email
 
@@ -1922,13 +1991,14 @@ def instaface_criarface():
 
             # Selecionar caixa de entrada
 
-            #print(f'Status da busca: {status}')
+            # print(f'Status da busca: {status}')
 
             def decode_mime_words(s):
                 return ''.join(
                     word.decode(encoding or 'utf8') if isinstance(word, bytes) else word
                     for word, encoding in decode_header(s)
                 )
+
             while True:
                 mail.select("inbox")
 
@@ -1950,7 +2020,8 @@ def instaface_criarface():
                                 numeros = ''.join(match.group().split())
                                 codigo = numeros
                                 print(codigo)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Codigo recebido: {codigo}')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Codigo recebido: {codigo}')
                                 window.Refresh()
                                 break
                 else:
@@ -1964,8 +2035,18 @@ def instaface_criarface():
                     window.Refresh()
                     time.sleep(15)
                 skip_button = d(text='Skip')
-                if skip_button.exists or d(text='Allow Facebook to access your location?').exists or d.xpath('//android.view.ViewGroup[@content-desc="Allow Facebook to access your location?"]').exists or d.xpath('//android.widget.Button[@content-desc="Search Facebook"]').exists or d(text='Not now').exists or d(text='Turn on contact uploading to find friends faster').exists or d.xpath('//android.view.ViewGroup[@content-desc="Search"]').exists or d.xpath('//android.widget.ImageView[@content-desc="Facebook logo"]').exists or d.xpath('//android.view.ViewGroup[@content-desc="Messaging"]').exists or d.xpath('//android.view.ViewGroup[@content-desc="Go to profile"]').exists or d.xpath('//android.view.View[@content-desc="Feed, tab 1 of 5"]').exists:
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Facebook criado com sucesso', text_color='cyan')
+                if skip_button.exists or d(text='Allow Facebook to access your location?').exists or d.xpath(
+                        '//android.view.ViewGroup[@content-desc="Allow Facebook to access your location?"]').exists or d.xpath(
+                        '//android.widget.Button[@content-desc="Search Facebook"]').exists or d(
+                        text='Not now').exists or d(
+                        text='Turn on contact uploading to find friends faster').exists or d.xpath(
+                        '//android.view.ViewGroup[@content-desc="Search"]').exists or d.xpath(
+                        '//android.widget.ImageView[@content-desc="Facebook logo"]').exists or d.xpath(
+                        '//android.view.ViewGroup[@content-desc="Messaging"]').exists or d.xpath(
+                        '//android.view.ViewGroup[@content-desc="Go to profile"]').exists or d.xpath(
+                        '//android.view.View[@content-desc="Feed, tab 1 of 5"]').exists:
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Facebook criado com sucesso',
+                                           text_color='cyan')
                     window.Refresh()
                     contagem = contagem + 1
                     window['criadas'].update(contagem)
@@ -1983,7 +2064,7 @@ def instaface_criarface():
                     values = sheet.col_values(1)
                     last_row = len(values)
                     values = [user_completo + ' ' + senha]
-                    #cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
+                    # cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                     cell_list = sheet.range(f'A{last_row + 1}:A{last_row + 1}')
                     for i, val in enumerate(values):
                         cell_list[i].value = val
@@ -1998,7 +2079,8 @@ def instaface_criarface():
                     window['total'].update(num_rows)
                     window.Refresh()
                     break
-                elif d.xpath('//android.view.ViewGroup[@content-desc="Appeal"]').exists or d.xpath('//android.view.ViewGroup[@content-desc="Read more about this rule"]').exists:
+                elif d.xpath('//android.view.ViewGroup[@content-desc="Appeal"]').exists or d.xpath(
+                        '//android.view.ViewGroup[@content-desc="Read more about this rule"]').exists:
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] SMS', text_color='red')
                     window.Refresh()
                     cpanel_user = 'wnmailsh'
@@ -2020,6 +2102,7 @@ def instaface_criarface():
 
         except Exception as e:
             print(e)
+
 
 def free_sms_beta2():
     SPREADSHEET_ID = config['spreadsheet']
@@ -2756,26 +2839,26 @@ def free_sms_beta2():
             service = Service(chrome_driver_path, port={random.randint(1024, 49151)})
             chrome = uc.Chrome(options=chrome_options, service=service, headless=True, version_main=116)
             ## chrome = uc.Chrome(options=options, service=service)
-            #chrome.maximize_window()
+            # chrome.maximize_window()
             # chrome = uc.Chrome(enable_cdp_events=True, headless=True, options=options, service=service)
             # chrome.implicitly_wait(60)
 
-            #import undetected_chromedriver as uc
-            #from selenium import webdriver
+            # import undetected_chromedriver as uc
+            # from selenium import webdriver
             #
-            #options = webdriver.ChromeOptions()
-            #chromedriver_path = r'chromedriver.exe'
-            #service = Service(chromedriver_path)
-            #options.add_argument("start-maximized")
-            #options.add_argument("--blink-settings=imagesEnabled=false")
-            #options.add_argument("--disable-gpu")
-            #options.add_argument("--headless")
-            #chrome = uc.Chrome(options=options, service=service)
+            # options = webdriver.ChromeOptions()
+            # chromedriver_path = r'chromedriver.exe'
+            # service = Service(chromedriver_path)
+            # options.add_argument("start-maximized")
+            # options.add_argument("--blink-settings=imagesEnabled=false")
+            # options.add_argument("--disable-gpu")
+            # options.add_argument("--headless")
+            # chrome = uc.Chrome(options=options, service=service)
 
             stop = False
             try:
                 chrome.get('https://temporary-phone-number.com/')
-                chrome.set_window_size(800,2000)
+                chrome.set_window_size(800, 2000)
 
                 try:
                     WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
@@ -2808,10 +2891,11 @@ def free_sms_beta2():
                             raise Exception("skip.")
                         try:
                             time.sleep(4)
-                            #chrome.execute_script("document.body.style.zoom='50%'")
+                            # chrome.execute_script("document.body.style.zoom='50%'")
                             chrome.save_screenshot('screenshot.png')
                             WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
-                                (By.CSS_SELECTOR, 'body > div.wrapper:nth-child(2) > div.content-wrapper:nth-child(3) > section.content:nth-child(2) > div.row:nth-child(1) > div.col-xs-12:nth-child(2) > div.box-body.text-center:nth-child(3) > button.btn-primary.btn:nth-child(2) > b'))).click()
+                                (By.CSS_SELECTOR,
+                                 'body > div.wrapper:nth-child(2) > div.content-wrapper:nth-child(3) > section.content:nth-child(2) > div.row:nth-child(1) > div.col-xs-12:nth-child(2) > div.box-body.text-center:nth-child(3) > button.btn-primary.btn:nth-child(2) > b'))).click()
                             chrome.save_screenshot('screenshot2.png')
                             time.sleep(7)
                             chrome.save_screenshot('screenshot3.png')
@@ -3063,10 +3147,6 @@ def free_sms_beta2():
                         "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                     window.Refresh()
 
-
-
-
-
             d.xpath('//android.view.View[@content-desc="Concordo"]').click()
             time.sleep(3)
             errodetec = d.xpath('//android.view.View[@content-desc="Concordo"]')
@@ -3104,7 +3184,8 @@ def free_sms_beta2():
                             sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                             values = sheet.col_values(1)
                             last_row = len(values)
-                            values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                            values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                      conteudo + ' - ' + app]
                             cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                             for i, val in enumerate(values):
                                 cell_list[i].value = val
@@ -3119,9 +3200,11 @@ def free_sms_beta2():
                             num_rows = sum(1 for row in rows if regex.match(row[0]))
                         except Exception as e:
                             print(e)
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                             tempo_aleatorio = random.randint(10, 40)
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                             time.sleep(tempo_aleatorio)
                             scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
                             creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
@@ -3133,7 +3216,8 @@ def free_sms_beta2():
                             sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                             values = sheet.col_values(1)
                             last_row = len(values)
-                            values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                            values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                      conteudo + ' - ' + app]
                             cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                             for i, val in enumerate(values):
                                 cell_list[i].value = val
@@ -3164,7 +3248,8 @@ def free_sms_beta2():
                             sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                             values = sheet.col_values(1)
                             last_row = len(values)
-                            values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                            values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app,
+                                      regiao_vpn, user_mysql]
                             cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                             for i, val in enumerate(values):
                                 cell_list[i].value = val
@@ -3223,7 +3308,8 @@ def free_sms_beta2():
                     d.app_stop("com.instagram.android")
                     time.sleep(1)
                     d.app_start("com.instagram.android")
-                    if d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup').exists(timeout=60):
+                    if d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup').exists(
+                            timeout=60):
                         try:
                             conteudo = config['vpn']
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
@@ -3236,7 +3322,8 @@ def free_sms_beta2():
                             now_brasilia = tz.localize(now)
                             timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                             try:
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -3246,7 +3333,8 @@ def free_sms_beta2():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                          conteudo + ' - ' + app]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -3261,11 +3349,14 @@ def free_sms_beta2():
                                 num_rows = sum(1 for row in rows if regex.match(row[0]))
                             except Exception as e:
                                 print(e)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                 tempo_aleatorio = random.randint(10, 40)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                 time.sleep(tempo_aleatorio)
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -3275,7 +3366,8 @@ def free_sms_beta2():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                          conteudo + ' - ' + app]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -3296,7 +3388,8 @@ def free_sms_beta2():
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -3306,7 +3399,8 @@ def free_sms_beta2():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -3536,7 +3630,8 @@ def free_sms_beta2():
                             timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
                             try:
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -3546,7 +3641,8 @@ def free_sms_beta2():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                          conteudo + ' - ' + app]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -3561,11 +3657,14 @@ def free_sms_beta2():
                                 num_rows = sum(1 for row in rows if regex.match(row[0]))
                             except Exception as e:
                                 print(e)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                 tempo_aleatorio = random.randint(10, 40)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                 time.sleep(tempo_aleatorio)
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -3575,7 +3674,8 @@ def free_sms_beta2():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                          conteudo + ' - ' + app]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -3597,7 +3697,8 @@ def free_sms_beta2():
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -3607,7 +3708,8 @@ def free_sms_beta2():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -3719,6 +3821,7 @@ def free_sms_beta2():
                 pass
             print(e)
             pass
+
 
 def free_sms():
     SPREADSHEET_ID = config['spreadsheet']
@@ -4348,7 +4451,6 @@ def free_sms():
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, check=True, shell=True)
 
-
             scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
             creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
             client = gspread.authorize(creds)
@@ -4386,7 +4488,8 @@ def free_sms():
                     pass
                 try:
                     comando = f"adb disconnect {porta}"
-                    subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+                    subprocess.run(comando, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True,
+                                   shell=True)
                     time.sleep(5)
                     subprocess.run(f"adb connect {porta}", stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                                    check=True, shell=True)
@@ -4432,7 +4535,8 @@ def free_sms():
 
                         try:
                             WebDriverWait(chrome, 30).until(
-                                EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/aside/section/ul/li[2]'))).click()
+                                EC.element_to_be_clickable(
+                                    (By.XPATH, '/html/body/div[2]/aside/section/ul/li[2]'))).click()
                             time.sleep(2)
                             print('0')
                             if chrome.current_url == "https://temporary-phone-number.com/#google_vignette":
@@ -4710,7 +4814,8 @@ def free_sms():
                     WebDriverWait(driver, 30).until(
                         EC.element_to_be_clickable((By.XPATH, '//android.view.View[@content-desc="Avançar"]'))).click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH,
                                                                                 '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText'))).send_keys(
@@ -4753,8 +4858,9 @@ def free_sms():
                         if len(verificar) == 1:
                             try:
                                 conteudo = config['vpn']
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem = contagem + 1
                                 window['criadas'].update(contagem)
@@ -4763,7 +4869,8 @@ def free_sms():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -4789,7 +4896,8 @@ def free_sms():
                                 num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 window['total'].update(num_rows)
                                 time.sleep(4)
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -4827,7 +4935,8 @@ def free_sms():
                                     EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/skip_button'))).click()
                                 time.sleep(5)
                                 WebDriverWait(driver, 30).until(
-                                    EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/negative_button'))).click()
+                                    EC.element_to_be_clickable(
+                                        (By.ID, 'com.instagram.android:id/negative_button'))).click()
                                 time.sleep(5)
                                 WebDriverWait(driver, 30).until(
                                     EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/skip_button'))).click()
@@ -4842,17 +4951,20 @@ def free_sms():
                                 time.sleep(5)
                                 try:
                                     WebDriverWait(driver, 5).until(
-                                        EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/button_text'))).click()
+                                        EC.element_to_be_clickable(
+                                            (By.ID, 'com.instagram.android:id/button_text'))).click()
                                 except:
                                     pass
                                 time.sleep(5)
                                 try:
                                     WebDriverWait(driver, 30).until(
-                                        EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/profile_tab'))).click()
+                                        EC.element_to_be_clickable(
+                                            (By.ID, 'com.instagram.android:id/profile_tab'))).click()
                                 except:
                                     time.sleep(5)
                                     WebDriverWait(driver, 30).until(
-                                        EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/tab_avatar'))).click()
+                                        EC.element_to_be_clickable(
+                                            (By.ID, 'com.instagram.android:id/tab_avatar'))).click()
                                 sms = False
                             except:
                                 pass
@@ -4879,7 +4991,8 @@ def free_sms():
                                     now_brasilia = tz.localize(now)
                                     timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -4905,7 +5018,8 @@ def free_sms():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                     window['total'].update(num_rows)
                                     time.sleep(4)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -5049,7 +5163,8 @@ def free_sms():
                             nomea = fake.first_name_female().replace(" ", "")
                             nome = unicodedata.normalize('NFKD', nomea).encode('ASCII', 'ignore').decode('ASCII')
                             sobrenomea = fake.last_name().replace(" ", "").lower()
-                            sobrenome = unicodedata.normalize('NFKD', sobrenomea).encode('ASCII', 'ignore').decode('ASCII')
+                            sobrenome = unicodedata.normalize('NFKD', sobrenomea).encode('ASCII', 'ignore').decode(
+                                'ASCII')
                             nome_completo = nome + sobrenome
                             numeros_concatenados = ''.join(str(numero) for numero in lista_user)
                             user_completo = nome_completo + '' + str(numeros_concatenados) + ''.join(lista_letras)
@@ -5131,7 +5246,8 @@ def free_sms():
                                     now_brasilia = tz.localize(now)
                                     timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -5157,7 +5273,8 @@ def free_sms():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                     window['total'].update(num_rows)
                                     time.sleep(4)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -5192,7 +5309,8 @@ def free_sms():
                                     EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/skip_button'))).click()
                                 time.sleep(1)
                                 WebDriverWait(driver, 30).until(
-                                    EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/negative_button'))).click()
+                                    EC.element_to_be_clickable(
+                                        (By.ID, 'com.instagram.android:id/negative_button'))).click()
                                 time.sleep(3)
                                 WebDriverWait(driver, 30).until(
                                     EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/skip_button'))).click()
@@ -5202,7 +5320,8 @@ def free_sms():
                                                                                                '//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView'))).click()
                                 except:
                                     WebDriverWait(driver, 30).until(
-                                        EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/skip_button'))).click()
+                                        EC.element_to_be_clickable(
+                                            (By.ID, 'com.instagram.android:id/skip_button'))).click()
                                     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH,
                                                                                                 '//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView'))).click()
 
@@ -5210,12 +5329,15 @@ def free_sms():
                                 time.sleep(3)
                                 try:
                                     WebDriverWait(driver, 10).until(
-                                        EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/profile_tab'))).click()
+                                        EC.element_to_be_clickable(
+                                            (By.ID, 'com.instagram.android:id/profile_tab'))).click()
                                 except:
                                     WebDriverWait(driver, 30).until(
-                                        EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/button_text'))).click()
+                                        EC.element_to_be_clickable(
+                                            (By.ID, 'com.instagram.android:id/button_text'))).click()
                                     WebDriverWait(driver, 10).until(
-                                        EC.element_to_be_clickable((By.ID, 'com.instagram.android:id/profile_tab'))).click()
+                                        EC.element_to_be_clickable(
+                                            (By.ID, 'com.instagram.android:id/profile_tab'))).click()
                                 sms = False
 
                             else:
@@ -5272,6 +5394,7 @@ def free_sms():
                     pass
                 print(e)
                 pass
+
 
 def temporary_phone_number_com():
     SPREADSHEET_ID = config['spreadsheet']
@@ -5448,6 +5571,7 @@ def temporary_phone_number_com():
 
         else:
             result = "Não foi possível baixar o arquivo. Status Code: " + str(response.status_code)
+
     # RANGE_NAME = 'contas!A:D'
     #
     # SCOPES = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -6001,7 +6125,7 @@ def temporary_phone_number_com():
             except:
                 pass
             break
-        #if codigo_não_recebido_seguidos == 3:
+        # if codigo_não_recebido_seguidos == 3:
         #    #tempo_aleatorio = random.randint(10, 40)
         #    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 3 códigos não recebidos seguidos.')
         #    window.Refresh()
@@ -6111,7 +6235,9 @@ def temporary_phone_number_com():
                     layout_usado = 'layout1'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout1 novo encontrado.')
                     window.Refresh()
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
@@ -6137,7 +6263,8 @@ def temporary_phone_number_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -6158,7 +6285,8 @@ def temporary_phone_number_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -6364,7 +6492,8 @@ def temporary_phone_number_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -6385,7 +6514,8 @@ def temporary_phone_number_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -6578,7 +6708,9 @@ def temporary_phone_number_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.view.ViewGroup').click()
                     time.sleep(4)
@@ -6611,7 +6743,8 @@ def temporary_phone_number_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -6826,7 +6959,8 @@ def temporary_phone_number_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -6880,7 +7014,8 @@ def temporary_phone_number_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -6913,7 +7048,8 @@ def temporary_phone_number_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -7110,7 +7246,7 @@ def temporary_phone_number_com():
                     layout_usado = 'layout_normal'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout normal encontrado.')
                     window.Refresh()
-                    #raise Exception('Manutenção.')
+                    # raise Exception('Manutenção.')
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
@@ -7136,8 +7272,8 @@ def temporary_phone_number_com():
                         d.xpath('//android.view.View[@content-desc="Agora não"]').click_exists(timeout=20.0)
                     except Exception as e:
                         print(e)
-                    #salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
-                    #if salvar_senha.exists:
+                    # salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
+                    # if salvar_senha.exists:
                     #    d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
                     time.sleep(3)
@@ -7149,7 +7285,8 @@ def temporary_phone_number_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -7193,30 +7330,33 @@ def temporary_phone_number_com():
                         url = 'https://temporary-phone-number.com/'
                         chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
                         chrome_options = uc.ChromeOptions()
-                        #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+                        # chrome_options.add_argument("--blink-settings=imagesEnabled=false")
                         chrome_options.add_argument("--disable-gpu")
                         chrome_options.add_argument('--ignore-ssl-errors=yes')
                         chrome_options.add_argument('--ignore-certificate-errors')
                         chrome_options.add_argument("--no-sandbox")
                         chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
-                        #chrome_options.add_extension('.\\storage\\adblock.crx')
+                        # chrome_options.add_extension('.\\storage\\adblock.crx')
                         chrome_options.add_argument(f"--load-extension={caminho_atual}\\storage\\adblock\\")
                         chrome_options.page_load_strategy = 'eager'
                         # Configurando o Selenium para usar o Chrome Driver local
                         service = Service(executable_path=chromedriver_path)
                         chrome = uc.Chrome(service=service, headless=True, version_main=116, options=chrome_options)
                         chrome.get(url)
-                        chrome.set_window_size(1920,1080)
+                        chrome.set_window_size(1920, 1080)
                         chrome.execute_script("document.body.style.zoom='50%'")
-                        lista = ['2', '3', '4', '5', '6', '7', '8', '9', '11', '12', '13', '14', '15', '16', '17', '18' '20']
+                        lista = ['2', '3', '4', '5', '6', '7', '8', '9', '11', '12', '13', '14', '15', '16', '17',
+                                 '18' '20']
                         numero_escolhido = random.choice(lista)
                         chrome.execute_script("window.scrollBy(0, 10);")
                         try:
-                            teste = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((By.XPATH, f'/html/body/div[*]/div/section[*]/div[*]/div[{numero_escolhido}]/a')))
-                            #/html/body/div[2]/div/section[2]/div[1]/div[4]/a
+                            teste = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable(
+                                (By.XPATH, f'/html/body/div[*]/div/section[*]/div[*]/div[{numero_escolhido}]/a')))
+                            # /html/body/div[2]/div/section[2]/div[1]/div[4]/a
                         except:
                             chrome.refresh()
-                            teste = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((By.XPATH, f'/html/body/div[*]/div/section[*]/div[*]/div[{numero_escolhido}]/a')))
+                            teste = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable(
+                                (By.XPATH, f'/html/body/div[*]/div/section[*]/div[*]/div[{numero_escolhido}]/a')))
 
                         chrome.execute_script("window.scrollBy(0, 10);")
                         chrome.execute_script("window.scrollBy(0, 2);")
@@ -7251,7 +7391,8 @@ def temporary_phone_number_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -7474,7 +7615,8 @@ def temporary_phone_number_com():
                             now_brasilia = tz.localize(now)
                             timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                             try:
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -7484,7 +7626,8 @@ def temporary_phone_number_com():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -7499,11 +7642,14 @@ def temporary_phone_number_com():
                                 num_rows = sum(1 for row in rows if regex.match(row[0]))
                             except Exception as e:
                                 print(e)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                 tempo_aleatorio = random.randint(10, 40)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                 time.sleep(tempo_aleatorio)
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -7513,7 +7659,8 @@ def temporary_phone_number_com():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -7534,7 +7681,8 @@ def temporary_phone_number_com():
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -7544,7 +7692,8 @@ def temporary_phone_number_com():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -7598,7 +7747,7 @@ def temporary_phone_number_com():
 
                                 # Encontre todos os elementos que correspondem ao ID fornecido
                                 elements = d(resourceId=element_id)
-                                #window['output'].print("Seguindo sugeridos...")
+                                # window['output'].print("Seguindo sugeridos...")
                                 window.Refresh()
                                 for element in elements:
                                     if element.get_text() == target_text:
@@ -7622,12 +7771,15 @@ def temporary_phone_number_com():
                                         d.app_start("com.instagram.android")
                                         time.sleep(30)
                                         try:
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -7635,12 +7787,15 @@ def temporary_phone_number_com():
                                                 d(resourceId='com.instagram.android:id/profile_tab').click()
                                         except:
                                             time.sleep(2)
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -7654,23 +7809,29 @@ def temporary_phone_number_com():
                             d.app_start("com.instagram.android")
                             time.sleep(40)
                             try:
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/profile_tab').click()
                             except:
                                 time.sleep(2)
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/tab_avatar').click()
@@ -7682,17 +7843,23 @@ def temporary_phone_number_com():
                         d.app_start("com.instagram.android")
 
                         if d.xpath('//android.view.View[@content-desc="Esqueceu a senha?"]').exists(timeout=60):
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                user_completo)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
-                        verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
+                        verificar3 = d.xpath(
+                            '//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem = contagem + 1
                                 sms = False
@@ -7702,7 +7869,8 @@ def temporary_phone_number_com():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -7712,7 +7880,8 @@ def temporary_phone_number_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -7727,11 +7896,14 @@ def temporary_phone_number_com():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -7741,7 +7913,8 @@ def temporary_phone_number_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -7762,7 +7935,8 @@ def temporary_phone_number_com():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -7772,7 +7946,8 @@ def temporary_phone_number_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -7821,8 +7996,9 @@ def temporary_phone_number_com():
                         verificar = d(resourceId='com.instagram.android:id/profile_tab')
                         if verificar.exists:
                             try:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 seguido = False
                                 contagem += 1
@@ -7832,7 +8008,8 @@ def temporary_phone_number_com():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -7842,7 +8019,8 @@ def temporary_phone_number_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -7857,11 +8035,14 @@ def temporary_phone_number_com():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -7871,7 +8052,8 @@ def temporary_phone_number_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -7892,7 +8074,8 @@ def temporary_phone_number_com():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -7902,7 +8085,8 @@ def temporary_phone_number_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -7932,7 +8116,8 @@ def temporary_phone_number_com():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     time.sleep(5)
                                     for element in elements:
@@ -8067,7 +8252,8 @@ def temporary_phone_number_com():
                         try:
                             d(resourceId='com.instagram.android:id/profile_tab').click(timeout=120)
                         except:
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
                             window.Refresh()
                             raise Exception('Erro na conta')
                         window['output'].print(linha_ret)
@@ -8187,8 +8373,9 @@ def temporary_phone_number_com():
                         if verificar.exists:
                             try:
                                 conteudo = config['vpn']
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -8198,7 +8385,8 @@ def temporary_phone_number_com():
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -8208,7 +8396,8 @@ def temporary_phone_number_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -8223,11 +8412,14 @@ def temporary_phone_number_com():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -8237,7 +8429,8 @@ def temporary_phone_number_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -8260,8 +8453,10 @@ def temporary_phone_number_com():
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
-                                        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                        scope = ["https://spreadsheets.google.com/feeds",
+                                                 "https://www.googleapis.com/auth/drive"]
+                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
+                                                                                                 scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -8270,7 +8465,8 @@ def temporary_phone_number_com():
                                         sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                         values = sheet.col_values(1)
                                         last_row = len(values)
-                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                                  conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
                                             cell_list[i].value = val
@@ -8298,7 +8494,8 @@ def temporary_phone_number_com():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     for element in elements:
                                         if element.get_text() == target_text:
@@ -8386,7 +8583,8 @@ def temporary_phone_number_com():
                                     pass
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
-                                        d.screenshot(f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
+                                        d.screenshot(
+                                            f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
                                     except Exception as e:
                                         print(e)
                                         pass
@@ -8445,6 +8643,7 @@ def temporary_phone_number_com():
 
             pass
 
+
 def insta_5sim_normal():
     import subprocess
     import time
@@ -8462,7 +8661,7 @@ def insta_5sim_normal():
     try:
         from fivesim import FiveSim
     except:
-        subprocess.run(['pip', 'install', 'fivesim'])
+        subprocess.run(['pip', 'install', '5sim-python'])
         time.sleep(5)
         from fivesim import FiveSim
     print(f'Token 5sim: {fivesimapi}')
@@ -8641,7 +8840,8 @@ def insta_5sim_normal():
             global nome
             global sobrenome
             global sms
-            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da ExpressVPN', text_color='red')
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da ExpressVPN',
+                                   text_color='red')
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
             window.Refresh()
@@ -8701,7 +8901,8 @@ def insta_5sim_normal():
             global sobrenome
             global sms
             sms = True
-            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da SurfShark', text_color='red')
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da SurfShark',
+                                   text_color='red')
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
             window.Refresh()
@@ -8730,7 +8931,8 @@ def insta_5sim_normal():
             global sobrenome
             global sms
             sms = True
-            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da BetterNet', text_color='red')
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da BetterNet',
+                                   text_color='red')
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
             window.Refresh()
@@ -8788,7 +8990,8 @@ def insta_5sim_normal():
             global sobrenome
             global sms
             sms = True
-            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da CyberGhost', text_color='red')
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da CyberGhost',
+                                   text_color='red')
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
             window.Refresh()
@@ -8852,7 +9055,8 @@ def insta_5sim_normal():
             global nome
             global sobrenome
             global sms
-            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da Windscribe', text_color='red')
+            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da Windscribe',
+                                   text_color='red')
             window.Refresh()
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
             window.Refresh()
@@ -8927,7 +9131,8 @@ def insta_5sim_normal():
             except:
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Baixando APK')
                 window.Refresh()
-                d.app_install('https://www.dropbox.com/scl/fi/xtkw77snupht13pbjohpm/MacroDroid_PRO-v5.39.3_Tekmods.com.apk?rlkey=la183j4i24keqyjhrez5ajw3d&dl=1')
+                d.app_install(
+                    'https://www.dropbox.com/scl/fi/xtkw77snupht13pbjohpm/MacroDroid_PRO-v5.39.3_Tekmods.com.apk?rlkey=la183j4i24keqyjhrez5ajw3d&dl=1')
                 d.app_start('com.arlosoft.macrodroid')
                 d(resourceId='com.arlosoft.macrodroid:id/button_skip').click(timeout=20)
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Configurando MacroDroid')
@@ -8951,8 +9156,12 @@ def insta_5sim_normal():
                 d(text='Botão lateral pressionado várias vezes').click()
                 d(resourceId='android:id/button1').click()
                 d(text='Continuar após o tempo limite').click()
-                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text('')
-                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text('10')
+                d.xpath(
+                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text(
+                    '')
+                d.xpath(
+                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.TableLayout/android.widget.TableRow[3]/android.widget.LinearLayout/android.widget.EditText').set_text(
+                    '10')
                 try:
                     d(text='ESTÁ BEM').click(timeout=10)
                 except:
@@ -8969,8 +9178,10 @@ def insta_5sim_normal():
                 time.sleep(2)
                 d.app_stop('com.arlosoft.macrodroid')
                 try:
-                    subprocess.run(f'adb -s {porta} shell pm grant com.arlosoft.macrodroid android.permission.WRITE_SECURE_SETTINGS', stdout=subprocess.DEVNULL,
-                                   stderr=subprocess.DEVNULL, check=True, shell=True)
+                    subprocess.run(
+                        f'adb -s {porta} shell pm grant com.arlosoft.macrodroid android.permission.WRITE_SECURE_SETTINGS',
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL, check=True, shell=True)
                 except Exception as e:
                     print(e)
 
@@ -9089,7 +9300,6 @@ def insta_5sim_normal():
 
         try:
 
-
             try:
                 subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
                                stdout=subprocess.DEVNULL,
@@ -9116,13 +9326,13 @@ def insta_5sim_normal():
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Saldo: {saldo["balance"]}')
                     window.Refresh()
                 except Exception as e:
-                    print(e)
                     print('Verifique seu token')
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Verifique seu token.')
                     window.Refresh()
                     raise Exception('')
                 print(f'''Saldo: {saldo['balance']}''')
-                precos_instagram_russia = client.price_requests_by_country_and_product(country='russia', product='instagram')
+                precos_instagram_russia = client.price_requests_by_country_and_product(country='russia',
+                                                                                       product='instagram')
                 operadoras_disponiveis = {}
                 for operadora, detalhes in precos_instagram_russia['russia']['instagram'].items():
                     if detalhes['cost'] == 1 and detalhes['count'] > 0:
@@ -9192,7 +9402,9 @@ def insta_5sim_normal():
                     layout_usado = 'layout1'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout1 novo encontrado.')
                     window.Refresh()
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
@@ -9218,7 +9430,8 @@ def insta_5sim_normal():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -9239,7 +9452,8 @@ def insta_5sim_normal():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -9361,7 +9575,8 @@ def insta_5sim_normal():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -9382,7 +9597,8 @@ def insta_5sim_normal():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -9491,7 +9707,9 @@ def insta_5sim_normal():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.view.ViewGroup').click()
                     time.sleep(4)
@@ -9546,7 +9764,8 @@ def insta_5sim_normal():
                         d(resourceId='android:id/button2').click()
                         time.sleep(3)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -9579,7 +9798,6 @@ def insta_5sim_normal():
                         tentativa = True
                         trocar_ip()
                         raise Exception('Restrição')
-
 
                     erro_novaconta = d.xpath('//android.view.View[@content-desc="Criar nova conta"]')
                     if erro_novaconta.exists:
@@ -9670,7 +9888,8 @@ def insta_5sim_normal():
                         d(resourceId='android:id/button2').click()
                     time.sleep(5)
                     try:
-                        d.xpath('//android.widget.Button[@content-desc="Agora não"]/android.view.ViewGroup').click(timeout=10)
+                        d.xpath('//android.widget.Button[@content-desc="Agora não"]/android.view.ViewGroup').click(
+                            timeout=10)
                         print('clicou')
                     except Exception as e:
                         print('erro agora nao')
@@ -9685,7 +9904,8 @@ def insta_5sim_normal():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -9739,7 +9959,8 @@ def insta_5sim_normal():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -9772,7 +9993,8 @@ def insta_5sim_normal():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -9885,7 +10107,7 @@ def insta_5sim_normal():
                     layout_usado = 'layout_normal'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout normal encontrado.')
                     window.Refresh()
-                    #raise Exception('Manutenção.')
+                    # raise Exception('Manutenção.')
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
@@ -9911,8 +10133,8 @@ def insta_5sim_normal():
                         d.xpath('//android.view.View[@content-desc="Agora não"]').click_exists(timeout=20.0)
                     except Exception as e:
                         print(e)
-                    #salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
-                    #if salvar_senha.exists:
+                    # salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
+                    # if salvar_senha.exists:
                     #    d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
                     time.sleep(3)
@@ -9924,7 +10146,8 @@ def insta_5sim_normal():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -9983,7 +10206,8 @@ def insta_5sim_normal():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -10130,7 +10354,8 @@ def insta_5sim_normal():
                             now_brasilia = tz.localize(now)
                             timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                             try:
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -10140,7 +10365,8 @@ def insta_5sim_normal():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -10155,11 +10381,14 @@ def insta_5sim_normal():
                                 num_rows = sum(1 for row in rows if regex.match(row[0]))
                             except Exception as e:
                                 print(e)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                 tempo_aleatorio = random.randint(10, 40)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                 time.sleep(tempo_aleatorio)
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -10169,7 +10398,8 @@ def insta_5sim_normal():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -10190,7 +10420,8 @@ def insta_5sim_normal():
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -10200,7 +10431,8 @@ def insta_5sim_normal():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -10254,7 +10486,7 @@ def insta_5sim_normal():
 
                                 # Encontre todos os elementos que correspondem ao ID fornecido
                                 elements = d(resourceId=element_id)
-                                #window['output'].print("Seguindo sugeridos...")
+                                # window['output'].print("Seguindo sugeridos...")
                                 window.Refresh()
                                 for element in elements:
                                     if element.get_text() == target_text:
@@ -10278,12 +10510,15 @@ def insta_5sim_normal():
                                         d.app_start("com.instagram.android")
                                         time.sleep(30)
                                         try:
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -10291,12 +10526,15 @@ def insta_5sim_normal():
                                                 d(resourceId='com.instagram.android:id/profile_tab').click()
                                         except:
                                             time.sleep(2)
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -10310,23 +10548,29 @@ def insta_5sim_normal():
                             d.app_start("com.instagram.android")
                             time.sleep(40)
                             try:
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/profile_tab').click()
                             except:
                                 time.sleep(2)
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/tab_avatar').click()
@@ -10338,17 +10582,23 @@ def insta_5sim_normal():
                         d.app_start("com.instagram.android")
 
                         if d.xpath('//android.view.View[@content-desc="Esqueceu a senha?"]').exists(timeout=60):
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                user_completo)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
-                        verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
+                        verificar3 = d.xpath(
+                            '//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 tentar_num_novamente = True
                                 contagem = contagem + 1
@@ -10359,7 +10609,8 @@ def insta_5sim_normal():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -10369,7 +10620,8 @@ def insta_5sim_normal():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -10384,11 +10636,14 @@ def insta_5sim_normal():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -10398,7 +10653,8 @@ def insta_5sim_normal():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -10419,7 +10675,8 @@ def insta_5sim_normal():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -10429,7 +10686,8 @@ def insta_5sim_normal():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -10448,8 +10706,9 @@ def insta_5sim_normal():
                         verificar = d(resourceId='com.instagram.android:id/profile_tab')
                         if verificar.exists:
                             try:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 seguido = False
                                 tentar_num_novamente = True
@@ -10460,7 +10719,8 @@ def insta_5sim_normal():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -10470,7 +10730,8 @@ def insta_5sim_normal():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -10485,11 +10746,14 @@ def insta_5sim_normal():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -10499,7 +10763,8 @@ def insta_5sim_normal():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -10520,7 +10785,8 @@ def insta_5sim_normal():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -10530,7 +10796,8 @@ def insta_5sim_normal():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -10560,7 +10827,8 @@ def insta_5sim_normal():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     time.sleep(5)
                                     for element in elements:
@@ -10623,7 +10891,8 @@ def insta_5sim_normal():
                         try:
                             d(resourceId='com.instagram.android:id/profile_tab').click(timeout=120)
                         except:
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
                             window.Refresh()
                             raise Exception('Erro na conta')
                         window['output'].print(linha_ret)
@@ -10715,8 +10984,9 @@ def insta_5sim_normal():
                         if verificar.exists:
                             try:
                                 conteudo = config['vpn']
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -10726,7 +10996,8 @@ def insta_5sim_normal():
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -10736,7 +11007,8 @@ def insta_5sim_normal():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -10751,11 +11023,14 @@ def insta_5sim_normal():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -10765,7 +11040,8 @@ def insta_5sim_normal():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -10788,8 +11064,10 @@ def insta_5sim_normal():
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
-                                        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                        scope = ["https://spreadsheets.google.com/feeds",
+                                                 "https://www.googleapis.com/auth/drive"]
+                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
+                                                                                                 scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -10798,7 +11076,8 @@ def insta_5sim_normal():
                                         sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                         values = sheet.col_values(1)
                                         last_row = len(values)
-                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                                  conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
                                             cell_list[i].value = val
@@ -10826,7 +11105,8 @@ def insta_5sim_normal():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     for element in elements:
                                         if element.get_text() == target_text:
@@ -10871,7 +11151,8 @@ def insta_5sim_normal():
                                 sms = True
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
-                                        d.screenshot(f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
+                                        d.screenshot(
+                                            f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
                                     except Exception as e:
                                         print(e)
                                         pass
@@ -11082,6 +11363,7 @@ def smstome_com():
 
         else:
             result = "Não foi possível baixar o arquivo. Status Code: " + str(response.status_code)
+
     # RANGE_NAME = 'contas!A:D'
     #
     # SCOPES = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -11635,7 +11917,7 @@ def smstome_com():
             except:
                 pass
             break
-        #if codigo_não_recebido_seguidos == 3:
+        # if codigo_não_recebido_seguidos == 3:
         #    #tempo_aleatorio = random.randint(10, 40)
         #    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 3 códigos não recebidos seguidos.')
         #    window.Refresh()
@@ -11745,7 +12027,9 @@ def smstome_com():
                     layout_usado = 'layout1'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout1 novo encontrado.')
                     window.Refresh()
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
@@ -11771,7 +12055,8 @@ def smstome_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -11792,7 +12077,8 @@ def smstome_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -11998,7 +12284,8 @@ def smstome_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -12019,7 +12306,8 @@ def smstome_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -12212,7 +12500,9 @@ def smstome_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.view.ViewGroup').click()
                     time.sleep(4)
@@ -12251,20 +12541,20 @@ def smstome_com():
                         url = 'https://smstome.com/'
                         chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
                         chrome_options = uc.ChromeOptions()
-                        #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+                        # chrome_options.add_argument("--blink-settings=imagesEnabled=false")
                         chrome_options.add_argument("--disable-gpu")
                         chrome_options.add_argument('--ignore-ssl-errors=yes')
                         chrome_options.add_argument('--ignore-certificate-errors')
                         chrome_options.add_argument("--no-sandbox")
                         chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
-                        #chrome_options.add_extension('.\\storage\\adblock.crx')
+                        # chrome_options.add_extension('.\\storage\\adblock.crx')
                         chrome_options.add_argument(f"--load-extension={caminho_atual}\\storage\\adblock\\")
                         chrome_options.page_load_strategy = 'eager'
                         # Configurando o Selenium para usar o Chrome Driver local
                         service = Service(executable_path=chromedriver_path)
                         chrome = uc.Chrome(service=service, headless=True, version_main=116, options=chrome_options)
                         chrome.get(url)
-                        chrome.set_window_size(1920,1080)
+                        chrome.set_window_size(1920, 1080)
                         chrome.execute_script("document.body.style.zoom='50%'")
 
                         time.sleep(5)
@@ -12308,13 +12598,15 @@ def smstome_com():
                         try:
                             print(numero_de_elementos, rnd2)
                             elem = WebDriverWait(chrome, 15).until(
-                                EC.presence_of_element_located((By.XPATH, f'/html/body/main/section/div[{numero_de_elementos}]/div[{rnd2}]/div/div/div[3]/a'))
+                                EC.presence_of_element_located((By.XPATH,
+                                                                f'/html/body/main/section/div[{numero_de_elementos}]/div[{rnd2}]/div/div/div[3]/a'))
                             )
                             chrome.execute_script("arguments[0].click();", elem)
 
                         except:
                             elem = WebDriverWait(chrome, 15).until(
-                                EC.presence_of_element_located((By.XPATH, f'/html/body/main/section/div[{numero_de_elementos}]/div[1]/div/div/div[3]/a'))
+                                EC.presence_of_element_located((By.XPATH,
+                                                                f'/html/body/main/section/div[{numero_de_elementos}]/div[1]/div/div/div[3]/a'))
                             )
                             chrome.execute_script("arguments[0].click();", elem)
                         chrome.execute_script("document.body.style.zoom='50%'")
@@ -12338,7 +12630,8 @@ def smstome_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -12382,7 +12675,6 @@ def smstome_com():
                             window.Refresh()
                         raise Exception('skip')
 
-
                     erro_novaconta = d.xpath('//android.view.View[@content-desc="Criar nova conta"]')
                     if erro_novaconta.exists:
                         d.xpath('//android.view.View[@content-desc="Criar nova conta"]').click()
@@ -12407,11 +12699,11 @@ def smstome_com():
                             elemento = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
                                 (By.XPATH, '/html/body/main/section/div[1]/table/tbody/tr[1]/td[3]'))).text
                             print(elemento)
-                            #print(elemento)
+                            # print(elemento)
                             time_second = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
                                 (By.XPATH, '/html/body/main/section/div[1]/table/tbody/tr[1]/td[2]'))).text
                             print(time_second)
-                            #print(time_second)
+                            # print(time_second)
                             if 'Instagram' in elemento and (
                                     'seconds' in time_second or '1 minute ago' in time_second or '2 minutes ago' in time_second):
                                 encontrado = True
@@ -12546,7 +12838,8 @@ def smstome_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -12600,7 +12893,8 @@ def smstome_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -12633,7 +12927,8 @@ def smstome_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -12830,7 +13125,7 @@ def smstome_com():
                     layout_usado = 'layout_normal'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout normal encontrado.')
                     window.Refresh()
-                    #raise Exception('Manutenção.')
+                    # raise Exception('Manutenção.')
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
@@ -12856,8 +13151,8 @@ def smstome_com():
                         d.xpath('//android.view.View[@content-desc="Agora não"]').click_exists(timeout=20.0)
                     except Exception as e:
                         print(e)
-                    #salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
-                    #if salvar_senha.exists:
+                    # salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
+                    # if salvar_senha.exists:
                     #    d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
                     time.sleep(3)
@@ -12869,7 +13164,8 @@ def smstome_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -12913,20 +13209,20 @@ def smstome_com():
                         url = 'https://smstome.com/'
                         chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
                         chrome_options = uc.ChromeOptions()
-                        #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+                        # chrome_options.add_argument("--blink-settings=imagesEnabled=false")
                         chrome_options.add_argument("--disable-gpu")
                         chrome_options.add_argument('--ignore-ssl-errors=yes')
                         chrome_options.add_argument('--ignore-certificate-errors')
                         chrome_options.add_argument("--no-sandbox")
                         chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
-                        #chrome_options.add_extension('.\\storage\\adblock.crx')
+                        # chrome_options.add_extension('.\\storage\\adblock.crx')
                         chrome_options.add_argument(f"--load-extension={caminho_atual}\\storage\\adblock\\")
                         chrome_options.page_load_strategy = 'eager'
                         # Configurando o Selenium para usar o Chrome Driver local
                         service = Service(executable_path=chromedriver_path)
                         chrome = uc.Chrome(service=service, headless=True, version_main=116, options=chrome_options)
                         chrome.get(url)
-                        chrome.set_window_size(1920,1080)
+                        chrome.set_window_size(1920, 1080)
                         chrome.execute_script("document.body.style.zoom='50%'")
 
                         time.sleep(5)
@@ -12970,13 +13266,15 @@ def smstome_com():
                         try:
                             print(numero_de_elementos, rnd2)
                             elem = WebDriverWait(chrome, 15).until(
-                                EC.presence_of_element_located((By.XPATH, f'/html/body/main/section/div[{numero_de_elementos}]/div[{rnd2}]/div/div/div[3]/a'))
+                                EC.presence_of_element_located((By.XPATH,
+                                                                f'/html/body/main/section/div[{numero_de_elementos}]/div[{rnd2}]/div/div/div[3]/a'))
                             )
                             chrome.execute_script("arguments[0].click();", elem)
 
                         except:
                             elem = WebDriverWait(chrome, 15).until(
-                                EC.presence_of_element_located((By.XPATH, f'/html/body/main/section/div[{numero_de_elementos}]/div[1]/div/div/div[3]/a'))
+                                EC.presence_of_element_located((By.XPATH,
+                                                                f'/html/body/main/section/div[{numero_de_elementos}]/div[1]/div/div/div[3]/a'))
                             )
                             chrome.execute_script("arguments[0].click();", elem)
                         chrome.execute_script("document.body.style.zoom='50%'")
@@ -13000,7 +13298,8 @@ def smstome_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -13068,11 +13367,11 @@ def smstome_com():
                             elemento = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
                                 (By.XPATH, '/html/body/main/section/div[1]/table/tbody/tr[1]/td[3]'))).text
                             print(elemento)
-                            #print(elemento)
+                            # print(elemento)
                             time_second = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
                                 (By.XPATH, '/html/body/main/section/div[1]/table/tbody/tr[1]/td[2]'))).text
                             print(time_second)
-                            #print(time_second)
+                            # print(time_second)
                             if 'Instagram' in elemento and (
                                     'seconds' in time_second or '1 minute ago' in time_second or '2 minutes ago' in time_second):
                                 encontrado = True
@@ -13217,7 +13516,8 @@ def smstome_com():
                             now_brasilia = tz.localize(now)
                             timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                             try:
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -13227,7 +13527,8 @@ def smstome_com():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -13242,11 +13543,14 @@ def smstome_com():
                                 num_rows = sum(1 for row in rows if regex.match(row[0]))
                             except Exception as e:
                                 print(e)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                 tempo_aleatorio = random.randint(10, 40)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                 time.sleep(tempo_aleatorio)
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -13256,7 +13560,8 @@ def smstome_com():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -13277,7 +13582,8 @@ def smstome_com():
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -13287,7 +13593,8 @@ def smstome_com():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -13341,7 +13648,7 @@ def smstome_com():
 
                                 # Encontre todos os elementos que correspondem ao ID fornecido
                                 elements = d(resourceId=element_id)
-                                #window['output'].print("Seguindo sugeridos...")
+                                # window['output'].print("Seguindo sugeridos...")
                                 window.Refresh()
                                 for element in elements:
                                     if element.get_text() == target_text:
@@ -13365,12 +13672,15 @@ def smstome_com():
                                         d.app_start("com.instagram.android")
                                         time.sleep(30)
                                         try:
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -13378,12 +13688,15 @@ def smstome_com():
                                                 d(resourceId='com.instagram.android:id/profile_tab').click()
                                         except:
                                             time.sleep(2)
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -13397,23 +13710,29 @@ def smstome_com():
                             d.app_start("com.instagram.android")
                             time.sleep(40)
                             try:
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/profile_tab').click()
                             except:
                                 time.sleep(2)
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/tab_avatar').click()
@@ -13425,17 +13744,23 @@ def smstome_com():
                         d.app_start("com.instagram.android")
 
                         if d.xpath('//android.view.View[@content-desc="Esqueceu a senha?"]').exists(timeout=60):
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                user_completo)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
-                        verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
+                        verificar3 = d.xpath(
+                            '//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem = contagem + 1
                                 sms = False
@@ -13445,7 +13770,8 @@ def smstome_com():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -13455,7 +13781,8 @@ def smstome_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -13470,11 +13797,14 @@ def smstome_com():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -13484,7 +13814,8 @@ def smstome_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -13505,7 +13836,8 @@ def smstome_com():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -13515,7 +13847,8 @@ def smstome_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -13564,8 +13897,9 @@ def smstome_com():
                         verificar = d(resourceId='com.instagram.android:id/profile_tab')
                         if verificar.exists:
                             try:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 seguido = False
                                 contagem += 1
@@ -13575,7 +13909,8 @@ def smstome_com():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -13585,7 +13920,8 @@ def smstome_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -13600,11 +13936,14 @@ def smstome_com():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -13614,7 +13953,8 @@ def smstome_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -13635,7 +13975,8 @@ def smstome_com():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -13645,7 +13986,8 @@ def smstome_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -13675,7 +14017,8 @@ def smstome_com():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     time.sleep(5)
                                     for element in elements:
@@ -13810,7 +14153,8 @@ def smstome_com():
                         try:
                             d(resourceId='com.instagram.android:id/profile_tab').click(timeout=120)
                         except:
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
                             window.Refresh()
                             raise Exception('Erro na conta')
                         window['output'].print(linha_ret)
@@ -13930,8 +14274,9 @@ def smstome_com():
                         if verificar.exists:
                             try:
                                 conteudo = config['vpn']
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -13941,7 +14286,8 @@ def smstome_com():
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -13951,7 +14297,8 @@ def smstome_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -13966,11 +14313,14 @@ def smstome_com():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -13980,7 +14330,8 @@ def smstome_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -14003,8 +14354,10 @@ def smstome_com():
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
-                                        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                        scope = ["https://spreadsheets.google.com/feeds",
+                                                 "https://www.googleapis.com/auth/drive"]
+                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
+                                                                                                 scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -14013,7 +14366,8 @@ def smstome_com():
                                         sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                         values = sheet.col_values(1)
                                         last_row = len(values)
-                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                                  conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
                                             cell_list[i].value = val
@@ -14041,7 +14395,8 @@ def smstome_com():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     for element in elements:
                                         if element.get_text() == target_text:
@@ -14129,7 +14484,8 @@ def smstome_com():
                                     pass
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
-                                        d.screenshot(f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
+                                        d.screenshot(
+                                            f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
                                     except Exception as e:
                                         print(e)
                                         pass
@@ -14364,6 +14720,7 @@ def freereceivesms_com():
 
         else:
             result = "Não foi possível baixar o arquivo. Status Code: " + str(response.status_code)
+
     # RANGE_NAME = 'contas!A:D'
     #
     # SCOPES = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -14917,7 +15274,7 @@ def freereceivesms_com():
             except:
                 pass
             break
-        #if codigo_não_recebido_seguidos == 3:
+        # if codigo_não_recebido_seguidos == 3:
         #    #tempo_aleatorio = random.randint(10, 40)
         #    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 3 códigos não recebidos seguidos.')
         #    window.Refresh()
@@ -15027,7 +15384,9 @@ def freereceivesms_com():
                     layout_usado = 'layout1'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout1 novo encontrado.')
                     window.Refresh()
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
@@ -15053,7 +15412,8 @@ def freereceivesms_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -15074,7 +15434,8 @@ def freereceivesms_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -15280,7 +15641,8 @@ def freereceivesms_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -15301,7 +15663,8 @@ def freereceivesms_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -15494,7 +15857,9 @@ def freereceivesms_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.view.ViewGroup').click()
                     time.sleep(4)
@@ -15527,7 +15892,8 @@ def freereceivesms_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -15742,7 +16108,8 @@ def freereceivesms_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -15796,7 +16163,8 @@ def freereceivesms_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -15829,7 +16197,8 @@ def freereceivesms_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -16026,7 +16395,7 @@ def freereceivesms_com():
                     layout_usado = 'layout_normal'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout normal encontrado.')
                     window.Refresh()
-                    #raise Exception('Manutenção.')
+                    # raise Exception('Manutenção.')
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
@@ -16052,8 +16421,8 @@ def freereceivesms_com():
                         d.xpath('//android.view.View[@content-desc="Agora não"]').click_exists(timeout=20.0)
                     except Exception as e:
                         print(e)
-                    #salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
-                    #if salvar_senha.exists:
+                    # salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
+                    # if salvar_senha.exists:
                     #    d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
                     time.sleep(3)
@@ -16065,7 +16434,8 @@ def freereceivesms_com():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -16109,24 +16479,26 @@ def freereceivesms_com():
                         url = 'https://www.freereceivesms.com/en/all/'
                         chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
                         chrome_options = uc.ChromeOptions()
-                        #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+                        # chrome_options.add_argument("--blink-settings=imagesEnabled=false")
                         chrome_options.add_argument("--disable-gpu")
                         chrome_options.add_argument('--ignore-ssl-errors=yes')
                         chrome_options.add_argument('--ignore-certificate-errors')
                         chrome_options.add_argument("--no-sandbox")
                         chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
-                        #chrome_options.add_extension('.\\storage\\adblock.crx')
+                        # chrome_options.add_extension('.\\storage\\adblock.crx')
                         chrome_options.add_argument(f"--load-extension={caminho_atual}\\storage\\adblock\\")
                         chrome_options.page_load_strategy = 'eager'
                         # Configurando o Selenium para usar o Chrome Driver local
                         service = Service(executable_path=chromedriver_path)
                         chrome = uc.Chrome(service=service, headless=True, version_main=116, options=chrome_options)
                         chrome.get(url)
-                        chrome.set_window_size(1920,1080)
+                        chrome.set_window_size(1920, 1080)
                         chrome.execute_script("document.body.style.zoom='33%'")
-                        lista = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
+                        lista = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16',
+                                 '17', '18', '19', '20']
                         numero_escolhido = random.choice(lista)
-                        button_with_text = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, f'/html/body/div[*]/div[1]/div[{numero_escolhido}]/div/div[2]/a')))
+                        button_with_text = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
+                            (By.XPATH, f'/html/body/div[*]/div[1]/div[{numero_escolhido}]/div/div[2]/a')))
 
                         # Clica no botão
                         chrome.execute_script("arguments[0].click();", button_with_text)
@@ -16155,7 +16527,8 @@ def freereceivesms_com():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -16220,15 +16593,14 @@ def freereceivesms_com():
 
                             chrome.execute_script("document.body.style.zoom='50%'")
 
-
                             elemento = WebDriverWait(chrome, 25).until(EC.element_to_be_clickable(
                                 (By.XPATH, '//div[@class="row border-bottom"]/div[@class="col-lg-8"]'))).text
 
-                            #print(f'elemento é {elemento}')
+                            # print(f'elemento é {elemento}')
                             time_second = WebDriverWait(chrome, 25).until(EC.element_to_be_clickable(
                                 (By.XPATH, '/html/body/div[*]/div[2]/div[2]'))).text
 
-                            #print(f'tempo é {time_second}')
+                            # print(f'tempo é {time_second}')
                             numeros = ''
                             if 'Instagram' in elemento and (
                                     'seconds' in time_second or '1minutes ago' in time_second or '2minutes ago' in time_second):
@@ -16374,7 +16746,8 @@ def freereceivesms_com():
                             now_brasilia = tz.localize(now)
                             timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                             try:
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -16384,7 +16757,8 @@ def freereceivesms_com():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -16399,11 +16773,14 @@ def freereceivesms_com():
                                 num_rows = sum(1 for row in rows if regex.match(row[0]))
                             except Exception as e:
                                 print(e)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                 tempo_aleatorio = random.randint(10, 40)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                 time.sleep(tempo_aleatorio)
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -16413,7 +16790,8 @@ def freereceivesms_com():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -16434,7 +16812,8 @@ def freereceivesms_com():
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -16444,7 +16823,8 @@ def freereceivesms_com():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -16498,7 +16878,7 @@ def freereceivesms_com():
 
                                 # Encontre todos os elementos que correspondem ao ID fornecido
                                 elements = d(resourceId=element_id)
-                                #window['output'].print("Seguindo sugeridos...")
+                                # window['output'].print("Seguindo sugeridos...")
                                 window.Refresh()
                                 for element in elements:
                                     if element.get_text() == target_text:
@@ -16522,12 +16902,15 @@ def freereceivesms_com():
                                         d.app_start("com.instagram.android")
                                         time.sleep(30)
                                         try:
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -16535,12 +16918,15 @@ def freereceivesms_com():
                                                 d(resourceId='com.instagram.android:id/profile_tab').click()
                                         except:
                                             time.sleep(2)
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -16554,23 +16940,29 @@ def freereceivesms_com():
                             d.app_start("com.instagram.android")
                             time.sleep(40)
                             try:
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/profile_tab').click()
                             except:
                                 time.sleep(2)
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/tab_avatar').click()
@@ -16582,17 +16974,23 @@ def freereceivesms_com():
                         d.app_start("com.instagram.android")
 
                         if d.xpath('//android.view.View[@content-desc="Esqueceu a senha?"]').exists(timeout=60):
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                user_completo)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
-                        verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
+                        verificar3 = d.xpath(
+                            '//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem = contagem + 1
                                 sms = False
@@ -16602,7 +17000,8 @@ def freereceivesms_com():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -16612,7 +17011,8 @@ def freereceivesms_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -16627,11 +17027,14 @@ def freereceivesms_com():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -16641,7 +17044,8 @@ def freereceivesms_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -16662,7 +17066,8 @@ def freereceivesms_com():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -16672,7 +17077,8 @@ def freereceivesms_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -16721,8 +17127,9 @@ def freereceivesms_com():
                         verificar = d(resourceId='com.instagram.android:id/profile_tab')
                         if verificar.exists:
                             try:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 seguido = False
                                 contagem += 1
@@ -16732,7 +17139,8 @@ def freereceivesms_com():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -16742,7 +17150,8 @@ def freereceivesms_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -16757,11 +17166,14 @@ def freereceivesms_com():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -16771,7 +17183,8 @@ def freereceivesms_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -16792,7 +17205,8 @@ def freereceivesms_com():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -16802,7 +17216,8 @@ def freereceivesms_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -16832,7 +17247,8 @@ def freereceivesms_com():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     time.sleep(5)
                                     for element in elements:
@@ -16967,7 +17383,8 @@ def freereceivesms_com():
                         try:
                             d(resourceId='com.instagram.android:id/profile_tab').click(timeout=120)
                         except:
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
                             window.Refresh()
                             raise Exception('Erro na conta')
                         window['output'].print(linha_ret)
@@ -17087,8 +17504,9 @@ def freereceivesms_com():
                         if verificar.exists:
                             try:
                                 conteudo = config['vpn']
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -17098,7 +17516,8 @@ def freereceivesms_com():
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -17108,7 +17527,8 @@ def freereceivesms_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -17123,11 +17543,14 @@ def freereceivesms_com():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -17137,7 +17560,8 @@ def freereceivesms_com():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -17160,8 +17584,10 @@ def freereceivesms_com():
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
-                                        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                        scope = ["https://spreadsheets.google.com/feeds",
+                                                 "https://www.googleapis.com/auth/drive"]
+                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
+                                                                                                 scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -17170,7 +17596,8 @@ def freereceivesms_com():
                                         sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                         values = sheet.col_values(1)
                                         last_row = len(values)
-                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                                  conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
                                             cell_list[i].value = val
@@ -17198,7 +17625,8 @@ def freereceivesms_com():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     for element in elements:
                                         if element.get_text() == target_text:
@@ -17286,7 +17714,8 @@ def freereceivesms_com():
                                     pass
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
-                                        d.screenshot(f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
+                                        d.screenshot(
+                                            f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
                                     except Exception as e:
                                         print(e)
                                         pass
@@ -17997,7 +18426,7 @@ def receive_smss():
             except:
                 pass
             break
-        #if codigo_não_recebido_seguidos == 3:
+        # if codigo_não_recebido_seguidos == 3:
         #    #tempo_aleatorio = random.randint(10, 40)
         #    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 3 códigos não recebidos seguidos.')
         #    window.Refresh()
@@ -18107,7 +18536,9 @@ def receive_smss():
                     layout_usado = 'layout1'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout1 novo encontrado.')
                     window.Refresh()
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
@@ -18133,7 +18564,8 @@ def receive_smss():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -18154,7 +18586,8 @@ def receive_smss():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -18360,7 +18793,8 @@ def receive_smss():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -18381,7 +18815,8 @@ def receive_smss():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -18574,7 +19009,9 @@ def receive_smss():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.view.ViewGroup').click()
                     time.sleep(4)
@@ -18607,7 +19044,8 @@ def receive_smss():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -18822,7 +19260,8 @@ def receive_smss():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -18876,7 +19315,8 @@ def receive_smss():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -18909,7 +19349,8 @@ def receive_smss():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -19106,7 +19547,7 @@ def receive_smss():
                     layout_usado = 'layout_normal'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout normal encontrado.')
                     window.Refresh()
-                    #raise Exception('Manutenção.')
+                    # raise Exception('Manutenção.')
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
@@ -19132,8 +19573,8 @@ def receive_smss():
                         d.xpath('//android.view.View[@content-desc="Agora não"]').click_exists(timeout=20.0)
                     except Exception as e:
                         print(e)
-                    #salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
-                    #if salvar_senha.exists:
+                    # salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
+                    # if salvar_senha.exists:
                     #    d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
                     time.sleep(3)
@@ -19145,7 +19586,8 @@ def receive_smss():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -19190,20 +19632,20 @@ def receive_smss():
 
                         chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
                         chrome_options = uc.ChromeOptions()
-                        #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+                        # chrome_options.add_argument("--blink-settings=imagesEnabled=false")
                         chrome_options.add_argument("--disable-gpu")
                         chrome_options.add_argument('--ignore-ssl-errors=yes')
                         chrome_options.add_argument('--ignore-certificate-errors')
                         chrome_options.add_argument("--no-sandbox")
                         chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
-                        #chrome_options.add_extension('.\\storage\\adblock.crx')
+                        # chrome_options.add_extension('.\\storage\\adblock.crx')
                         chrome_options.add_argument(f"--load-extension={caminho_atual}\\storage\\adblock\\")
                         chrome_options.page_load_strategy = 'eager'
                         # Configurando o Selenium para usar o Chrome Driver local
                         service = Service(executable_path=chromedriver_path)
                         chrome = uc.Chrome(service=service, headless=True, version_main=116, options=chrome_options)
                         chrome.get(url)
-                        chrome.set_window_size(800,2000)
+                        chrome.set_window_size(800, 2000)
                         chrome.execute_script("document.body.style.zoom='50%'")
                         time.sleep(2)
                         button_with_text = WebDriverWait(chrome, 20).until(
@@ -19218,9 +19660,11 @@ def receive_smss():
                             (By.CLASS_NAME, 'tooltip'))).text
                         num = num.replace("ID ", "")
                         while True:
-                            if num.startswith("+44") or num.startswith("+1") or num.startswith("+380") or num.startswith("+66") or num.startswith("+63") or num.startswith("+212"):
+                            if num.startswith("+44") or num.startswith("+1") or num.startswith(
+                                    "+380") or num.startswith("+66") or num.startswith("+63") or num.startswith("+212"):
                                 button_with_text = WebDriverWait(chrome, 20).until(
-                                    EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "↻ Give me another number")]'))
+                                    EC.element_to_be_clickable(
+                                        (By.XPATH, '//a[contains(text(), "↻ Give me another number")]'))
                                 )
 
                                 # Clica no botão
@@ -19353,7 +19797,8 @@ def receive_smss():
                     try:
                         while not encontrado and tentativa < 6:
                             elemento = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
-                                (By.XPATH, '/html/body/div/div[2]/div[2]/div[2]/div/div/div/div/div/div[1]/div/div[2]/div[1]/div[2]/span'))).text
+                                (By.XPATH,
+                                 '/html/body/div/div[2]/div[2]/div[2]/div/div/div/div/div/div[1]/div/div[2]/div[1]/div[2]/span'))).text
                             print(elemento)
                             time_second = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
                                 (By.CLASS_NAME, 'col-md-3.time'))).text
@@ -19504,7 +19949,8 @@ def receive_smss():
                             now_brasilia = tz.localize(now)
                             timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                             try:
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -19514,7 +19960,8 @@ def receive_smss():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -19529,11 +19976,14 @@ def receive_smss():
                                 num_rows = sum(1 for row in rows if regex.match(row[0]))
                             except Exception as e:
                                 print(e)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                 tempo_aleatorio = random.randint(10, 40)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                 time.sleep(tempo_aleatorio)
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -19543,7 +19993,8 @@ def receive_smss():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -19564,7 +20015,8 @@ def receive_smss():
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -19574,7 +20026,8 @@ def receive_smss():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -19628,7 +20081,7 @@ def receive_smss():
 
                                 # Encontre todos os elementos que correspondem ao ID fornecido
                                 elements = d(resourceId=element_id)
-                                #window['output'].print("Seguindo sugeridos...")
+                                # window['output'].print("Seguindo sugeridos...")
                                 window.Refresh()
                                 for element in elements:
                                     if element.get_text() == target_text:
@@ -19652,12 +20105,15 @@ def receive_smss():
                                         d.app_start("com.instagram.android")
                                         time.sleep(30)
                                         try:
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -19665,12 +20121,15 @@ def receive_smss():
                                                 d(resourceId='com.instagram.android:id/profile_tab').click()
                                         except:
                                             time.sleep(2)
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -19684,23 +20143,29 @@ def receive_smss():
                             d.app_start("com.instagram.android")
                             time.sleep(40)
                             try:
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/profile_tab').click()
                             except:
                                 time.sleep(2)
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/tab_avatar').click()
@@ -19712,17 +20177,23 @@ def receive_smss():
                         d.app_start("com.instagram.android")
 
                         if d.xpath('//android.view.View[@content-desc="Esqueceu a senha?"]').exists(timeout=60):
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                user_completo)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
-                        verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
+                        verificar3 = d.xpath(
+                            '//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem = contagem + 1
                                 sms = False
@@ -19732,7 +20203,8 @@ def receive_smss():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -19742,7 +20214,8 @@ def receive_smss():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -19757,11 +20230,14 @@ def receive_smss():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -19771,7 +20247,8 @@ def receive_smss():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -19792,7 +20269,8 @@ def receive_smss():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -19802,7 +20280,8 @@ def receive_smss():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -19851,8 +20330,9 @@ def receive_smss():
                         verificar = d(resourceId='com.instagram.android:id/profile_tab')
                         if verificar.exists:
                             try:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 seguido = False
                                 contagem += 1
@@ -19862,7 +20342,8 @@ def receive_smss():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -19872,7 +20353,8 @@ def receive_smss():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -19887,11 +20369,14 @@ def receive_smss():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -19901,7 +20386,8 @@ def receive_smss():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -19922,7 +20408,8 @@ def receive_smss():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -19932,7 +20419,8 @@ def receive_smss():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -19962,7 +20450,8 @@ def receive_smss():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     time.sleep(5)
                                     for element in elements:
@@ -20097,7 +20586,8 @@ def receive_smss():
                         try:
                             d(resourceId='com.instagram.android:id/profile_tab').click(timeout=120)
                         except:
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
                             window.Refresh()
                             raise Exception('Erro na conta')
                         window['output'].print(linha_ret)
@@ -20217,8 +20707,9 @@ def receive_smss():
                         if verificar.exists:
                             try:
                                 conteudo = config['vpn']
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -20228,7 +20719,8 @@ def receive_smss():
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -20238,7 +20730,8 @@ def receive_smss():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -20253,11 +20746,14 @@ def receive_smss():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -20267,7 +20763,8 @@ def receive_smss():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -20290,8 +20787,10 @@ def receive_smss():
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
-                                        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                        scope = ["https://spreadsheets.google.com/feeds",
+                                                 "https://www.googleapis.com/auth/drive"]
+                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
+                                                                                                 scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -20300,7 +20799,8 @@ def receive_smss():
                                         sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                         values = sheet.col_values(1)
                                         last_row = len(values)
-                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                                  conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
                                             cell_list[i].value = val
@@ -20328,7 +20828,8 @@ def receive_smss():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     for element in elements:
                                         if element.get_text() == target_text:
@@ -20416,7 +20917,8 @@ def receive_smss():
                                     pass
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
-                                        d.screenshot(f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
+                                        d.screenshot(
+                                            f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
                                     except Exception as e:
                                         print(e)
                                         pass
@@ -20474,6 +20976,7 @@ def receive_smss():
                     pass
 
             pass
+
 
 def quackr_io():
     SPREADSHEET_ID = config['spreadsheet']
@@ -20645,6 +21148,7 @@ def quackr_io():
 
         else:
             result = "Não foi possível baixar o arquivo. Status Code: " + str(response.status_code)
+
     # RANGE_NAME = 'contas!A:D'
     #
     # SCOPES = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -21199,7 +21703,7 @@ def quackr_io():
             except:
                 pass
             break
-        #if codigo_não_recebido_seguidos == 3:
+        # if codigo_não_recebido_seguidos == 3:
         #    #tempo_aleatorio = random.randint(10, 40)
         #    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 3 códigos não recebidos seguidos.')
         #    window.Refresh()
@@ -21309,7 +21813,9 @@ def quackr_io():
                     layout_usado = 'layout1'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout1 novo encontrado.')
                     window.Refresh()
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
@@ -21335,7 +21841,8 @@ def quackr_io():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -21356,7 +21863,8 @@ def quackr_io():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -21562,7 +22070,8 @@ def quackr_io():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -21583,7 +22092,8 @@ def quackr_io():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -21776,7 +22286,9 @@ def quackr_io():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.view.ViewGroup').click()
                     time.sleep(4)
@@ -21817,13 +22329,13 @@ def quackr_io():
                             url = url_atual
                         chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
                         chrome_options = uc.ChromeOptions()
-                        #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+                        # chrome_options.add_argument("--blink-settings=imagesEnabled=false")
                         chrome_options.add_argument("--disable-gpu")
                         chrome_options.add_argument('--ignore-ssl-errors=yes')
                         chrome_options.add_argument('--ignore-certificate-errors')
                         chrome_options.add_argument("--no-sandbox")
                         chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
-                        #chrome_options.add_extension('.\\storage\\adblock.crx')
+                        # chrome_options.add_extension('.\\storage\\adblock.crx')
                         chrome_options.add_argument(f"--load-extension={caminho_atual}\\storage\\adblock\\")
                         chrome_options.page_load_strategy = 'eager'
 
@@ -21832,19 +22344,21 @@ def quackr_io():
                         chrome = uc.Chrome(service=service, headless=True, version_main=116, options=chrome_options)
                         if criou:
                             chrome.get(url)
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Utilizando o mesmo número.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Utilizando o mesmo número.')
                             window.Refresh()
-                            chrome.set_window_size(800,2000)
+                            chrome.set_window_size(800, 2000)
                             chrome.execute_script("document.body.style.zoom='50%'")
                         else:
                             chrome.get(url)
-                            chrome.set_window_size(800,2000)
+                            chrome.set_window_size(800, 2000)
                             chrome.execute_script("document.body.style.zoom='50%'")
 
                             time.sleep(7)
                             try:
                                 agree_button = WebDriverWait(chrome, 5).until(
-                                    EC.presence_of_element_located((By.XPATH, "//button[.//span[contains(text(), 'AGREE')]]"))
+                                    EC.presence_of_element_located(
+                                        (By.XPATH, "//button[.//span[contains(text(), 'AGREE')]]"))
                                 )
                             except:
                                 agree_button = False
@@ -21854,20 +22368,23 @@ def quackr_io():
                                 chrome.execute_script("arguments[0].click();", agree_button)
                             else:
                                 pass
-                            teste = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, "/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[1]/button")))
+                            teste = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH,
+                                                                                                "/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[1]/button")))
                             chrome.execute_script("arguments[0].click();", teste)
                             import random
                             paises_num = ['31', '8', '7', '21', '28']
                             pais = random.choice(paises_num)
                             button_with_text = WebDriverWait(chrome, 20).until(
-                                EC.element_to_be_clickable((By.XPATH, f'/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[2]/div/a[{pais}]'))
+                                EC.element_to_be_clickable((By.XPATH,
+                                                            f'/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[2]/div/a[{pais}]'))
                             )
                             # Clica no botão
 
                             chrome.execute_script("arguments[0].click();", button_with_text)
                             chrome.execute_script("document.body.style.zoom='50%'")
-                            chrome.execute_script("arguments[0].click();", WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
-                                (By.CLASS_NAME, 'button.is-success'))))
+                            chrome.execute_script("arguments[0].click();",
+                                                  WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
+                                                      (By.CLASS_NAME, 'button.is-success'))))
                         num = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
                             (By.CSS_SELECTOR, 'h1[tooltip="Copied"]'))).text
                         chrome.execute_script("document.body.style.zoom='50%'")
@@ -22000,11 +22517,13 @@ def quackr_io():
                                 chrome.refresh()
                                 chrome.execute_script("document.body.style.zoom='50%'")
                                 time.sleep(3)
-                            elemento = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[3]'))).text
-                            #print(elemento)
-                            time_second = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[1]'))).text
+                            elemento = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH,
+                                                                                                   '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[3]'))).text
+                            # print(elemento)
+                            time_second = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH,
+                                                                                                      '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[1]'))).text
 
-                            #print(time_second)
+                            # print(time_second)
                             if 'Instagram' in elemento and (
                                     'seconds' in time_second or '1 minute ago' in time_second or '2 minute ago' in time_second):
                                 encontrado = True
@@ -22140,7 +22659,8 @@ def quackr_io():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -22194,7 +22714,8 @@ def quackr_io():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -22227,7 +22748,8 @@ def quackr_io():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -22424,7 +22946,7 @@ def quackr_io():
                     layout_usado = 'layout_normal'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout normal encontrado.')
                     window.Refresh()
-                    #raise Exception('Manutenção.')
+                    # raise Exception('Manutenção.')
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
@@ -22450,8 +22972,8 @@ def quackr_io():
                         d.xpath('//android.view.View[@content-desc="Agora não"]').click_exists(timeout=20.0)
                     except Exception as e:
                         print(e)
-                    #salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
-                    #if salvar_senha.exists:
+                    # salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
+                    # if salvar_senha.exists:
                     #    d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
                     time.sleep(3)
@@ -22463,7 +22985,8 @@ def quackr_io():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -22509,13 +23032,13 @@ def quackr_io():
                             url = url_atual
                         chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
                         chrome_options = uc.ChromeOptions()
-                        #chrome_options.add_argument("--blink-settings=imagesEnabled=false")
+                        # chrome_options.add_argument("--blink-settings=imagesEnabled=false")
                         chrome_options.add_argument("--disable-gpu")
                         chrome_options.add_argument('--ignore-ssl-errors=yes')
                         chrome_options.add_argument('--ignore-certificate-errors')
                         chrome_options.add_argument("--no-sandbox")
                         chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
-                        #chrome_options.add_extension('.\\storage\\adblock.crx')
+                        # chrome_options.add_extension('.\\storage\\adblock.crx')
                         chrome_options.add_argument(f"--load-extension={caminho_atual}\\storage\\adblock\\")
                         chrome_options.page_load_strategy = 'eager'
 
@@ -22524,19 +23047,21 @@ def quackr_io():
                         chrome = uc.Chrome(service=service, headless=True, version_main=116, options=chrome_options)
                         if criou:
                             chrome.get(url)
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Utilizando o mesmo número.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Utilizando o mesmo número.')
                             window.Refresh()
-                            chrome.set_window_size(800,2000)
+                            chrome.set_window_size(800, 2000)
                             chrome.execute_script("document.body.style.zoom='50%'")
                         else:
                             chrome.get(url)
-                            chrome.set_window_size(800,2000)
+                            chrome.set_window_size(800, 2000)
                             chrome.execute_script("document.body.style.zoom='50%'")
 
                             time.sleep(7)
                             try:
                                 agree_button = WebDriverWait(chrome, 5).until(
-                                    EC.presence_of_element_located((By.XPATH, "//button[.//span[contains(text(), 'AGREE')]]"))
+                                    EC.presence_of_element_located(
+                                        (By.XPATH, "//button[.//span[contains(text(), 'AGREE')]]"))
                                 )
                             except:
                                 agree_button = False
@@ -22546,20 +23071,23 @@ def quackr_io():
                                 chrome.execute_script("arguments[0].click();", agree_button)
                             else:
                                 pass
-                            teste = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, "/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[1]/button")))
+                            teste = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH,
+                                                                                                "/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[1]/button")))
                             chrome.execute_script("arguments[0].click();", teste)
                             import random
                             paises_num = ['31', '8', '7', '21', '28']
                             pais = random.choice(paises_num)
                             button_with_text = WebDriverWait(chrome, 20).until(
-                                EC.element_to_be_clickable((By.XPATH, f'/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[2]/div/a[{pais}]'))
+                                EC.element_to_be_clickable((By.XPATH,
+                                                            f'/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[2]/div/a[{pais}]'))
                             )
                             # Clica no botão
 
                             chrome.execute_script("arguments[0].click();", button_with_text)
                             chrome.execute_script("document.body.style.zoom='50%'")
-                            chrome.execute_script("arguments[0].click();", WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
-                                (By.CLASS_NAME, 'button.is-success'))))
+                            chrome.execute_script("arguments[0].click();",
+                                                  WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
+                                                      (By.CLASS_NAME, 'button.is-success'))))
                         num = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
                             (By.CSS_SELECTOR, 'h1[tooltip="Copied"]'))).text
                         chrome.execute_script("document.body.style.zoom='50%'")
@@ -22693,11 +23221,13 @@ def quackr_io():
                                 chrome.refresh()
                                 chrome.execute_script("document.body.style.zoom='50%'")
                                 time.sleep(3)
-                            elemento = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[3]'))).text
-                            #print(elemento)
-                            time_second = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[1]'))).text
+                            elemento = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH,
+                                                                                                   '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[3]'))).text
+                            # print(elemento)
+                            time_second = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH,
+                                                                                                      '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[1]'))).text
 
-                            #print(time_second)
+                            # print(time_second)
                             if 'Instagram' in elemento and (
                                     'seconds' in time_second or '1 minute ago' in time_second or '2 minute ago' in time_second):
                                 encontrado = True
@@ -22844,7 +23374,8 @@ def quackr_io():
                             now_brasilia = tz.localize(now)
                             timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                             try:
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -22854,8 +23385,9 @@ def quackr_io():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
-                                cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}') #VOLTARAQUI
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')  # VOLTARAQUI
 
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -22869,11 +23401,14 @@ def quackr_io():
                                 num_rows = sum(1 for row in rows if regex.match(row[0]))
                             except Exception as e:
                                 print(e)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                 tempo_aleatorio = random.randint(10, 40)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                 time.sleep(tempo_aleatorio)
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -22883,7 +23418,8 @@ def quackr_io():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -22904,7 +23440,8 @@ def quackr_io():
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -22914,7 +23451,8 @@ def quackr_io():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -22968,7 +23506,7 @@ def quackr_io():
 
                                 # Encontre todos os elementos que correspondem ao ID fornecido
                                 elements = d(resourceId=element_id)
-                                #window['output'].print("Seguindo sugeridos...")
+                                # window['output'].print("Seguindo sugeridos...")
                                 window.Refresh()
                                 for element in elements:
                                     if element.get_text() == target_text:
@@ -22992,12 +23530,15 @@ def quackr_io():
                                         d.app_start("com.instagram.android")
                                         time.sleep(30)
                                         try:
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -23005,12 +23546,15 @@ def quackr_io():
                                                 d(resourceId='com.instagram.android:id/profile_tab').click()
                                         except:
                                             time.sleep(2)
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -23024,23 +23568,29 @@ def quackr_io():
                             d.app_start("com.instagram.android")
                             time.sleep(40)
                             try:
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/profile_tab').click()
                             except:
                                 time.sleep(2)
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/tab_avatar').click()
@@ -23052,18 +23602,24 @@ def quackr_io():
                         d.app_start("com.instagram.android")
 
                         if d.xpath('//android.view.View[@content-desc="Esqueceu a senha?"]').exists(timeout=60):
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                user_completo)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
-                        verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
+                        verificar3 = d.xpath(
+                            '//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
                                 criou = True
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem = contagem + 1
                                 sms = False
@@ -23073,7 +23629,8 @@ def quackr_io():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -23083,7 +23640,8 @@ def quackr_io():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -23098,11 +23656,14 @@ def quackr_io():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -23112,7 +23673,8 @@ def quackr_io():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -23133,7 +23695,8 @@ def quackr_io():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -23143,7 +23706,8 @@ def quackr_io():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -23193,8 +23757,9 @@ def quackr_io():
                         if verificar.exists:
                             try:
                                 criou = True
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 seguido = False
                                 contagem += 1
@@ -23204,7 +23769,8 @@ def quackr_io():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -23214,7 +23780,8 @@ def quackr_io():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -23229,11 +23796,14 @@ def quackr_io():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -23243,7 +23813,8 @@ def quackr_io():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -23264,7 +23835,8 @@ def quackr_io():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -23274,7 +23846,8 @@ def quackr_io():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -23304,7 +23877,8 @@ def quackr_io():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     time.sleep(5)
                                     for element in elements:
@@ -23439,7 +24013,8 @@ def quackr_io():
                         try:
                             d(resourceId='com.instagram.android:id/profile_tab').click(timeout=120)
                         except:
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
                             window.Refresh()
                             raise Exception('Erro na conta')
                         window['output'].print(linha_ret)
@@ -23559,8 +24134,9 @@ def quackr_io():
                         if verificar.exists:
                             try:
                                 conteudo = config['vpn']
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -23570,7 +24146,8 @@ def quackr_io():
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -23580,7 +24157,8 @@ def quackr_io():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -23595,11 +24173,14 @@ def quackr_io():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -23609,7 +24190,8 @@ def quackr_io():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -23632,8 +24214,10 @@ def quackr_io():
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
-                                        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                        scope = ["https://spreadsheets.google.com/feeds",
+                                                 "https://www.googleapis.com/auth/drive"]
+                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
+                                                                                                 scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -23642,7 +24226,8 @@ def quackr_io():
                                         sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                         values = sheet.col_values(1)
                                         last_row = len(values)
-                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                                  conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
                                             cell_list[i].value = val
@@ -23670,7 +24255,8 @@ def quackr_io():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     for element in elements:
                                         if element.get_text() == target_text:
@@ -23758,7 +24344,8 @@ def quackr_io():
                                     pass
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
-                                        d.screenshot(f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
+                                        d.screenshot(
+                                            f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
                                     except Exception as e:
                                         print(e)
                                         pass
@@ -31665,7 +32252,8 @@ def executar_2nr():
                             sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                             values = sheet.col_values(1)
                             last_row = len(values)
-                            values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                            values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app,
+                                      regiao_vpn, user_mysql]
                             cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                             for i, val in enumerate(values):
                                 cell_list[i].value = val
@@ -31686,7 +32274,8 @@ def executar_2nr():
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -31696,7 +32285,8 @@ def executar_2nr():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -31970,7 +32560,8 @@ def executar_2nr():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -32002,7 +32593,8 @@ def executar_2nr():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -32012,7 +32604,8 @@ def executar_2nr():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -32225,7 +32818,8 @@ def executar_2nr():
                                     now_brasilia = tz.localize(now)
                                     timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -32258,8 +32852,10 @@ def executar_2nr():
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
-                                        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                        scope = ["https://spreadsheets.google.com/feeds",
+                                                 "https://www.googleapis.com/auth/drive"]
+                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
+                                                                                                 scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -32268,7 +32864,8 @@ def executar_2nr():
                                         sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                         values = sheet.col_values(1)
                                         last_row = len(values)
-                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                                  conteudo + ' - ' + app, user_mysql]
                                         cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                                         for i, val in enumerate(values):
                                             cell_list[i].value = val
@@ -32965,7 +33562,7 @@ def executar_2nr_insta():
         if parar is True:
             print('Parando Thread')
             break
-        #if codigo_não_recebido_seguidos == 3:
+        # if codigo_não_recebido_seguidos == 3:
         #    #tempo_aleatorio = random.randint(10, 40)
         #    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 3 códigos não recebidos seguidos.')
         #    window.Refresh()
@@ -33350,7 +33947,9 @@ def executar_2nr_insta():
                     layout_usado = 'layout1'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout1 novo encontrado.')
                     window.Refresh()
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
@@ -33376,7 +33975,8 @@ def executar_2nr_insta():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -33397,7 +33997,8 @@ def executar_2nr_insta():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -33603,7 +34204,8 @@ def executar_2nr_insta():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -33624,7 +34226,8 @@ def executar_2nr_insta():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -33817,7 +34420,9 @@ def executar_2nr_insta():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(4)
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                        user_completo)
                     time.sleep(4)
                     d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.view.ViewGroup').click()
                     time.sleep(4)
@@ -33850,7 +34455,8 @@ def executar_2nr_insta():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -34065,7 +34671,8 @@ def executar_2nr_insta():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -34119,7 +34726,8 @@ def executar_2nr_insta():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -34152,7 +34760,8 @@ def executar_2nr_insta():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -34349,7 +34958,7 @@ def executar_2nr_insta():
                     layout_usado = 'layout_normal'
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Layout normal encontrado.')
                     window.Refresh()
-                    #raise Exception('Manutenção.')
+                    # raise Exception('Manutenção.')
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
@@ -34375,8 +34984,8 @@ def executar_2nr_insta():
                         d.xpath('//android.view.View[@content-desc="Agora não"]').click_exists(timeout=20.0)
                     except Exception as e:
                         print(e)
-                    #salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
-                    #if salvar_senha.exists:
+                    # salvar_senha = d.xpath('//android.view.View[@content-desc="Agora não"]')
+                    # if salvar_senha.exists:
                     #    d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
                     time.sleep(3)
@@ -34388,7 +34997,8 @@ def executar_2nr_insta():
                     time.sleep(2)
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     idade_aleatoria = random.randint(18, 35)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Idade escolhida: {idade_aleatoria}')
                     window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
@@ -34426,7 +35036,8 @@ def executar_2nr_insta():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
-                    restricao = d.xpath('//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
+                    restricao = d.xpath(
+                        '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                         window.Refresh()
@@ -34658,7 +35269,8 @@ def executar_2nr_insta():
                             now_brasilia = tz.localize(now)
                             timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                             try:
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -34668,7 +35280,8 @@ def executar_2nr_insta():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -34683,11 +35296,14 @@ def executar_2nr_insta():
                                 num_rows = sum(1 for row in rows if regex.match(row[0]))
                             except Exception as e:
                                 print(e)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                 tempo_aleatorio = random.randint(10, 40)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                 time.sleep(tempo_aleatorio)
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -34697,7 +35313,8 @@ def executar_2nr_insta():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -34718,7 +35335,8 @@ def executar_2nr_insta():
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -34728,7 +35346,8 @@ def executar_2nr_insta():
                                 sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
-                                values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                          conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
@@ -34782,7 +35401,7 @@ def executar_2nr_insta():
 
                                 # Encontre todos os elementos que correspondem ao ID fornecido
                                 elements = d(resourceId=element_id)
-                                #window['output'].print("Seguindo sugeridos...")
+                                # window['output'].print("Seguindo sugeridos...")
                                 window.Refresh()
                                 for element in elements:
                                     if element.get_text() == target_text:
@@ -34806,12 +35425,15 @@ def executar_2nr_insta():
                                         d.app_start("com.instagram.android")
                                         time.sleep(30)
                                         try:
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -34819,12 +35441,15 @@ def executar_2nr_insta():
                                                 d(resourceId='com.instagram.android:id/profile_tab').click()
                                         except:
                                             time.sleep(2)
-                                            pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                            pagina_login = d.xpath(
+                                                '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
-                                                d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                                d.xpath(
+                                                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                                    senha)
                                                 pagina_login.click()
                                                 time.sleep(3)
                                                 d.xpath('//android.view.View[@content-desc="Agora não"]').click()
@@ -34838,23 +35463,29 @@ def executar_2nr_insta():
                             d.app_start("com.instagram.android")
                             time.sleep(40)
                             try:
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/profile_tab').click()
                             except:
                                 time.sleep(2)
-                                pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+                                pagina_login = d.xpath(
+                                    '//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
 
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
-                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                                    d.xpath(
+                                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                        senha)
                                     pagina_login.click()
                                 else:
                                     d(resourceId='com.instagram.android:id/tab_avatar').click()
@@ -34866,17 +35497,23 @@ def executar_2nr_insta():
                         d.app_start("com.instagram.android")
 
                         if d.xpath('//android.view.View[@content-desc="Esqueceu a senha?"]').exists(timeout=60):
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(user_completo)
-                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                user_completo)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
+                                senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
 
-                        verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
+                        verificar3 = d.xpath(
+                            '//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem = contagem + 1
                                 sms = False
@@ -34886,7 +35523,8 @@ def executar_2nr_insta():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -34896,7 +35534,8 @@ def executar_2nr_insta():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -34911,11 +35550,14 @@ def executar_2nr_insta():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -34925,7 +35567,8 @@ def executar_2nr_insta():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina, conteudo + ' - ' + app]
+                                    values = [user_completo + ' ' + senha, num + ' - ' + email, timestamp, maquina,
+                                              conteudo + ' - ' + app]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -34946,7 +35589,8 @@ def executar_2nr_insta():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -34956,7 +35600,8 @@ def executar_2nr_insta():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -35021,8 +35666,9 @@ def executar_2nr_insta():
                         verificar = d(resourceId='com.instagram.android:id/profile_tab')
                         if verificar.exists:
                             try:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 seguido = False
                                 contagem += 1
@@ -35032,7 +35678,8 @@ def executar_2nr_insta():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -35042,7 +35689,8 @@ def executar_2nr_insta():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -35057,11 +35705,14 @@ def executar_2nr_insta():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -35071,7 +35722,8 @@ def executar_2nr_insta():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -35092,7 +35744,8 @@ def executar_2nr_insta():
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -35102,7 +35755,8 @@ def executar_2nr_insta():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -35132,7 +35786,8 @@ def executar_2nr_insta():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     time.sleep(5)
                                     for element in elements:
@@ -35268,7 +35923,8 @@ def executar_2nr_insta():
                         try:
                             d(resourceId='com.instagram.android:id/profile_tab').click(timeout=120)
                         except:
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro nesta conta.')
                             window.Refresh()
                             raise Exception('Erro na conta')
                         window['output'].print(linha_ret)
@@ -35388,8 +36044,9 @@ def executar_2nr_insta():
                         if verificar.exists:
                             try:
                                 conteudo = config['vpn']
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -35399,7 +36056,8 @@ def executar_2nr_insta():
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
                                 try:
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -35409,7 +36067,8 @@ def executar_2nr_insta():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -35424,11 +36083,14 @@ def executar_2nr_insta():
                                     num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 except Exception as e:
                                     print(e)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
                                     tempo_aleatorio = random.randint(10, 40)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
-                                    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                    scope = ["https://spreadsheets.google.com/feeds",
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                     client = gspread.authorize(creds)
 
@@ -35438,7 +36100,8 @@ def executar_2nr_insta():
                                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                    values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                              conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
                                         cell_list[i].value = val
@@ -35461,8 +36124,10 @@ def executar_2nr_insta():
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
-                                        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
+                                        scope = ["https://spreadsheets.google.com/feeds",
+                                                 "https://www.googleapis.com/auth/drive"]
+                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
+                                                                                                 scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -35471,7 +36136,8 @@ def executar_2nr_insta():
                                         sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                                         values = sheet.col_values(1)
                                         last_row = len(values)
-                                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                                  conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
                                             cell_list[i].value = val
@@ -35499,7 +36165,8 @@ def executar_2nr_insta():
 
                                     # Encontre todos os elementos que correspondem ao ID fornecido
                                     elements = d(resourceId=element_id)
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Seguindo sugeridos...')
                                     window.Refresh()
                                     for element in elements:
                                         if element.get_text() == target_text:
@@ -35571,7 +36238,8 @@ def executar_2nr_insta():
                                 sms = True
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
-                                        d.screenshot(f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
+                                        d.screenshot(
+                                            f'./erros/{layout_usado}-{datetime.now().strftime("%H_%M_%S")}.png')
                                     except Exception as e:
                                         print(e)
                                         pass
@@ -36771,7 +37439,8 @@ def insta_face_lite():
                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                     values = sheet.col_values(1)
                     last_row = len(values)
-                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app,
+                              regiao_vpn, user_mysql]
                     cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                     for i, val in enumerate(values):
                         cell_list[i].value = val
@@ -36796,7 +37465,8 @@ def insta_face_lite():
                     sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                     values = sheet.col_values(1)
                     last_row = len(values)
-                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
+                    values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app,
+                              user_mysql]
                     cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                     for i, val in enumerate(values):
                         cell_list[i].value = val
@@ -37028,7 +37698,8 @@ def insta_face_lite():
                                 now_brasilia = tz.localize(now)
                                 timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
 
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -37054,7 +37725,8 @@ def insta_face_lite():
                                 num_rows = sum(1 for row in rows if regex.match(row[0]))
                                 window['total'].update(num_rows)
                                 time.sleep(4)
-                                scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                         "https://www.googleapis.com/auth/drive"]
                                 creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json', scope)
                                 client = gspread.authorize(creds)
 
@@ -37239,7 +37911,8 @@ def insta_face_lite():
                         sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                         values = sheet.col_values(1)
                         last_row = len(values)
-                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                        values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app,
+                                  regiao_vpn, user_mysql]
                         cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}')
                         for i, val in enumerate(values):
                             cell_list[i].value = val
@@ -37264,7 +37937,8 @@ def insta_face_lite():
                             sheet = client.open_by_key(spreadsheet_id).worksheet(sheet_name)
                             values = sheet.col_values(1)
                             last_row = len(values)
-                            values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, user_mysql]
+                            values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app,
+                                      user_mysql]
                             cell_list = sheet.range(f'A{last_row + 1}:F{last_row + 1}')
                             for i, val in enumerate(values):
                                 cell_list[i].value = val
@@ -37858,7 +38532,7 @@ def executar_creator_2nr():
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, shell=True)
             print('\n')
-            #try:
+            # try:
             #    # Executa o comando adb para obter o Android ID
             #    result = subprocess.run(['adb', '-s', f'{porta}', 'shell', 'settings', 'get', 'secure', 'android_id'], capture_output=True, text=True)
             #
@@ -37868,10 +38542,10 @@ def executar_creator_2nr():
             #    # Imprime o Android ID
             #    print(f"Android ID: {android_id}")
             #
-            #except subprocess.CalledProcessError as e:
+            # except subprocess.CalledProcessError as e:
             #    # Em caso de erro, imprime a mensagem de erro
             #    print(f"Erro: {e}")
-            #except Exception as e:
+            # except Exception as e:
             #    print(f"Erro desconhecido: {e}")
             try:
                 if troca_ip == 5:
@@ -38007,6 +38681,7 @@ def executar_creator_2nr():
                     numeros_concatenados = ''.join(str(numero) for numero in lista_user)
                     user_completo = nome_completo_s + '.' + str(numeros_concatenados)
                     tentativa = 1
+
                     def gerar_senha(tamanho=12):
                         if tamanho < 6:
                             raise ValueError("A senha deve ter pelo menos 6 caracteres.")
@@ -38024,12 +38699,12 @@ def executar_creator_2nr():
                         senha += random.choice(string.digits)
                         senha += "@"
 
-
                         senha = ''.join(random.sample(senha, len(senha)))
 
                         return senha
 
                         # Exemplo de uso
+
                     senha = gerar_senha(12)
                     email_escolhido = config['email_escolhido']
 
@@ -38050,17 +38725,20 @@ def executar_creator_2nr():
                         chrome_options.add_argument("--headless")
                         chrome_options.add_argument("--log-level=3")
                         try:
-                            driver = webdriver.Chrome(options=chrome_options, service=Service(ChromeDriverManager().install()))
+                            driver = webdriver.Chrome(options=chrome_options,
+                                                      service=Service(ChromeDriverManager().install()))
 
                             driver.get('https://mail10year.com/TOOL/gmail/server2.php')
                             driver.maximize_window()
-                            WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "change_email"))).click()
+                            WebDriverWait(driver, 30).until(
+                                EC.presence_of_element_located((By.NAME, "change_email"))).click()
                             time.sleep(3)
-                            email_real = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "username"))).get_attribute("value")
+                            email_real = WebDriverWait(driver, 30).until(
+                                EC.presence_of_element_located((By.NAME, "username"))).get_attribute("value")
                             log, dominio = email_real.split('@')
                             numero_aleatorio = random.randint(0, 9999)
                             email = f'{log}+{numero_aleatorio:04}@{dominio}'
-                            #email = email_real
+                            # email = email_real
                             print(email)
                         except:
                             driver.close()
@@ -38086,7 +38764,6 @@ def executar_creator_2nr():
                             d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
                             d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
                             time.sleep(10)
-
 
                         # use with address and token to reuse an existing inbox
 
@@ -38135,13 +38812,15 @@ def executar_creator_2nr():
                                 raise Exception('Código não chegou.')
                             try:
                                 time.sleep(5)
-                                WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "check_email"))).click()
+                                WebDriverWait(driver, 30).until(
+                                    EC.presence_of_element_located((By.NAME, "check_email"))).click()
                                 time.sleep(5)
-                                body = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, "copyClone"))).text
+                                body = WebDriverWait(driver, 30).until(
+                                    EC.presence_of_element_located((By.ID, "copyClone"))).text
                                 body = body.replace(' ', '')
                                 inicio = body.find("(") + 1
                                 fim = body.find(")")
-                                #print(body)
+                                # print(body)
                                 body = body[inicio:fim]
                                 body = body.replace('3D', '')
 
@@ -38159,7 +38838,7 @@ def executar_creator_2nr():
                                 # Juntar as partes formatadas
                                 body = "https://api.2nr.xyz/register/?" + email_parte_formatado + token_parte_formatado
                                 body = body.replace('&token&token=', '&token=')
-                                #print(body)
+                                # print(body)
                                 if '2nr' in body:
                                     urls = re.findall("(?P<url>https?://[^\s]+)",
                                                       body if body else body)
@@ -38354,6 +39033,7 @@ def executar_creator_2nr():
                             else:
                                 pass
                         subject = False
+
                         def make_request(url):
                             try:
                                 response = requests.get(url)
@@ -38363,6 +39043,7 @@ def executar_creator_2nr():
                                     print(f"Falha na requisição. Código de status: {response.status_code}")
                             except requests.exceptions.RequestException as e:
                                 print(f"Erro na requisição: {e}")
+
                         def listener(message):
                             global nome
                             global sobrenome
@@ -38383,7 +39064,7 @@ def executar_creator_2nr():
 
                         import requests
                         from requests.auth import HTTPBasicAuth
-                        user = random.randint(000000,999999)
+                        user = random.randint(000000, 999999)
                         # Substitua com as suas credenciais e dados
                         cpanel_user = 'wnmailsh'
                         cpanel_password = 'V.5k7lV3l8PB*q'
@@ -38405,7 +39086,8 @@ def executar_creator_2nr():
                         }
 
                         # Faça a solicitação para a API
-                        response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password), verify=True)
+                        response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password),
+                                                 verify=True)
 
                         # Verifique a resposta
                         if response.status_code == 200:
@@ -38448,6 +39130,7 @@ def executar_creator_2nr():
                                         if content_type == "text/plain" or content_type == "text/html":
                                             return msg.get_payload(decode=True).decode()
                                     return ""
+
                                 import imaplib
                                 import email
                                 time.sleep(10)
@@ -38470,7 +39153,7 @@ def executar_creator_2nr():
 
                                 # Buscar e-mails
                                 status, messages = mail.search(None, 'ALL')
-                                #print(f'Status da busca: {status}')
+                                # print(f'Status da busca: {status}')
 
                                 # Verificar se messages não está vazio
                                 # Verificar se messages não está vazio
@@ -38526,10 +39209,10 @@ def executar_creator_2nr():
                                                 email_subject = msg['subject']
                                                 email_from = msg['from']
                                                 email_body = get_email_body(msg)
-                                                #print('From:', email_from)
-                                                #print('Subject:', email_subject)
-                                                #print('Body:', email_body)
-                                                #print('\n')
+                                                # print('From:', email_from)
+                                                # print('Subject:', email_subject)
+                                                # print('Body:', email_body)
+                                                # print('\n')
                                 else:
                                     print("Nenhuma mensagem encontrada ou erro na busca.")
 
@@ -38752,9 +39435,11 @@ def executar_creator_2nr():
                                             # Pode sair do loop se quiser
                                             break
                                         else:
-                                            print("Erro ao ler a mensagem. Código de status:", read_response.status_code)
+                                            print("Erro ao ler a mensagem. Código de status:",
+                                                  read_response.status_code)
                                 else:
-                                    print("Erro ao verificar mensagens. Código de status:", messages_response.status_code)
+                                    print("Erro ao verificar mensagens. Código de status:",
+                                          messages_response.status_code)
 
                                 # Espera um pouco antes de verificar novamente
                                 time.sleep(5)
@@ -38792,6 +39477,7 @@ def executar_creator_2nr():
                                             window.Refresh()
                                     except Exception as e:
                                         print(e)
+
                         def save_message(message_id, body):
                             # Aqui você pode implementar a lógica para salvar a mensagem como desejar
                             print(f"Mensagem recebida! ID: {message_id}")
@@ -38815,7 +39501,6 @@ def executar_creator_2nr():
                                 except requests.exceptions.RequestException as e:
                                     print(f"Erro na requisição: {e}")
 
-
                         # Obtém um e-mail aleatório
                         log, dominio = get_random_email()
 
@@ -38836,7 +39521,6 @@ def executar_creator_2nr():
                         d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
 
                         d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
-
 
                         # use with address and token to reuse an existing inbox
 
@@ -38871,18 +39555,19 @@ def executar_creator_2nr():
 
                         codigo = None
 
-                        #try:
+                        # try:
                         #    test.start(listener, interval=10)
                         #    codigo = 0
                         #    while codigo != 5:
                         #        time.sleep(2)
                         #        codigo = codigo + 1
-                        #except Exception as e:
+                        # except Exception as e:
                         #    if "Too Many Requests" in str(e):
                         #        pass
                         #    else:
                         #        pass
                         subject = False
+
                         def make_request(url):
                             try:
                                 response = requests.get(url)
@@ -38892,6 +39577,7 @@ def executar_creator_2nr():
                                     print(f"Falha na requisição. Código de status: {response.status_code}")
                             except requests.exceptions.RequestException as e:
                                 print(f"Erro na requisição: {e}")
+
                         subject = False
                         while subject == False:
                             for mail in inbox.mails:
@@ -38907,7 +39593,6 @@ def executar_creator_2nr():
                                         make_request(url)
                                         time.sleep(0.5)
                                     subject = True
-
 
                     troca_ip += 1
                     d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
@@ -38946,12 +39631,12 @@ def executar_creator_2nr():
                     d(resourceId='pl.rs.sip.softphone.newapp:id/inputNumberName').set_text(
                         random.choice(list(range(1, 100))))
                     time.sleep(2)
-                    #draw_number = 'None'
-                    #try:
+                    # draw_number = 'None'
+                    # try:
                     #    draw_number = d(resourceId='pl.rs.sip.softphone.newapp:id/textContent').get_text(timeout=2)
-                    #except:
+                    # except:
                     #    pass
-                    #if draw_number == 'You need to draw for a phone number':
+                    # if draw_number == 'You need to draw for a phone number':
                     #    while True:
                     #        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
                     #        #subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
@@ -38983,7 +39668,8 @@ def executar_creator_2nr():
                     if number is None or tries == 10:
                         while True:
                             if tries == '10':
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                                 window.Refresh()
                                 raise Exception('Máximo de números criados.')
                             d.swipe(340, 480, 340, 880)
@@ -39024,7 +39710,7 @@ def executar_creator_2nr():
                                 success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                                 if success == 'Successful verification':
                                     break
-                            #raise Exception('Falha na verificação.')
+                            # raise Exception('Falha na verificação.')
                         time.sleep(0.5)
 
                         tries += 1
@@ -39039,21 +39725,24 @@ def executar_creator_2nr():
                     tentativa2 = 1
                     while sms is False:
                         if criadas >= 4:
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
-                                                   text_color=('lime'))
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
+                                text_color=('lime'))
                             window.Refresh()
                             raise Exception('Máximo de números criados.')
                         try:
                             if d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').exists():
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
-                                                       text_color=('lime'))
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
+                                    text_color=('lime'))
                                 criadas = criadas + 1
 
                             try:
                                 d(resourceId='pl.rs.sip.softphone.newapp:id/settings').click(timeout=5)
 
                             except:
-                                subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
+                                subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK',
+                                               stdout=subprocess.DEVNULL,
                                                stderr=subprocess.DEVNULL, check=True, shell=True)
                                 if tentativa2 == 2:
                                     tentativa2 = 0
@@ -39061,13 +39750,13 @@ def executar_creator_2nr():
                                 tentativa2 += 1
                             d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
                             time.sleep(2)
-                            #d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
-                            #draw_number = 'None'
-                            #try:
+                            # d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
+                            # draw_number = 'None'
+                            # try:
                             #    draw_number = d(resourceId='pl.rs.sip.softphone.newapp:id/textContent').get_text(timeout=2)
-                            #except:
+                            # except:
                             #    pass
-                            #if draw_number == 'You need to draw for a phone number':
+                            # if draw_number == 'You need to draw for a phone number':
                             #    while True:
                             #        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
                             #        #subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
@@ -39099,7 +39788,8 @@ def executar_creator_2nr():
                             if number is None or tries == 10:
                                 while True:
                                     if tries == 10:
-                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                                        window['output'].print(
+                                            f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                                         window.Refresh()
                                         raise Exception('Máximo de números criados.')
                                     d.swipe(340, 480, 340, 880)
@@ -39114,7 +39804,8 @@ def executar_creator_2nr():
                                 d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                                 time.sleep(2)
                             if tries == '10':
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                                 window.Refresh()
                                 raise Exception('Máximo de números criados.')
 
@@ -39135,7 +39826,8 @@ def executar_creator_2nr():
                                 if success == 'Successful verification':
                                     break
                                 elif success == 'Veryfication failed':
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Falha na verificação.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Falha na verificação.')
                                     window.Refresh()
                                     raise Exception('Falha na verificação.')
                                 time.sleep(0.5)
@@ -39167,7 +39859,7 @@ def executar_creator_2nr():
                            stdout=subprocess.DEVNULL,
                            stderr=subprocess.DEVNULL, shell=True)
             print('\n')
-            #try:
+            # try:
             #    # Executa o comando adb para obter o Android ID
             #    result = subprocess.run(['adb', '-s', f'{porta}', 'shell', 'settings', 'get', 'secure', 'android_id'], capture_output=True, text=True)
             #
@@ -39177,10 +39869,10 @@ def executar_creator_2nr():
             #    # Imprime o Android ID
             #    print(f"Android ID: {android_id}")
             #
-            #except subprocess.CalledProcessError as e:
+            # except subprocess.CalledProcessError as e:
             #    # Em caso de erro, imprime a mensagem de erro
             #    print(f"Erro: {e}")
-            #except Exception as e:
+            # except Exception as e:
             #    print(f"Erro desconhecido: {e}")
             try:
                 if troca_ip == 5:
@@ -39280,6 +39972,7 @@ def executar_creator_2nr():
                     numeros_concatenados = ''.join(str(numero) for numero in lista_user)
                     user_completo = nome_completo_s + '.' + str(numeros_concatenados)
                     tentativa = 1
+
                     def gerar_senha(tamanho=12):
                         if tamanho < 6:
                             raise ValueError("A senha deve ter pelo menos 6 caracteres.")
@@ -39306,6 +39999,7 @@ def executar_creator_2nr():
                         return senha
 
                         # Exemplo de uso
+
                     senha = gerar_senha(12)
                     email_escolhido = config['email_escolhido']
 
@@ -39318,7 +40012,6 @@ def executar_creator_2nr():
                             subprocess.run(['pip', 'install', 'webdriver-manager'])
                             from webdriver_manager.chrome import ChromeDriverManager
 
-
                         from selenium.webdriver.common.by import By
                         from selenium.webdriver.support.ui import WebDriverWait
                         from selenium.webdriver.support import expected_conditions as EC
@@ -39328,13 +40021,16 @@ def executar_creator_2nr():
                         chrome_options.add_argument("--headless")
                         chrome_options.add_argument("--log-level=3")
                         try:
-                            driver = webdriver.Chrome(options=chrome_options, service=Service(ChromeDriverManager().install()))
+                            driver = webdriver.Chrome(options=chrome_options,
+                                                      service=Service(ChromeDriverManager().install()))
 
                             driver.get('https://mail10year.com/TOOL/gmail/')
                             driver.maximize_window()
-                            WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "change_email"))).click()
+                            WebDriverWait(driver, 30).until(
+                                EC.presence_of_element_located((By.NAME, "change_email"))).click()
                             time.sleep(3)
-                            email_real = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "username"))).get_attribute("value")
+                            email_real = WebDriverWait(driver, 30).until(
+                                EC.presence_of_element_located((By.NAME, "username"))).get_attribute("value")
                             log, dominio = email_real.split('@')
                             numero_aleatorio = random.randint(0, 999)
                             email = f'{log}+{numero_aleatorio:03}@{dominio}'
@@ -39398,9 +40094,11 @@ def executar_creator_2nr():
                                 raise Exception('Código não chegou.')
                             try:
                                 time.sleep(5)
-                                WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "check_email"))).click()
+                                WebDriverWait(driver, 30).until(
+                                    EC.presence_of_element_located((By.NAME, "check_email"))).click()
                                 time.sleep(5)
-                                body = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, "copyClone"))).text
+                                body = WebDriverWait(driver, 30).until(
+                                    EC.presence_of_element_located((By.ID, "copyClone"))).text
 
                                 if '2nr' in body:
                                     urls = re.findall("(?P<url>https?://[^\s]+)",
@@ -39552,7 +40250,7 @@ def executar_creator_2nr():
 
                         import requests
                         from requests.auth import HTTPBasicAuth
-                        user = random.randint(000000,999999)
+                        user = random.randint(000000, 999999)
                         # Substitua com as suas credenciais e dados
                         cpanel_user = 'wnmailsh'
                         cpanel_password = 'V.5k7lV3l8PB*q'
@@ -39574,7 +40272,8 @@ def executar_creator_2nr():
                         }
 
                         # Faça a solicitação para a API
-                        response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password), verify=True)
+                        response = requests.post(url, params=params, auth=HTTPBasicAuth(cpanel_user, cpanel_password),
+                                                 verify=True)
 
                         # Verifique a resposta
                         if response.status_code == 200:
@@ -39615,6 +40314,7 @@ def executar_creator_2nr():
                                     if content_type == "text/plain" or content_type == "text/html":
                                         return msg.get_payload(decode=True).decode()
                                 return ""
+
                             import imaplib
                             import email
                             time.sleep(10)
@@ -39637,7 +40337,7 @@ def executar_creator_2nr():
 
                             # Buscar e-mails
                             status, messages = mail.search(None, 'ALL')
-                            #print(f'Status da busca: {status}')
+                            # print(f'Status da busca: {status}')
 
                             # Verificar se messages não está vazio
                             # Verificar se messages não está vazio
@@ -39698,10 +40398,10 @@ def executar_creator_2nr():
                                                 email_subject = msg['subject']
                                                 email_from = msg['from']
                                                 email_body = get_email_body(msg)
-                                                #print('From:', email_from)
-                                                #print('Subject:', email_subject)
-                                                #print('Body:', email_body)
-                                                #print('\n')
+                                                # print('From:', email_from)
+                                                # print('Subject:', email_subject)
+                                                # print('Body:', email_body)
+                                                # print('\n')
                                 except:
                                     print('Código não chegou')
                             else:
@@ -39828,6 +40528,7 @@ def executar_creator_2nr():
                             else:
                                 pass
                         subject = False
+
                         def make_request(url):
                             try:
                                 response = requests.get(url)
@@ -39837,6 +40538,7 @@ def executar_creator_2nr():
                                     print(f"Falha na requisição. Código de status: {response.status_code}")
                             except requests.exceptions.RequestException as e:
                                 print(f"Erro na requisição: {e}")
+
                         def listener(message):
                             global nome
                             global sobrenome
@@ -40000,9 +40702,11 @@ def executar_creator_2nr():
                                             # Pode sair do loop se quiser
                                             break
                                         else:
-                                            print("Erro ao ler a mensagem. Código de status:", read_response.status_code)
+                                            print("Erro ao ler a mensagem. Código de status:",
+                                                  read_response.status_code)
                                 else:
-                                    print("Erro ao verificar mensagens. Código de status:", messages_response.status_code)
+                                    print("Erro ao verificar mensagens. Código de status:",
+                                          messages_response.status_code)
 
                                 # Espera um pouco antes de verificar novamente
                                 time.sleep(5)
@@ -40040,6 +40744,7 @@ def executar_creator_2nr():
                                             window.Refresh()
                                     except Exception as e:
                                         print(e)
+
                         def save_message(message_id, body):
                             # Aqui você pode implementar a lógica para salvar a mensagem como desejar
                             print(f"Mensagem recebida! ID: {message_id}")
@@ -40063,7 +40768,6 @@ def executar_creator_2nr():
                                 except requests.exceptions.RequestException as e:
                                     print(f"Erro na requisição: {e}")
 
-
                         # Obtém um e-mail aleatório
                         log, dominio = get_random_email()
 
@@ -40084,7 +40788,6 @@ def executar_creator_2nr():
                         d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
 
                         d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
-
 
                         # use with address and token to reuse an existing inbox
 
@@ -40119,18 +40822,19 @@ def executar_creator_2nr():
 
                         codigo = None
 
-                        #try:
+                        # try:
                         #    test.start(listener, interval=10)
                         #    codigo = 0
                         #    while codigo != 5:
                         #        time.sleep(2)
                         #        codigo = codigo + 1
-                        #except Exception as e:
+                        # except Exception as e:
                         #    if "Too Many Requests" in str(e):
                         #        pass
                         #    else:
                         #        pass
                         subject = False
+
                         def make_request(url):
                             try:
                                 response = requests.get(url)
@@ -40140,6 +40844,7 @@ def executar_creator_2nr():
                                     print(f"Falha na requisição. Código de status: {response.status_code}")
                             except requests.exceptions.RequestException as e:
                                 print(f"Erro na requisição: {e}")
+
                         subject = False
                         while subject == False:
                             for mail in inbox.mails:
@@ -40155,8 +40860,6 @@ def executar_creator_2nr():
                                         make_request(url)
                                         time.sleep(0.5)
                                     subject = True
-
-
 
                     troca_ip += 1
                     d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
@@ -40198,8 +40901,6 @@ def executar_creator_2nr():
             except Exception as e:
                 print(e)
     elif opcao_executar == '-criarnumeros-':
-
-
 
         print('\n')
         multiline_text = dialog_values['-linhas-'].split('\n')
@@ -40313,7 +41014,8 @@ def executar_creator_2nr():
                     window.Refresh()
                     raise Exception('Conta inexistente')
                 if not d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').exists:
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta já contem máximo de números.')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Conta já contem máximo de números.')
                     window.Refresh()
                     raise Exception('Conta já contem máximo de números.')
                 elif d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').exists:
@@ -40335,12 +41037,12 @@ def executar_creator_2nr():
                 d(resourceId='pl.rs.sip.softphone.newapp:id/inputNumberName').set_text(
                     random.choice(list(range(1, 100))))
                 time.sleep(2)
-                #draw_number = 'None'
-                #try:
+                # draw_number = 'None'
+                # try:
                 #    draw_number = d(resourceId='pl.rs.sip.softphone.newapp:id/textContent').get_text(timeout=2)
-                #except:
+                # except:
                 #    pass
-                #if draw_number == 'You need to draw for a phone number':
+                # if draw_number == 'You need to draw for a phone number':
                 #    while True:
                 #        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
                 #        #subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
@@ -40372,7 +41074,8 @@ def executar_creator_2nr():
                 if number is None or tries == 10:
                     while True:
                         if tries == '10':
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                             window.Refresh()
                             raise Exception('Máximo de números criados.')
                         d.swipe(340, 480, 340, 880)
@@ -40414,7 +41117,7 @@ def executar_creator_2nr():
                             success = d(resourceId='pl.rs.sip.softphone.newapp:id/captchaCode').get_text()
                             if success == 'Successful verification':
                                 break
-                        #raise Exception('Falha na verificação.')
+                        # raise Exception('Falha na verificação.')
                     time.sleep(0.5)
 
                     tries += 1
@@ -40434,15 +41137,17 @@ def executar_creator_2nr():
                         raise Exception('Máximo de números criados.')
                     try:
                         if d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').exists():
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
-                                                   text_color=('lime'))
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
+                                text_color=('lime'))
                             criadas = criadas + 1
 
                         try:
                             d(resourceId='pl.rs.sip.softphone.newapp:id/settings').click(timeout=5)
 
                         except:
-                            subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
+                            subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK',
+                                           stdout=subprocess.DEVNULL,
                                            stderr=subprocess.DEVNULL, check=True, shell=True)
                             if tentativa2 == 2:
                                 tentativa2 = 0
@@ -40450,13 +41155,13 @@ def executar_creator_2nr():
                             tentativa2 += 1
                         d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
                         time.sleep(2)
-                        #d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
-                        #draw_number = 'None'
-                        #try:
+                        # d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
+                        # draw_number = 'None'
+                        # try:
                         #    draw_number = d(resourceId='pl.rs.sip.softphone.newapp:id/textContent').get_text(timeout=2)
-                        #except:
+                        # except:
                         #    pass
-                        #if draw_number == 'You need to draw for a phone number':
+                        # if draw_number == 'You need to draw for a phone number':
                         #    while True:
                         #        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
                         #        #subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
@@ -40488,7 +41193,8 @@ def executar_creator_2nr():
                         if number is None:
                             while True:
                                 if tries == 10:
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                                     window.Refresh()
                                     raise Exception('Máximo de números criados.')
                                 d.swipe(340, 480, 340, 880)
@@ -40504,7 +41210,8 @@ def executar_creator_2nr():
                             d(resourceId='pl.rs.sip.softphone.newapp:id/save').click()
                             time.sleep(2)
                         if tries == '10':
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Máximo de números criados.')
                             window.Refresh()
                             raise Exception('Máximo de números criados.')
 
@@ -40548,6 +41255,8 @@ def executar_creator_2nr():
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todas as contas concluídas.',
                                text_color=('cyan'))
         window.Refresh()
+
+
 pool = concurrent.futures.ThreadPoolExecutor()
 while True:
     try:
@@ -40567,7 +41276,8 @@ while True:
             [sg.Radio('Emulador', 'dispositivo', key='-emulador-', default=True),
              sg.Radio('Celular', 'dispositivo', key='-celular-')],
             [sg.Button('Avançar', font=('Open Sans', 10), button_color='#1c2024'),
-             sg.Button('?', button_color=('white', sg.theme_background_color()), border_width=0, tooltip='Mostrar dispositivos')]
+             sg.Button('?', button_color=('white', sg.theme_background_color()), border_width=0,
+                       tooltip='Mostrar dispositivos')]
         ]
         try:
             state = config['fixtop']
@@ -40587,11 +41297,14 @@ while True:
                 break
             if dialog_event == '?':
                 def get_adb_devices():
-                    processo = subprocess.Popen(['adb', 'devices'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                    processo = subprocess.Popen(['adb', 'devices'], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                                text=True)
                     saida, erro = processo.communicate()
                     saida = saida.replace('List of devices attached\n', '')
                     return erro if erro else saida
                     # Conteúdo para o pop-up
+
+
                 adb_output = get_adb_devices()
 
                 # Layout do pop-up com texto selecionável
@@ -40764,12 +41477,12 @@ while True:
                         config2 = {}
 
                     dialog_layout = [
-                        [sg.Radio('Criar Facebook', 'RADIO1', key='-instaface_criarface-', default=config2.get("metodo", "") == "-instaface_criarface-"),
-                         sg.Radio('Criar Instagram', 'RADIO1', key='-instaface_criarinsta-', default=config2.get("metodo", "") == "-instaface_criarinsta-")],
+                        [sg.Radio('Criar Facebook', 'RADIO1', key='-instaface_criarface-',
+                                  default=config2.get("metodo", "") == "-instaface_criarface-"),
+                         sg.Radio('Criar Instagram', 'RADIO1', key='-instaface_criarinsta-',
+                                  default=config2.get("metodo", "") == "-instaface_criarinsta-")],
                         [sg.Button('Executar', button_color='#1c2024')]
                     ]
-
-
 
                     try:
                         with open('configuracoes\\config3.json', 'r') as file:
@@ -40809,22 +41522,24 @@ while True:
 
                             dialog_window.close()
 
-
                         if config2['metodo'] == '-instaface_criarface-':
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] InstaFace - Criar Facebook selecionado.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] InstaFace - Criar Facebook selecionado.')
                             window.Refresh()
                             try:
                                 with open('configuracoes\\config4.json', 'r') as file:
                                     config4 = json.load(file)
                             except FileNotFoundError:
                                 config4 = {}
-                            vpn_list = ["Nenhuma", "AVG", "Avast", "SurfShark", "ExpressVPN", "PiaVPN", "BetterNet", "NordVPN", "CyberGhost",
+                            vpn_list = ["Nenhuma", "AVG", "Avast", "SurfShark", "ExpressVPN", "PiaVPN", "BetterNet",
+                                        "NordVPN", "CyberGhost",
                                         "HotspotShield", "HmaVPN", "WindscribeVPN"]
                             dialog_layout = [
                                 [sg.Radio('4g', 'RADIO1', key='-4g-', default=config4.get("metodo", "") == "-4g-"),
                                  sg.Radio('VPN', 'RADIO1', key='-vpn-', default=config4.get("metodo", "") == "-vpn-")],
                                 [sg.HorizontalSeparator()],
-                                [sg.Combo(vpn_list, default_value=config4.get("metodo", ""), readonly=True, key='-vpnlista-', visible=False)],
+                                [sg.Combo(vpn_list, default_value=config4.get("metodo", ""), readonly=True,
+                                          key='-vpnlista-', visible=False)],
                                 [sg.Button('Executar', button_color='#1c2024')]
                             ]
 
@@ -40858,16 +41573,21 @@ while True:
                             minha_thread = threading.Thread(target=instaface_criarface)
                             minha_thread.start()
                         elif config2['metodo'] == '-instaface_criarinsta-':
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] InstaFace - Criar Instagram selecionado.')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] InstaFace - Criar Instagram selecionado.')
                             window.Refresh()
+
+
                             def create_dialog_window():
                                 layout = [
                                     [sg.Multiline(key='-MULTILINE-', size=(40, 10))],  # Campo de texto multiline
                                     [sg.Checkbox("Navegador oculto", key="-navvisivel-", enable_events=True)],
-                                    [sg.Button('Executar', button_color='#1c2024'), sg.Button('Cancelar', button_color='#1c2024')]  # Botões Executar e Cancelar
+                                    [sg.Button('Executar', button_color='#1c2024'),
+                                     sg.Button('Cancelar', button_color='#1c2024')]  # Botões Executar e Cancelar
                                 ]
 
                                 return sg.Window('Adicione as contas', layout, modal=True)
+
 
                             # Criar a janela de diálogo
                             dialog_window = create_dialog_window()
@@ -40917,7 +41637,8 @@ while True:
                         lista_site.append("smstome.com")
                     dialog_layout = [
                         [sg.Text('Provedor: ', font=('Open Sans', 12)),
-                         sg.Combo(lista_site, default_value=config2.get("site_escolhido", ""), readonly=True, key='-site_escolhido-')],
+                         sg.Combo(lista_site, default_value=config2.get("site_escolhido", ""), readonly=True,
+                                  key='-site_escolhido-')],
                         [sg.Button('Executar', button_color='#1c2024')]
                     ]
 
@@ -40933,7 +41654,6 @@ while True:
 
                         # Avança para a janela principal se o usuário clicar no botão
                         if dialog_event == 'Executar':
-
                             config2 = {
                                 "site_escolhido": dialog_values['-site_escolhido-']
                             }
@@ -40953,12 +41673,14 @@ while True:
                         minha_thread = threading.Thread(target=receive_smss)
                         minha_thread.start()
                     if site_escolhido == "freereceivesms.com":
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] freereceivesms.com selecionado.')
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] freereceivesms.com selecionado.')
                         window.Refresh()
                         minha_thread = threading.Thread(target=freereceivesms_com)
                         minha_thread.start()
                     if site_escolhido == "temporary-phone-number.com":
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] temporary-phone-number.com selecionado.')
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] temporary-phone-number.com selecionado.')
                         window.Refresh()
                         minha_thread = threading.Thread(target=temporary_phone_number_com)
                         minha_thread.start()
@@ -40994,7 +41716,6 @@ while True:
 
                         # Avança para a janela principal se o usuário clicar no botão
                         if dialog_event == 'Executar':
-
                             config5 = {
                                 "5simapi": dialog_values['-5simapi-']
                             }
@@ -41044,7 +41765,8 @@ while True:
                      sg.Radio('MinuteInBox', 'RADIO1', key='-minuteinbox-',
                               default=config.get("email", "") == "-minuteinbox-"),
                      sg.Radio('2NR', 'RADIO1', key='-2nr-', default=config.get("email", "") == "-2nr-"),
-                     sg.Radio('InstaFace', 'RADIO1', key='-instaface-', default=config.get("email", "") == "-instaface-"),
+                     sg.Radio('InstaFace', 'RADIO1', key='-instaface-',
+                              default=config.get("email", "") == "-instaface-"),
                      sg.Radio('5sim.net', 'RADIO1', visible=privado, key='-5sim-',
                               default=config.get("email", "") == "-5sim-"),
                      sg.Radio('Free SMS2', 'RADIO1', visible=beta_folder_exists, key='-freesms-',
@@ -41141,7 +41863,8 @@ while True:
             [sg.Radio('Emulador', 'dispositivo', key='-emulador-', default=True),
              sg.Radio('Celular', 'dispositivo', key='-celular-')],
             [sg.Button('Avançar', font=('Open Sans', 10), button_color='#1c2024'),
-             sg.Button('?', button_color=('white', sg.theme_background_color()), border_width=0, tooltip='Mostrar dispositivos')]
+             sg.Button('?', button_color=('white', sg.theme_background_color()), border_width=0,
+                       tooltip='Mostrar dispositivos')]
         ]
         try:
             state = config['fixtop']
@@ -41161,11 +41884,14 @@ while True:
                 break
             if dialog_event == '?':
                 def get_adb_devices():
-                    processo = subprocess.Popen(['adb', 'devices'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                    processo = subprocess.Popen(['adb', 'devices'], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                                text=True)
                     saida, erro = processo.communicate()
                     saida = saida.replace('List of devices attached\n', '')
                     return erro if erro else saida
                     # Conteúdo para o pop-up
+
+
                 adb_output = get_adb_devices()
 
                 # Layout do pop-up com texto selecionável
@@ -41266,7 +41992,6 @@ while True:
                             #
                             break
 
-
                     dialog_window.close()
                 contagem = 0
                 running = True
@@ -41337,17 +42062,22 @@ while True:
                         config = json.load(f)
                 except FileNotFoundError:
                     config = {}
-                email_list = ["wnmail.shop", "MailTM", "GuerrilaMail", "MinuteInBox", "1SecMail", "GmailTemp", "GmailTemp2"]
+                email_list = ["wnmail.shop", "MailTM", "GuerrilaMail", "MinuteInBox", "1SecMail", "GmailTemp",
+                              "GmailTemp2"]
                 layout_configuracoes = [
                     [sg.Text("Senha dos perfis: ", font=('Open Sans', 12)),
                      sg.InputText(key="-senha2nr-", default_text=config.get("senha2nr", "@SenhaPadrao2023"))],
                     [sg.Text('VPN: ', font=('Open Sans', 12)),
                      sg.Combo(vpn_list, default_value=config.get("vpn", ""), readonly=True, key='-vpn-')],
                     [sg.Text('Email: ', font=('Open Sans', 12)),
-                     sg.Combo(email_list, default_value=config.get("email_escolhido", ""), readonly=True, key='-email_escolhido-')],
-                    [sg.Radio('Criar contas do 2NR', 'RADIO1', key='-criarcontas-', default=config.get("opcao", "") == "-criarcontas-"),
-                     sg.Radio('Criar números', 'RADIO1', key='-criarnumeros-', default=config.get("opcao", "") == "-criarnumeros-"),
-                     sg.Radio('Ambos', 'RADIO1', key='-criarambos-', visible=estado_user, default=config.get("opcao", "") == "-criarambos-")],
+                     sg.Combo(email_list, default_value=config.get("email_escolhido", ""), readonly=True,
+                              key='-email_escolhido-')],
+                    [sg.Radio('Criar contas do 2NR', 'RADIO1', key='-criarcontas-',
+                              default=config.get("opcao", "") == "-criarcontas-"),
+                     sg.Radio('Criar números', 'RADIO1', key='-criarnumeros-',
+                              default=config.get("opcao", "") == "-criarnumeros-"),
+                     sg.Radio('Ambos', 'RADIO1', key='-criarambos-', visible=estado_user,
+                              default=config.get("opcao", "") == "-criarambos-")],
                     [sg.Button("Salvar")]
                 ]
 
