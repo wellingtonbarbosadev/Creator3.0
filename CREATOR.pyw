@@ -9116,6 +9116,7 @@ def insta_5sim_normal():
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Saldo: {saldo["balance"]}')
                     window.Refresh()
                 except:
+                    print(e)
                     print('Verifique seu token')
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Verifique seu token.')
                     window.Refresh()
