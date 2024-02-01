@@ -244,7 +244,11 @@ valores_da_coluna = worksheet.col_values(1)  # Suponha que os IPs estejam na col
 def get_username_from_ip(ip_atual):
     index = valores_da_coluna.index(ip_atual)  # Encontra o índice do IP na lista
     user_mysql = worksheet.cell(index + 1, 2).value  # Obtém o nome na coluna B da mesma linha
+<<<<<<< HEAD
     return user_mysql  
+=======
+    return user_mysql
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
 # Verifique se o IP está na lista de IPs na planilha
 if ip_atual in valores_da_coluna:
     print(f'O IP {ip_atual} já está registrado.')
@@ -321,7 +325,11 @@ if registrado is False:
 
     if login_sucedido is True:
         print('Login feito com sucesso.')
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
         def open_spreadsheet():
             gc = gspread.service_account(filename='relatorio.json')  # Substitua com o caminho para sua chave de API
             sh = gc.open('contas_criadas')  # Substitua pelo nome da sua planilha
@@ -659,7 +667,11 @@ def instaface_criarinsta():
                         except:
                             print("O tempo de espera excedeu enquanto esperava que o spinner de carregamento desaparecesse.")
                     elif len(WebDriverWait(chrome, 6).until(EC.presence_of_all_elements_located((By.XPATH, "//button[@title='Permitir todos os cookies']")))) == 1:
+<<<<<<< HEAD
                         
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         try:
                             captcha_click = WebDriverWait(chrome, 6).until(EC.element_to_be_clickable((By.XPATH, "//button[@title='Permitir todos os cookies']")))
                             chrome.execute_script("arguments[0].click();", captcha_click)
@@ -692,9 +704,15 @@ def instaface_criarinsta():
                         if len(chrome.find_elements(By.NAME, "__CONFIRM__")) == 1:
                             chrome.find_element(By.NAME, "__CONFIRM__").click()
                         time.sleep(10)
+<<<<<<< HEAD
                     
                     WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Sim, terminar de adicionar')]"))).click()
                     
+=======
+
+                    WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Sim, terminar de adicionar')]"))).click()
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                     from requests.auth import HTTPBasicAuth
                     # Substitua com as suas credenciais e dados
                     lista_letras_email = random.choices(letras, k=9)
@@ -737,8 +755,13 @@ def instaface_criarinsta():
                     #WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "fullName"))).click()
                     time.sleep(1)
                     #WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "fullName"))).clear()
+<<<<<<< HEAD
                     
 
+=======
+
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                     #WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "fullName"))).send_keys(nome_completo)
                     digit_user = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "username")))
                     digitar_como_humano(digit_user, user_completo)
@@ -773,7 +796,11 @@ def instaface_criarinsta():
                             print('Erro relog')
                             chrome.get('https://www.instagram.com/')
                             url_antiga = chrome.current_url
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             digit_user = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "username")))
                             digitar_como_humano(digit_user, user_completo)
                             digit_senha = WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.NAME, "password")))
@@ -822,6 +849,8 @@ def instaface_criarinsta():
                                     raise Exception('')
                                     
                                 
+
+
 
                 if instagram_existe is True:
                     WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Perfil')]"))).click()
@@ -910,7 +939,11 @@ def instaface_criarinsta():
                 instagram_existe = False
                 WebDriverWait(chrome, 10).until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Remover')]"))).click()
                 WebDriverWait(chrome, 10).until(EC.presence_of_all_elements_located((By.XPATH, "//span[contains(text(), 'Continuar')]")))
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                 continuar_buttons = chrome.find_elements(By.XPATH, "//span[contains(text(), 'Continuar')]")
                 ultimo_continuar_button = continuar_buttons[-1] if continuar_buttons else None
 
@@ -1016,7 +1049,11 @@ def instaface_criarinsta():
                 mail.login(email_user, email_password)
 
                 # Selecionar caixa de entrada
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                 #print(f'Status da busca: {status}')
 
                 def decode_mime_words(s):
@@ -1125,6 +1162,7 @@ def instaface_criarinsta():
 
         
 
+
 def instaface_criarface():
     try:
         with open("config.json", "r") as f:
@@ -1158,7 +1196,11 @@ def instaface_criarface():
     import hashlib
     import subprocess
 
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
     import os
     import time
     try:
@@ -1667,7 +1709,11 @@ def instaface_criarface():
                 d.app_stop('com.arlosoft.macrodroid')
                 try:
                     subprocess.run(f'adb -s {porta} shell pm grant com.arlosoft.macrodroid android.permission.WRITE_SECURE_SETTINGS', stdout=subprocess.DEVNULL,
+<<<<<<< HEAD
                                 stderr=subprocess.DEVNULL, check=True, shell=True)
+=======
+                                   stderr=subprocess.DEVNULL, check=True, shell=True)
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                 except Exception as e:
                     print(e)
 
@@ -1828,7 +1874,11 @@ def instaface_criarface():
                 senha += random.choice(string.digits)
                 senha += "@"
 
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                 senha = ''.join(random.sample(senha, len(senha)))
 
                 return senha
@@ -1885,7 +1935,11 @@ def instaface_criarface():
             d.xpath('//android.view.View[@content-desc="Not now"]').click(timeout=60)
             d.xpath('//android.view.View[@content-desc="I agree"]').click(timeout=60)
 
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
             while True:
                 #print(d(text='Enter the confirmation code').exists)
                 #print(d.xpath('//android.view.ViewGroup[@content-desc="Continue"]').exists)
@@ -1923,8 +1977,13 @@ def instaface_criarface():
                 elif d(text='Use code instead').exists:
                     d(text='Use code instead').click()
                 time.sleep(5)
+<<<<<<< HEAD
             
             
+=======
+
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
             import imaplib
             import email
 
@@ -1942,7 +2001,11 @@ def instaface_criarface():
             mail.login(email_user, email_password)
 
             # Selecionar caixa de entrada
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
             #print(f'Status da busca: {status}')
 
             def decode_mime_words(s):
@@ -2780,11 +2843,19 @@ def free_sms_beta2():
             #chrome.maximize_window()
             # chrome = uc.Chrome(enable_cdp_events=True, headless=True, options=options, service=service)
             # chrome.implicitly_wait(60)
+<<<<<<< HEAD
             
             #import undetected_chromedriver as uc
             #from selenium import webdriver
 #
             #options = webdriver.ChromeOptions() 
+=======
+
+            #import undetected_chromedriver as uc
+            #from selenium import webdriver
+            #
+            #options = webdriver.ChromeOptions()
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
             #chromedriver_path = r'chromedriver.exe'
             #service = Service(chromedriver_path)
             #options.add_argument("start-maximized")
@@ -2792,7 +2863,11 @@ def free_sms_beta2():
             #options.add_argument("--disable-gpu")
             #options.add_argument("--headless")
             #chrome = uc.Chrome(options=options, service=service)
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
             stop = False
             try:
                 chrome.get('https://temporary-phone-number.com/')
@@ -2832,7 +2907,11 @@ def free_sms_beta2():
                             #chrome.execute_script("document.body.style.zoom='50%'")
                             chrome.save_screenshot('screenshot.png')
                             WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
+<<<<<<< HEAD
                             (By.CSS_SELECTOR, 'body > div.wrapper:nth-child(2) > div.content-wrapper:nth-child(3) > section.content:nth-child(2) > div.row:nth-child(1) > div.col-xs-12:nth-child(2) > div.box-body.text-center:nth-child(3) > button.btn-primary.btn:nth-child(2) > b'))).click()
+=======
+                                (By.CSS_SELECTOR, 'body > div.wrapper:nth-child(2) > div.content-wrapper:nth-child(3) > section.content:nth-child(2) > div.row:nth-child(1) > div.col-xs-12:nth-child(2) > div.box-body.text-center:nth-child(3) > button.btn-primary.btn:nth-child(2) > b'))).click()
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             chrome.save_screenshot('screenshot2.png')
                             time.sleep(7)
                             chrome.save_screenshot('screenshot3.png')
@@ -3084,10 +3163,17 @@ def free_sms_beta2():
                         "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                     window.Refresh()
 
+<<<<<<< HEAD
             
             
             
             
+=======
+
+
+
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
             d.xpath('//android.view.View[@content-desc="Concordo"]').click()
             time.sleep(3)
             errodetec = d.xpath('//android.view.View[@content-desc="Concordo"]')
@@ -4775,7 +4861,11 @@ def free_sms():
                             try:
                                 conteudo = config['vpn']
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem = contagem + 1
                                 window['criadas'].update(contagem)
@@ -7256,11 +7346,19 @@ def temporary_phone_number_com():
                         chrome.execute_script("window.scrollBy(0, 10);")
                         try:
                             teste = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((By.XPATH, f'/html/body/div[*]/div/section[*]/div[*]/div[{numero_escolhido}]/a')))
+<<<<<<< HEAD
                                                                                                             #/html/body/div[2]/div/section[2]/div[1]/div[4]/a
                         except:
                             chrome.refresh()
                             teste = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((By.XPATH, f'/html/body/div[*]/div/section[*]/div[*]/div[{numero_escolhido}]/a')))
                             
+=======
+                            #/html/body/div[2]/div/section[2]/div[1]/div[4]/a
+                        except:
+                            chrome.refresh()
+                            teste = WebDriverWait(chrome, 5).until(EC.element_to_be_clickable((By.XPATH, f'/html/body/div[*]/div/section[*]/div[*]/div[{numero_escolhido}]/a')))
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         chrome.execute_script("window.scrollBy(0, 10);")
                         chrome.execute_script("window.scrollBy(0, 2);")
                         chrome.execute_script("arguments[0].click();", teste)
@@ -7666,7 +7764,11 @@ def temporary_phone_number_com():
                                         time.sleep(30)
                                         try:
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -7679,7 +7781,11 @@ def temporary_phone_number_com():
                                         except:
                                             time.sleep(2)
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -7698,7 +7804,11 @@ def temporary_phone_number_com():
                             time.sleep(40)
                             try:
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -7709,7 +7819,11 @@ def temporary_phone_number_com():
                             except:
                                 time.sleep(2)
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -7729,13 +7843,21 @@ def temporary_phone_number_com():
                             d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem = contagem + 1
                                 sms = False
@@ -7865,7 +7987,11 @@ def temporary_phone_number_com():
                         if verificar.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 seguido = False
                                 contagem += 1
@@ -8231,7 +8357,11 @@ def temporary_phone_number_com():
                             try:
                                 conteudo = config['vpn']
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -8505,7 +8635,7 @@ def insta_5sim_normal():
     try:
         from fivesim import FiveSim
     except:
-        subprocess.run(['pip', 'install', '5sim-python'])
+        subprocess.run(['pip', 'install', 'fivesim'])
         time.sleep(5)
         from fivesim import FiveSim
     print(f'Token 5sim: {fivesimapi}')
@@ -9013,7 +9143,11 @@ def insta_5sim_normal():
                 d.app_stop('com.arlosoft.macrodroid')
                 try:
                     subprocess.run(f'adb -s {porta} shell pm grant com.arlosoft.macrodroid android.permission.WRITE_SECURE_SETTINGS', stdout=subprocess.DEVNULL,
+<<<<<<< HEAD
                                 stderr=subprocess.DEVNULL, check=True, shell=True)
+=======
+                                   stderr=subprocess.DEVNULL, check=True, shell=True)
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                 except Exception as e:
                     print(e)
 
@@ -9159,6 +9293,7 @@ def insta_5sim_normal():
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Saldo: {saldo["balance"]}')
                     window.Refresh()
                 except Exception as e:
+                    print(e)
                     print('Verifique seu token')
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Verifique seu token.')
                     window.Refresh()
@@ -9622,7 +9757,11 @@ def insta_5sim_normal():
                         trocar_ip()
                         raise Exception('Restrição')
 
+<<<<<<< HEAD
                     
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                     erro_novaconta = d.xpath('//android.view.View[@content-desc="Criar nova conta"]')
                     if erro_novaconta.exists:
                         d.xpath('//android.view.View[@content-desc="Criar nova conta"]').click()
@@ -10321,7 +10460,11 @@ def insta_5sim_normal():
                                         time.sleep(30)
                                         try:
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -10334,7 +10477,11 @@ def insta_5sim_normal():
                                         except:
                                             time.sleep(2)
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -10353,7 +10500,11 @@ def insta_5sim_normal():
                             time.sleep(40)
                             try:
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -10364,7 +10515,11 @@ def insta_5sim_normal():
                             except:
                                 time.sleep(2)
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -10384,13 +10539,21 @@ def insta_5sim_normal():
                             d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 tentar_num_novamente = True
                                 contagem = contagem + 1
@@ -10491,7 +10654,11 @@ def insta_5sim_normal():
                         if verificar.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 seguido = False
                                 tentar_num_novamente = True
@@ -10758,7 +10925,11 @@ def insta_5sim_normal():
                             try:
                                 conteudo = config['vpn']
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -12351,13 +12522,21 @@ def smstome_com():
                             print(numero_de_elementos, rnd2)
                             elem = WebDriverWait(chrome, 15).until(
                                 EC.presence_of_element_located((By.XPATH, f'/html/body/main/section/div[{numero_de_elementos}]/div[{rnd2}]/div/div/div[3]/a'))
+<<<<<<< HEAD
                                 )
+=======
+                            )
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             chrome.execute_script("arguments[0].click();", elem)
                             
                         except:
                             elem = WebDriverWait(chrome, 15).until(
                                 EC.presence_of_element_located((By.XPATH, f'/html/body/main/section/div[{numero_de_elementos}]/div[1]/div/div/div[3]/a'))
+<<<<<<< HEAD
                                 )
+=======
+                            )
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             chrome.execute_script("arguments[0].click();", elem)
                         chrome.execute_script("document.body.style.zoom='50%'")
                         num = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
@@ -12424,7 +12603,11 @@ def smstome_com():
                             window.Refresh()
                         raise Exception('skip')
 
+<<<<<<< HEAD
                     
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                     erro_novaconta = d.xpath('//android.view.View[@content-desc="Criar nova conta"]')
                     if erro_novaconta.exists:
                         d.xpath('//android.view.View[@content-desc="Criar nova conta"]').click()
@@ -13013,13 +13196,21 @@ def smstome_com():
                             print(numero_de_elementos, rnd2)
                             elem = WebDriverWait(chrome, 15).until(
                                 EC.presence_of_element_located((By.XPATH, f'/html/body/main/section/div[{numero_de_elementos}]/div[{rnd2}]/div/div/div[3]/a'))
+<<<<<<< HEAD
                                 )
+=======
+                            )
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             chrome.execute_script("arguments[0].click();", elem)
                             
                         except:
                             elem = WebDriverWait(chrome, 15).until(
                                 EC.presence_of_element_located((By.XPATH, f'/html/body/main/section/div[{numero_de_elementos}]/div[1]/div/div/div[3]/a'))
+<<<<<<< HEAD
                                 )
+=======
+                            )
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             chrome.execute_script("arguments[0].click();", elem)
                         chrome.execute_script("document.body.style.zoom='50%'")
                         num = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
@@ -13408,7 +13599,11 @@ def smstome_com():
                                         time.sleep(30)
                                         try:
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -13421,7 +13616,11 @@ def smstome_com():
                                         except:
                                             time.sleep(2)
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -13440,7 +13639,11 @@ def smstome_com():
                             time.sleep(40)
                             try:
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -13451,7 +13654,11 @@ def smstome_com():
                             except:
                                 time.sleep(2)
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -13471,13 +13678,21 @@ def smstome_com():
                             d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem = contagem + 1
                                 sms = False
@@ -13607,7 +13822,11 @@ def smstome_com():
                         if verificar.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 seguido = False
                                 contagem += 1
@@ -13973,7 +14192,11 @@ def smstome_com():
                             try:
                                 conteudo = config['vpn']
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -16262,14 +16485,22 @@ def freereceivesms_com():
 
                             chrome.execute_script("document.body.style.zoom='50%'")
 
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             elemento = WebDriverWait(chrome, 25).until(EC.element_to_be_clickable(
                                 (By.XPATH, '//div[@class="row border-bottom"]/div[@class="col-lg-8"]'))).text
 
                             #print(f'elemento é {elemento}')
                             time_second = WebDriverWait(chrome, 25).until(EC.element_to_be_clickable(
                                 (By.XPATH, '/html/body/div[*]/div[2]/div[2]'))).text
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             #print(f'tempo é {time_second}')
                             numeros = ''
                             if 'Instagram' in elemento and (
@@ -16565,7 +16796,11 @@ def freereceivesms_com():
                                         time.sleep(30)
                                         try:
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -16578,7 +16813,11 @@ def freereceivesms_com():
                                         except:
                                             time.sleep(2)
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -16597,7 +16836,11 @@ def freereceivesms_com():
                             time.sleep(40)
                             try:
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -16608,7 +16851,11 @@ def freereceivesms_com():
                             except:
                                 time.sleep(2)
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -16628,13 +16875,21 @@ def freereceivesms_com():
                             d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem = contagem + 1
                                 sms = False
@@ -16764,7 +17019,11 @@ def freereceivesms_com():
                         if verificar.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 seguido = False
                                 contagem += 1
@@ -17130,7 +17389,11 @@ def freereceivesms_com():
                             try:
                                 conteudo = config['vpn']
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -19262,7 +19525,11 @@ def receive_smss():
                         while True:
                             if num.startswith("+44") or num.startswith("+1") or num.startswith("+380") or num.startswith("+66") or num.startswith("+63") or num.startswith("+212"):
                                 button_with_text = WebDriverWait(chrome, 20).until(
+<<<<<<< HEAD
                                 EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "↻ Give me another number")]'))
+=======
+                                    EC.element_to_be_clickable((By.XPATH, '//a[contains(text(), "↻ Give me another number")]'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 )
 
                                 # Clica no botão
@@ -19395,7 +19662,11 @@ def receive_smss():
                     try:
                         while not encontrado and tentativa < 6:
                             elemento = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
+<<<<<<< HEAD
                                     (By.XPATH, '/html/body/div/div[2]/div[2]/div[2]/div/div/div/div/div/div[1]/div/div[2]/div[1]/div[2]/span'))).text
+=======
+                                (By.XPATH, '/html/body/div/div[2]/div[2]/div[2]/div/div/div/div/div/div[1]/div/div[2]/div[1]/div[2]/span'))).text
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             print(elemento)
                             time_second = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
                                     (By.CLASS_NAME, 'col-md-3.time'))).text
@@ -19695,7 +19966,11 @@ def receive_smss():
                                         time.sleep(30)
                                         try:
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -19708,7 +19983,11 @@ def receive_smss():
                                         except:
                                             time.sleep(2)
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -19727,7 +20006,11 @@ def receive_smss():
                             time.sleep(40)
                             try:
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -19738,7 +20021,11 @@ def receive_smss():
                             except:
                                 time.sleep(2)
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -19758,13 +20045,21 @@ def receive_smss():
                             d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem = contagem + 1
                                 sms = False
@@ -19894,7 +20189,11 @@ def receive_smss():
                         if verificar.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 seguido = False
                                 contagem += 1
@@ -20260,7 +20559,11 @@ def receive_smss():
                             try:
                                 conteudo = config['vpn']
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -21902,14 +22205,22 @@ def quackr_io():
                             paises_num = ['31', '8', '7', '21', '28']
                             pais = random.choice(paises_num)
                             button_with_text = WebDriverWait(chrome, 20).until(
+<<<<<<< HEAD
                             EC.element_to_be_clickable((By.XPATH, f'/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[2]/div/a[{pais}]'))
+=======
+                                EC.element_to_be_clickable((By.XPATH, f'/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[2]/div/a[{pais}]'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             )
                             # Clica no botão
                             
                             chrome.execute_script("arguments[0].click();", button_with_text)
                             chrome.execute_script("document.body.style.zoom='50%'")
                             chrome.execute_script("arguments[0].click();", WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
+<<<<<<< HEAD
                             (By.CLASS_NAME, 'button.is-success'))))
+=======
+                                (By.CLASS_NAME, 'button.is-success'))))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         num = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
                         (By.CSS_SELECTOR, 'h1[tooltip="Copied"]'))).text
                         chrome.execute_script("document.body.style.zoom='50%'")
@@ -22045,7 +22356,11 @@ def quackr_io():
                             elemento = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[3]'))).text
                             #print(elemento)
                             time_second = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[1]'))).text
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             #print(time_second)
                             if 'Instagram' in elemento and (
                                     'seconds' in time_second or '1 minute ago' in time_second or '2 minute ago' in time_second):
@@ -22594,14 +22909,22 @@ def quackr_io():
                             paises_num = ['31', '8', '7', '21', '28']
                             pais = random.choice(paises_num)
                             button_with_text = WebDriverWait(chrome, 20).until(
+<<<<<<< HEAD
                             EC.element_to_be_clickable((By.XPATH, f'/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[2]/div/a[{pais}]'))
+=======
+                                EC.element_to_be_clickable((By.XPATH, f'/html/body/app-root/div/div/main/app-temporary-phone-number-generator/section/div/div[1]/div/div/div[2]/div/a[{pais}]'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             )
                             # Clica no botão
                             
                             chrome.execute_script("arguments[0].click();", button_with_text)
                             chrome.execute_script("document.body.style.zoom='50%'")
                             chrome.execute_script("arguments[0].click();", WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
+<<<<<<< HEAD
                             (By.CLASS_NAME, 'button.is-success'))))
+=======
+                                (By.CLASS_NAME, 'button.is-success'))))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         num = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable(
                         (By.CSS_SELECTOR, 'h1[tooltip="Copied"]'))).text
                         chrome.execute_script("document.body.style.zoom='50%'")
@@ -22738,7 +23061,11 @@ def quackr_io():
                             elemento = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[3]'))).text
                             #print(elemento)
                             time_second = WebDriverWait(chrome, 35).until(EC.element_to_be_clickable((By.XPATH, '/html/body/app-root/div/div/main/messages/section/div/div/div/table/tbody/tr/td[1]'))).text
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             #print(time_second)
                             if 'Instagram' in elemento and (
                                     'seconds' in time_second or '1 minute ago' in time_second or '2 minute ago' in time_second):
@@ -22898,7 +23225,11 @@ def quackr_io():
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina, conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(f'A{last_row + 1}:G{last_row + 1}') #VOLTARAQUI
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 for i, val in enumerate(values):
                                     cell_list[i].value = val
                                 sheet.update_cells(cell_list)
@@ -23035,7 +23366,11 @@ def quackr_io():
                                         time.sleep(30)
                                         try:
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -23048,7 +23383,11 @@ def quackr_io():
                                         except:
                                             time.sleep(2)
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -23067,7 +23406,11 @@ def quackr_io():
                             time.sleep(40)
                             try:
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -23078,7 +23421,11 @@ def quackr_io():
                             except:
                                 time.sleep(2)
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -23098,14 +23445,22 @@ def quackr_io():
                             d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
                                 criou = True
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem = contagem + 1
                                 sms = False
@@ -23236,7 +23591,11 @@ def quackr_io():
                             try:
                                 criou = True
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 seguido = False
                                 contagem += 1
@@ -23602,7 +23961,11 @@ def quackr_io():
                             try:
                                 conteudo = config['vpn']
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -34849,7 +35212,11 @@ def executar_2nr_insta():
                                         time.sleep(30)
                                         try:
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -34862,7 +35229,11 @@ def executar_2nr_insta():
                                         except:
                                             time.sleep(2)
                                             pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                             if pagina_login.exists:
                                                 pagina_login.click()
                                                 time.sleep(5)
@@ -34881,7 +35252,11 @@ def executar_2nr_insta():
                             time.sleep(40)
                             try:
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -34892,7 +35267,11 @@ def executar_2nr_insta():
                             except:
                                 time.sleep(2)
                                 pagina_login = d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup')
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if pagina_login.exists:
                                     pagina_login.click()
                                     time.sleep(5)
@@ -34912,13 +35291,21 @@ def executar_2nr_insta():
                             d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(senha)
                             d.xpath('//android.widget.Button[@content-desc="Entrar"]/android.view.ViewGroup').click()
                             d.xpath('//android.view.View[@content-desc="Agora não"]').click()
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         verificar3 = d.xpath('//android.widget.FrameLayout[@content-desc="Perfil"]/android.view.ViewGroup')
                         time.sleep(40)
                         if verificar3.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem = contagem + 1
                                 sms = False
@@ -35064,7 +35451,11 @@ def executar_2nr_insta():
                         if verificar.exists:
                             try:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 seguido = False
                                 contagem += 1
@@ -35431,7 +35822,11 @@ def executar_2nr_insta():
                             try:
                                 conteudo = config['vpn']
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+<<<<<<< HEAD
                                                     text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 window.Refresh()
                                 contagem += 1
                                 window['criadas'].update(contagem)
@@ -38165,7 +38560,11 @@ def executar_creator_2nr():
     #
             #    # Imprime o Android ID
             #    print(f"Android ID: {android_id}")
+<<<<<<< HEAD
     #
+=======
+            #
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
             #except subprocess.CalledProcessError as e:
             #    # Em caso de erro, imprime a mensagem de erro
             #    print(f"Erro: {e}")
@@ -38322,7 +38721,11 @@ def executar_creator_2nr():
                         senha += random.choice(string.digits)
                         senha += "@"
 
+<<<<<<< HEAD
                         
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         senha = ''.join(random.sample(senha, len(senha)))
 
                         return senha
@@ -38349,7 +38752,11 @@ def executar_creator_2nr():
                         chrome_options.add_argument("--log-level=3")
                         try:
                             driver = webdriver.Chrome(options=chrome_options, service=Service(ChromeDriverManager().install()))
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             driver.get('https://mail10year.com/TOOL/gmail/server2.php')
                             driver.maximize_window()
                             WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "change_email"))).click()
@@ -39053,7 +39460,11 @@ def executar_creator_2nr():
                                             print("Erro ao ler a mensagem. Código de status:", read_response.status_code)
                                 else:
                                     print("Erro ao verificar mensagens. Código de status:", messages_response.status_code)
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 # Espera um pouco antes de verificar novamente
                                 time.sleep(5)
                                 tentativa += 1
@@ -39112,8 +39523,13 @@ def executar_creator_2nr():
                                         pass
                                 except requests.exceptions.RequestException as e:
                                     print(f"Erro na requisição: {e}")
+<<<<<<< HEAD
                             
                             
+=======
+
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         # Obtém um e-mail aleatório
                         log, dominio = get_random_email()
 
@@ -39135,6 +39551,7 @@ def executar_creator_2nr():
                         
                         d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
                         
+
 
                         # use with address and token to reuse an existing inbox
 
@@ -39206,7 +39623,11 @@ def executar_creator_2nr():
                                         time.sleep(0.5)
                                     subject = True
 
+<<<<<<< HEAD
                         
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                     troca_ip += 1
                     d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
                     
@@ -39338,13 +39759,21 @@ def executar_creator_2nr():
                     while sms is False:
                         if criadas >= 4:
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
+<<<<<<< HEAD
                                                 text_color=('lime'))
+=======
+                                                   text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             window.Refresh()
                             raise Exception('Máximo de números criados.')
                         try:
                             if d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').exists():
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
+<<<<<<< HEAD
                                                 text_color=('lime'))
+=======
+                                                       text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 criadas = criadas + 1
                                 
                             try:
@@ -39352,7 +39781,11 @@ def executar_creator_2nr():
                                 
                             except:
                                 subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
+<<<<<<< HEAD
                                             stderr=subprocess.DEVNULL, check=True, shell=True)
+=======
+                                               stderr=subprocess.DEVNULL, check=True, shell=True)
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if tentativa2 == 2:
                                     tentativa2 = 0
                                     raise Exception('')
@@ -39474,7 +39907,11 @@ def executar_creator_2nr():
     #
             #    # Imprime o Android ID
             #    print(f"Android ID: {android_id}")
+<<<<<<< HEAD
     #
+=======
+            #
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
             #except subprocess.CalledProcessError as e:
             #    # Em caso de erro, imprime a mensagem de erro
             #    print(f"Erro: {e}")
@@ -39582,8 +40019,13 @@ def executar_creator_2nr():
                         except:
                             subprocess.run(['pip', 'install', 'webdriver-manager'])
                             from webdriver_manager.chrome import ChromeDriverManager
+<<<<<<< HEAD
                             
                         
+=======
+
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         from selenium.webdriver.common.by import By
                         from selenium.webdriver.support.ui import WebDriverWait
                         from selenium.webdriver.support import expected_conditions as EC
@@ -39594,7 +40036,11 @@ def executar_creator_2nr():
                         chrome_options.add_argument("--log-level=3")
                         try:
                             driver = webdriver.Chrome(options=chrome_options, service=Service(ChromeDriverManager().install()))
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             driver.get('https://mail10year.com/TOOL/gmail/')
                             driver.maximize_window()
                             WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "change_email"))).click()
@@ -39666,7 +40112,11 @@ def executar_creator_2nr():
                                 WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.NAME, "check_email"))).click()
                                 time.sleep(5)
                                 body = WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, "copyClone"))).text
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 if '2nr' in body:
                                     urls = re.findall("(?P<url>https?://[^\s]+)",
                                                         body if body else body)
@@ -40268,7 +40718,11 @@ def executar_creator_2nr():
                                             print("Erro ao ler a mensagem. Código de status:", read_response.status_code)
                                 else:
                                     print("Erro ao verificar mensagens. Código de status:", messages_response.status_code)
+<<<<<<< HEAD
                                 
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                                 # Espera um pouco antes de verificar novamente
                                 time.sleep(5)
                                 tentativa += 1
@@ -40327,8 +40781,13 @@ def executar_creator_2nr():
                                         pass
                                 except requests.exceptions.RequestException as e:
                                     print(f"Erro na requisição: {e}")
+<<<<<<< HEAD
                             
                             
+=======
+
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         # Obtém um e-mail aleatório
                         log, dominio = get_random_email()
 
@@ -40350,6 +40809,7 @@ def executar_creator_2nr():
                         
                         d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
                         
+
 
                         # use with address and token to reuse an existing inbox
 
@@ -40421,8 +40881,13 @@ def executar_creator_2nr():
                                         time.sleep(0.5)
                                     subject = True
 
+<<<<<<< HEAD
                     
                         
+=======
+
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                     troca_ip += 1
                     d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
                     
@@ -40498,9 +40963,15 @@ def executar_creator_2nr():
             except Exception as e:
                 print(e)
     elif opcao_executar == '-criarnumeros-':
+<<<<<<< HEAD
         
         
         
+=======
+
+
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
         print('\n')
         multiline_text = dialog_values['-linhas-'].split('\n')
         print(f"Contas adicionadas: {len(multiline_text)}")
@@ -40735,7 +41206,11 @@ def executar_creator_2nr():
                     try:
                         if d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').exists():
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número criado com sucesso.',
+<<<<<<< HEAD
                                             text_color=('lime'))
+=======
+                                                   text_color=('lime'))
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             criadas = criadas + 1
                             
                         try:
@@ -40743,7 +41218,11 @@ def executar_creator_2nr():
                             
                         except:
                             subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_BACK', stdout=subprocess.DEVNULL,
+<<<<<<< HEAD
                                         stderr=subprocess.DEVNULL, check=True, shell=True)
+=======
+                                           stderr=subprocess.DEVNULL, check=True, shell=True)
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             if tentativa2 == 2:
                                 tentativa2 = 0
                                 raise Exception('')
@@ -40867,8 +41346,13 @@ while True:
             [sg.Radio('Emulador', 'dispositivo', key='-emulador-', default=True),
              sg.Radio('Celular', 'dispositivo', key='-celular-')],
             [sg.Button('Avançar', font=('Open Sans', 10), button_color='#1c2024'),
+<<<<<<< HEAD
             sg.Button('?', button_color=('white', sg.theme_background_color()), border_width=0, tooltip='Mostrar dispositivos')]
 ] 
+=======
+             sg.Button('?', button_color=('white', sg.theme_background_color()), border_width=0, tooltip='Mostrar dispositivos')]
+        ]
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
         try:
             state = config['fixtop']
             if state:
@@ -40891,7 +41375,11 @@ while True:
                     saida, erro = processo.communicate()
                     saida = saida.replace('List of devices attached\n', '')
                     return erro if erro else saida
+<<<<<<< HEAD
                         # Conteúdo para o pop-up
+=======
+                    # Conteúdo para o pop-up
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                 adb_output = get_adb_devices()
 
                 # Layout do pop-up com texto selecionável
@@ -41071,6 +41559,8 @@ while True:
                     
                     
 
+
+
                     try:
                         with open('configuracoes\\config3.json', 'r') as file:
                             config2 = json.load(file)
@@ -41109,7 +41599,11 @@ while True:
 
                             dialog_window.close()
 
+<<<<<<< HEAD
                         
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                         if config2['metodo'] == '-instaface_criarface-':
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] InstaFace - Criar Facebook selecionado.')
                             window.Refresh()
@@ -41119,7 +41613,11 @@ while True:
                             except FileNotFoundError:
                                 config4 = {}
                             vpn_list = ["Nenhuma", "AVG", "Avast", "SurfShark", "ExpressVPN", "PiaVPN", "BetterNet", "NordVPN", "CyberGhost",
+<<<<<<< HEAD
                             "HotspotShield", "HmaVPN", "WindscribeVPN"]
+=======
+                                        "HotspotShield", "HmaVPN", "WindscribeVPN"]
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             dialog_layout = [
                                 [sg.Radio('4g', 'RADIO1', key='-4g-', default=config4.get("metodo", "") == "-4g-"),
                                  sg.Radio('VPN', 'RADIO1', key='-vpn-', default=config4.get("metodo", "") == "-vpn-")],
@@ -41233,7 +41731,11 @@ while True:
 
                         # Avança para a janela principal se o usuário clicar no botão
                         if dialog_event == 'Executar':
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             config2 = {
                                 "site_escolhido": dialog_values['-site_escolhido-']
                             }
@@ -41294,7 +41796,11 @@ while True:
 
                         # Avança para a janela principal se o usuário clicar no botão
                         if dialog_event == 'Executar':
+<<<<<<< HEAD
                             
+=======
+
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                             config5 = {
                                 "5simapi": dialog_values['-5simapi-']
                             }
@@ -41441,7 +41947,11 @@ while True:
             [sg.Radio('Emulador', 'dispositivo', key='-emulador-', default=True),
              sg.Radio('Celular', 'dispositivo', key='-celular-')],
             [sg.Button('Avançar', font=('Open Sans', 10), button_color='#1c2024'),
+<<<<<<< HEAD
             sg.Button('?', button_color=('white', sg.theme_background_color()), border_width=0, tooltip='Mostrar dispositivos')]
+=======
+             sg.Button('?', button_color=('white', sg.theme_background_color()), border_width=0, tooltip='Mostrar dispositivos')]
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
         ]
         try:
             state = config['fixtop']
@@ -41465,7 +41975,11 @@ while True:
                     saida, erro = processo.communicate()
                     saida = saida.replace('List of devices attached\n', '')
                     return erro if erro else saida
+<<<<<<< HEAD
                         # Conteúdo para o pop-up
+=======
+                    # Conteúdo para o pop-up
+>>>>>>> parent of acf1941 (Update CREATOR.pyw)
                 adb_output = get_adb_devices()
 
                 # Layout do pop-up com texto selecionável
@@ -41566,6 +42080,7 @@ while True:
             #
                             break
                     
+
 
                     dialog_window.close()
                 contagem = 0
