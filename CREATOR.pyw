@@ -121,7 +121,7 @@ except ModuleNotFoundError:
     import sys
 
     subprocess.run(['venv/scripts/activate.bat'], shell=True)
-    subprocess.run(['pip', 'install', 'PySimpleGUI'])
+    subprocess.run(['pip', 'install', 'PySimpleGUI==4.60.5'])
     subprocess.run(['deactivate'], shell=True)
     import PySimpleGUI as sg
 
@@ -19210,6 +19210,7 @@ def receive_smss():
                     d.xpath('//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(3)
                     try:
+                        import traceback
                         from selenium import webdriver
                         from selenium.webdriver.common.by import By
                         from selenium.webdriver.chrome.service import Service
@@ -19222,7 +19223,7 @@ def receive_smss():
                         import time
                         from selenium.webdriver.support.ui import WebDriverWait
                         from selenium.webdriver.support import expected_conditions as EC
-                        url = "https://receive-smss.com/sms/13464304983/"
+                        url = "https://receive-smss.com/sms/447377060610/"
 
                         chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
                         chrome_options = uc.ChromeOptions()
@@ -19272,8 +19273,13 @@ def receive_smss():
                         
                     except Exception as e:
                         print(e)
+                        if not str(e) == '':
+                            traceback.print_exc()
+                        time.sleep(15)
                         raise Exception('erro no navegador')
                         pass
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número: {num}.')
+                    window.Refresh()
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
                         f'{num}')
