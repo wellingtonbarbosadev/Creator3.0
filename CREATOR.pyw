@@ -414,7 +414,34 @@ try:
                    stderr=subprocess.DEVNULL, shell=True)
 except:
     pass
+import random
+import string
+def gerar_senha(tamanho=12):
+    if tamanho < 6:
+        raise ValueError("A senha deve ter pelo menos 6 caracteres.")
 
+    # Define uma lista de letras maiúsculas e minúsculas
+    letras_maiusculas = [random.choice(string.ascii_uppercase) for _ in range(tamanho // 2)]
+    letras_minusculas = [random.choice(string.ascii_lowercase) for _ in range(tamanho // 2)]
+
+    # Intercale as letras maiúsculas e minúsculas
+    senha = ''.join(''.join(pair) for pair in zip(letras_maiusculas, letras_minusculas))
+
+    # Adiciona caracteres especiais, números e @
+    caracteres_permitidos = string.ascii_letters + string.digits + string.punctuation
+    caracteres_permitidos = caracteres_permitidos.replace("~", "")  # Remove ~ e outros acentos
+
+    senha += ''.join(random.choice(caracteres_permitidos) for _ in range(tamanho - len(senha) - 3))
+    senha += random.choice(string.ascii_uppercase)  # Adiciona pelo menos uma letra maiúscula
+    senha += random.choice(string.digits)  # Adiciona pelo menos um número
+    senha += "@"
+
+    # Mistura os caracteres
+    senha = ''.join(random.sample(senha, len(senha)))
+
+    return senha
+
+    # Exemplo de uso
 
 def contagem():
     global nome
@@ -467,7 +494,7 @@ def instaface_criarinsta():
     #    print(config4['metodo'])
     #    print(e)
     #    pass
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     email = 'InstaFace'
     tentativa = False
@@ -1132,7 +1159,7 @@ def instaface_criarface():
         config4 = {}
     SPREADSHEET_ID = config['spreadsheet']
     #conteudo = config4['metodo']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     email = 'InstaFace'
     tentativa = False
@@ -2039,7 +2066,7 @@ def instaface_criarface():
 def free_sms_beta2():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     email = 'Free SMS'
     tentativa = False
@@ -2690,7 +2717,7 @@ def free_sms_beta2():
             cancel = d(resourceId='com.google.android.gms:id/cancel')
             if cancel.exists:
                 d.xpath('com.google.android.gms:id/cancel').click()
-            senha = config['senha']
+            senha = gerar_senha(12)
             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Nome escolhido: {nome_completo}')
             window.Refresh()
             d.xpath(
@@ -3097,6 +3124,7 @@ def free_sms_beta2():
             # time.sleep(10)
             try:
                 if verificar.exists:
+                    
                     try:
                         conteudo = config['vpn']
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
@@ -3132,6 +3160,7 @@ def free_sms_beta2():
 
                             # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
                             num_rows = sum(1 for row in rows if regex.match(row[0]))
+                            senha = gerar_senha(12)
                         except Exception as e:
                             print(e)
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
@@ -3426,6 +3455,7 @@ def free_sms_beta2():
                     window.Refresh()
                 sms = True
             while sms is False:
+                senha = gerar_senha(12)
                 try:
                     time.sleep(3)
                     d(resourceId='com.instagram.android:id/profile_tab').click()
@@ -3738,7 +3768,7 @@ def free_sms_beta2():
 def free_sms():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     email = 'Free SMS'
     tentativa = False
@@ -4689,7 +4719,7 @@ def free_sms():
                     cancel = driver.find_elements(By.ID, 'com.google.android.gms:id/cancel')
                     if len(cancel) == 1:
                         driver.find_element(By.ID, 'com.google.android.gms:id/cancel').click()
-                    senha = config['senha']
+                    senha = gerar_senha(12)
                     WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH,
                                                                                 '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText'))).send_keys(
                         nome_completo)
@@ -5021,6 +5051,7 @@ def free_sms():
                         sms = True
                         driver.quit()
                     while sms is False:
+                        senha = gerar_senha(12)
                         try:
                             time.sleep(3)
                             WebDriverWait(driver, 30).until(
@@ -5291,7 +5322,7 @@ def free_sms():
 def temporary_phone_number_com():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     tentativa = False
     seguido = False
@@ -6005,6 +6036,7 @@ def temporary_phone_number_com():
         os.makedirs('./erros')
     codigo_não_recebido_seguidos = 0
     while parar is False:
+        senha = gerar_senha(12)
         if parar is True:
             print('Parando Thread')
             try:
@@ -7211,7 +7243,7 @@ def temporary_phone_number_com():
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
-                    senha = config['senha']
+                    senha = gerar_senha(12)
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                         nome_completo)
@@ -8159,6 +8191,7 @@ def temporary_phone_number_com():
                     sms = True
                     raise Exception('skip')
                 while sms is False:
+                    senha = gerar_senha(12)
                     try:
                         time.sleep(3)
                         try:
@@ -8565,7 +8598,7 @@ def insta_5sim_normal():
     print(f'Token 5sim: {fivesimapi}')
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     tentativa = False
     seguido = False
@@ -9180,6 +9213,7 @@ def insta_5sim_normal():
     ultimo_cod = '000000'
     tentar_num_novamente = False
     while parar is False:
+        senha = gerar_senha(12)
         if parar is True:
             print('Parando Thread')
             break
@@ -9985,7 +10019,7 @@ def insta_5sim_normal():
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
-                    senha = config['senha']
+                    senha = gerar_senha(12)
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                         nome_completo)
@@ -10714,6 +10748,7 @@ def insta_5sim_normal():
                     sms = True
                     raise Exception('skip')
                 while sms is False:
+                    senha = gerar_senha(12)
                     try:
                         time.sleep(3)
                         try:
@@ -11006,7 +11041,7 @@ def insta_5sim_normal():
 def smstome_com():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     tentativa = False
     seguido = False
@@ -11720,6 +11755,7 @@ def smstome_com():
         os.makedirs('./erros')
     codigo_não_recebido_seguidos = 0
     while parar is False:
+        senha = gerar_senha(12)
         if parar is True:
             print('Parando Thread')
             try:
@@ -12930,7 +12966,6 @@ def smstome_com():
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
-                    senha = config['senha']
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                         nome_completo)
@@ -13901,6 +13936,7 @@ def smstome_com():
                     sms = True
                     raise Exception('skip')
                 while sms is False:
+                    senha = gerar_senha(12)
                     try:
                         time.sleep(3)
                         try:
@@ -14288,7 +14324,7 @@ def smstome_com():
 def freereceivesms_com():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     tentativa = False
     seguido = False
@@ -15002,6 +15038,7 @@ def freereceivesms_com():
         os.makedirs('./erros')
     codigo_não_recebido_seguidos = 0
     while parar is False:
+        senha = gerar_senha(12)
         if parar is True:
             print('Parando Thread')
             try:
@@ -16126,7 +16163,6 @@ def freereceivesms_com():
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
-                    senha = config['senha']
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                         nome_completo)
@@ -17058,6 +17094,7 @@ def freereceivesms_com():
                     sms = True
                     raise Exception('skip')
                 while sms is False:
+                    senha = gerar_senha(12)
                     try:
                         time.sleep(3)
                         try:
@@ -17445,7 +17482,7 @@ def freereceivesms_com():
 def receive_smss():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     tentativa = False
     seguido = False
@@ -18082,6 +18119,7 @@ def receive_smss():
         os.makedirs('./erros')
     codigo_não_recebido_seguidos = 0
     while parar is False:
+        senha = gerar_senha(12)
         if parar is True:
             print('Parando Thread')
             try:
@@ -19307,7 +19345,7 @@ def receive_smss():
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
-                    senha = config['senha']
+                    senha = gerar_senha(12)
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                         nome_completo)
@@ -20295,6 +20333,7 @@ def receive_smss():
                     sms = True
                     raise Exception('skip')
                 while sms is False:
+                    senha = gerar_senha(12)
                     try:
                         time.sleep(3)
                         try:
@@ -20681,7 +20720,7 @@ def receive_smss():
 def quackr_io():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     tentativa = False
     seguido = False
@@ -21391,6 +21430,7 @@ def quackr_io():
     codigo_não_recebido_seguidos = 0
     criou = False
     while parar is False:
+        senha = gerar_senha(12)
         if parar is True:
             print('Parando Thread')
             try:
@@ -22631,7 +22671,7 @@ def quackr_io():
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
-                    senha = config['senha']
+                    senha = gerar_senha(12)
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                         nome_completo)
@@ -23637,6 +23677,7 @@ def quackr_io():
                     sms = True
                     raise Exception('skip')
                 while sms is False:
+                    senha = gerar_senha(12)
                     try:
                         time.sleep(3)
                         try:
@@ -24024,7 +24065,7 @@ def quackr_io():
 def free_sms_lite():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     tentativa = False
     email = 'Free SMS'
@@ -24510,6 +24551,7 @@ def free_sms_lite():
     first = True
     parar = False
     while parar is False:
+        senha = gerar_senha(12)
         if parar is True:
             print('Parando Thread')
             break
@@ -24878,7 +24920,7 @@ def free_sms_lite():
             user_completo = nome_completo_s + '' + str(numeros_concatenados) + ''.join(lista_letras)
             ######################################################################
 
-            senha = config['senha']
+            senha = gerar_senha(12)
             WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH,
                                                                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[*]/android.widget.MultiAutoCompleteTextView[1]'))).send_keys(
                 nome_completo)
@@ -25148,6 +25190,7 @@ def free_sms_lite():
             except:
                 continue
             while sms is False:
+                senha = gerar_senha(12)
 
                 try:
                     pular_erro = driver.find_elements(By.XPATH,
@@ -25396,7 +25439,7 @@ def free_sms_lite():
 def insta_face_litee():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     tentativa = False
     email = 'InstaFace'
@@ -25952,6 +25995,7 @@ def insta_face_litee():
     first = True
     parar = False
     while parar is False:
+        senha = gerar_senha(12)
         if parar is True:
             print('Parando Thread')
             break
@@ -26026,7 +26070,7 @@ def insta_face_litee():
             user_completo = nome_completo_s + '' + str(numeros_concatenados) + ''.join(lista_letras)
             ######################################################################
 
-            senha = config['senha']
+            senha = gerar_senha(12)
             d.xpath(
                 '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[*]/android.widget.MultiAutoCompleteTextView[1]').set_text(
                 nomea)
@@ -26436,6 +26480,7 @@ def insta_face_litee():
             except:
                 continue
             while sms is False:
+                senha = gerar_senha(12)
 
                 try:
                     pular_erro = d.xpath(
@@ -27632,7 +27677,7 @@ def criarporcima():
 def executar_mailtm():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     global sms
     global nomes
@@ -29126,7 +29171,7 @@ def executar_mailtm():
 def executar_minuteinbox():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     from minuteinbox import Inbox
     global sms
@@ -30529,7 +30574,7 @@ def executar_minuteinbox():
 def executar_2nr():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     sheet_name = config['2nr']
     tentativa = False
@@ -31118,6 +31163,7 @@ def executar_2nr():
     d.implicitly_wait(30.0)
     d.set_fastinput_ime(True)
     while parar is False:
+        senha = gerar_senha(12)
 
         if parar is True:
             print('Parando Thread')
@@ -31720,7 +31766,7 @@ def executar_2nr():
                 print(user_completo)
                 ######################################################################
 
-                senha = config['senha']
+                senha = gerar_senha(12)
                 d.xpath(
                     '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[*]/android.widget.MultiAutoCompleteTextView[1]').set_text(
                     nome_completo)
@@ -31918,6 +31964,7 @@ def executar_2nr():
                             '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[*]/android.view.ViewGroup[10]/android.view.View').click()
 
                         sms = False
+                        senha = gerar_senha(12)
                     else:
                         if seguido is True:
                             seguido = False
@@ -32071,6 +32118,7 @@ def executar_2nr():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta logada.')
                         window.Refresh()
                     while sms is False:
+                        senha = gerar_senha(12)
                         d(resourceId='com.instagram.android:id/profile_tab').click()
                         time.sleep(3)
                         d(resourceId='com.instagram.android:id/action_bar_title_chevron').click()
@@ -32226,7 +32274,7 @@ def executar_2nr():
 
                             except:
                                 pass
-
+                            
                             window.Refresh()
                             arquivo = open('configuracoes/contas/contas_criadas.txt', 'a')
                             # Escreva mais conteúdo no arquivo
@@ -32261,6 +32309,8 @@ def executar_2nr():
                             window.Refresh()
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Criação de outro perfil.')
                             window.Refresh()
+                            
+                            senha = gerar_senha(12)
                         else:
                             try:
                                 conteudo = config['vpn']
@@ -32302,6 +32352,7 @@ def executar_2nr():
                         sms = True
                 else:
                     while sms is False:
+                        senha = gerar_senha(12)
 
                         try:
                             window['output'].print(linha_ret)
@@ -32548,7 +32599,7 @@ def executar_2nr():
 def executar_2nr_insta():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     tentativa = False
     seguido = False
@@ -33165,6 +33216,7 @@ def executar_2nr_insta():
         os.makedirs('./erros')
     codigo_não_recebido_seguidos = 0
     while parar is False:
+        senha = gerar_senha(12)
         if parar is True:
             print('Parando Thread')
             break
@@ -34556,7 +34608,7 @@ def executar_2nr_insta():
                     cancel = d(resourceId='com.google.android.gms:id/cancel')
                     if cancel.exists(timeout=10):
                         d(resourceId='com.google.android.gms:id/cancel').click()
-                    senha = config['senha']
+                    senha = gerar_senha(12)
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText').set_text(
                         nome_completo)
@@ -35466,6 +35518,7 @@ def executar_2nr_insta():
                     sms = True
                     raise Exception('skip')
                 while sms is False:
+                    senha = gerar_senha(12)
                     try:
                         time.sleep(3)
                         try:
@@ -35824,7 +35877,7 @@ def insta_face_lite():
         config = {}
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
-    senha = config['senha']
+    senha = gerar_senha(12)
     maquina = config['maquina']
     tentativa = False
     email = 'InstaFace'
@@ -36587,6 +36640,7 @@ def insta_face_lite():
     first = True
     parar = False
     while parar is False:
+        senha = gerar_senha(12)
         if parar is True:
             print('Parando Thread')
             break
@@ -37145,6 +37199,7 @@ def insta_face_lite():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta logada.')
                         window.Refresh()
                     while sms is False:
+                        senha = gerar_senha(12)
                         d(resourceId='com.instagram.android:id/profile_tab').click()
                         time.sleep(3)
                         d(resourceId='com.instagram.android:id/action_bar_title_chevron').click(timeout=50)
@@ -37285,7 +37340,8 @@ def insta_face_lite():
 
                             except:
                                 pass
-
+                            
+                            senha = gerar_senha(12)
                             window.Refresh()
                             arquivo = open('configuracoes/contas/contas_criadas.txt', 'a')
                             # Escreva mais conteúdo no arquivo
