@@ -37527,7 +37527,7 @@ def executar_creator_2nr():
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL, shell=True)
 
-    test = Email()
+    
 
     def listener(message):
         global nome
