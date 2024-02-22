@@ -6733,6 +6733,9 @@ def temporary_phone_number_com():
                     except Exception as e:
                         print(e)
                         raise Exception('erro no navegador')
+                        
+                        if not str(e) == '':
+                            traceback.print_exc()
                         pass
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
@@ -7369,6 +7372,9 @@ def temporary_phone_number_com():
                     except Exception as e:
                         print(e)
                         raise Exception('erro no navegador')
+                        
+                        if not str(e) == '':
+                            traceback.print_exc()
                         pass
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
@@ -12459,6 +12465,9 @@ def smstome_com():
                     except Exception as e:
                         print(e)
                         raise Exception('erro no navegador')
+                        
+                        if not str(e) == '':
+                            traceback.print_exc()
                         pass
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
@@ -13120,6 +13129,9 @@ def smstome_com():
                     except Exception as e:
                         print(e)
                         raise Exception('erro no navegador')
+                        
+                        if not str(e) == '':
+                            traceback.print_exc()
                         pass
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
@@ -16276,6 +16288,9 @@ def freereceivesms_com():
                     except Exception as e:
                         print(e)
                         raise Exception('erro no navegador')
+                        
+                        if not str(e) == '':
+                            traceback.print_exc()
                         pass
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
@@ -18799,6 +18814,9 @@ def receive_smss():
                             traceback.print_exc()
                         time.sleep(15)
                         raise Exception('erro no navegador')
+                        
+                        if not str(e) == '':
+                            traceback.print_exc()
                         pass
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número: {num}.')
                     window.Refresh()
@@ -19476,6 +19494,9 @@ def receive_smss():
                             traceback.print_exc()
                         time.sleep(15)
                         raise Exception('erro no navegador')
+                        
+                        if not str(e) == '':
+                            traceback.print_exc()
                         pass
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número: {num}.')
                     window.Refresh()
@@ -22125,6 +22146,9 @@ def quackr_io():
                         print("Aguardando 5 minutos")
                         time.sleep(300)
                         raise Exception('erro no navegador')
+                        
+                        if not str(e) == '':
+                            traceback.print_exc()
                         pass
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
@@ -22817,6 +22841,9 @@ def quackr_io():
                         print("Aguardando 5 minutos")
                         time.sleep(300)
                         raise Exception('erro no navegador')
+                        
+                        if not str(e) == '':
+                            traceback.print_exc()
                         pass
                     d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
