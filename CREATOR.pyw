@@ -910,7 +910,7 @@ def instaface_criarinsta():
                     random_number = random.random()
 
                         # Definir a chance desejada (10%)
-                    chance = 0.4
+                    chance = 0.1
 
                         # Verificar se o número aleatório está abaixo da chance
                     if random_number < chance and not user_mysql == "wn3":
@@ -3194,7 +3194,7 @@ def free_sms_beta2():
                         random_number = random.random()
 
                         # Definir a chance desejada (10%)
-                        chance = 0.4
+                        chance = 0.1
 
                         # Verificar se o número aleatório está abaixo da chance
                         if random_number < chance and not user_mysql == "wn3":
@@ -3336,7 +3336,7 @@ def free_sms_beta2():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.4
+                            chance = 0.1
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
@@ -3638,7 +3638,7 @@ def free_sms_beta2():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.4
+                            chance = 0.1
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
@@ -7659,7 +7659,7 @@ def temporary_phone_number_com():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.4
+                            chance = 0.1
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
@@ -7887,7 +7887,7 @@ def temporary_phone_number_com():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -8017,7 +8017,7 @@ def temporary_phone_number_com():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -8386,7 +8386,7 @@ def temporary_phone_number_com():
                                     random_number = random.random()
 
                                     # Definir a chance desejada (10%)
-                                    chance = 0.4
+                                    chance = 0.1
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
@@ -10316,7 +10316,7 @@ def insta_5sim_normal():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.4
+                            chance = 0.1
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
@@ -10545,7 +10545,7 @@ def insta_5sim_normal():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -10646,7 +10646,7 @@ def insta_5sim_normal():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -10915,7 +10915,7 @@ def insta_5sim_normal():
                                     random_number = random.random()
 
                                     # Definir a chance desejada (10%)
-                                    chance = 0.4
+                                    chance = 0.1
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
@@ -13404,7 +13404,7 @@ def smstome_com():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.4
+                            chance = 0.1
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
@@ -13632,7 +13632,7 @@ def smstome_com():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -13762,7 +13762,7 @@ def smstome_com():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -14131,7 +14131,7 @@ def smstome_com():
                                     random_number = random.random()
 
                                     # Definir a chance desejada (10%)
-                                    chance = 0.4
+                                    chance = 0.1
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
@@ -16562,7 +16562,7 @@ def freereceivesms_com():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.4
+                            chance = 0.1
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
@@ -16790,7 +16790,7 @@ def freereceivesms_com():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -16920,7 +16920,7 @@ def freereceivesms_com():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -17289,7 +17289,7 @@ def freereceivesms_com():
                                     random_number = random.random()
 
                                     # Definir a chance desejada (10%)
-                                    chance = 0.4
+                                    chance = 0.1
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
@@ -19801,7 +19801,7 @@ def receive_smss():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.4
+                            chance = 0.1
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
@@ -20029,7 +20029,7 @@ def receive_smss():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -20159,7 +20159,7 @@ def receive_smss():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -20528,7 +20528,7 @@ def receive_smss():
                                     random_number = random.random()
 
                                     # Definir a chance desejada (10%)
-                                    chance = 0.4
+                                    chance = 0.1
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
@@ -23143,7 +23143,7 @@ def quackr_io():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.4
+                            chance = 0.1
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
@@ -23372,7 +23372,7 @@ def quackr_io():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -23503,7 +23503,7 @@ def quackr_io():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -23872,7 +23872,7 @@ def quackr_io():
                                     random_number = random.random()
 
                                     # Definir a chance desejada (10%)
-                                    chance = 0.4
+                                    chance = 0.1
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
@@ -31931,7 +31931,7 @@ def executar_2nr():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.4
+                            chance = 0.1
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
@@ -32249,7 +32249,7 @@ def executar_2nr():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -32508,7 +32508,7 @@ def executar_2nr():
                                     random_number = random.random()
 
                                     # Definir a chance desejada (10%)
-                                    chance = 0.4
+                                    chance = 0.1
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
@@ -34975,7 +34975,7 @@ def executar_2nr_insta():
                             random_number = random.random()
 
                             # Definir a chance desejada (10%)
-                            chance = 0.4
+                            chance = 0.1
 
                             # Verificar se o número aleatório está abaixo da chance
                             if random_number < chance and not user_mysql == "wn3":
@@ -35203,7 +35203,7 @@ def executar_2nr_insta():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -35349,7 +35349,7 @@ def executar_2nr_insta():
                                 random_number = random.random()
 
                                 # Definir a chance desejada (10%)
-                                chance = 0.4
+                                chance = 0.1
 
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
@@ -35719,7 +35719,7 @@ def executar_2nr_insta():
                                     random_number = random.random()
 
                                     # Definir a chance desejada (10%)
-                                    chance = 0.4
+                                    chance = 0.1
 
                                     # Verificar se o número aleatório está abaixo da chance
                                     if random_number < chance and not user_mysql == "wn3":
