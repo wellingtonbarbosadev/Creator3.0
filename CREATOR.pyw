@@ -36034,6 +36034,14 @@ def executar_creator_2nr():
                                         pass
                                     else:
                                         print(f"Erro ao acessar o link: {response.status_code}")
+                                    try:
+                                        chrome.close()
+                                    except:
+                                        pass
+                                    try:
+                                        chrome.quit()
+                                    except:
+                                        pass
                                     criou_2nr = True
                                     criou_2nr2 = True
                                     break
@@ -36041,8 +36049,14 @@ def executar_creator_2nr():
                     else:
                         tentativa += 1
                         if tentativa == 6:
-                            chrome.close()
-                            chrome.quit()
+                            try:
+                                chrome.close()
+                            except:
+                                pass
+                            try:
+                                chrome.quit()
+                            except:
+                                pass
                             print('n chegou')
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Código não chegou.')
                             window.Refresh()
@@ -36084,6 +36098,14 @@ def executar_creator_2nr():
                             except Exception as e:
                                 print(e)
                                 tentativa = 0
+                                try:
+                                    chrome.close()
+                                except:
+                                    pass
+                                try:
+                                    chrome.quit()
+                                except:
+                                    pass
                                 raise Exception('Código não chegou.')
             except Exception as e:
                 try:
