@@ -31137,6 +31137,12 @@ def executar_2nr_insta():
 
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo instagram.')
                 window.Refresh()
+                try:
+                    subprocess.run(
+                        f'adb -s {porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+                except:
+                    pass
                 d.app_start('com.instagram.android')
                 try:
                     d.xpath('//android.widget.Button[@content-desc="Criar nova conta"]').click(timeout=120)
