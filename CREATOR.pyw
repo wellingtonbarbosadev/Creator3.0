@@ -1646,7 +1646,7 @@ def instaface_criarface():
                 ['adb', '-s', ip, 'shell', 'ifconfig'])
 
             # Verifica se a conexão VPN está ativa
-            if not re.search(b"tun0", output):
+            if not "tun0" in str(output):
                 window['output'].print("Não conectado na BetterNet.")
                 window.Refresh()
                 try:
@@ -1735,10 +1735,21 @@ def instaface_criarface():
             try:
                 d.app_stop('com.tunnelbear.android')
                 d.app_start("com.tunnelbear.android")
-                d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-                time.sleep(2)
-                d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-                time.sleep(15)
+
+                while True:
+                    output = subprocess.check_output(
+                        ['adb', '-s', porta, 'shell', 'ifconfig'])
+                    # print(str(output))
+                    if "tun0" in str(output):
+                        print('Conectada')
+                        break
+                    elif not "tun0" in str(output):
+                        print('Reconectando')
+                        try:
+                            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                            time.sleep(10)
+                        except:
+                            pass
 
             except Exception as e:
                 print(e)
@@ -2758,7 +2769,7 @@ def free_sms_beta2():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -2847,11 +2858,20 @@ def free_sms_beta2():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -4706,7 +4726,7 @@ def free_sms():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -4801,11 +4821,20 @@ def free_sms():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -6530,7 +6559,7 @@ def temporary_phone_number_com():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -6625,11 +6654,20 @@ def temporary_phone_number_com():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -10098,7 +10136,7 @@ def insta_5sim_normal():
                 ['adb', '-s', ip, 'shell', 'ifconfig'])
 
             # Verifica se a conexão VPN está ativa
-            if not re.search(b"tun0", output):
+            if not "tun0" in str(output):
                 window['output'].print("Não conectado na BetterNet.")
                 window.Refresh()
                 try:
@@ -10187,10 +10225,21 @@ def insta_5sim_normal():
             try:
                 d.app_stop('com.tunnelbear.android')
                 d.app_start("com.tunnelbear.android")
-                d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-                time.sleep(2)
-                d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-                time.sleep(15)
+
+                while True:
+                    output = subprocess.check_output(
+                        ['adb', '-s', porta, 'shell', 'ifconfig'])
+                    # print(str(output))
+                    if "tun0" in str(output):
+                        print('Conectada')
+                        break
+                    elif not "tun0" in str(output):
+                        print('Reconectando')
+                        try:
+                            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                            time.sleep(10)
+                        except:
+                            pass
 
             except Exception as e:
                 print(e)
@@ -13096,7 +13145,7 @@ def smstome_com():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -13191,11 +13240,20 @@ def smstome_com():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -16830,7 +16888,7 @@ def freereceivesms_com():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -16925,11 +16983,20 @@ def freereceivesms_com():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -20335,7 +20402,7 @@ def receive_smss():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -20430,11 +20497,20 @@ def receive_smss():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -24102,7 +24178,7 @@ def quackr_io():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -24197,11 +24273,20 @@ def quackr_io():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -27757,7 +27842,7 @@ def free_sms_lite():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -27846,11 +27931,20 @@ def free_sms_lite():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -29314,7 +29408,7 @@ def insta_face_litee():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -29409,11 +29503,20 @@ def insta_face_litee():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -30794,7 +30897,7 @@ def criarporcima():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -30894,11 +30997,20 @@ def criarporcima():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -31825,7 +31937,7 @@ def executar_mailtm():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -31916,11 +32028,20 @@ def executar_mailtm():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -33482,7 +33603,7 @@ def executar_minuteinbox():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -33573,11 +33694,20 @@ def executar_minuteinbox():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -35088,7 +35218,7 @@ def executar_2nr():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -35183,11 +35313,20 @@ def executar_2nr():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -37354,7 +37493,7 @@ def executar_2nr_insta():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -37449,11 +37588,20 @@ def executar_2nr_insta():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -41099,7 +41247,7 @@ def insta_face_lite():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -41194,11 +41342,20 @@ def insta_face_lite():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
@@ -43129,7 +43286,7 @@ def executar_creator_2nr():
             ['adb', '-s', ip, 'shell', 'ifconfig'])
 
         # Verifica se a conexão VPN está ativa
-        if not re.search(b"tun0", output):
+        if not "tun0" in str(output):
             window['output'].print("Não conectado na BetterNet.")
             window.Refresh()
             try:
@@ -43221,11 +43378,20 @@ def executar_creator_2nr():
         try:
             d.app_stop('com.tunnelbear.android')
             d.app_start("com.tunnelbear.android")
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(2)
-            d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
-            time.sleep(15)
-
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
         except Exception as e:
             print(e)
             pass
