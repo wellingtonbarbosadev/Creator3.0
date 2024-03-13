@@ -43814,6 +43814,16 @@ def executar_creator_2nr():
                     try:
                         d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
                     except:
+                        if d(resourceId='pl.rs.sip.softphone.newapp:id/settings').exists:
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Deslogando...')
+                            window.Refresh()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/settings').click()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogout').click()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
+                        else:
+                            pass
                         erro_exec = True
                         while erro_exec is True:
                             if d(resourceId='android:id/aerr_restart').exists:
@@ -45162,7 +45172,16 @@ def executar_creator_2nr():
                     try:
                         d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
                     except:
-                        d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
+                        if d(resourceId='pl.rs.sip.softphone.newapp:id/settings').exists:
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Deslogando...')
+                            window.Refresh()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/settings').click()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogout').click()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
+                        else:
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
                     try:
                         subprocess.run(
                             f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.READ_CONTACTS',
@@ -46329,7 +46348,19 @@ def executar_creator_2nr():
                 window['output'].print(
                     f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
                 window.Refresh()
-                d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click()
+                try:
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click()
+                except:
+                    if d(resourceId='pl.rs.sip.softphone.newapp:id/settings').exists:
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Deslogando...')
+                        window.Refresh()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/settings').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogout').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click()
+                    else:
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click()
                 d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email)
                 d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha)
                 time.sleep(2)
