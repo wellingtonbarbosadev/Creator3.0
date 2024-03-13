@@ -43707,6 +43707,7 @@ def executar_creator_2nr():
     except:
         pass
     opcao_executar = config['opcao']
+    troca_ip = 0
     if opcao_executar == '-criarambos-':
         while True:
             window['output'].print(linha_ret)
@@ -43733,7 +43734,7 @@ def executar_creator_2nr():
             # except Exception as e:
             #    print(f"Erro desconhecido: {e}")
             try:
-                if troca_ip == 5:
+                if troca_ip == 0:
                     try:
                         troca_ip = 0
                         conteudo = config['vpn']
