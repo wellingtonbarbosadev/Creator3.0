@@ -43822,6 +43822,8 @@ def executar_creator_2nr():
                             d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogout').click()
                             d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
                             d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
+                            d.app_stop('pl.rs.sip.softphone.newapp')
+                            raise Exception('')
                         else:
                             pass
                         erro_exec = True
@@ -45180,6 +45182,8 @@ def executar_creator_2nr():
                             d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogout').click()
                             d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
                             d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
+                            d.app_stop('pl.rs.sip.softphone.newapp')
+                            raise Exception('')
                         else:
                             d(resourceId='pl.rs.sip.softphone.newapp:id/registerButton').click()
                     try:
@@ -46359,6 +46363,8 @@ def executar_creator_2nr():
                         d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogout').click()
                         d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
                         d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click()
+                        d.app_stop('pl.rs.sip.softphone.newapp')
+                        raise Exception('')
                     else:
                         d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click()
                 d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email)
