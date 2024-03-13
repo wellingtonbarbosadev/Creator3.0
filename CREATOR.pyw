@@ -44854,7 +44854,7 @@ def executar_creator_2nr():
                                         time.sleep(0.5)
                                     subject = True
 
-                    troca_ip += 1
+                    troca_ip = 0
                     d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
 
                     print(f"Requisição bem-sucedida!")
@@ -46380,13 +46380,14 @@ def executar_creator_2nr():
                         f'[{datetime.now().strftime("%H:%M:%S")}] Conta inexistente.')
                     window.Refresh()
                     raise Exception('Conta inexistente')
-                if not d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').exists:
+                if d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').exists(timeout=30):
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').click()
+                elif not d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').exists:
                     window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] Conta já contem máximo de números.')
                     window.Refresh()
                     raise Exception('Conta já contem máximo de números.')
-                elif d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').exists:
-                    d(resourceId='pl.rs.sip.softphone.newapp:id/addNumber').click()
+                
                 window['output'].print(
                     f'[{datetime.now().strftime("%H:%M:%S")}] Conta existente.')
                 window.Refresh()
