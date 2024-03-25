@@ -44643,7 +44643,6 @@ def executar_creator_2nr():
                                     print(e)
                                     tentativa = 0
                     elif email_escolhido == 'GmailTemp3':
-                        from selenium import webdriver
                         from selenium.webdriver.common.by import By
                         from selenium.webdriver.chrome.service import Service
                         import time
@@ -44655,171 +44654,180 @@ def executar_creator_2nr():
                         import undetected_chromedriver as uc
                         import re
                         import random
-                        url = f"https://emailnator.com/"
-                        chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
-                        chrome_options = uc.ChromeOptions()
-                        chrome_options.add_argument("--disable-gpu")
-                        chrome_options.add_argument("--no-sandbox")
-                        chrome_options.add_argument("--disable-popup-blocking")
-
-                        chrome_options.add_argument(
-                            f"--load-extension=.\\storage\\adblock\\")
-                        # chrome_options.page_load_strategy = 'eager'
-                        chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
-                        # Configurando o Selenium para usar o Chrome Driver local
-                        service = Service(executable_path=chromedriver_path)
-                        chrome = uc.Chrome(
-                            service=service, options=chrome_options, headless=True, version_main=116)
                         try:
-                            chrome.get(url)
-                            chrome.save_screenshot('erro_nav.png')
-                            # chrome.execute_script("document.body.style.zoom='50%'")
-                            chrome.set_window_size(1920, 1080)
-                            WebDriverWait(chrome, 55).until(
-                                EC.presence_of_element_located(
-                                    (By.ID, 'custom-switch-domain'))
-                            ).click()
-                            WebDriverWait(chrome, 55).until(
-                                EC.presence_of_element_located(
-                                    (By.ID, 'custom-switch-googleMail'))
-                            ).click()
-                            WebDriverWait(chrome, 55).until(
-                                EC.presence_of_element_located(
-                                    (By.ID, 'custom-switch-plusGmail'))
-                            ).click()
-                            WebDriverWait(chrome, 55).until(
-                                EC.presence_of_element_located(
-                                    (By.XPATH, '''//button[contains(text(), 'Generate New')]'''))
-                            ).click()
-                            time.sleep(10)
-                            input_element = WebDriverWait(chrome, 10).until(
-                                EC.visibility_of_element_located(
-                                    (By.XPATH, "//input[@placeholder='Email Address']"))
-                            )
-                            email = input_element.get_attribute('value')
-                            print(email)
-                            window['output'].print(
-                                f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
-                            window.Refresh()
-                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
-                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
-                            d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
-                            d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
-                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
-                            time.sleep(5)
-                            email_existente = d(
-                                resourceId='pl.rs.sip.softphone.newapp:id/buttonOk')
-                            if not email_existente:
-                                window['output'].print(
-                                    f'[{datetime.now().strftime("%H:%M:%S")}] Email já utilizado.')
-                                window.Refresh()
-                                email_real = email
-                                log, dominio = email_real.split('@')
-                                numero_aleatorio = random.randint(0, 9999)
-                                email = f'{log}+{numero_aleatorio:04}@{dominio}'
-                                window['output'].print(
-                                    f'[{datetime.now().strftime("%H:%M:%S")}] Novo email: {email}')
-                                window.Refresh()
-                                d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text('')
-                                d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
-                                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
-                                time.sleep(10)
-                            # use with address and token to reuse an existing inbox
-
-                            time.sleep(10)
-                            # Obter o valor do atributo "value" do elemento
-
-                            WebDriverWait(chrome, 55).until(
-                                EC.presence_of_element_located(
-                                    (By.NAME, 'goBtn'))
-                            ).click()
-                            chegou_cod = False
-                            tentativa = 1
-                            while chegou_cod is False:
+                            from seleniumbase import SB
+                        except:
+                            subprocess.run(
+                                ['-m', 'pip', 'install', 'seleniumbase', '--user'])
+                        try:
+                            with SB(uc=True, headless=True, extension_dir=r'.\storage\adblock') as chrome:
+                                url = f"https://emailnator.com/"
+                                chrome.set_window_size(1920, 1080)
+                                chrome.driver.uc_open_with_reconnect(url, 10)
                                 try:
+                                    chrome.save_screenshot('erro_nav.png')
+                                    chrome.switch_to_frame(
+                                        'iframe[id^="cf-chl"]', timeout=1)
+                                    print(chrome.driver.find_elements(
+                                        By.XPATH, '//*[@id="challenge-stage"]/div/label/input'))
+                                    # chrome.driver.uc_click('//*[@id="challenge-stage"]/div/label/input')
+                                    chrome.driver.uc_click(
+                                        'span.mark')
+                                    chrome.save_screenshot('erro_nav.png')
+                                    # chrome.driver.execute_script("arguments[0].click();", chrome.driver.find_element(By.XPATH, '//*[@id="challenge-stage"]/div/label/input'))
+                                except Exception as e:
+                                    print(e)
+                                    print('Sem Captcha')
+                                chrome.switch_to_parent_frame()
+                                chrome.wait_for_element(
+                                    '#custom-switch-domain').click()
+
+                                # Clicar no elemento com ID 'custom-switch-googleMail'
+                                chrome.wait_for_element(
+                                    '#custom-switch-googleMail').click()
+
+                                # Clicar no elemento com ID 'custom-switch-plusGmail'
+                                chrome.wait_for_element(
+                                    '#custom-switch-plusGmail').click()
+
+                                # Clicar no botão com texto 'Generate New'
+                                chrome.wait_for_element(
+                                    '//button[contains(text(), "Generate New")]').click()
+                                # Encontrar o elemento de entrada de texto pelo XPath
+                                time.sleep(10)
+                                # Encontrar o elemento de entrada de texto pelo XPath
+                                input_element = WebDriverWait(chrome.driver, 10).until(
+                                    EC.visibility_of_element_located(
+                                        (By.XPATH, '//input[@placeholder="Email Address"]'))
+                                )
+
+                                # Obter o valor do atributo 'value' do elemento
+                                email = input_element.get_attribute('value')
+                                print(email)
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                                window.Refresh()
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                                time.sleep(5)
+                                email_existente = d(
+                                    resourceId='pl.rs.sip.softphone.newapp:id/buttonOk')
+                                if not email_existente:
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Email já utilizado.')
+                                    window.Refresh()
+                                    email_real = email
+                                    log, dominio = email_real.split('@')
+                                    numero_aleatorio = random.randint(0, 9999)
+                                    email = f'{log}+{numero_aleatorio:04}@{dominio}'
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Novo email: {email}')
+                                    window.Refresh()
+                                    d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text('')
+                                    d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                                    d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                                    time.sleep(10)
+                                # use with address and token to reuse an existing inbox
+
+                                time.sleep(10)
+                                # Obter o valor do atributo "value" do elemento
+
+                                WebDriverWait(chrome.driver, 55).until(
+                                    EC.presence_of_element_located(
+                                        (By.NAME, 'goBtn'))
+                                ).click()
+                                chegou_cod = False
+                                tentativa = 1
+                                while chegou_cod is False:
                                     try:
-                                        td_element = WebDriverWait(chrome, 10).until(
-                                            EC.visibility_of_element_located(
-                                                (By.XPATH, "/html/body/div[1]/div/section/div/div/div[3]/div/div[2]/div[2]/div/table/tbody/tr[2]"))
-                                        )
-                                        td_element.click()
-                                        time.sleep(4)
+                                        try:
+                                            td_element = WebDriverWait(chrome.driver, 10).until(
+                                                EC.visibility_of_element_located(
+                                                    (By.XPATH, "/html/body/div[1]/div/section/div/div/div[3]/div/div[2]/div[2]/div/table/tbody/tr[2]"))
+                                            )
+                                            td_element.click()
+                                            time.sleep(4)
+                                        except:
+                                            tentativa += 1
+                                            if tentativa == 10:
+                                                window['output'].print(
+                                                    f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
+                                                window.Refresh()
+                                                raise Exception(
+                                                    'Email não chegou.')
+
+                                        page_html = WebDriverWait(chrome.driver, 55).until(
+                                            EC.presence_of_element_located(
+                                                (By.CLASS_NAME, 'card-body'))
+                                        ).text
+                                        # Encontrar URLs que começam com "https://api.2nr.xyz/register/?"
+                                        urls = re.findall(
+                                            r"https://api.2nr.xyz/register/?[^'\"\\]+", page_html)
+                                        print('URLs:' + str(urls))
+                                        # Imprimir os URLs encontrados
+                                        print('----------------------------')
+                                        for url in urls:
+                                            try:
+                                                url_pattern = r'https?://\S+'
+
+                                                # Encontrar a URL na variável body
+                                                url_match = re.search(
+                                                    url_pattern, url)
+
+                                                # Se a URL for encontrada, imprima
+                                                if url_match:
+                                                    url = url_match.group()
+                                                    print(url)
+                                                else:
+                                                    print(
+                                                        "Nenhuma URL encontrada na variável body.")
+                                                url = url.replace('</p></div>', '')
+                                                url = url.replace('&amp;', '&')
+                                                url = url.replace(
+                                                    ' </td> </tr></tbody></table></td> </tr><tr><td class=', '')
+                                            except:
+                                                pass
+                                            print("URL:", url +
+                                                '\n----------------------------')
+                                            headers = {
+                                                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+                                            # d.open_url(url)
+                                            # time.sleep(10)
+                                            # d.app_start('pl.rs.sip.softphone.newapp', use_monkey=True)
+                                            try:
+                                                response = requests.get(
+                                                    url, headers=headers)
+                                                if response.status_code == 200:
+                                                    print(response.status_code)
+                                                else:
+                                                    print(response.status_code)
+                                            except requests.exceptions.RequestException as e:
+                                                print(f"Erro na requisição: {e}")
+
+                                            try:
+                                                chrome.close()
+                                            except:
+                                                pass
+                                            try:
+                                                chrome.quit()
+                                            except:
+                                                pass
+                                            chegou_cod = True
+
                                     except:
-                                        tentativa += 1
+                                        WebDriverWait(chrome.driver, 55).until(
+                                            EC.presence_of_element_located(
+                                                (By.NAME, 'reload'))
+                                        ).click()
+                                        if tentativa == 4:
+                                            chrome.refresh()
+                                            time.sleep(5)
                                         if tentativa == 10:
-                                            window['output'].print(
-                                                f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
-                                            window.Refresh()
-                                            raise Exception(
-                                                'Email não chegou.')
-
-                                    page_html = WebDriverWait(chrome, 55).until(
-                                        EC.presence_of_element_located(
-                                            (By.CLASS_NAME, 'card-body'))
-                                    ).text
-                                    # Encontrar URLs que começam com "https://api.2nr.xyz/register/?"
-                                    urls = re.findall(
-                                        r"https://api.2nr.xyz/register/?[^'\"\\]+", page_html)
-                                    print('URLs:' + str(urls))
-                                    # Imprimir os URLs encontrados
-                                    print('----------------------------')
-                                    for url in urls:
-                                        try:
-                                            url_pattern = r'https?://\S+'
-
-                                            # Encontrar a URL na variável body
-                                            url_match = re.search(url_pattern, url)
-
-                                            # Se a URL for encontrada, imprima
-                                            if url_match:
-                                                url = url_match.group()
-                                                print(url)
-                                            else:
-                                                print("Nenhuma URL encontrada na variável body.")
-                                            url = url.replace('</p></div>', '')
-                                            url = url.replace('&amp;', '&')
-                                            url = url.replace(
-                                                ' </td> </tr></tbody></table></td> </tr><tr><td class=', '')
-                                        except:
-                                            pass
-                                        print("URL:", url + '\n----------------------------')
-                                        headers = {
-                                            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
-                                        #d.open_url(url)
-                                        #time.sleep(10)
-                                        #d.app_start('pl.rs.sip.softphone.newapp', use_monkey=True)
-                                        try:
-                                            response = requests.get(
-                                                url, headers=headers)
-                                            if response.status_code == 200:
-                                                print(response.status_code)
-                                            else:
-                                                print(response.status_code)
-                                        except requests.exceptions.RequestException as e:
-                                            print(f"Erro na requisição: {e}")
-
-                                        try:
-                                            chrome.close()
-                                        except:
-                                            pass
-                                        try:
-                                            chrome.quit()
-                                        except:
-                                            pass
-                                        chegou_cod = True
-                                        
-
-                                except:
-                                    WebDriverWait(chrome, 55).until(
-                                        EC.presence_of_element_located(
-                                            (By.NAME, 'reload'))
-                                    ).click()
-                                    if tentativa == 4:
-                                        chrome.refresh()
-                                        time.sleep(5)
-                                    if tentativa == 10:
-                                        chegou_cod = True
-                                        raise Exception('Email não chegou.')
+                                            chegou_cod = True
+                                            raise Exception('Email não chegou.')
 
                         except Exception as e:
                             try:
@@ -44831,7 +44839,7 @@ def executar_creator_2nr():
                             except:
                                 pass
                             traceback.print_exc()
-                            
+
                     elif email_escolhido == '1SecMail':
 
                         def get_random_email():
@@ -45712,7 +45720,6 @@ def executar_creator_2nr():
                                 print(f"Erro na requisição: {e}")
 
                     elif email_escolhido == 'GmailTemp3':
-                        from selenium import webdriver
                         from selenium.webdriver.common.by import By
                         from selenium.webdriver.chrome.service import Service
                         import time
@@ -45724,171 +45731,180 @@ def executar_creator_2nr():
                         import undetected_chromedriver as uc
                         import re
                         import random
-                        url = f"https://emailnator.com/"
-                        chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
-                        chrome_options = uc.ChromeOptions()
-                        chrome_options.add_argument("--disable-gpu")
-                        chrome_options.add_argument("--no-sandbox")
-                        chrome_options.add_argument("--disable-popup-blocking")
-
-                        chrome_options.add_argument(
-                            f"--load-extension=.\\storage\\adblock\\")
-                        # chrome_options.page_load_strategy = 'eager'
-                        chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
-                        # Configurando o Selenium para usar o Chrome Driver local
-                        service = Service(executable_path=chromedriver_path)
-                        chrome = uc.Chrome(
-                            service=service, options=chrome_options, headless=True, version_main=116)
                         try:
-                            chrome.get(url)
-                            chrome.save_screenshot('erro_nav.png')
-                            # chrome.execute_script("document.body.style.zoom='50%'")
-                            chrome.set_window_size(1920, 1080)
-                            WebDriverWait(chrome, 55).until(
-                                EC.presence_of_element_located(
-                                    (By.ID, 'custom-switch-domain'))
-                            ).click()
-                            WebDriverWait(chrome, 55).until(
-                                EC.presence_of_element_located(
-                                    (By.ID, 'custom-switch-googleMail'))
-                            ).click()
-                            WebDriverWait(chrome, 55).until(
-                                EC.presence_of_element_located(
-                                    (By.ID, 'custom-switch-plusGmail'))
-                            ).click()
-                            WebDriverWait(chrome, 55).until(
-                                EC.presence_of_element_located(
-                                    (By.XPATH, '''//button[contains(text(), 'Generate New')]'''))
-                            ).click()
-                            time.sleep(10)
-                            input_element = WebDriverWait(chrome, 10).until(
-                                EC.visibility_of_element_located(
-                                    (By.XPATH, "//input[@placeholder='Email Address']"))
-                            )
-                            email = input_element.get_attribute('value')
-                            print(email)
-                            window['output'].print(
-                                f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
-                            window.Refresh()
-                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
-                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
-                            d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
-                            d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
-                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
-                            time.sleep(5)
-                            email_existente = d(
-                                resourceId='pl.rs.sip.softphone.newapp:id/buttonOk')
-                            if not email_existente:
-                                window['output'].print(
-                                    f'[{datetime.now().strftime("%H:%M:%S")}] Email já utilizado.')
-                                window.Refresh()
-                                email_real = email
-                                log, dominio = email_real.split('@')
-                                numero_aleatorio = random.randint(0, 9999)
-                                email = f'{log}+{numero_aleatorio:04}@{dominio}'
-                                window['output'].print(
-                                    f'[{datetime.now().strftime("%H:%M:%S")}] Novo email: {email}')
-                                window.Refresh()
-                                d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text('')
-                                d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
-                                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
-                                time.sleep(10)
-                            # use with address and token to reuse an existing inbox
-
-                            time.sleep(10)
-                            # Obter o valor do atributo "value" do elemento
-
-                            WebDriverWait(chrome, 55).until(
-                                EC.presence_of_element_located(
-                                    (By.NAME, 'goBtn'))
-                            ).click()
-                            chegou_cod = False
-                            tentativa = 1
-                            while chegou_cod is False:
+                            from seleniumbase import SB
+                        except:
+                            subprocess.run(
+                                ['-m', 'pip', 'install', 'seleniumbase', '--user'])
+                        try:
+                            with SB(uc=True, headless=True, extension_dir=r'.\storage\adblock') as chrome:
+                                url = f"https://emailnator.com/"
+                                chrome.set_window_size(1920, 1080)
+                                chrome.driver.uc_open_with_reconnect(url, 10)
                                 try:
+                                    chrome.save_screenshot('erro_nav.png')
+                                    chrome.switch_to_frame(
+                                        'iframe[id^="cf-chl"]', timeout=1)
+                                    print(chrome.driver.find_elements(
+                                        By.XPATH, '//*[@id="challenge-stage"]/div/label/input'))
+                                    # chrome.driver.uc_click('//*[@id="challenge-stage"]/div/label/input')
+                                    chrome.driver.uc_click(
+                                        'span.mark')
+                                    chrome.save_screenshot('erro_nav.png')
+                                    # chrome.driver.execute_script("arguments[0].click();", chrome.driver.find_element(By.XPATH, '//*[@id="challenge-stage"]/div/label/input'))
+                                except Exception as e:
+                                    print(e)
+                                    print('Sem Captcha')
+                                chrome.switch_to_parent_frame()
+                                chrome.wait_for_element(
+                                    '#custom-switch-domain').click()
+
+                                # Clicar no elemento com ID 'custom-switch-googleMail'
+                                chrome.wait_for_element(
+                                    '#custom-switch-googleMail').click()
+
+                                # Clicar no elemento com ID 'custom-switch-plusGmail'
+                                chrome.wait_for_element(
+                                    '#custom-switch-plusGmail').click()
+
+                                # Clicar no botão com texto 'Generate New'
+                                chrome.wait_for_element(
+                                    '//button[contains(text(), "Generate New")]').click()
+                                # Encontrar o elemento de entrada de texto pelo XPath
+                                time.sleep(10)
+                                # Encontrar o elemento de entrada de texto pelo XPath
+                                input_element = WebDriverWait(chrome.driver, 10).until(
+                                    EC.visibility_of_element_located(
+                                        (By.XPATH, '//input[@placeholder="Email Address"]'))
+                                )
+
+                                # Obter o valor do atributo 'value' do elemento
+                                email = input_element.get_attribute('value')
+                                print(email)
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                                window.Refresh()
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                                time.sleep(5)
+                                email_existente = d(
+                                    resourceId='pl.rs.sip.softphone.newapp:id/buttonOk')
+                                if not email_existente:
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Email já utilizado.')
+                                    window.Refresh()
+                                    email_real = email
+                                    log, dominio = email_real.split('@')
+                                    numero_aleatorio = random.randint(0, 9999)
+                                    email = f'{log}+{numero_aleatorio:04}@{dominio}'
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Novo email: {email}')
+                                    window.Refresh()
+                                    d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text('')
+                                    d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                                    d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                                    time.sleep(10)
+                                # use with address and token to reuse an existing inbox
+
+                                time.sleep(10)
+                                # Obter o valor do atributo "value" do elemento
+
+                                WebDriverWait(chrome.driver, 55).until(
+                                    EC.presence_of_element_located(
+                                        (By.NAME, 'goBtn'))
+                                ).click()
+                                chegou_cod = False
+                                tentativa = 1
+                                while chegou_cod is False:
                                     try:
-                                        td_element = WebDriverWait(chrome, 10).until(
-                                            EC.visibility_of_element_located(
-                                                (By.XPATH, "/html/body/div[1]/div/section/div/div/div[3]/div/div[2]/div[2]/div/table/tbody/tr[2]"))
-                                        )
-                                        td_element.click()
-                                        time.sleep(4)
+                                        try:
+                                            td_element = WebDriverWait(chrome.driver, 10).until(
+                                                EC.visibility_of_element_located(
+                                                    (By.XPATH, "/html/body/div[1]/div/section/div/div/div[3]/div/div[2]/div[2]/div/table/tbody/tr[2]"))
+                                            )
+                                            td_element.click()
+                                            time.sleep(4)
+                                        except:
+                                            tentativa += 1
+                                            if tentativa == 10:
+                                                window['output'].print(
+                                                    f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
+                                                window.Refresh()
+                                                raise Exception(
+                                                    'Email não chegou.')
+
+                                        page_html = WebDriverWait(chrome.driver, 55).until(
+                                            EC.presence_of_element_located(
+                                                (By.CLASS_NAME, 'card-body'))
+                                        ).text
+                                        # Encontrar URLs que começam com "https://api.2nr.xyz/register/?"
+                                        urls = re.findall(
+                                            r"https://api.2nr.xyz/register/?[^'\"\\]+", page_html)
+                                        print('URLs:' + str(urls))
+                                        # Imprimir os URLs encontrados
+                                        print('----------------------------')
+                                        for url in urls:
+                                            try:
+                                                url_pattern = r'https?://\S+'
+
+                                                # Encontrar a URL na variável body
+                                                url_match = re.search(
+                                                    url_pattern, url)
+
+                                                # Se a URL for encontrada, imprima
+                                                if url_match:
+                                                    url = url_match.group()
+                                                    print(url)
+                                                else:
+                                                    print(
+                                                        "Nenhuma URL encontrada na variável body.")
+                                                url = url.replace('</p></div>', '')
+                                                url = url.replace('&amp;', '&')
+                                                url = url.replace(
+                                                    ' </td> </tr></tbody></table></td> </tr><tr><td class=', '')
+                                            except:
+                                                pass
+                                            print("URL:", url +
+                                                '\n----------------------------')
+                                            headers = {
+                                                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+                                            # d.open_url(url)
+                                            # time.sleep(10)
+                                            # d.app_start('pl.rs.sip.softphone.newapp', use_monkey=True)
+                                            try:
+                                                response = requests.get(
+                                                    url, headers=headers)
+                                                if response.status_code == 200:
+                                                    print(response.status_code)
+                                                else:
+                                                    print(response.status_code)
+                                            except requests.exceptions.RequestException as e:
+                                                print(f"Erro na requisição: {e}")
+
+                                            try:
+                                                chrome.close()
+                                            except:
+                                                pass
+                                            try:
+                                                chrome.quit()
+                                            except:
+                                                pass
+                                            chegou_cod = True
+
                                     except:
-                                        tentativa += 1
+                                        WebDriverWait(chrome.driver, 55).until(
+                                            EC.presence_of_element_located(
+                                                (By.NAME, 'reload'))
+                                        ).click()
+                                        if tentativa == 4:
+                                            chrome.refresh()
+                                            time.sleep(5)
                                         if tentativa == 10:
-                                            window['output'].print(
-                                                f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
-                                            window.Refresh()
-                                            raise Exception(
-                                                'Email não chegou.')
-
-                                    page_html = WebDriverWait(chrome, 55).until(
-                                        EC.presence_of_element_located(
-                                            (By.CLASS_NAME, 'card-body'))
-                                    ).text
-                                    # Encontrar URLs que começam com "https://api.2nr.xyz/register/?"
-                                    urls = re.findall(
-                                        r"https://api.2nr.xyz/register/?[^'\"\\]+", page_html)
-                                    print('URLs:' + str(urls))
-                                    # Imprimir os URLs encontrados
-                                    print('----------------------------')
-                                    for url in urls:
-                                        try:
-                                            url_pattern = r'https?://\S+'
-
-                                            # Encontrar a URL na variável body
-                                            url_match = re.search(url_pattern, url)
-
-                                            # Se a URL for encontrada, imprima
-                                            if url_match:
-                                                url = url_match.group()
-                                                print(url)
-                                            else:
-                                                print("Nenhuma URL encontrada na variável body.")
-                                            url = url.replace('</p></div>', '')
-                                            url = url.replace('&amp;', '&')
-                                            url = url.replace(
-                                                ' </td> </tr></tbody></table></td> </tr><tr><td class=', '')
-                                        except:
-                                            pass
-                                        print("URL:", url + '\n----------------------------')
-                                        headers = {
-                                            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
-                                        #d.open_url(url)
-                                        #time.sleep(10)
-                                        #d.app_start('pl.rs.sip.softphone.newapp', use_monkey=True)
-                                        try:
-                                            response = requests.get(
-                                                url, headers=headers)
-                                            if response.status_code == 200:
-                                                print(response.status_code)
-                                            else:
-                                                print(response.status_code)
-                                        except requests.exceptions.RequestException as e:
-                                            print(f"Erro na requisição: {e}")
-
-                                        try:
-                                            chrome.close()
-                                        except:
-                                            pass
-                                        try:
-                                            chrome.quit()
-                                        except:
-                                            pass
-                                        chegou_cod = True
-                                        
-
-                                except:
-                                    WebDriverWait(chrome, 55).until(
-                                        EC.presence_of_element_located(
-                                            (By.NAME, 'reload'))
-                                    ).click()
-                                    if tentativa == 4:
-                                        chrome.refresh()
-                                        time.sleep(5)
-                                    if tentativa == 10:
-                                        chegou_cod = True
-                                        raise Exception('Email não chegou.')
+                                            chegou_cod = True
+                                            raise Exception('Email não chegou.')
 
                         except Exception as e:
                             try:
