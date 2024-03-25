@@ -44657,8 +44657,10 @@ def executar_creator_2nr():
                         try:
                             from seleniumbase import SB
                         except:
+                            print('Instalando SeleniumBase')
                             subprocess.run(
-                                ['-m', 'pip', 'install', 'seleniumbase', '--user'])
+                                ['pip', 'install', 'seleniumbase'])
+                            from seleniumbase import SB
                         try:
                             with SB(uc=True, headless=True, extension_dir=r'.\storage\adblock') as chrome:
                                 url = f"https://emailnator.com/"
@@ -44784,15 +44786,14 @@ def executar_creator_2nr():
                                                 else:
                                                     print(
                                                         "Nenhuma URL encontrada na variável body.")
-                                                url = url.replace(
-                                                    '</p></div>', '')
+                                                url = url.replace('</p></div>', '')
                                                 url = url.replace('&amp;', '&')
                                                 url = url.replace(
                                                     ' </td> </tr></tbody></table></td> </tr><tr><td class=', '')
                                             except:
                                                 pass
                                             print("URL:", url +
-                                                  '\n----------------------------')
+                                                '\n----------------------------')
                                             headers = {
                                                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
                                             # d.open_url(url)
@@ -44806,8 +44807,7 @@ def executar_creator_2nr():
                                                 else:
                                                     print(response.status_code)
                                             except requests.exceptions.RequestException as e:
-                                                print(
-                                                    f"Erro na requisição: {e}")
+                                                print(f"Erro na requisição: {e}")
 
                                             try:
                                                 chrome.close()
@@ -44829,8 +44829,7 @@ def executar_creator_2nr():
                                             time.sleep(5)
                                         if tentativa == 10:
                                             chegou_cod = True
-                                            raise Exception(
-                                                'Email não chegou.')
+                                            raise Exception('Email não chegou.')
 
                         except Exception as e:
                             try:
@@ -45737,8 +45736,10 @@ def executar_creator_2nr():
                         try:
                             from seleniumbase import SB
                         except:
+                            print('Instalando SeleniumBase')
                             subprocess.run(
-                                ['-m', 'pip', 'install', 'seleniumbase', '--user'])
+                                ['pip', 'install', 'seleniumbase'])
+                            from seleniumbase import SB
                         try:
                             with SB(uc=True, headless=True, extension_dir=r'.\storage\adblock') as chrome:
                                 url = f"https://emailnator.com/"
@@ -45864,15 +45865,14 @@ def executar_creator_2nr():
                                                 else:
                                                     print(
                                                         "Nenhuma URL encontrada na variável body.")
-                                                url = url.replace(
-                                                    '</p></div>', '')
+                                                url = url.replace('</p></div>', '')
                                                 url = url.replace('&amp;', '&')
                                                 url = url.replace(
                                                     ' </td> </tr></tbody></table></td> </tr><tr><td class=', '')
                                             except:
                                                 pass
                                             print("URL:", url +
-                                                  '\n----------------------------')
+                                                '\n----------------------------')
                                             headers = {
                                                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
                                             # d.open_url(url)
@@ -45886,8 +45886,7 @@ def executar_creator_2nr():
                                                 else:
                                                     print(response.status_code)
                                             except requests.exceptions.RequestException as e:
-                                                print(
-                                                    f"Erro na requisição: {e}")
+                                                print(f"Erro na requisição: {e}")
 
                                             try:
                                                 chrome.close()
@@ -45909,8 +45908,7 @@ def executar_creator_2nr():
                                             time.sleep(5)
                                         if tentativa == 10:
                                             chegou_cod = True
-                                            raise Exception(
-                                                'Email não chegou.')
+                                            raise Exception('Email não chegou.')
 
                         except Exception as e:
                             try:
