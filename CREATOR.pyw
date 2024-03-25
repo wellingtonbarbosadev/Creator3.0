@@ -44646,7 +44646,6 @@ def executar_creator_2nr():
                         from selenium import webdriver
                         from selenium.webdriver.common.by import By
                         from selenium.webdriver.chrome.service import Service
-                        from webdriver_manager.chrome import ChromeDriverManager
                         import time
                         from selenium.common.exceptions import NoSuchElementException
                         from selenium.webdriver.support.ui import WebDriverWait
@@ -44654,20 +44653,19 @@ def executar_creator_2nr():
                         import requests
                         from selenium.webdriver.support import expected_conditions as EC
                         import undetected_chromedriver as uc
-                        from bs4 import BeautifulSoup
                         import re
                         import random
                         url = f"https://emailnator.com/"
-                        chromedriver_path = 'E:\\Users\\Wellington\\Desktop\\Outros\\Creator 2.0.1 - Copia\\storage\\driver\\chromedriver.exe'
+                        chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
                         chrome_options = uc.ChromeOptions()
                         chrome_options.add_argument("--disable-gpu")
                         chrome_options.add_argument("--no-sandbox")
                         chrome_options.add_argument("--disable-popup-blocking")
 
                         chrome_options.add_argument(
-                            f"--load-extension=E:\\Users\\Wellington\\Desktop\\Outros\\Creator 2.0.1 - Copia\\storage\\adblock\\")
+                            f"--load-extension=.\\storage\\adblock\\")
                         # chrome_options.page_load_strategy = 'eager'
-                        chrome_options.binary_location = 'E:\\Users\\Wellington\\Desktop\\Outros\\Creator 2.0.1 - Copia\\storage\\driver\\chrome.exe'
+                        chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
                         # Configurando o Selenium para usar o Chrome Driver local
                         service = Service(executable_path=chromedriver_path)
                         chrome = uc.Chrome(
@@ -45717,7 +45715,6 @@ def executar_creator_2nr():
                         from selenium import webdriver
                         from selenium.webdriver.common.by import By
                         from selenium.webdriver.chrome.service import Service
-                        from webdriver_manager.chrome import ChromeDriverManager
                         import time
                         from selenium.common.exceptions import NoSuchElementException
                         from selenium.webdriver.support.ui import WebDriverWait
@@ -45725,20 +45722,19 @@ def executar_creator_2nr():
                         import requests
                         from selenium.webdriver.support import expected_conditions as EC
                         import undetected_chromedriver as uc
-                        from bs4 import BeautifulSoup
                         import re
                         import random
                         url = f"https://emailnator.com/"
-                        chromedriver_path = 'E:\\Users\\Wellington\\Desktop\\Outros\\Creator 2.0.1 - Copia\\storage\\driver\\chromedriver.exe'
+                        chromedriver_path = '.\\storage\\driver\\chromedriver.exe'
                         chrome_options = uc.ChromeOptions()
                         chrome_options.add_argument("--disable-gpu")
                         chrome_options.add_argument("--no-sandbox")
                         chrome_options.add_argument("--disable-popup-blocking")
 
                         chrome_options.add_argument(
-                            f"--load-extension=E:\\Users\\Wellington\\Desktop\\Outros\\Creator 2.0.1 - Copia\\storage\\adblock\\")
+                            f"--load-extension=.\\storage\\adblock\\")
                         # chrome_options.page_load_strategy = 'eager'
-                        chrome_options.binary_location = 'E:\\Users\\Wellington\\Desktop\\Outros\\Creator 2.0.1 - Copia\\storage\\driver\\chrome.exe'
+                        chrome_options.binary_location = '.\\storage\\driver\\chrome.exe'
                         # Configurando o Selenium para usar o Chrome Driver local
                         service = Service(executable_path=chromedriver_path)
                         chrome = uc.Chrome(
