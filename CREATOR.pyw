@@ -44758,6 +44758,43 @@ def executar_creator_2nr():
                                                 window['output'].print(
                                                     f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
                                                 window.Refresh()
+                                                try:
+                                                    tentativa = 0
+                                                    conteudo = config['vpn']
+                                                    if conteudo == "AVG":
+                                                        vpn_avg()
+                                                    elif conteudo == "SurfShark":
+                                                        vpn_surf()
+                                                    elif conteudo == "Nenhuma":
+                                                        nenhuma_vpn()
+                                                    elif conteudo == "Avast":
+                                                        vpn_avast()
+                                                    elif conteudo == "ExpressVPN":
+                                                        vpn_express()
+                                                    elif conteudo == "PiaVPN":
+                                                        vpn_pia()
+                                                    elif conteudo == "TunnelBear":
+                                                        vpn_tunnelbear()
+                                                    elif conteudo == "BetterNet":
+                                                        vpn_better()
+                                                    elif conteudo == "CyberGhost":
+                                                        vpn_cyberghost()
+                                                    elif conteudo == "NordVPN":
+                                                        vpn_nord()
+                                                    elif conteudo == "HotspotShield":
+                                                        vpn_hotspotshield()
+                                                    elif conteudo == "WindscribeVPN":
+                                                        vpn_windscribe()
+                                                    elif conteudo == "HmaVPN":
+                                                        vpn_hma()
+                                                    else:
+                                                        window['output'].print(
+                                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                                        window.Refresh()
+
+                                                except Exception as e:
+                                                    print(e)
+                                                    tentativa = 0
                                                 raise Exception(
                                                     'Email não chegou.')
 
@@ -44786,14 +44823,15 @@ def executar_creator_2nr():
                                                 else:
                                                     print(
                                                         "Nenhuma URL encontrada na variável body.")
-                                                url = url.replace('</p></div>', '')
+                                                url = url.replace(
+                                                    '</p></div>', '')
                                                 url = url.replace('&amp;', '&')
                                                 url = url.replace(
                                                     ' </td> </tr></tbody></table></td> </tr><tr><td class=', '')
                                             except:
                                                 pass
                                             print("URL:", url +
-                                                '\n----------------------------')
+                                                  '\n----------------------------')
                                             headers = {
                                                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
                                             # d.open_url(url)
@@ -44807,7 +44845,8 @@ def executar_creator_2nr():
                                                 else:
                                                     print(response.status_code)
                                             except requests.exceptions.RequestException as e:
-                                                print(f"Erro na requisição: {e}")
+                                                print(
+                                                    f"Erro na requisição: {e}")
 
                                             try:
                                                 chrome.close()
@@ -44829,7 +44868,8 @@ def executar_creator_2nr():
                                             time.sleep(5)
                                         if tentativa == 10:
                                             chegou_cod = True
-                                            raise Exception('Email não chegou.')
+                                            raise Exception(
+                                                'Email não chegou.')
 
                         except Exception as e:
                             try:
@@ -45837,6 +45877,43 @@ def executar_creator_2nr():
                                                 window['output'].print(
                                                     f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
                                                 window.Refresh()
+                                                try:
+                                                    tentativa = 0
+                                                    conteudo = config['vpn']
+                                                    if conteudo == "AVG":
+                                                        vpn_avg()
+                                                    elif conteudo == "SurfShark":
+                                                        vpn_surf()
+                                                    elif conteudo == "Nenhuma":
+                                                        nenhuma_vpn()
+                                                    elif conteudo == "Avast":
+                                                        vpn_avast()
+                                                    elif conteudo == "ExpressVPN":
+                                                        vpn_express()
+                                                    elif conteudo == "PiaVPN":
+                                                        vpn_pia()
+                                                    elif conteudo == "TunnelBear":
+                                                        vpn_tunnelbear()
+                                                    elif conteudo == "BetterNet":
+                                                        vpn_better()
+                                                    elif conteudo == "CyberGhost":
+                                                        vpn_cyberghost()
+                                                    elif conteudo == "NordVPN":
+                                                        vpn_nord()
+                                                    elif conteudo == "HotspotShield":
+                                                        vpn_hotspotshield()
+                                                    elif conteudo == "WindscribeVPN":
+                                                        vpn_windscribe()
+                                                    elif conteudo == "HmaVPN":
+                                                        vpn_hma()
+                                                    else:
+                                                        window['output'].print(
+                                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                                        window.Refresh()
+
+                                                except Exception as e:
+                                                    print(e)
+                                                    tentativa = 0
                                                 raise Exception(
                                                     'Email não chegou.')
 
@@ -45865,14 +45942,15 @@ def executar_creator_2nr():
                                                 else:
                                                     print(
                                                         "Nenhuma URL encontrada na variável body.")
-                                                url = url.replace('</p></div>', '')
+                                                url = url.replace(
+                                                    '</p></div>', '')
                                                 url = url.replace('&amp;', '&')
                                                 url = url.replace(
                                                     ' </td> </tr></tbody></table></td> </tr><tr><td class=', '')
                                             except:
                                                 pass
                                             print("URL:", url +
-                                                '\n----------------------------')
+                                                  '\n----------------------------')
                                             headers = {
                                                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
                                             # d.open_url(url)
@@ -45886,7 +45964,8 @@ def executar_creator_2nr():
                                                 else:
                                                     print(response.status_code)
                                             except requests.exceptions.RequestException as e:
-                                                print(f"Erro na requisição: {e}")
+                                                print(
+                                                    f"Erro na requisição: {e}")
 
                                             try:
                                                 chrome.close()
@@ -45908,7 +45987,8 @@ def executar_creator_2nr():
                                             time.sleep(5)
                                         if tentativa == 10:
                                             chegou_cod = True
-                                            raise Exception('Email não chegou.')
+                                            raise Exception(
+                                                'Email não chegou.')
 
                         except Exception as e:
                             try:
