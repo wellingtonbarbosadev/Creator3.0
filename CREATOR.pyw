@@ -38800,6 +38800,14 @@ def executar_2nr_insta():
                         d(resourceId='android:id/button2').click()
                         time.sleep(2)
                     time.sleep(5)
+                    erro_novaconta = d.xpath(
+                        '//android.view.View[@content-desc="Criar nova conta"]')
+                    if erro_novaconta.exists:
+                        d.xpath(
+                            '//android.view.View[@content-desc="Criar nova conta"]').click()
+                        time.sleep(4)
+                    else:
+                        pass
                     restricao = d.xpath(
                         '//android.view.View[@content-desc="Ocorreu um erro. Tente novamente mais tarde."]')
                     if restricao.exists and tentativa is True:
@@ -38924,13 +38932,7 @@ def executar_2nr_insta():
                         except:
                             raise Exception('skip')
 
-                    erro_novaconta = d.xpath(
-                        '//android.view.View[@content-desc="Criar nova conta"]')
-                    if erro_novaconta.exists:
-                        d.xpath(
-                            '//android.view.View[@content-desc="Criar nova conta"]').click()
-                    else:
-                        pass
+                    
                     d.app_start('pl.rs.sip.softphone.newapp')
                     window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
