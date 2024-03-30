@@ -45127,12 +45127,12 @@ def executar_creator_2nr():
                             'configuracoes/contas/todas_contas_2nr.txt', 'a')
                     try:
                         random_number = random.random()
-                        chance2 = 0.1
+                        chance2 = 0.15
                         now = datetime.now()
                         now_brasilia = tz.localize(now)
                         timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                         # Verificar se o número aleatório está abaixo da chance
-                        if random_number < chance and not user_mysql == "wn3":
+                        if random_number < chance2 and not user_mysql == "wn3":
                             scope = ["https://spreadsheets.google.com/feeds",
                                     "https://www.googleapis.com/auth/drive"]
                             creds = ServiceAccountCredentials.from_json_keyfile_name(
@@ -46907,12 +46907,12 @@ def executar_creator_2nr():
                 arquivo.close()
                 try:
                     random_number = random.random()
-                    chance2 = 0.1
+                    chance2 = 0.15
                     now = datetime.now()
                     now_brasilia = tz.localize(now)
                     timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
                     # Verificar se o número aleatório está abaixo da chance
-                    if random_number < chance and not user_mysql == "wn3":
+                    if random_number < chance2 and not user_mysql == "wn3":
                         scope = ["https://spreadsheets.google.com/feeds",
                                 "https://www.googleapis.com/auth/drive"]
                         creds = ServiceAccountCredentials.from_json_keyfile_name(
