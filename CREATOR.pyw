@@ -749,7 +749,7 @@ def instaface_criarinsta():
                     letras = 'abcdefghijklmnopqrstuvwxyz'
                     lista_user = random.choices(range(0, 9), k=2)
                     lista_letras = random.choices(letras, k=1)
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -2046,7 +2046,7 @@ def instaface_criarface():
             # GERAR USER
             lista_user = random.choices(range(0, 9), k=2)
             lista_letras = random.choices(letras, k=1)
-            nomea = fake.first_name_female().replace(" ", "")
+            nomea = fake.first_name_male().replace(" ", "")
             nome = unicodedata.normalize('NFKD', nomea).encode(
                 'ASCII', 'ignore').decode('ASCII')
             sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -3128,7 +3128,7 @@ def free_sms_beta2():
             with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                 sobrenomes = sobrenomes_arquivo.readlines()
 
-            nomea = fake.first_name_female().replace(" ", "")
+            nomea = fake.first_name_male().replace(" ", "")
             nome = unicodedata.normalize('NFKD', nomea).encode(
                 'ASCII', 'ignore').decode('ASCII')
             sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -4015,7 +4015,7 @@ def free_sms_beta2():
                     with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                         sobrenomes = sobrenomes_arquivo.readlines()
 
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -5380,7 +5380,7 @@ def free_sms():
                     with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                         sobrenomes = sobrenomes_arquivo.readlines()
 
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -5816,7 +5816,7 @@ def free_sms():
                             with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                                 sobrenomes = sobrenomes_arquivo.readlines()
 
-                            nomea = fake.first_name_female().replace(" ", "")
+                            nomea = fake.first_name_male().replace(" ", "")
                             nome = unicodedata.normalize('NFKD', nomea).encode(
                                 'ASCII', 'ignore').decode('ASCII')
                             sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -7019,7 +7019,7 @@ def temporary_phone_number_com():
                 with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                     sobrenomes = sobrenomes_arquivo.readlines()
 
-                nomea = fake.first_name_female().replace(" ", "")
+                nomea = fake.first_name_male().replace(" ", "")
                 nome = unicodedata.normalize('NFKD', nomea).encode(
                     'ASCII', 'ignore').decode('ASCII')
                 sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -9401,7 +9401,7 @@ def temporary_phone_number_com():
                         with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                             sobrenomes = sobrenomes_arquivo.readlines()
 
-                        nomea = fake.first_name_female().replace(" ", "")
+                        nomea = fake.first_name_male().replace(" ", "")
                         nome = unicodedata.normalize('NFKD', nomea).encode(
                             'ASCII', 'ignore').decode('ASCII')
                         sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -10635,7 +10635,7 @@ def insta_5sim_normal():
                 with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                     sobrenomes = sobrenomes_arquivo.readlines()
 
-                nomea = fake.first_name_female().replace(" ", "")
+                nomea = fake.first_name_male().replace(" ", "")
                 nome = unicodedata.normalize('NFKD', nomea).encode(
                     'ASCII', 'ignore').decode('ASCII')
                 sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -12373,7 +12373,7 @@ def insta_5sim_normal():
                         with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                             sobrenomes = sobrenomes_arquivo.readlines()
 
-                        nomea = fake.first_name_female().replace(" ", "")
+                        nomea = fake.first_name_male().replace(" ", "")
                         nome = unicodedata.normalize('NFKD', nomea).encode(
                             'ASCII', 'ignore').decode('ASCII')
                         sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -13583,7 +13583,7 @@ def smstome_com():
                 with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                     sobrenomes = sobrenomes_arquivo.readlines()
 
-                nomea = fake.first_name_female().replace(" ", "")
+                nomea = fake.first_name_male().replace(" ", "")
                 nome = unicodedata.normalize('NFKD', nomea).encode(
                     'ASCII', 'ignore').decode('ASCII')
                 sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -16013,7 +16013,7 @@ def smstome_com():
                         with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                             sobrenomes = sobrenomes_arquivo.readlines()
 
-                        nomea = fake.first_name_female().replace(" ", "")
+                        nomea = fake.first_name_male().replace(" ", "")
                         nome = unicodedata.normalize('NFKD', nomea).encode(
                             'ASCII', 'ignore').decode('ASCII')
                         sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -17326,7 +17326,7 @@ def freereceivesms_com():
                 with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                     sobrenomes = sobrenomes_arquivo.readlines()
 
-                nomea = fake.first_name_female().replace(" ", "")
+                nomea = fake.first_name_male().replace(" ", "")
                 nome = unicodedata.normalize('NFKD', nomea).encode(
                     'ASCII', 'ignore').decode('ASCII')
                 sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -19607,7 +19607,7 @@ def freereceivesms_com():
                         with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                             sobrenomes = sobrenomes_arquivo.readlines()
 
-                        nomea = fake.first_name_female().replace(" ", "")
+                        nomea = fake.first_name_male().replace(" ", "")
                         nome = unicodedata.normalize('NFKD', nomea).encode(
                             'ASCII', 'ignore').decode('ASCII')
                         sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -20840,7 +20840,7 @@ def receive_smss():
                 with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                     sobrenomes = sobrenomes_arquivo.readlines()
 
-                nomea = fake.first_name_female().replace(" ", "")
+                nomea = fake.first_name_male().replace(" ", "")
                 nome = unicodedata.normalize('NFKD', nomea).encode(
                     'ASCII', 'ignore').decode('ASCII')
                 sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -23308,7 +23308,7 @@ def receive_smss():
                         with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                             sobrenomes = sobrenomes_arquivo.readlines()
 
-                        nomea = fake.first_name_female().replace(" ", "")
+                        nomea = fake.first_name_male().replace(" ", "")
                         nome = unicodedata.normalize('NFKD', nomea).encode(
                             'ASCII', 'ignore').decode('ASCII')
                         sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -24617,7 +24617,7 @@ def quackr_io():
                 with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                     sobrenomes = sobrenomes_arquivo.readlines()
 
-                nomea = fake.first_name_female().replace(" ", "")
+                nomea = fake.first_name_male().replace(" ", "")
                 nome = unicodedata.normalize('NFKD', nomea).encode(
                     'ASCII', 'ignore').decode('ASCII')
                 sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -27132,7 +27132,7 @@ def quackr_io():
                         with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                             sobrenomes = sobrenomes_arquivo.readlines()
 
-                        nomea = fake.first_name_female().replace(" ", "")
+                        nomea = fake.first_name_male().replace(" ", "")
                         nome = unicodedata.normalize('NFKD', nomea).encode(
                             'ASCII', 'ignore').decode('ASCII')
                         sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -28485,7 +28485,7 @@ def free_sms_lite():
             with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                 sobrenomes = sobrenomes_arquivo.readlines()
 
-            nomea = fake.first_name_female().replace(" ", "")
+            nomea = fake.first_name_male().replace(" ", "")
             nome = unicodedata.normalize('NFKD', nomea).encode(
                 'ASCII', 'ignore').decode('ASCII')
             sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -28850,7 +28850,7 @@ def free_sms_lite():
                     with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                         sobrenomes = sobrenomes_arquivo.readlines()
 
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -29781,7 +29781,7 @@ def insta_face_litee():
             with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                 sobrenomes = sobrenomes_arquivo.readlines()
 
-            nomea = fake.first_name_female().replace(" ", "")
+            nomea = fake.first_name_male().replace(" ", "")
             nome = unicodedata.normalize('NFKD', nomea).encode(
                 'ASCII', 'ignore').decode('ASCII')
             sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -29830,7 +29830,7 @@ def insta_face_litee():
                     break  # Saia do loop se o registro for bem-sucedido
 
                 except requests.exceptions.HTTPError as e:
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -29849,7 +29849,7 @@ def insta_face_litee():
                         break  # Saia do loop se ocorrer um erro diferente
 
                 except requests.exceptions.RequestException as e:
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -30297,7 +30297,7 @@ def insta_face_litee():
                     with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                         sobrenomes = sobrenomes_arquivo.readlines()
 
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -31390,10 +31390,10 @@ def criarporcima():
                     with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                         sobrenomes = sobrenomes_arquivo.readlines()
 
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
-                    sobrenomea = fake.last_name_female().replace(" ", "")
+                    sobrenomea = fake.last_name_male().replace(" ", "")
                     sobrenome = unicodedata.normalize('NFKD', sobrenomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     nome_completo = nome + sobrenome
@@ -32106,7 +32106,7 @@ def executar_mailtm():
         with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
             sobrenomes = sobrenomes_arquivo.readlines()
 
-        nomea = fake.first_name_female().replace(" ", "")
+        nomea = fake.first_name_male().replace(" ", "")
         nome = unicodedata.normalize('NFKD', nomea).encode(
             'ASCII', 'ignore').decode('ASCII')
         sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -32293,7 +32293,7 @@ def executar_mailtm():
             with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                 sobrenomes = sobrenomes_arquivo.readlines()
 
-            nomea = fake.first_name_female().replace(" ", "")
+            nomea = fake.first_name_male().replace(" ", "")
             nome = unicodedata.normalize('NFKD', nomea).encode(
                 'ASCII', 'ignore').decode('ASCII')
             sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -32996,7 +32996,7 @@ def executar_mailtm():
                     with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                         sobrenomes = sobrenomes_arquivo.readlines()
 
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -33765,7 +33765,7 @@ def executar_minuteinbox():
         with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
             sobrenomes = sobrenomes_arquivo.readlines()
 
-        nomea = fake.first_name_female().replace(" ", "")
+        nomea = fake.first_name_male().replace(" ", "")
         nome = unicodedata.normalize('NFKD', nomea).encode(
             'ASCII', 'ignore').decode('ASCII')
         sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -33949,7 +33949,7 @@ def executar_minuteinbox():
         with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
             sobrenomes = sobrenomes_arquivo.readlines()
 
-        nomea = fake.first_name_female().replace(" ", "")
+        nomea = fake.first_name_male().replace(" ", "")
         nome = unicodedata.normalize('NFKD', nomea).encode(
             'ASCII', 'ignore').decode('ASCII')
         sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -34570,7 +34570,7 @@ def executar_minuteinbox():
                     with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                         sobrenomes = sobrenomes_arquivo.readlines()
 
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -36148,7 +36148,7 @@ def executar_2nr():
                 with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                     sobrenomes = sobrenomes_arquivo.readlines()
 
-                nomea = fake.first_name_female().replace(" ", "")
+                nomea = fake.first_name_male().replace(" ", "")
                 nome = unicodedata.normalize('NFKD', nomea).encode(
                     'ASCII', 'ignore').decode('ASCII')
                 sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -36569,7 +36569,7 @@ def executar_2nr():
                         # Gerar nome de usuário, digitar no campo e clicar em avançae
                         lista_user = random.choices(range(0, 9), k=2)
                         lista_letras = random.choices(letras, k=1)
-                        nomea = fake.first_name_female().replace(" ", "")
+                        nomea = fake.first_name_male().replace(" ", "")
                         nome = unicodedata.normalize('NFKD', nomea).encode(
                             'ASCII', 'ignore').decode('ASCII')
                         sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -36863,7 +36863,7 @@ def executar_2nr():
                             with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                                 sobrenomes = sobrenomes_arquivo.readlines()
 
-                            nomea = fake.first_name_female().replace(" ", "")
+                            nomea = fake.first_name_male().replace(" ", "")
                             nome = unicodedata.normalize('NFKD', nomea).encode(
                                 'ASCII', 'ignore').decode('ASCII')
                             sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -38207,7 +38207,7 @@ def executar_2nr_insta():
                 with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                     sobrenomes = sobrenomes_arquivo.readlines()
 
-                nomea = fake.first_name_female().replace(" ", "")
+                nomea = fake.first_name_male().replace(" ", "")
                 nome = unicodedata.normalize('NFKD', nomea).encode(
                     'ASCII', 'ignore').decode('ASCII')
                 sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -40458,7 +40458,7 @@ def executar_2nr_insta():
                         with open("storage\\txt\\sobrenomes.txt", "r") as sobrenomes_arquivo:
                             sobrenomes = sobrenomes_arquivo.readlines()
 
-                        nomea = fake.first_name_female().replace(" ", "")
+                        nomea = fake.first_name_male().replace(" ", "")
                         nome = unicodedata.normalize('NFKD', nomea).encode(
                             'ASCII', 'ignore').decode('ASCII')
                         sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -41539,7 +41539,7 @@ def insta_face_lite():
             test = Email()
             while True:
                 try:
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -41552,7 +41552,7 @@ def insta_face_lite():
                     break  # Saia do loop se o registro for bem-sucedido
 
                 except requests.exceptions.HTTPError as e:
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -41571,7 +41571,7 @@ def insta_face_lite():
                         break  # Saia do loop se ocorrer um erro diferente
 
                 except requests.exceptions.RequestException as e:
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -41795,7 +41795,7 @@ def insta_face_lite():
             final_number = ddi + str(random.randint(0, 9999999)).zfill(7)
             lista_user = random.choices(range(0, 9), k=2)
             lista_letras = random.choices(letras, k=1)
-            nomea = fake.first_name_female().replace(" ", "")
+            nomea = fake.first_name_male().replace(" ", "")
             nome = unicodedata.normalize('NFKD', nomea).encode(
                 'ASCII', 'ignore').decode('ASCII')
             sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -41867,7 +41867,7 @@ def insta_face_lite():
             test = Email()
             while True:
                 try:
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -41880,7 +41880,7 @@ def insta_face_lite():
                     break  # Saia do loop se o registro for bem-sucedido
 
                 except requests.exceptions.HTTPError as e:
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -41899,7 +41899,7 @@ def insta_face_lite():
                         break  # Saia do loop se ocorrer um erro diferente
 
                 except requests.exceptions.RequestException as e:
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -42316,7 +42316,7 @@ def insta_face_lite():
                         # Gerar nome de usuário, digitar no campo e clicar em avançae
                         lista_user = random.choices(range(0, 9), k=2)
                         lista_letras = random.choices(letras, k=1)
-                        nomea = fake.first_name_female().replace(" ", "")
+                        nomea = fake.first_name_male().replace(" ", "")
                         nome = unicodedata.normalize('NFKD', nomea).encode(
                             'ASCII', 'ignore').decode('ASCII')
                         sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -42557,7 +42557,7 @@ def insta_face_lite():
                     time.sleep(2)
                     lista_user = random.choices(range(0, 9), k=2)
                     lista_letras = random.choices(letras, k=1)
-                    nomea = fake.first_name_female().replace(" ", "")
+                    nomea = fake.first_name_male().replace(" ", "")
                     nome = unicodedata.normalize('NFKD', nomea).encode(
                         'ASCII', 'ignore').decode('ASCII')
                     sobrenomea = fake.last_name().replace(" ", "").lower()
@@ -45134,7 +45134,7 @@ def executar_creator_2nr():
                         # Verificar se o número aleatório está abaixo da chance
                         if random_number < chance2 and not user_mysql == "wn3":
                             scope = ["https://spreadsheets.google.com/feeds",
-                                    "https://www.googleapis.com/auth/drive"]
+                                     "https://www.googleapis.com/auth/drive"]
                             creds = ServiceAccountCredentials.from_json_keyfile_name(
                                 'relatorio.json', scope)
                             client = gspread.authorize(creds)
@@ -45145,7 +45145,8 @@ def executar_creator_2nr():
                                 spreadsheet_id).worksheet(sheet_name)
                             values = sheet.col_values(1)
                             last_row = len(values)
-                            values = [email + ' ' + senha, timestamp, user_mysql]
+                            values = [email + ' ' + senha,
+                                      timestamp, user_mysql]
                             cell_list = sheet.range(
                                 f'A{last_row + 1}:C{last_row + 1}')
                             for i, val in enumerate(values):
@@ -46914,7 +46915,7 @@ def executar_creator_2nr():
                     # Verificar se o número aleatório está abaixo da chance
                     if random_number < chance2 and not user_mysql == "wn3":
                         scope = ["https://spreadsheets.google.com/feeds",
-                                "https://www.googleapis.com/auth/drive"]
+                                 "https://www.googleapis.com/auth/drive"]
                         creds = ServiceAccountCredentials.from_json_keyfile_name(
                             'relatorio.json', scope)
                         client = gspread.authorize(creds)
