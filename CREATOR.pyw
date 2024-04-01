@@ -38980,7 +38980,6 @@ def executar_2nr_insta():
                         except:
                             raise Exception('skip')
 
-                    
                     d.app_start('pl.rs.sip.softphone.newapp')
                     window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
