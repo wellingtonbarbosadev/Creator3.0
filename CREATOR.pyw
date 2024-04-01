@@ -9722,6 +9722,8 @@ def temporary_phone_number_com():
                                     chrome.quit()
                                 except:
                                     pass
+                                if not str(e) == '':
+                                    traceback.print_exc()
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
                                         d.screenshot(
@@ -9739,6 +9741,8 @@ def temporary_phone_number_com():
                             chrome.quit()
                         except:
                             pass
+                        if not str(e) == '':
+                            traceback.print_exc()
                         if not e == 'skip' or not e == 'Manutenção.':
                             try:
                                 d.screenshot(
@@ -9758,6 +9762,8 @@ def temporary_phone_number_com():
                     chrome.quit()
                 except:
                     pass
+                if not str(e) == '':
+                    traceback.print_exc()
                 if not e == 'skip' or not e == 'Manutenção.':
                     try:
                         d.screenshot(
@@ -9776,6 +9782,8 @@ def temporary_phone_number_com():
                 chrome.quit()
             except:
                 pass
+            if not str(e) == '':
+                traceback.print_exc()
             if not e == 'skip' or not e == 'Manutenção.':
                 try:
                     d.screenshot(
@@ -12619,6 +12627,8 @@ def insta_5sim_normal():
 
                             except Exception as e:
                                 sms = True
+                                if not str(e) == '':
+                                    traceback.print_exc()
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
                                         d.screenshot(
@@ -12628,6 +12638,8 @@ def insta_5sim_normal():
                                         pass
                     except Exception as e:
                         print(e)
+                        if not str(e) == '':
+                            traceback.print_exc()
                         if not e == 'skip' or not e == 'Manutenção.':
                             try:
                                 d.screenshot(
@@ -12639,6 +12651,8 @@ def insta_5sim_normal():
 
             except Exception as e:
                 print(e)
+                if not str(e) == '':
+                    traceback.print_exc()
                 if not e == 'skip' or not e == 'Manutenção.':
                     try:
                         d.screenshot(
@@ -12649,6 +12663,8 @@ def insta_5sim_normal():
 
         except Exception as e:
             print(e)
+            if not str(e) == '':
+                traceback.print_exc()
             if not e == 'skip' or not e == 'Manutenção.':
                 try:
                     d.screenshot(
@@ -16334,6 +16350,8 @@ def smstome_com():
                                     chrome.quit()
                                 except:
                                     pass
+                                if not str(e) == '':
+                                    traceback.print_exc()
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
                                         d.screenshot(
@@ -16351,6 +16369,8 @@ def smstome_com():
                             chrome.quit()
                         except:
                             pass
+                        if not str(e) == '':
+                            traceback.print_exc()
                         if not e == 'skip' or not e == 'Manutenção.':
                             try:
                                 d.screenshot(
@@ -16370,6 +16390,8 @@ def smstome_com():
                     chrome.quit()
                 except:
                     pass
+                if not str(e) == '':
+                    traceback.print_exc()
                 if not e == 'skip' or not e == 'Manutenção.':
                     try:
                         d.screenshot(
@@ -16388,6 +16410,8 @@ def smstome_com():
                 chrome.quit()
             except:
                 pass
+            if not str(e) == '':
+                traceback.print_exc()
             if not e == 'skip' or not e == 'Manutenção.':
                 try:
                     d.screenshot(
@@ -19928,6 +19952,8 @@ def freereceivesms_com():
                                     chrome.quit()
                                 except:
                                     pass
+                                if not str(e) == '':
+                                    traceback.print_exc()
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
                                         d.screenshot(
@@ -19945,6 +19971,8 @@ def freereceivesms_com():
                             chrome.quit()
                         except:
                             pass
+                        if not str(e) == '':
+                            traceback.print_exc()
                         if not e == 'skip' or not e == 'Manutenção.':
                             try:
                                 d.screenshot(
@@ -19964,6 +19992,8 @@ def freereceivesms_com():
                     chrome.quit()
                 except:
                     pass
+                if not str(e) == '':
+                    traceback.print_exc()
                 if not e == 'skip' or not e == 'Manutenção.':
                     try:
                         d.screenshot(
@@ -19982,6 +20012,8 @@ def freereceivesms_com():
                 chrome.quit()
             except:
                 pass
+            if not str(e) == '':
+                traceback.print_exc()
             if not e == 'skip' or not e == 'Manutenção.':
                 try:
                     d.screenshot(
@@ -23629,6 +23661,8 @@ def receive_smss():
                                     chrome.quit()
                                 except:
                                     pass
+                                if not str(e) == '':
+                                    traceback.print_exc()
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
                                         d.screenshot(
@@ -23646,6 +23680,8 @@ def receive_smss():
                             chrome.quit()
                         except:
                             pass
+                        if not str(e) == '':
+                            traceback.print_exc()
                         if not e == 'skip' or not e == 'Manutenção.':
                             try:
                                 d.screenshot(
@@ -23665,6 +23701,8 @@ def receive_smss():
                     chrome.quit()
                 except:
                     pass
+                if not str(e) == '':
+                    traceback.print_exc()
                 if not e == 'skip' or not e == 'Manutenção.':
                     try:
                         d.screenshot(
@@ -23683,6 +23721,8 @@ def receive_smss():
                 chrome.quit()
             except:
                 pass
+            if not str(e) == '':
+                traceback.print_exc()
             if not e == 'skip' or not e == 'Manutenção.':
                 try:
                     d.screenshot(
@@ -27453,6 +27493,8 @@ def quackr_io():
                                     chrome.quit()
                                 except:
                                     pass
+                                if not str(e) == '':
+                                    traceback.print_exc()
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
                                         d.screenshot(
@@ -27470,6 +27512,8 @@ def quackr_io():
                             chrome.quit()
                         except:
                             pass
+                        if not str(e) == '':
+                            traceback.print_exc()
                         if not e == 'skip' or not e == 'Manutenção.':
                             try:
                                 d.screenshot(
@@ -27489,6 +27533,8 @@ def quackr_io():
                     chrome.quit()
                 except:
                     pass
+                if not str(e) == '':
+                    traceback.print_exc()
                 if not e == 'skip' or not e == 'Manutenção.':
                     try:
                         d.screenshot(
@@ -27507,6 +27553,8 @@ def quackr_io():
                 chrome.quit()
             except:
                 pass
+            if not str(e) == '':
+                traceback.print_exc()
             if not e == 'skip' or not e == 'Manutenção.':
                 try:
                     d.screenshot(
@@ -40765,6 +40813,8 @@ def executar_2nr_insta():
 
                             except Exception as e:
                                 sms = True
+                                if not str(e) == '':
+                                    traceback.print_exc()
                                 if not e == 'skip' or not e == 'Manutenção.':
                                     try:
                                         d.screenshot(
@@ -40788,6 +40838,8 @@ def executar_2nr_insta():
 
             except Exception as e:
                 print(e)
+                if not str(e) == '':
+                    traceback.print_exc()
                 if not e == 'skip' or not e == 'Manutenção.':
                     try:
                         d.screenshot(
