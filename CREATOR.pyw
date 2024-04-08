@@ -1321,7 +1321,7 @@ def instaface_criarface():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -2423,7 +2423,7 @@ def free_sms_beta2():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -4389,7 +4389,7 @@ def free_sms():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -6125,7 +6125,7 @@ def temporary_phone_number_com():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -9851,7 +9851,7 @@ def insta_5sim_normal():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -12731,7 +12731,7 @@ def smstome_com():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -16478,7 +16478,7 @@ def freereceivesms_com():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -20078,7 +20078,7 @@ def receive_smss():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -23784,7 +23784,7 @@ def quackr_io():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -27607,7 +27607,7 @@ def free_sms_lite():
         import uiautomator2 as u2
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         window['output'].print(
             f'[{datetime.now().strftime("%H:%M:%S")}] Instalando dependências...')
         window.Refresh()
@@ -29137,7 +29137,7 @@ def insta_face_litee():
         import uiautomator2 as u2
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         window['output'].print(
             f'[{datetime.now().strftime("%H:%M:%S")}] Instalando dependências...')
         window.Refresh()
@@ -34926,7 +34926,7 @@ def executar_2nr():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -37133,6 +37133,7 @@ def executar_2nr():
 
 
 def executar_2nr_insta():
+    import traceback
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
     senha = gerar_senha(12)
@@ -37185,7 +37186,7 @@ def executar_2nr_insta():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -40913,7 +40914,7 @@ def insta_face_lite():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -43001,7 +43002,7 @@ def executar_creator_2nr():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         subprocess.run(['venv/scripts/activate.bat'], shell=True)
-        subprocess.run(['pip', 'install', 'uiautomator2'])
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
         subprocess.run(['deactivate'], shell=True)
         subprocess.run(['pip', 'install', '--upgrade', 'requests'])
         subprocess.run(['pip', 'install', 'packaging==21.3'],
