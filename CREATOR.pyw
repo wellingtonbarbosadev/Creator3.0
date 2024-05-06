@@ -7048,6 +7048,8 @@ def temporary_phone_number_com():
                 layout2 = d(resourceId='android:id/button2')
                 layout3 = d.xpath(
                     '//android.view.View[@content-desc="Qual é o número do seu celular?"]')
+                layout3v2 = d.xpath(
+                    '//android.view.View[@content-desc="Qual é seu número de celular ou email?"]')
                 layout4 = d.xpath(
                     '//android.view.View[@content-desc="Crie uma senha"]')
                 if layout1.exists:
@@ -7596,7 +7598,7 @@ def temporary_phone_number_com():
                     except Exception as e:
                         pass
 
-                elif layout3.exists:
+                elif layout3.exists or layout3v2.exists:
                     layout_usado = 'layout3'
                     window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] Layout3 novo encontrado.')
@@ -10672,6 +10674,8 @@ def insta_5sim_normal():
                 layout2 = d(resourceId='android:id/button2')
                 layout3 = d.xpath(
                     '//android.view.View[@content-desc="Qual é o número do seu celular?"]')
+                layout3v2 = d.xpath(
+                    '//android.view.View[@content-desc="Qual é seu número de celular ou email?"]')
                 layout4 = d.xpath(
                     '//android.view.View[@content-desc="Crie uma senha"]')
                 if layout1.exists:
@@ -11040,7 +11044,7 @@ def insta_5sim_normal():
                     except Exception as e:
                         pass
 
-                elif layout3.exists:
+                elif layout3.exists or layout3v2.exists:
 
                     layout_usado = 'layout3'
                     window['output'].print(
@@ -13628,6 +13632,8 @@ def smstome_com():
                 layout2 = d(resourceId='android:id/button2')
                 layout3 = d.xpath(
                     '//android.view.View[@content-desc="Qual é o número do seu celular?"]')
+                layout3v2 = d.xpath(
+                    '//android.view.View[@content-desc="Qual é seu número de celular ou email?"]')
                 layout4 = d.xpath(
                     '//android.view.View[@content-desc="Crie uma senha"]')
                 if layout1.exists:
@@ -14176,7 +14182,7 @@ def smstome_com():
                     except Exception as e:
                         pass
 
-                elif layout3.exists:
+                elif layout3.exists or layout3v2.exists:
                     layout_usado = 'layout3'
                     window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] Layout3 novo encontrado.')
@@ -17379,6 +17385,8 @@ def freereceivesms_com():
                 layout2 = d(resourceId='android:id/button2')
                 layout3 = d.xpath(
                     '//android.view.View[@content-desc="Qual é o número do seu celular?"]')
+                layout3v2 = d.xpath(
+                    '//android.view.View[@content-desc="Qual é seu número de celular ou email?"]')
                 layout4 = d.xpath(
                     '//android.view.View[@content-desc="Crie uma senha"]')
                 if layout1.exists:
@@ -17927,7 +17935,7 @@ def freereceivesms_com():
                     except Exception as e:
                         pass
 
-                elif layout3.exists:
+                elif layout3.exists or layout3v2.exists:
                     layout_usado = 'layout3'
                     window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] Layout3 novo encontrado.')
@@ -20901,6 +20909,8 @@ def receive_smss():
                 layout2 = d(resourceId='android:id/button2')
                 layout3 = d.xpath(
                     '//android.view.View[@content-desc="Qual é o número do seu celular?"]')
+                layout3v2 = d.xpath(
+                    '//android.view.View[@content-desc="Qual é seu número de celular ou email?"]')
                 layout4 = d.xpath(
                     '//android.view.View[@content-desc="Crie uma senha"]')
                 if layout1.exists:
@@ -21449,7 +21459,7 @@ def receive_smss():
                     except Exception as e:
                         pass
 
-                elif layout3.exists:
+                elif layout3.exists or layout3v2.exists:
                     layout_usado = 'layout3'
                     window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] Layout3 novo encontrado.')
@@ -24686,6 +24696,8 @@ def quackr_io():
                 layout2 = d(resourceId='android:id/button2')
                 layout3 = d.xpath(
                     '//android.view.View[@content-desc="Qual é o número do seu celular?"]')
+                layout3v2 = d.xpath(
+                    '//android.view.View[@content-desc="Qual é seu número de celular ou email?"]')
                 layout4 = d.xpath(
                     '//android.view.View[@content-desc="Crie uma senha"]')
                 if layout1.exists:
@@ -25234,7 +25246,7 @@ def quackr_io():
                     except Exception as e:
                         pass
 
-                elif layout3.exists:
+                elif layout3.exists or layout3v2.exists:
                     layout_usado = 'layout3'
                     window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] Layout3 novo encontrado.')
@@ -38285,6 +38297,8 @@ def executar_2nr_insta():
                 layout2 = d(resourceId='android:id/button2')
                 layout3 = d.xpath(
                     '//android.view.View[@content-desc="Qual é o número do seu celular?"]')
+                layout3v2 = d.xpath(
+                    '//android.view.View[@content-desc="Qual é seu número de celular ou email?"]')
                 layout4 = d.xpath(
                     '//android.view.View[@content-desc="Crie uma senha"]')
                 if layout1.exists:
@@ -38833,7 +38847,7 @@ def executar_2nr_insta():
                     except Exception as e:
                         pass
 
-                elif layout3.exists:
+                elif layout3.exists or layout3v2.exists:
                     layout_usado = 'layout3'
                     window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] Layout3 novo encontrado.')
