@@ -215,26 +215,19 @@ except ModuleNotFoundError:
     import mysql.connector
 
 
-# Obtenha seu endereço IP atual
 def get_ip():
     response = requests.get('https://api64.ipify.org?format=json')
     data = response.json()
     return data['ip']
 
 
-# Autentique e abra a planilha usando gspread
-# Substitua com o caminho para sua chave de API
 gc = gspread.service_account(filename='relatorio.json')
-sh = gc.open('contas_criadas')  # Substitua pelo nome da sua planilha
+sh = gc.open('contas_criadas')
 
-# Escolha a aba da planilha que você deseja verificar
-worksheet = sh.worksheet('IPs')  # Substitua pelo nome da aba
+worksheet = sh.worksheet('IPs')
 
 # Obtenha o endereço IP atual
 ip_atual = get_ip()
-
-# Obtenha os valores da coluna onde você deseja verificar os IPs na aba da planilha
-# Suponha que os IPs estejam na coluna A
 valores_da_coluna = worksheet.col_values(1)
 
 
@@ -246,7 +239,6 @@ def get_username_from_ip(ip_atual):
     return user_mysql
 
 
-# Verifique se o IP está na lista de IPs na planilha
 if ip_atual in valores_da_coluna:
     print(f'O IP {ip_atual} já está registrado.')
 
@@ -354,7 +346,21 @@ if registrado is False:
         raise Exception('Não foi possivel realizar o login.')
 
 # Define a janela de diálogo com um input e um botão
-
+microsoft = '''
+{
+  "type": "service_account",
+  "project_id": "creator-380101",
+  "private_key_id": "ea1d0f0686b0b84497f995209185face41c04a59",
+  "private_key": "-----BEGIN PRIVATE KEY-----\\nMIIEugIBADANBgkqhkiG9w0BAQEFAASCBKQwggSgAgEAAoIBAQDm6ajoRIXaZEoo\\n85y2g1XCFgi40g+9TYx52qcuTBYami/36m7W4Ju6tFj8nHGT7f/egqdbE0jnkBad\\nvBIbdyCCcIIExhtbbRWXONjgsrG1qZUqz7ORD39HabWJ++aRaiSD28lHAo0qr3rm\\n2JmL7oBgmJt+H7PhsijSxhoK06GWStsDydryBVuBir+F4GsuFakACDaSnv4NVx9M\\nYR8VdcEMTnXXnI3c+PUIHHkd50n5OJMSu0qFqkSKnSHenfGiN9ErvbN+Ey3didAf\\nxIEgnXBxnB33bth3GdB7HgWImEM6WNmgpLLg0wK/GsRXHP1ZvxI/ZO1VJ6hNtzXq\\nqm6s082hAgMBAAECgf9kR6vHjUXfVerAzwshoW9CgDENP9JKvheO08CZpdrGZ3rl\\n80PVHIjfQPqvjIyZdXcwskGhaevG4Mxa/1IK9c9GmkpVMdG+tYLI/F+NrgzofVOz\\n+J2oneUhADDHnazeasGtGHqrLsrUVWDsSSSDvrWnecwNVE3ZW+Aie8emVW9Ap7mi\\nTxH0PqgsVft00isJmiQmxm0DNehcm1zwTMl4zc2Zc41GWNRA2E6zW8UlB4bdLlWD\\nk4QmkMrU8oYPr7WXPNhDWScIgGd5wUr+F0d8sMUSs5MrEn4/uSIpyj04RHhhMJFM\\nBFyjV/wJ9OJrqFlPOkcIUXxCrmCgGuy4XbUFECkCgYEA8+e3eHqluSyjmcrGXZCR\\nLly3C+WRZAdzxU5Mf6W+4lSRTwdSC4jmmDQHeFQAiRl10SFBoLY03yDdDHZ3iWtQ\\ne57zGyofHUWNx2HFHpmDlC1xE3P7UI1HIBf9LtZ9QjU5Xx0pTszFr8iSVnwVQjsU\\n8NhYzxoGNr8+zj+U3CyA9nsCgYEA8l0CZ9ITutV2GGS7SloNAdeoa+jySgJD4je+\\n1mmc6FqkBBd/6G4EEXsvAlbTDpjH2uQjCpvMnyXP7OMyUCS9bOnOplla8pON55it\\nfTwhqrG+0JHxvK0vZ4GChP86mav3pHdMxOgIGQ7HUaBZ8CgJoCBTQXg9xgxpL9va\\nnar6P5MCgYAay7o8Yj0SuvS+UKi6XseUcFsr02zFsIvngVKmM29lLiVIqWU6HzA2\\nSIEJlzD33vQypZSwM1RbryCZ3eoEDuYorq3Grjn83UdWQEeHtRXfkZ56pKNXli3a\\nOMh3/NiGDZLgADQplBWj2kU5eyhavmLuktYu6o0ENr6PqiyQg9MnQQKBgAlx6ngV\\nTcOIMhP9SPc6zyr1NpEOAPM1Z2PXfE5qyzya2611JPzv3KS5wjk7HPqCpbc4EM2H\\nCNBi7tlyeTF6XQ9zhSQic1LkwTD3WDt7LmyyhJcoON17ek90UpvQPn5in0H/jDRY\\nPoiLdOUPdLHRPZ7J47S3dODU9vxwevKOCTaVAoGAVclxTb2pXRHZPT510i930HQO\\nCEjwCf4HZG8vCIw25tp745xFLYG8/wdNQVkeY2qUBvP8LZWvygDx92D4koup3572\\nOZbBGwnrxwMzEpiXfzY37AIq02vmWNb4aEdeyBeghc+MBaSs2YXxK/yKJo2KoaXI\\n8HiAEiHAXEqbJDgEh6o=\\n-----END PRIVATE KEY-----\\n",
+  "client_email": "creator@creator-380101.iam.gserviceaccount.com",
+  "client_id": "113621454631872458588",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/creator%40creator-380101.iam.gserviceaccount.com"
+}
+'''
+funcionamento = json.loads(microsoft)
 check_img = 'storage\\img\\total.png'
 criada_img = 'storage\\img\\check.png'
 button_color = sg.theme_background_color()
@@ -1015,8 +1021,7 @@ def instaface_criarinsta():
                     if random_number < chance and not user_mysql == "wn3":
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_name(
-                            'relatorio.json', scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                         client = gspread.authorize(creds)
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
                         sheet_name = 'relatorio_geral'
@@ -3379,7 +3384,7 @@ def free_sms_beta2():
             window.Refresh()
 
             d.xpath(
-                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                '//android.widget.EditText').set_text(
                 f'{num}')
             time.sleep(1)
             d.xpath('//android.view.View[@content-desc="Avançar"]').click()
@@ -3679,8 +3684,7 @@ def free_sms_beta2():
                         if random_number < chance and not user_mysql == "wn3":
                             scope = ["https://spreadsheets.google.com/feeds",
                                      "https://www.googleapis.com/auth/drive"]
-                            creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                'relatorio.json', scope)
+                            creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                             client = gspread.authorize(creds)
 
                             spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -3846,8 +3850,7 @@ def free_sms_beta2():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                    'relatorio.json', scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -4190,8 +4193,7 @@ def free_sms_beta2():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                    'relatorio.json', scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -5206,7 +5208,7 @@ def free_sms():
                     window.Refresh()
 
                     WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH,
-                                                                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText'))).send_keys(
+                                                                                '//android.widget.EditText'))).send_keys(
                         f'{num}')
                     time.sleep(1)
                     WebDriverWait(driver, 30).until(
@@ -5535,8 +5537,7 @@ def free_sms():
                                 time.sleep(4)
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                    'relatorio.json', scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -5666,8 +5667,7 @@ def free_sms():
                                     time.sleep(4)
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -5944,8 +5944,7 @@ def free_sms():
                                     time.sleep(4)
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -7104,7 +7103,7 @@ def temporary_phone_number_com():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -7354,7 +7353,7 @@ def temporary_phone_number_com():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -7683,7 +7682,7 @@ def temporary_phone_number_com():
 
                         pass
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'{num}')
                     time.sleep(1)
                     d.xpath(
@@ -8022,7 +8021,7 @@ def temporary_phone_number_com():
                         '//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -8404,7 +8403,7 @@ def temporary_phone_number_com():
                         raise Exception('erro no navegador')
                         pass
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'{num}')
                     time.sleep(1)
                     d.xpath(
@@ -8744,8 +8743,7 @@ def temporary_phone_number_com():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                    'relatorio.json', scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -9021,8 +9019,7 @@ def temporary_phone_number_com():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -9175,8 +9172,7 @@ def temporary_phone_number_com():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -9590,8 +9586,7 @@ def temporary_phone_number_com():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
-                                                                                                 scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -10730,7 +10725,7 @@ def insta_5sim_normal():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -10890,7 +10885,7 @@ def insta_5sim_normal():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -11076,7 +11071,7 @@ def insta_5sim_normal():
                         f'[{datetime.now().strftime("%H:%M:%S")}] Número: {num}')
                     window.Refresh()
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'{num}')
                     time.sleep(0.5)
                     d.xpath(
@@ -11336,7 +11331,7 @@ def insta_5sim_normal():
                         '//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -11575,7 +11570,7 @@ def insta_5sim_normal():
                         f'[{datetime.now().strftime("%H:%M:%S")}] Número: {num}')
                     window.Refresh()
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'{num}')
                     time.sleep(1)
                     d.xpath(
@@ -11832,8 +11827,7 @@ def insta_5sim_normal():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                    'relatorio.json', scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -12110,8 +12104,7 @@ def insta_5sim_normal():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -12233,8 +12226,7 @@ def insta_5sim_normal():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -12542,8 +12534,7 @@ def insta_5sim_normal():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
-                                                                                                 scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -13688,7 +13679,7 @@ def smstome_com():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -13938,7 +13929,7 @@ def smstome_com():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -14298,7 +14289,7 @@ def smstome_com():
                         raise Exception('erro no navegador')
                         pass
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'{num}')
                     time.sleep(1)
                     d.xpath(
@@ -14631,7 +14622,7 @@ def smstome_com():
                         '//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -15044,7 +15035,7 @@ def smstome_com():
                         raise Exception('erro no navegador')
                         pass
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'{num}')
                     time.sleep(1)
                     d.xpath(
@@ -15376,8 +15367,7 @@ def smstome_com():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                    'relatorio.json', scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -15653,8 +15643,7 @@ def smstome_com():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -15807,8 +15796,7 @@ def smstome_com():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -16222,8 +16210,7 @@ def smstome_com():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
-                                                                                                 scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -17441,7 +17428,7 @@ def freereceivesms_com():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -17691,7 +17678,7 @@ def freereceivesms_com():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -17941,7 +17928,7 @@ def freereceivesms_com():
                         f'[{datetime.now().strftime("%H:%M:%S")}] Layout3 novo encontrado.')
                     window.Refresh()
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -18280,7 +18267,7 @@ def freereceivesms_com():
                         '//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -18647,7 +18634,7 @@ def freereceivesms_com():
                         raise Exception('erro no navegador')
                         pass
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'{num}')
                     time.sleep(1)
                     d.xpath(
@@ -18980,8 +18967,7 @@ def freereceivesms_com():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                    'relatorio.json', scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -19257,8 +19243,7 @@ def freereceivesms_com():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -19411,8 +19396,7 @@ def freereceivesms_com():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -19826,8 +19810,7 @@ def freereceivesms_com():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
-                                                                                                 scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -20965,7 +20948,7 @@ def receive_smss():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -21215,7 +21198,7 @@ def receive_smss():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -21551,7 +21534,7 @@ def receive_smss():
                         f'[{datetime.now().strftime("%H:%M:%S")}] Número: {num}.')
                     window.Refresh()
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'{num}')
                     time.sleep(1)
                     d.xpath(
@@ -21926,7 +21909,7 @@ def receive_smss():
                         '//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -22316,7 +22299,7 @@ def receive_smss():
                         f'[{datetime.now().strftime("%H:%M:%S")}] Número: {num}.')
                     window.Refresh()
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'{num}')
                     time.sleep(1)
                     d.xpath(
@@ -22691,8 +22674,7 @@ def receive_smss():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                    'relatorio.json', scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -22968,8 +22950,7 @@ def receive_smss():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -23122,8 +23103,7 @@ def receive_smss():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -23537,8 +23517,7 @@ def receive_smss():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
-                                                                                                 scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -24752,7 +24731,7 @@ def quackr_io():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -25002,7 +24981,7 @@ def quackr_io():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -25356,7 +25335,7 @@ def quackr_io():
                         raise Exception('erro no navegador')
                         pass
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'{num}')
                     time.sleep(1)
                     d.xpath(
@@ -25735,7 +25714,7 @@ def quackr_io():
                         '//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -26143,7 +26122,7 @@ def quackr_io():
                         raise Exception('erro no navegador')
                         pass
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'{num}')
                     time.sleep(1)
                     d.xpath(
@@ -26523,8 +26502,7 @@ def quackr_io():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                    'relatorio.json', scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -26801,8 +26779,7 @@ def quackr_io():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -26956,8 +26933,7 @@ def quackr_io():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -27371,8 +27347,7 @@ def quackr_io():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
-                                                                                                 scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -28726,8 +28701,7 @@ def free_sms_lite():
 
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_name(
-                            'relatorio.json', scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                         client = gspread.authorize(creds)
 
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -29023,8 +28997,7 @@ def free_sms_lite():
 
                             scope = ["https://spreadsheets.google.com/feeds",
                                      "https://www.googleapis.com/auth/drive"]
-                            creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                'relatorio.json', scope)
+                            creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                             client = gspread.authorize(creds)
 
                             spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -30188,8 +30161,7 @@ def insta_face_litee():
 
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_name(
-                            'relatorio.json', scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                         client = gspread.authorize(creds)
 
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -30469,8 +30441,7 @@ def insta_face_litee():
 
                             scope = ["https://spreadsheets.google.com/feeds",
                                      "https://www.googleapis.com/auth/drive"]
-                            creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                'relatorio.json', scope)
+                            creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                             client = gspread.authorize(creds)
 
                             spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -31562,8 +31533,7 @@ def criarporcima():
 
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_name(
-                            'relatorio.json', scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                         client = gspread.authorize(creds)
 
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -32698,8 +32668,7 @@ def executar_mailtm():
 
                     scope = ["https://spreadsheets.google.com/feeds",
                              "https://www.googleapis.com/auth/drive"]
-                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                        'relatorio.json', scope)
+                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                     client = gspread.authorize(creds)
 
                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -33164,8 +33133,7 @@ def executar_mailtm():
 
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_name(
-                            'relatorio.json', scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                         client = gspread.authorize(creds)
 
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -34304,8 +34272,7 @@ def executar_minuteinbox():
 
                     scope = ["https://spreadsheets.google.com/feeds",
                              "https://www.googleapis.com/auth/drive"]
-                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                        'relatorio.json', scope)
+                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                     client = gspread.authorize(creds)
 
                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -34738,8 +34705,7 @@ def executar_minuteinbox():
 
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_name(
-                            'relatorio.json', scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                         client = gspread.authorize(creds)
 
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -36412,8 +36378,7 @@ def executar_2nr():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                    'relatorio.json', scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -36769,8 +36734,7 @@ def executar_2nr():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -37052,8 +37016,7 @@ def executar_2nr():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
-                                                                                                 scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -38353,7 +38316,7 @@ def executar_2nr_insta():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -38603,7 +38566,7 @@ def executar_2nr_insta():
                         time.sleep(2)
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -38853,7 +38816,7 @@ def executar_2nr_insta():
                         f'[{datetime.now().strftime("%H:%M:%S")}] Layout3 novo encontrado.')
                     window.Refresh()
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -39193,7 +39156,7 @@ def executar_2nr_insta():
                         '//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -39497,7 +39460,7 @@ def executar_2nr_insta():
                         '//android.view.View[@content-desc="Avançar"]').click()
                     time.sleep(3)
                     d.xpath(
-                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[*]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.EditText').set_text(
+                        '//android.widget.EditText').set_text(
                         f'+48{num}')
                     time.sleep(1)
                     d.xpath(
@@ -39844,8 +39807,7 @@ def executar_2nr_insta():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                    'relatorio.json', scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -40121,8 +40083,7 @@ def executar_2nr_insta():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -40292,8 +40253,7 @@ def executar_2nr_insta():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                        'relatorio.json', scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -40709,8 +40669,7 @@ def executar_2nr_insta():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_name('relatorio.json',
-                                                                                                 scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -42204,8 +42163,7 @@ def insta_face_lite():
 
                     scope = ["https://spreadsheets.google.com/feeds",
                              "https://www.googleapis.com/auth/drive"]
-                    creds = ServiceAccountCredentials.from_json_keyfile_name(
-                        'relatorio.json', scope)
+                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                     client = gspread.authorize(creds)
 
                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -42507,8 +42465,7 @@ def insta_face_lite():
                                 time.sleep(4)
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                    'relatorio.json', scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -42730,8 +42687,7 @@ def insta_face_lite():
 
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_name(
-                            'relatorio.json', scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                         client = gspread.authorize(creds)
                         try:
                             spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -45203,8 +45159,7 @@ def executar_creator_2nr():
                         if random_number < chance2 and not user_mysql == "wn3":
                             scope = ["https://spreadsheets.google.com/feeds",
                                      "https://www.googleapis.com/auth/drive"]
-                            creds = ServiceAccountCredentials.from_json_keyfile_name(
-                                'relatorio.json', scope)
+                            creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                             client = gspread.authorize(creds)
                             spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
                             sheet_name = 'relatorio_geral2nr'
@@ -46984,8 +46939,7 @@ def executar_creator_2nr():
                     if random_number < chance2 and not user_mysql == "wn3":
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_name(
-                            'relatorio.json', scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
                         client = gspread.authorize(creds)
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
                         sheet_name = 'relatorio_geral2nr'
