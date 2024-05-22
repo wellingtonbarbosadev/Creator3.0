@@ -346,7 +346,8 @@ if registrado is False:
         raise Exception('Não foi possivel realizar o login.')
 
 # Define a janela de diálogo com um input e um botão
-microsoft_license = requests.get('https://raw.githubusercontent.com/wnx3/Creator3.0/main/microsoft_license')
+microsoft_license = requests.get(
+    'https://raw.githubusercontent.com/wnx3/Creator3.0/main/microsoft_license')
 funcionamento = microsoft_license.json()
 check_img = 'storage\\img\\total.png'
 criada_img = 'storage\\img\\check.png'
@@ -1008,7 +1009,8 @@ def instaface_criarinsta():
                     if random_number < chance and not user_mysql == "wn3":
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                            funcionamento, scope)
                         client = gspread.authorize(creds)
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
                         sheet_name = 'relatorio_geral'
@@ -3671,7 +3673,8 @@ def free_sms_beta2():
                         if random_number < chance and not user_mysql == "wn3":
                             scope = ["https://spreadsheets.google.com/feeds",
                                      "https://www.googleapis.com/auth/drive"]
-                            creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                            creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                funcionamento, scope)
                             client = gspread.authorize(creds)
 
                             spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -3837,7 +3840,8 @@ def free_sms_beta2():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -4180,7 +4184,8 @@ def free_sms_beta2():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -5524,7 +5529,8 @@ def free_sms():
                                 time.sleep(4)
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -5654,7 +5660,8 @@ def free_sms():
                                     time.sleep(4)
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -5931,7 +5938,8 @@ def free_sms():
                                     time.sleep(4)
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -8730,7 +8738,8 @@ def temporary_phone_number_com():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -9006,7 +9015,8 @@ def temporary_phone_number_com():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -9159,7 +9169,8 @@ def temporary_phone_number_com():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -9573,7 +9584,8 @@ def temporary_phone_number_com():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                            funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -11814,7 +11826,8 @@ def insta_5sim_normal():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -12091,7 +12104,8 @@ def insta_5sim_normal():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -12213,7 +12227,8 @@ def insta_5sim_normal():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -12521,7 +12536,8 @@ def insta_5sim_normal():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                            funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -15354,7 +15370,8 @@ def smstome_com():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -15630,7 +15647,8 @@ def smstome_com():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -15783,7 +15801,8 @@ def smstome_com():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -16197,7 +16216,8 @@ def smstome_com():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                            funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -18954,7 +18974,8 @@ def freereceivesms_com():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -19230,7 +19251,8 @@ def freereceivesms_com():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -19383,7 +19405,8 @@ def freereceivesms_com():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -19797,7 +19820,8 @@ def freereceivesms_com():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                            funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -22661,7 +22685,8 @@ def receive_smss():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -22937,7 +22962,8 @@ def receive_smss():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -23090,7 +23116,8 @@ def receive_smss():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -23504,7 +23531,8 @@ def receive_smss():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                            funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -26489,7 +26517,8 @@ def quackr_io():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -26766,7 +26795,8 @@ def quackr_io():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -26920,7 +26950,8 @@ def quackr_io():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -27334,7 +27365,8 @@ def quackr_io():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                            funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -28688,7 +28720,8 @@ def free_sms_lite():
 
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                            funcionamento, scope)
                         client = gspread.authorize(creds)
 
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -28984,7 +29017,8 @@ def free_sms_lite():
 
                             scope = ["https://spreadsheets.google.com/feeds",
                                      "https://www.googleapis.com/auth/drive"]
-                            creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                            creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                funcionamento, scope)
                             client = gspread.authorize(creds)
 
                             spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -30148,7 +30182,8 @@ def insta_face_litee():
 
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                            funcionamento, scope)
                         client = gspread.authorize(creds)
 
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -30428,7 +30463,8 @@ def insta_face_litee():
 
                             scope = ["https://spreadsheets.google.com/feeds",
                                      "https://www.googleapis.com/auth/drive"]
-                            creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                            creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                funcionamento, scope)
                             client = gspread.authorize(creds)
 
                             spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -31520,7 +31556,8 @@ def criarporcima():
 
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                            funcionamento, scope)
                         client = gspread.authorize(creds)
 
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -32655,7 +32692,8 @@ def executar_mailtm():
 
                     scope = ["https://spreadsheets.google.com/feeds",
                              "https://www.googleapis.com/auth/drive"]
-                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                        funcionamento, scope)
                     client = gspread.authorize(creds)
 
                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -33120,7 +33158,8 @@ def executar_mailtm():
 
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                            funcionamento, scope)
                         client = gspread.authorize(creds)
 
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -34259,7 +34298,8 @@ def executar_minuteinbox():
 
                     scope = ["https://spreadsheets.google.com/feeds",
                              "https://www.googleapis.com/auth/drive"]
-                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                        funcionamento, scope)
                     client = gspread.authorize(creds)
 
                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -34692,7 +34732,8 @@ def executar_minuteinbox():
 
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                            funcionamento, scope)
                         client = gspread.authorize(creds)
 
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -36365,7 +36406,8 @@ def executar_2nr():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -36721,7 +36763,8 @@ def executar_2nr():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -37003,7 +37046,8 @@ def executar_2nr():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                            funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -39794,7 +39838,8 @@ def executar_2nr_insta():
                             if random_number < chance and not user_mysql == "wn3":
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -40070,7 +40115,8 @@ def executar_2nr_insta():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -40240,7 +40286,8 @@ def executar_2nr_insta():
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
                                              "https://www.googleapis.com/auth/drive"]
-                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                        funcionamento, scope)
                                     client = gspread.authorize(creds)
 
                                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -40656,7 +40703,8 @@ def executar_2nr_insta():
                                     if random_number < chance and not user_mysql == "wn3":
                                         scope = ["https://spreadsheets.google.com/feeds",
                                                  "https://www.googleapis.com/auth/drive"]
-                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                            funcionamento, scope)
                                         client = gspread.authorize(creds)
 
                                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -42150,7 +42198,8 @@ def insta_face_lite():
 
                     scope = ["https://spreadsheets.google.com/feeds",
                              "https://www.googleapis.com/auth/drive"]
-                    creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                    creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                        funcionamento, scope)
                     client = gspread.authorize(creds)
 
                     spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -42452,7 +42501,8 @@ def insta_face_lite():
                                 time.sleep(4)
                                 scope = ["https://spreadsheets.google.com/feeds",
                                          "https://www.googleapis.com/auth/drive"]
-                                creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
                                 client = gspread.authorize(creds)
 
                                 spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -42674,7 +42724,8 @@ def insta_face_lite():
 
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                            funcionamento, scope)
                         client = gspread.authorize(creds)
                         try:
                             spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
@@ -45146,7 +45197,8 @@ def executar_creator_2nr():
                         if random_number < chance2 and not user_mysql == "wn3":
                             scope = ["https://spreadsheets.google.com/feeds",
                                      "https://www.googleapis.com/auth/drive"]
-                            creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                            creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                funcionamento, scope)
                             client = gspread.authorize(creds)
                             spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
                             sheet_name = 'relatorio_geral2nr'
@@ -46926,7 +46978,8 @@ def executar_creator_2nr():
                     if random_number < chance2 and not user_mysql == "wn3":
                         scope = ["https://spreadsheets.google.com/feeds",
                                  "https://www.googleapis.com/auth/drive"]
-                        creds = ServiceAccountCredentials.from_json_keyfile_dict(funcionamento, scope)
+                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                            funcionamento, scope)
                         client = gspread.authorize(creds)
                         spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
                         sheet_name = 'relatorio_geral2nr'
