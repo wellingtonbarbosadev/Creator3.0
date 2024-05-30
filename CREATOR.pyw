@@ -1720,6 +1720,8 @@ def creator_2NR_NAV():
 
                     if vpn_nav == 'SurfShark':
                         try:
+                            
+                            chrome.set_window_size(800, 800)
                             # Alternar para a nova aba
                             chrome.driver.switch_to.window(
                                 chrome.driver.window_handles[-1])
@@ -1775,7 +1777,7 @@ def creator_2NR_NAV():
 
                             # Adiciona os cookies salvos ao navegador
                             for cookie in cookies:
-                                chrome.add_cookie(cookie)
+                                chrome.driver.add_cookie(cookie)
 
                             # Recarrega a página para usar os cookies
                             print('Adicionou os cookies')
@@ -1830,7 +1832,7 @@ def creator_2NR_NAV():
                             time.sleep(10)
                             if chrome.driver.current_url == 'https://my.surfshark.com/account/extension-login-success':
 
-                                cookies = chrome.get_cookies()
+                                cookies = chrome.driver.get_cookies()
 
                                 # Guarde os cookies em um arquivo JSON
                                 with open(r'.\storage\cookies_surf.json', 'w') as file:
@@ -1871,7 +1873,7 @@ def creator_2NR_NAV():
                                         f"cookies_surf.json foi apagado com sucesso.")
                                 else:
                                     print(f"cookies_surf.json não existe.")
-                                cookies = chrome.get_cookies()
+                                cookies = chrome.driver.get_cookies()
 
                                 # Guarde os cookies em um arquivo JSON
                                 with open(r'.\storage\cookies_surf.json', 'w') as file:
