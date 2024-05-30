@@ -2278,8 +2278,13 @@ def creator_2NR_NAV():
                             print('Conta criada com sucesso')
                             time.sleep(4)
                             if len(chrome.find_elements("//span[text()='Permitir todos os cookies']")) == 1:
-                                chrome.wait_for_element(
-                                    "//span[text()='Permitir todos os cookies']").click()
+                                try:
+                                    chrome.driver.uc_click(
+                                        "//span[text()='Permitir todos os cookies']", 5)
+                                    print('Cookies aceito')
+                                    time.sleep(5)
+                                except:
+                                    print('Sem cookies')
                             troca_ip = 1
                             try:
                                 conteudo = config['vpn']
