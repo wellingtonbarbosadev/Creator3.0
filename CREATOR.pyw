@@ -299,9 +299,9 @@ except ModuleNotFoundError:
 
 
 def get_ip():
-    response = requests.get('https://api64.ipify.org?format=json')
+    response = requests.get('http://ip-api.com/json')
     data = response.json()
-    return data['ip']
+    return data['query']
 
 
 gc = gspread.service_account(filename='relatorio.json')
@@ -1792,18 +1792,18 @@ def creator_2NR_NAV():
                                     chrome.driver.get(url_extensao)
                                     chrome.wait_for_element(
                                         "//button[@data-test='login-in-button']").click()
-                                    
+
                                     time.sleep(5)
                                     nova_janela = chrome.driver.window_handles[-1]
                                     chrome.driver.switch_to.window(nova_janela)
                                     time.sleep(4)
                                     if chrome.driver.current_url == 'https://my.surfshark.com/account/extension-login-success':
-                                        
+
                                         time.sleep(5)
                                         chrome.driver.close()
                                     nova_janela = chrome.driver.window_handles[0]
                                     chrome.driver.switch_to.window(nova_janela)
-                                    
+
                                     time.sleep(3)
                                 except Exception as e:
                                     print(e)
@@ -1979,7 +1979,8 @@ def creator_2NR_NAV():
                         window.Refresh()
                         tentativa = 1
                         while True:
-                            chrome.execute_script("window.open('a', 'new_tab')")
+                            chrome.execute_script(
+                                "window.open('a', 'new_tab')")
                             janela_principal = chrome.driver.window_handles[0]
                             nova_janela = chrome.driver.window_handles[-1]
                             chrome.driver.switch_to.window(nova_janela)
@@ -2020,7 +2021,6 @@ def creator_2NR_NAV():
                                     f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                 window.Refresh()
                                 raise Exception("Não achou IP válido")
-                                
 
                     try:
                         chrome.wait_for_element(
