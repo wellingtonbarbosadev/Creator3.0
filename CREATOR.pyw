@@ -1824,6 +1824,19 @@ def creator_2NR_NAV():
                             print(chrome.driver.current_url)
                             email_surf = emailvpn
                             senha_surf = senhavpn
+                            try:
+                                chrome.save_screenshot('erro_nav.png')
+                                chrome.switch_to_frame(
+                                    'iframe[id^="cf-chl"]', timeout=1)
+                                print(chrome.driver.find_elements(
+                                    By.XPATH, '//*[@id="challenge-stage"]/div/label/input'))
+                                # chrome.driver.uc_click('//*[@id="challenge-stage"]/div/label/input')
+                                chrome.driver.uc_click(
+                                    'span')
+                                chrome.save_screenshot('erro_nav.png')
+                                # chrome.driver.execute_script("arguments[0].click();", chrome.driver.find_element(By.XPATH, '//*[@id="challenge-stage"]/div/label/input'))
+                            except Exception as e:
+                                print('Sem Cloudflare 2')
                             chrome.send_keys(
                                 "//input[@name='emailField']", email_surf)
                             chrome.send_keys(
@@ -1889,8 +1902,16 @@ def creator_2NR_NAV():
                                   'Germany', 'Africa', 'Japan', 'Indonesia', 'India', 'Denmark', 'France', 'USA']
                         local_surf = random.choice(locais)
                         print(f'Regiao escolhida {local_surf}')
-                        chrome.send_keys(
-                            "//input[@data-test='location-search-input']", local_surf)
+                        try:
+                            chrome.send_keys(
+                                "//input[@data-test='location-search-input']", local_surf)
+                        except:
+                            if os.path.exists(r'.\storage\cookies_surf.json'):
+                                # Apaga o arquivo
+                                os.remove(
+                                    r'.\storage\cookies_surf.json')
+                                print(
+                                    f"cookies_surf.json foi apagado com sucesso.")
                         chrome.click("//div[@data-test='location-title']")
                         try:
                             chrome.wait_for_element(
