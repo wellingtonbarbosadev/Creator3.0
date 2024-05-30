@@ -1906,6 +1906,9 @@ def creator_2NR_NAV():
                             chrome.send_keys(
                                 "//input[@data-test='location-search-input']", local_surf)
                         except:
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Erro ao logar na VPN.')
+                            window.Refresh()
                             if os.path.exists(r'.\storage\cookies_surf.json'):
                                 # Apaga o arquivo
                                 os.remove(
