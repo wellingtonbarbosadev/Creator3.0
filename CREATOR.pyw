@@ -2203,7 +2203,7 @@ def creator_2NR_NAV():
                                     window.Refresh()
                                     raise Exception('Número excluido')
                                 break
-                        if "challenge" in chrome.driver.current_url or "suspended" in chrome.driver.current_url or len(chrome.find_elements("//div[contains(text(), 'Sua senha está incorreta. Confira-a.')]")) == 1:
+                        if "challenge" in chrome.driver.current_url or "suspended" in chrome.driver.current_url or len(chrome.find_elements("//div[contains(text(), 'Sua senha está incorreta. Confira-a.')]")) == 1 or len(chrome.find_elements("//div[text()='A sua conta foi desativada por violar nossos termos: http://instagram.com/about/legal/terms/']")) == 1:
                             print('Conta com SMS')
                             window['output'].print(
                                 f'[{datetime.now().strftime("%H:%M:%S")}] SMS.', text_color='red')
