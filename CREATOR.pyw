@@ -1,3 +1,8 @@
+from tkinter import FALSE
+from socket import timeout
+from operator import truediv
+import json
+from genericpath import exists
 import string
 import random
 import subprocess
@@ -34,11 +39,6 @@ if getattr(sys, 'frozen', False):
     sys.path.insert(0, base_path)
 
 # Restante do seu código...
-from genericpath import exists
-import json
-from operator import truediv
-from socket import timeout
-from tkinter import FALSE
 
 global parar
 
@@ -139,7 +139,7 @@ except ModuleNotFoundError:
     import PySimpleGUI as sg
 
     sg.theme('DarkGrey14')
-#print(f'Versão: {versao}')
+# print(f'Versão: {versao}')
 
 url = "https://raw.githubusercontent.com/wnx3/Creator3.0/main/version"
 
@@ -149,12 +149,11 @@ response = requests.get(url)
 # Verificando se a solicitação foi bem-sucedida (código de status 200)
 if response.status_code == 200:
     # Imprimindo o conteúdo da resposta
-    #print(response.text)
+    # print(response.text)
     pass
 else:
     print("Falha ao obter a versão atual")
 
-import requests
 try:
     from tqdm import tqdm
 except ModuleNotFoundError:
@@ -165,7 +164,6 @@ except ModuleNotFoundError:
     subprocess.run(['pip', 'install', 'tqdm'])
     subprocess.run(['deactivate'], shell=True)
     import PySimpleGUI as sg
-import os
 print(f'Versão atual: {versao}')
 
 url_versao = "https://raw.githubusercontent.com/wnx3/Creator3.0/main/version"
@@ -215,7 +213,7 @@ if response_versao.status_code == 200:
         event, values = window.read()
         window.close()
         raise Exception('Abra novamente.')
-    
+
     else:
         pass
 else:
@@ -560,6 +558,7 @@ def contagem():
     window['contagem'].update(contagem)
     window.Refresh()
 
+
 def creator_2NR_NAV():
     SPREADSHEET_ID = config['spreadsheet']
     conteudo = config['vpn']
@@ -569,7 +568,7 @@ def creator_2NR_NAV():
     seguido = False
     regiao_vpn = 'Sem dados'
     app = "Nav"
-    
+
     global sms
     global nomes
     global sobrenomes
@@ -724,7 +723,7 @@ def creator_2NR_NAV():
         else:
             result = "Não foi possível baixar o arquivo. Status Code: " + \
                 str(response.status_code)
-                
+
     file_path = './storage/surfshark.crx'
     import zipfile
 
@@ -786,8 +785,8 @@ def creator_2NR_NAV():
         gerar_id()
         try:
             subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         subprocess.run(
@@ -795,7 +794,7 @@ def creator_2NR_NAV():
 
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         sms = True
@@ -819,12 +818,12 @@ def creator_2NR_NAV():
             f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         sms = True
@@ -835,7 +834,7 @@ def creator_2NR_NAV():
         global sobrenome
         global sms
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da HotspotShield',
-                            text_color='red')
+                               text_color='red')
         window.Refresh()
         window['output'].print(
             f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
@@ -843,8 +842,8 @@ def creator_2NR_NAV():
         gerar_id()
         try:
             subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         subprocess.run(
@@ -852,7 +851,7 @@ def creator_2NR_NAV():
 
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         sms = True
@@ -885,13 +884,13 @@ def creator_2NR_NAV():
             f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
             subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         sms = True
@@ -924,13 +923,13 @@ def creator_2NR_NAV():
             f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
             subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         sms = True
@@ -961,15 +960,15 @@ def creator_2NR_NAV():
         gerar_id()
         try:
             subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         subprocess.run(
             f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         sms = True
@@ -982,7 +981,7 @@ def creator_2NR_NAV():
         time.sleep(10)
         time.sleep(5)
         subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL, check=True, shell=True)
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
 
@@ -1000,8 +999,8 @@ def creator_2NR_NAV():
         gerar_id()
         try:
             subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         subprocess.run(
@@ -1009,7 +1008,7 @@ def creator_2NR_NAV():
 
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
 
@@ -1020,7 +1019,7 @@ def creator_2NR_NAV():
             pass
         time.sleep(15)
         subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL, check=True, shell=True)
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
 
         abc = False
 
@@ -1038,15 +1037,15 @@ def creator_2NR_NAV():
         gerar_id()
         try:
             subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         subprocess.run(
             f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
 
         subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL, check=True, shell=True)
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
 
         try:
             d.app_stop('com.freevpnintouch')
@@ -1072,7 +1071,7 @@ def creator_2NR_NAV():
             # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
         # time.sleep(5)
         subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL, check=True, shell=True)
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
         ip = '127.0.0.1:' + porta
 
         output = subprocess.check_output(
@@ -1110,8 +1109,8 @@ def creator_2NR_NAV():
         gerar_id()
         try:
             subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         subprocess.run(
@@ -1119,7 +1118,7 @@ def creator_2NR_NAV():
 
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
 
@@ -1137,7 +1136,7 @@ def creator_2NR_NAV():
         d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
         # time.sleep(5)
         subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL, check=True, shell=True)
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
         abc = False
 
     def vpn_tunnelbear():
@@ -1146,7 +1145,7 @@ def creator_2NR_NAV():
         global sms
         global regiao_vpn
         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da TunnelBear',
-                            text_color='red')
+                               text_color='red')
         window.Refresh()
         window['output'].print(
             f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
@@ -1154,20 +1153,20 @@ def creator_2NR_NAV():
         gerar_id()
         try:
             subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         subprocess.run(
             f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         sms = True
@@ -1206,15 +1205,15 @@ def creator_2NR_NAV():
         gerar_id()
         try:
             subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
-                        stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         subprocess.run(
             f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         sms = True
@@ -1248,7 +1247,7 @@ def creator_2NR_NAV():
             f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         sms = True
@@ -1281,7 +1280,7 @@ def creator_2NR_NAV():
             f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
         try:
             subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
-                        stderr=subprocess.DEVNULL, check=True, shell=True)
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
         except:
             pass
         sms = True
@@ -1300,9 +1299,9 @@ def creator_2NR_NAV():
         chars = string.ascii_lowercase + string.digits
         android_id = ''.join(random.choice(chars) for i in range(16))
         return android_id
-    
+
     window['output'].print(
-    f'[{datetime.now().strftime("%H:%M:%S")}] Senha sendo utilizada: {senha}')
+        f'[{datetime.now().strftime("%H:%M:%S")}] Senha sendo utilizada: {senha}')
     window.Refresh()
 
     try:
@@ -1320,6 +1319,7 @@ def creator_2NR_NAV():
                        stderr=subprocess.DEVNULL, shell=True)
     except:
         pass
+
     def gerar_id():
         chars = string.ascii_lowercase + string.digits
         android_id = ''.join(random.choice(chars) for i in range(16))
@@ -1339,8 +1339,6 @@ def creator_2NR_NAV():
     except Exception as e:
         pass
 
-    
-
     window.Refresh()
     window['output'].print(
         f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando sistema inicializar.')
@@ -1349,7 +1347,7 @@ def creator_2NR_NAV():
     window['output'].print(
         f'[{datetime.now().strftime("%H:%M:%S")}] Iniciando criação.')
     window.Refresh()
-    
+
     d.implicitly_wait(30.0)
     d.set_fastinput_ime(True)
     if not os.path.exists('./erros'):
@@ -1407,8 +1405,7 @@ def creator_2NR_NAV():
         #    time.sleep(3600)
         #    codigo_não_recebido_seguidos = 0
         try:
-            
-            
+
             gerar_id()
             android_id = gerar_id()
             subprocess.run(
@@ -1453,7 +1450,6 @@ def creator_2NR_NAV():
                 time.sleep(60)
                 raise Exception('skip')
 
-            
             try:
                 subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                                stdout=subprocess.DEVNULL,
@@ -1718,21 +1714,23 @@ def creator_2NR_NAV():
                 window.Refresh()
                 nav_oculto = config6['navegador_oculto']
                 usar_troca_ip = config6['usar_troca_ip']
-                
+
                 with SB(uc=True, demo=False, headless=nav_oculto, incognito=True, extension_dir=rf'.\storage\recaptcha,{caminho_atual}\storage\surfshark') as chrome:
                     time.sleep(5)
-                    
+
                     if vpn_nav == 'SurfShark':
                         try:
                             # Alternar para a nova aba
-                            chrome.driver.switch_to.window(chrome.driver.window_handles[-1])
-                            
+                            chrome.driver.switch_to.window(
+                                chrome.driver.window_handles[-1])
+
                             # Verificar se a URL está correta e fechar a aba
                             if chrome.driver.current_url == "https://surfshark.com/pt-br/download/chrome/onboarding":
                                 chrome.driver.close()
-                            
+
                             # Alternar de volta para a aba original
-                            chrome.driver.switch_to.window(chrome.driver.window_handles[0])
+                            chrome.driver.switch_to.window(
+                                chrome.driver.window_handles[0])
                             chrome.open('chrome://extensions/')
                             extensoes = chrome.execute_script(
                                 'return document.querySelector("extensions-manager").shadowRoot.querySelector("extensions-item-list").shadowRoot.querySelectorAll("extensions-item");'
@@ -1740,22 +1738,25 @@ def creator_2NR_NAV():
 
                             id_extensao = None
                             for ext in extensoes:
-                                nome_ext = chrome.execute_script('return arguments[0].shadowRoot.querySelector("#name").innerText;', ext)
+                                nome_ext = chrome.execute_script(
+                                    'return arguments[0].shadowRoot.querySelector("#name").innerText;', ext)
                                 if "Surf" in nome_ext:
-                                    id_extensao = chrome.execute_script('return arguments[0].getAttribute("id");', ext)
+                                    id_extensao = chrome.execute_script(
+                                        'return arguments[0].getAttribute("id");', ext)
                                     break
 
                             if id_extensao:
                                 url_extensao = f'chrome-extension://{id_extensao}/index.html'
-                                #chrome.get(url_extensao)
-                                #print(f"Página da extensão aberta em {url_extensao}")
+                                # chrome.get(url_extensao)
+                                # print(f"Página da extensão aberta em {url_extensao}")
                             else:
                                 print("ID da extensão não encontrado")
                             # Continuar com outras operações na aba original, se necessário
                         except Exception as e:
                             print(e)
                         if os.path.exists(r'.\storage\cookies_surf.json'):
-                            chrome.driver.uc_open_with_reconnect('https://my.surfshark.com/auth/login', 4)
+                            chrome.driver.uc_open_with_reconnect(
+                                'https://my.surfshark.com/auth/login', 4)
                             try:
                                 chrome.save_screenshot('erro_nav.png')
                                 chrome.switch_to_frame(
@@ -1768,7 +1769,6 @@ def creator_2NR_NAV():
                                 chrome.save_screenshot('erro_nav.png')
                                 # chrome.driver.execute_script("arguments[0].click();", chrome.driver.find_element(By.XPATH, '//*[@id="challenge-stage"]/div/label/input'))
                             except Exception as e:
-                                print(e)
                                 print('Sem Cloudflare')
                             with open(r'.\storage\cookies_surf.json', 'r') as file:
                                 cookies = json.load(file)
@@ -1776,8 +1776,7 @@ def creator_2NR_NAV():
                             # Adiciona os cookies salvos ao navegador
                             for cookie in cookies:
                                 chrome.add_cookie(cookie)
-                                
-                                
+
                             # Recarrega a página para usar os cookies
                             print('Adicionou os cookies')
                             time.sleep(2)
@@ -1785,36 +1784,37 @@ def creator_2NR_NAV():
                             time.sleep(2)
                             if chrome.driver.current_url == 'https://my.surfshark.com/home/dashboard':
                                 chrome.driver.get(url_extensao)
-                                chrome.wait_for_element("//button[@data-test='login-in-button']").click()
+                                chrome.wait_for_element(
+                                    "//button[@data-test='login-in-button']").click()
                                 time.sleep(3)
                             elif 'https://my.surfshark.com/auth/login' in chrome.driver.current_url:
                                 try:
                                     chrome.driver.get(url_extensao)
-                                    chrome.wait_for_element("//button[@data-test='login-in-button']").click()
-                                    print(1)
+                                    chrome.wait_for_element(
+                                        "//button[@data-test='login-in-button']").click()
+                                    
                                     time.sleep(5)
                                     nova_janela = chrome.driver.window_handles[-1]
                                     chrome.driver.switch_to.window(nova_janela)
-                                    print(1)
-                                    time.sleep(5)
                                     time.sleep(4)
                                     if chrome.driver.current_url == 'https://my.surfshark.com/account/extension-login-success':
-                                        print(2)
+                                        
                                         time.sleep(5)
                                         chrome.driver.close()
                                     nova_janela = chrome.driver.window_handles[0]
                                     chrome.driver.switch_to.window(nova_janela)
-                                    print(1)
-                                    time.sleep(5)
+                                    
                                     time.sleep(3)
                                 except Exception as e:
                                     print(e)
                         else:
-                            chrome.driver.switch_to.window(chrome.driver.window_handles[0])
+                            chrome.driver.switch_to.window(
+                                chrome.driver.window_handles[0])
                             import time
                             # Abre uma nova aba para a extensão (geralmente chrome-extension://<extension-id>/)
                             chrome.driver.get(url_extensao)
-                            chrome.wait_for_element("//button[@data-test='login-in-button']").click()
+                            chrome.wait_for_element(
+                                "//button[@data-test='login-in-button']").click()
                             time.sleep(3)
                             janela_principal = chrome.driver.window_handles[0]
                             nova_janela = chrome.driver.window_handles[1]
@@ -1822,12 +1822,14 @@ def creator_2NR_NAV():
                             print(chrome.driver.current_url)
                             email_surf = emailvpn
                             senha_surf = senhavpn
-                            chrome.send_keys("//input[@name='emailField']", email_surf)
-                            chrome.send_keys("//input[@name='passwordField']", senha_surf)
+                            chrome.send_keys(
+                                "//input[@name='emailField']", email_surf)
+                            chrome.send_keys(
+                                "//input[@name='passwordField']", senha_surf)
                             chrome.click(("//button[@id='loginSubmit']"))
                             time.sleep(10)
                             if chrome.driver.current_url == 'https://my.surfshark.com/account/extension-login-success':
-                                
+
                                 cookies = chrome.get_cookies()
 
                                 # Guarde os cookies em um arquivo JSON
@@ -1837,15 +1839,16 @@ def creator_2NR_NAV():
                                 print('Falha ao logar na surfshark')
                             chrome.driver.close()
                             chrome.driver.switch_to.window(janela_principal)
-                            
 
                         if 'https://my.surfshark.com/auth/login' in chrome.driver.current_url:
                             print('Falha ao logar na surfshark')
-                            chrome.driver.switch_to.window(chrome.driver.window_handles[0])
+                            chrome.driver.switch_to.window(
+                                chrome.driver.window_handles[0])
                             import time
                             # Abre uma nova aba para a extensão (geralmente chrome-extension://<extension-id>/)
                             chrome.driver.get(url_extensao)
-                            chrome.wait_for_element("//button[@data-test='login-in-button']").click()
+                            chrome.wait_for_element(
+                                "//button[@data-test='login-in-button']").click()
                             time.sleep(3)
                             janela_principal = chrome.driver.window_handles[0]
                             nova_janela = chrome.driver.window_handles[1]
@@ -1853,8 +1856,10 @@ def creator_2NR_NAV():
                             print(chrome.driver.current_url)
                             email_surf = 'americanplayer@protonmail.com'
                             senha_surf = 'Kotinha10@'
-                            chrome.send_keys("//input[@name='emailField']", email_surf)
-                            chrome.send_keys("//input[@name='passwordField']", senha_surf)
+                            chrome.send_keys(
+                                "//input[@name='emailField']", email_surf)
+                            chrome.send_keys(
+                                "//input[@name='passwordField']", senha_surf)
                             chrome.click(("//button[@id='loginSubmit']"))
                             time.sleep(10)
                             if chrome.driver.current_url == 'https://my.surfshark.com/account/extension-login-success':
@@ -1862,7 +1867,8 @@ def creator_2NR_NAV():
                                     # Apaga o arquivo
                                     os.remove(
                                         r'.\storage\cookies_surf.json')
-                                    print(f"cookies_surf.json foi apagado com sucesso.")
+                                    print(
+                                        f"cookies_surf.json foi apagado com sucesso.")
                                 else:
                                     print(f"cookies_surf.json não existe.")
                                 cookies = chrome.get_cookies()
@@ -1874,36 +1880,41 @@ def creator_2NR_NAV():
                                 chrome.switch_to.window(janela_principal)
                             else:
                                 print('Falha ao logar na surfshark')
-                            
+
                         print('Logou com sucesso na surfshark')
 
-                        locais = ['Canada', 'Australia', 'Netherlands', 'Poland', 'United Kingdom', 'Germany', 'Africa', 'Japan', 'Indonesia', 'India', 'Denmark', 'France', 'USA']
+                        locais = ['Canada', 'Australia', 'Netherlands', 'Poland', 'United Kingdom',
+                                  'Germany', 'Africa', 'Japan', 'Indonesia', 'India', 'Denmark', 'France', 'USA']
                         local_surf = random.choice(locais)
                         print(f'Regiao escolhida {local_surf}')
-                        chrome.send_keys("//input[@data-test='location-search-input']", local_surf)
+                        chrome.send_keys(
+                            "//input[@data-test='location-search-input']", local_surf)
                         chrome.click("//div[@data-test='location-title']")
                         try:
-                            chrome.wait_for_element("//button[@data-test='disconnect-button']")
-                            
+                            chrome.wait_for_element(
+                                "//button[@data-test='disconnect-button']")
+
                             print('VPN conectada')
                             time.sleep(5)
                         except:
                             print('Não foi possivel conectar')
-                            
+
                     janela_principal = chrome.driver.window_handles[0]
                     chrome.driver.switch_to.window(janela_principal)
                     url = f"https://www.instagram.com/"
                     chrome.set_window_size(800, 800)
                     chrome.driver.uc_open_with_reconnect(url, 10)
-                    #time.sleep(30000)
+                    # time.sleep(30000)
                     try:
-                        chrome.driver.uc_click('button:contains("Permitir todos os cookies")', 5)
+                        chrome.driver.uc_click(
+                            'button:contains("Permitir todos os cookies")', 5)
                         print('Cookies aceito')
                         time.sleep(5)
                     except:
                         print('Sem cookies')
-                    chrome.driver.uc_click("a[href='/accounts/emailsignup/']", 10)
-                    
+                    chrome.driver.uc_click(
+                        "a[href='/accounts/emailsignup/']", 10)
+
                     lista_user = random.choices(range(0, 9), k=2)
                     lista_letras = random.choices(letras, k=2)
                     nomea = fake.first_name_male().replace(" ", "")
@@ -1915,7 +1926,7 @@ def creator_2NR_NAV():
                     nome_completo = nome + ' ' + sobrenome
                     nome_completo_s = nome + sobrenome
                     numeros_concatenados = ''.join(str(numero)
-                                                for numero in lista_user)
+                                                   for numero in lista_user)
                     user_completo1 = nome_completo_s + '' + \
                         str(numeros_concatenados) + ''.join(lista_letras)
                     user_completo = random.randint(1, len(user_completo1))
@@ -1925,61 +1936,66 @@ def creator_2NR_NAV():
                     escolha = random.choice(["_", "."])
                     user_completo = nome + escolha + sobrenome + \
                         str(numeros_concatenados) + ''.join(lista_letras)
-                    
+
                     print(user_completo)
-                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
                     window.Refresh()
                     senha = gerar_senha(12)
                     print(senha)
                     num = f'+48{num}'
                     for numero in num:
-                        chrome.send_keys("//input[@name='emailOrPhone']", f'{numero}')
-                        time.sleep(random.uniform(0.001, 0.2))
+                        chrome.send_keys(
+                            "//input[@name='emailOrPhone']", f'{numero}')
+                        time.sleep(random.uniform(0.001, 0.05))
                     time.sleep(random.uniform(0.5, 2))
-                    #chrome.type("//input[@name='fullName']", nome_completo)
+                    # chrome.type("//input[@name='fullName']", nome_completo)
                     for nome in nome_completo:
                         chrome.send_keys("//input[@name='fullName']", nome)
-                        time.sleep(random.uniform(0.001, 0.2))
+                        time.sleep(random.uniform(0.001, 0.05))
                     time.sleep(random.uniform(0.5, 2))
-                    #chrome.type("//input[@name='username']", user_completo)
+                    # chrome.type("//input[@name='username']", user_completo)
                     for user in user_completo:
                         chrome.send_keys("//input[@name='username']", user)
-                        time.sleep(random.uniform(0.001, 0.2))
+                        time.sleep(random.uniform(0.001, 0.05))
                     time.sleep(random.uniform(0.5, 2))
-                    #chrome.type("//input[@name='password']", senha)
+                    # chrome.type("//input[@name='password']", senha)
                     for password in senha:
                         chrome.send_keys("//input[@name='password']", password)
-                        time.sleep(random.uniform(0.001, 0.2))
+                        time.sleep(random.uniform(0.001, 0.05))
                     time.sleep(random.uniform(0.5, 2))
                     time.sleep(5)
                     chrome.driver.uc_click('''button[type='submit']''', 5)
                     ano = str(random.randint(1960, 2000))
-                    
+
                     if len(chrome.find_elements("//input[@name='emailOrPhone']")) == 1:
                         print('IP Bloqueado, procurando outro IP')
                         window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] IP Bloqueado')
                         window.Refresh()
-                        
+
                         window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] Procurando outro IP')
                         window.Refresh()
                         tentativa = 1
                         while True:
-                            chrome.driver.execute_script("window.open('');")
+                            chrome.execute_script("window.open('a', 'new_tab')")
                             janela_principal = chrome.driver.window_handles[0]
                             nova_janela = chrome.driver.window_handles[-1]
                             chrome.driver.switch_to.window(nova_janela)
                             chrome.driver.get(url_extensao)
-                            chrome.wait_for_element("//button[@data-test='disconnect-button']").click()
+                            chrome.wait_for_element(
+                                "//button[@data-test='disconnect-button']").click()
                             time.sleep(2)
-                            #locais = ['Canada', 'Australia', 'Netherlands']
-                            #local_surf = random.choice(locais)
-                            chrome.send_keys("//input[@data-test='location-search-input']", local_surf)
+                            # locais = ['Canada', 'Australia', 'Netherlands']
+                            # local_surf = random.choice(locais)
+                            chrome.send_keys(
+                                "//input[@data-test='location-search-input']", local_surf)
                             chrome.click("//div[@data-test='location-title']")
                             try:
-                                chrome.wait_for_element("//button[@data-test='disconnect-button']")
-                                
+                                chrome.wait_for_element(
+                                    "//button[@data-test='disconnect-button']")
+
                                 print('VPN conectada')
                                 time.sleep(5)
                             except:
@@ -1987,29 +2003,38 @@ def creator_2NR_NAV():
                             chrome.driver.close()
                             janela_principal = chrome.driver.window_handles[0]
                             chrome.driver.switch_to.window(janela_principal)
-                            chrome.driver.uc_click('''button[type='submit']''', 5)
+                            time.sleep(3)
+                            try:
+                                chrome.driver.uc_click(
+                                    '''button[type='submit']''', 5)
+                            except:
+                                chrome.driver.uc_click(
+                                    '''//button[@type='submit']''', 5)
+
                             if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
                                 print('IP aceito')
                                 break
                             tentativa += 1
                             if tentativa == 3:
-                                raise Exception("Não achou IP válido")
                                 window['output'].print(
                                     f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                 window.Refresh()
-
+                                raise Exception("Não achou IP válido")
+                                
 
                     try:
-                        chrome.wait_for_element("//select[@title='Ano:']").send_keys(ano)
+                        chrome.wait_for_element(
+                            "//select[@title='Ano:']").send_keys(ano)
                     except:
                         print('IP Bloqueado')
                         window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] IP Bloqueado ou Número bloqueado', text_color='red')
                         window.Refresh()
-                        
+
                     dia = str(random.randint(1, 28))
                     time.sleep(random.uniform(0.5, 2))
-                    chrome.wait_for_element("//select[@title='Dia:']").send_keys(dia)
+                    chrome.wait_for_element(
+                        "//select[@title='Dia:']").send_keys(dia)
                     months = [
                         ("janeiro", 1),
                         ("fevereiro", 2),
@@ -2027,9 +2052,10 @@ def creator_2NR_NAV():
 
                     random_month = random.choice(months)
                     month_text = random_month[0]
-                    
+
                     time.sleep(random.uniform(0.5, 2))
-                    chrome.wait_for_element("//select[@title='Mês:']").send_keys(month_text)
+                    chrome.wait_for_element(
+                        "//select[@title='Mês:']").send_keys(month_text)
                     time.sleep(2)
                     chrome.driver.uc_click('button:contains("Avançar")', 15)
                     if len(chrome.find_elements("//p[@id='ssfErrorAlert']")) == 1:
@@ -2043,8 +2069,7 @@ def creator_2NR_NAV():
                             print('2NR deslogou')
                             d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click(timeout=60)
                             time.sleep(5)
-                        
-                
+
                             d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email2nr)
                             time.sleep(0.5)
                             d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha2nr)
@@ -2062,21 +2087,26 @@ def creator_2NR_NAV():
                         window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
-                        
-                    captcha_element = chrome.find_elements("//input[@id='recaptcha-input']")
+
+                    captcha_element = chrome.find_elements(
+                        "//input[@id='recaptcha-input']")
                     tentativas = 1
                     if len(captcha_element) == 1:
                         print('Resolvendo captcha')
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Resolvendo captcha')
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Resolvendo captcha')
                         window.Refresh()
                         while True:
                             try:
                                 # Check if the button is clickable
-                                button = WebDriverWait(chrome.driver, 3).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Avançar')]")))
+                                button = WebDriverWait(chrome.driver, 3).until(EC.element_to_be_clickable(
+                                    (By.XPATH, "//button[contains(text(), 'Avançar')]")))
 
                                 # Click the button once it's clickable
-                                chrome.driver.uc_click('button:contains("Avançar")', 20)
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Captcha resolvido')
+                                chrome.driver.uc_click(
+                                    'button:contains("Avançar")', 20)
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Captcha resolvido')
                                 window.Refresh()
                                 break  # Exit the loop once the button is clicked
 
@@ -2087,7 +2117,8 @@ def creator_2NR_NAV():
                                 time.sleep(2)
                                 tentativas += 1
                                 if tentativas == 25:
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Captcha não pode ser resolvido')
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Captcha não pode ser resolvido')
                                     window.Refresh()
                                     print('Captcha não pode ser resolvido')
                                     raise Exception(' ')
@@ -2102,15 +2133,14 @@ def creator_2NR_NAV():
                         print('2NR deslogou')
                         d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click(timeout=60)
                         time.sleep(5)
-                    
-            
+
                         d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email2nr)
                         time.sleep(0.5)
                         d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha2nr)
                         time.sleep(0.5)
                         d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogin').click()
                         time.sleep(3)
-                   
+
                     d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
 
                     try:
@@ -2141,7 +2171,8 @@ def creator_2NR_NAV():
                     window.Refresh()
                     codigo = cod
                     for codigo in cod:
-                        chrome.send_keys("//input[@name='confirmationCode']", codigo)
+                        chrome.send_keys(
+                            "//input[@name='confirmationCode']", codigo)
                         time.sleep(random.uniform(0.1, 0.4))
 
                     time.sleep(random.uniform(0.5, 2))
@@ -2153,21 +2184,25 @@ def creator_2NR_NAV():
                             window.Refresh()
                             chrome.driver.uc_open_with_reconnect(url, 10)
                             try:
-                                chrome.driver.uc_click('button:contains("Permitir todos os cookies")', 5)
+                                chrome.driver.uc_click(
+                                    'button:contains("Permitir todos os cookies")', 5)
                                 print('Cookies aceito')
                                 time.sleep(5)
                             except:
                                 print('Sem cookies')
                             for user in user_completo:
-                                chrome.send_keys("//input[@name='username']", user)
-                                time.sleep(random.uniform(0.001, 0.2))
+                                chrome.send_keys(
+                                    "//input[@name='username']", user)
+                                time.sleep(random.uniform(0.001, 0.05))
                             time.sleep(random.uniform(0.5, 2))
-                            #chrome.type("//input[@name='password']", senha)
+                            # chrome.type("//input[@name='password']", senha)
                             for password in senha:
-                                chrome.send_keys("//input[@name='password']", password)
-                                time.sleep(random.uniform(0.001, 0.2))
+                                chrome.send_keys(
+                                    "//input[@name='password']", password)
+                                time.sleep(random.uniform(0.001, 0.05))
                             time.sleep(2)
-                            chrome.driver.uc_click('''button[type='submit']''', 20)
+                            chrome.driver.uc_click(
+                                '''button[type='submit']''', 20)
                             if "challenge" in chrome.driver.current_url or "suspended" in chrome.driver.current_url or len(chrome.find_elements("//div[contains(text(), 'Sua senha está incorreta. Confira-a.')]")) == 1:
                                 print('Conta com SMS')
                                 window['output'].print(
@@ -2180,13 +2215,15 @@ def creator_2NR_NAV():
                                     time.sleep(5)
                                     if d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').exists:
                                         print('2NR deslogou')
-                                        d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click(timeout=60)
+                                        d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click(
+                                            timeout=60)
                                         time.sleep(5)
-                                    
-                            
-                                        d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email2nr)
+
+                                        d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(
+                                            email2nr)
                                         time.sleep(0.5)
-                                        d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha2nr)
+                                        d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(
+                                            senha2nr)
                                         time.sleep(0.5)
                                         d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogin').click()
                                         time.sleep(3)
@@ -2203,7 +2240,7 @@ def creator_2NR_NAV():
                                     window.Refresh()
                                     raise Exception('Número excluido')
                                 break
-                        if "challenge" in chrome.driver.current_url or "suspended" in chrome.driver.current_url or len(chrome.find_elements("//div[contains(text(), 'Sua senha está incorreta. Confira-a.')]")) == 1 or len(chrome.find_elements("//div[text()='A sua conta foi desativada por violar nossos termos: http://instagram.com/about/legal/terms/']")) == 1:
+                        if "challenge" in chrome.driver.current_url or "suspended" in chrome.driver.current_url or len(chrome.find_elements("//div[contains(text(), 'Sua senha está incorreta. Confira-a.')]")) == 1:
                             print('Conta com SMS')
                             window['output'].print(
                                 f'[{datetime.now().strftime("%H:%M:%S")}] SMS.', text_color='red')
@@ -2217,8 +2254,7 @@ def creator_2NR_NAV():
                                     print('2NR deslogou')
                                     d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click(timeout=60)
                                     time.sleep(5)
-                                
-                        
+
                                     d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email2nr)
                                     time.sleep(0.5)
                                     d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha2nr)
@@ -2237,26 +2273,29 @@ def creator_2NR_NAV():
                                         f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                                     window.Refresh()
                                     raise Exception('Número excluido')
+                            break
                         if len(chrome.find_elements("//span[contains(text(), 'Página inicial')]")) == 1:
                             print('Conta criada com sucesso')
                             time.sleep(4)
                             if len(chrome.find_elements("//span[text()='Permitir todos os cookies']")) == 1:
-                                chrome.wait_for_element("//span[text()='Permitir todos os cookies']").click()
+                                chrome.wait_for_element(
+                                    "//span[text()='Permitir todos os cookies']").click()
                             troca_ip = 1
                             try:
                                 conteudo = config['vpn']
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
-                                                    text_color=('lime'))
+                                                       text_color=('lime'))
                                 window.Refresh()
                                 contagem = contagem + 1
                                 window['criadas'].update(contagem)
                                 window.Refresh()
                                 now = datetime.now()
                                 now_brasilia = tz.localize(now)
-                                timestamp = now_brasilia.strftime("%d/%m/%Y %H:%M:%S")
+                                timestamp = now_brasilia.strftime(
+                                    "%d/%m/%Y %H:%M:%S")
                                 try:
                                     scope = ["https://spreadsheets.google.com/feeds",
-                                            "https://www.googleapis.com/auth/drive"]
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name(
                                         'credentials.json', scope)
                                     client = gspread.authorize(creds)
@@ -2269,7 +2308,7 @@ def creator_2NR_NAV():
                                     values = sheet.col_values(1)
                                     last_row = len(values)
                                     values = [user_completo + ' ' + senha, num, timestamp, maquina,
-                                            conteudo + ' - ' + '2NR + NAV', local_surf]
+                                              conteudo + ' - ' + '2NR + NAV', local_surf]
                                     cell_list = sheet.range(
                                         f'A{last_row + 1}:F{last_row + 1}')
                                     for i, val in enumerate(values):
@@ -2294,7 +2333,7 @@ def creator_2NR_NAV():
                                         f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
                                     time.sleep(tempo_aleatorio)
                                     scope = ["https://spreadsheets.google.com/feeds",
-                                            "https://www.googleapis.com/auth/drive"]
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_name(
                                         'credentials.json', scope)
                                     client = gspread.authorize(creds)
@@ -2306,7 +2345,8 @@ def creator_2NR_NAV():
                                         spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num, timestamp, maquina, conteudo + ' - ' + '2NR + NAV', local_surf]
+                                    values = [user_completo + ' ' + senha, num, timestamp,
+                                              maquina, conteudo + ' - ' + '2NR + NAV', local_surf]
                                     cell_list = sheet.range(
                                         f'A{last_row + 1}:F{last_row + 1}')
                                     for i, val in enumerate(values):
@@ -2330,7 +2370,7 @@ def creator_2NR_NAV():
                                 # Verificar se o número aleatório está abaixo da chance
                                 if random_number < chance and not user_mysql == "wn3":
                                     scope = ["https://spreadsheets.google.com/feeds",
-                                            "https://www.googleapis.com/auth/drive"]
+                                             "https://www.googleapis.com/auth/drive"]
                                     creds = ServiceAccountCredentials.from_json_keyfile_dict(
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
@@ -2342,7 +2382,8 @@ def creator_2NR_NAV():
                                         spreadsheet_id).worksheet(sheet_name)
                                     values = sheet.col_values(1)
                                     last_row = len(values)
-                                    values = [user_completo + ' ' + senha, num, timestamp, maquina, conteudo + ' - ' + '2NR + NAV', local_surf, user_mysql]
+                                    values = [user_completo + ' ' + senha, num, timestamp, maquina,
+                                              conteudo + ' - ' + '2NR + NAV', local_surf, user_mysql]
                                     cell_list = sheet.range(
                                         f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
@@ -2356,6 +2397,8 @@ def creator_2NR_NAV():
                 traceback.print_exc()
         except:
             traceback.print_exc()
+
+
 def instaface_criarinsta():
     global parar
     global chrome
@@ -49638,12 +49681,16 @@ while True:
                         config6 = {}
                     vpn_list = ["SurfShark"]
                     dialog_layout = [
-                        [sg.Checkbox('Usar essa aba como troca de IP', key='-troca_ip-', default=config6.get('usar_troca_ip', False))],
+                        [sg.Checkbox('Usar essa aba como troca de IP', key='-troca_ip-',
+                                     default=config6.get('usar_troca_ip', False))],
                         [sg.Combo(vpn_list, default_value=config6.get("metodo", ""), readonly=True,
-                                          key='-vpnlista-', visible=False)],
-                        [sg.InputText(key="-emailvpn-", visible=False, default_text=config6.get("emailvpn", "Email VPN"))],
-                        [sg.InputText(key="-senhavpn-", visible=False, default_text=config6.get("senhavpn", "Senha VPN"))],
-                        [sg.Checkbox('Navegador oculto', key='-navegador_oculto-', default=config6.get('navegador_oculto', False))],
+                                  key='-vpnlista-', visible=False)],
+                        [sg.InputText(key="-emailvpn-", visible=False,
+                                      default_text=config6.get("emailvpn", "Email VPN"))],
+                        [sg.InputText(key="-senhavpn-", visible=False,
+                                      default_text=config6.get("senhavpn", "Senha VPN"))],
+                        [sg.Checkbox('Navegador oculto', key='-navegador_oculto-',
+                                     default=config6.get('navegador_oculto', False))],
                         [sg.Button('Executar', button_color='#1c2024')]
                     ]
 
@@ -49652,7 +49699,8 @@ while True:
 
                     # Loop principal da janela de diálogo
                     while True:
-                        dialog_event, dialog_values = dialog_window.read(timeout=100)
+                        dialog_event, dialog_values = dialog_window.read(
+                            timeout=100)
 
                         # Finaliza a janela de diálogo se o usuário fechar a janela
                         if dialog_event == sg.WINDOW_CLOSED:
@@ -49671,7 +49719,7 @@ while True:
                                 visible=False)
                             dialog_window['-senhavpn-'].update(
                                 visible=False)
-                            
+
                         # Avança para a janela principal se o usuário clicar no botão
                         if dialog_event == 'Executar':
                             if dialog_values['-troca_ip-']:
@@ -49683,7 +49731,7 @@ while True:
                                 "senhavpn": dialog_values['-senhavpn-'],
                                 "metodo": ip
                             }
-                            
+
                             with open('configuracoes\\config6.json', 'w') as file:
                                 json.dump(config6, file)
                             vpn_nav = dialog_values['-vpnlista-']
@@ -49742,7 +49790,7 @@ while True:
                               default=config.get("email", "") == "-instaface-"),
                      sg.Radio('5sim.net', 'RADIO1', visible=privado, key='-5sim-',
                               default=config.get("email", "") == "-5sim-"),
-                    sg.Radio('2NR + NAV', 'RADIO1', key='-2nrnav-',
+                     sg.Radio('2NR + NAV', 'RADIO1', key='-2nrnav-',
                               default=config.get("email", "") == "-2nrnav-"),
                      sg.Radio('Free SMS2', 'RADIO1', visible=beta_folder_exists, key='-freesms-',
                               default=config.get("email", "") == "-freesms-"),
