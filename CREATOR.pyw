@@ -1902,6 +1902,8 @@ def creator_2NR_NAV():
                                   'Germany', 'Africa', 'Japan', 'Indonesia', 'India', 'Denmark', 'France', 'USA']
                         local_surf = random.choice(locais)
                         print(f'Regiao escolhida {local_surf}')
+                        chrome.driver.refresh()
+                        time.sleep(5)
                         try:
                             chrome.send_keys(
                                 "//input[@data-test='location-search-input']", local_surf)
