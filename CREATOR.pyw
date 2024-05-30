@@ -299,9 +299,9 @@ except ModuleNotFoundError:
 
 
 def get_ip():
-    response = requests.get('http://ip-api.com/json')
+    response = requests.get('https://ipinfo.io/json')
     data = response.json()
-    return data['query']
+    return data['ip']
 
 
 gc = gspread.service_account(filename='relatorio.json')
