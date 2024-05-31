@@ -2060,25 +2060,26 @@ def creator_2NR_NAV():
                     senha = gerar_senha(12)
                     print(senha)
                     num = f'+48{num}'
-                    for numero in num:
-                        chrome.send_keys(
-                            "//input[@name='emailOrPhone']", f'{numero}')
-                        time.sleep(random.uniform(0.001, 0.05))
+                    chrome.type("//input[@name='emailOrPhone']", num)
+                    #for numero in num:
+                    #    chrome.send_keys(
+                    #        "//input[@name='emailOrPhone']", f'{numero}')
+                    #    time.sleep(random.uniform(0.001, 0.05))
                     time.sleep(random.uniform(0.5, 2))
-                    # chrome.type("//input[@name='fullName']", nome_completo)
-                    for nome in nome_completo:
-                        chrome.send_keys("//input[@name='fullName']", nome)
-                        time.sleep(random.uniform(0.001, 0.05))
+                    chrome.type("//input[@name='fullName']", nome_completo)
+                    #for nome in nome_completo:
+                    #    chrome.send_keys("//input[@name='fullName']", nome)
+                    #    time.sleep(random.uniform(0.001, 0.05))
                     time.sleep(random.uniform(0.5, 2))
-                    # chrome.type("//input[@name='username']", user_completo)
-                    for user in user_completo:
-                        chrome.send_keys("//input[@name='username']", user)
-                        time.sleep(random.uniform(0.001, 0.05))
+                    chrome.type("//input[@name='username']", user_completo)
+                    #    for user in user_completo:
+                    #        chrome.send_keys("//input[@name='username']", user)
+                    #        time.sleep(random.uniform(0.001, 0.05))
                     time.sleep(random.uniform(0.5, 2))
-                    # chrome.type("//input[@name='password']", senha)
-                    for password in senha:
-                        chrome.send_keys("//input[@name='password']", password)
-                        time.sleep(random.uniform(0.001, 0.05))
+                    chrome.type("//input[@name='password']", senha)
+                    #    for password in senha:
+                    #        chrome.send_keys("//input[@name='password']", password)
+                    #        time.sleep(random.uniform(0.001, 0.05))
                     time.sleep(random.uniform(0.5, 2))
                     time.sleep(5)
                     chrome.driver.uc_click('''button[type='submit']''', 5)
