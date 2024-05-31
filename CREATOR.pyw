@@ -724,53 +724,7 @@ def creator_2NR_NAV():
             result = "Não foi possível baixar o arquivo. Status Code: " + \
                 str(response.status_code)
 
-    file_path = './storage/surfshark.crx'
-    import zipfile
-
-    if os.path.exists("./storage/surfshark/"):
-        result = f"A pasta 'surfshark' já existe em '{file_path}'."
-    else:
-        # URL para download
-        url = 'https://www.dropbox.com/scl/fi/e4f4h29zl5s5tywjp1ev2/surfshark.crx?rlkey=zb499vqpr8swexgd8yrsu6rvc&dl=1'
-
-        # Fazendo o download do arquivo
-        response = requests.get(url)
-        if response.status_code == 200:
-            with open(file_path, 'wb') as file:
-                file.write(response.content)
-            print("Arquivo 'surfshark.crx' baixado e salvo em './storage/surfshark.crx'.")
-            # Caminho do arquivo original (altere para o seu caminho de arquivo)
-            caminho_original = './storage/surfshark.crx'
-            novo_caminho = './storage/surfshark.zip'
-
-            # Renomear o arquivo
-            os.rename(caminho_original, novo_caminho)
-
-            # Caminho do arquivo zip
-            caminho_zip = './storage/surfshark.zip'
-
-            # Diretório de destino para extrair
-            diretorio_destino = './storage/surfshark/'
-
-            # Remover um arquivo anterior, se existir
-            arquivo_antigo = './storage/surfshark'
-            if os.path.exists(arquivo_antigo):
-                os.remove(arquivo_antigo)
-
-            # Criar o diretório de destino se ele não existir
-            if not os.path.exists(diretorio_destino):
-                os.makedirs(diretorio_destino)
-
-            # Extrair o arquivo zip
-            with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
-                zip_ref.extractall(diretorio_destino)
-
-            print("Arquivo extraído com sucesso!")
-            os.remove('./storage/surfshark.zip')
-
-        else:
-            result = "Não foi possível baixar o arquivo. Status Code: " + \
-                str(response.status_code)
+    
 
     def vpn_avast():
         global nome
@@ -1714,11 +1668,61 @@ def creator_2NR_NAV():
                 window.Refresh()
                 nav_oculto = config6['navegador_oculto']
                 usar_troca_ip = config6['usar_troca_ip']
-
-                with SB(uc=True, demo=False, headless=nav_oculto, incognito=True, extension_dir=rf'.\storage\recaptcha,{caminho_atual}\storage\surfshark') as chrome:
+                if dialog_values['-vpnlista-'] == 'SurfShark':
+                    vpn_usada = 'surfshark'
+                elif dialog_values['-vpnlista-'] == 'TouchVPN':
+                    vpn_usada = 'touchvpn'
+                with SB(uc=True, demo=False, headless=nav_oculto, incognito=True, extension_dir=rf'.\storage\recaptcha,{caminho_atual}\storage\{vpn_usada}') as chrome:
                     time.sleep(5)
 
                     if vpn_nav == 'SurfShark':
+                        file_path = './storage/surfshark.crx'
+                        import zipfile
+
+                        if os.path.exists("./storage/surfshark/"):
+                            result = f"A pasta 'surfshark' já existe em '{file_path}'."
+                        else:
+                            # URL para download
+                            url = 'https://www.dropbox.com/scl/fi/e4f4h29zl5s5tywjp1ev2/surfshark.crx?rlkey=zb499vqpr8swexgd8yrsu6rvc&dl=1'
+
+                            # Fazendo o download do arquivo
+                            response = requests.get(url)
+                            if response.status_code == 200:
+                                with open(file_path, 'wb') as file:
+                                    file.write(response.content)
+                                print("Arquivo 'surfshark.crx' baixado e salvo em './storage/surfshark.crx'.")
+                                # Caminho do arquivo original (altere para o seu caminho de arquivo)
+                                caminho_original = './storage/surfshark.crx'
+                                novo_caminho = './storage/surfshark.zip'
+
+                                # Renomear o arquivo
+                                os.rename(caminho_original, novo_caminho)
+
+                                # Caminho do arquivo zip
+                                caminho_zip = './storage/surfshark.zip'
+
+                                # Diretório de destino para extrair
+                                diretorio_destino = './storage/surfshark/'
+
+                                # Remover um arquivo anterior, se existir
+                                arquivo_antigo = './storage/surfshark'
+                                if os.path.exists(arquivo_antigo):
+                                    os.remove(arquivo_antigo)
+
+                                # Criar o diretório de destino se ele não existir
+                                if not os.path.exists(diretorio_destino):
+                                    os.makedirs(diretorio_destino)
+
+                                # Extrair o arquivo zip
+                                with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+                                    zip_ref.extractall(diretorio_destino)
+
+                                print("Arquivo extraído com sucesso!")
+                                os.remove('./storage/surfshark.zip')
+
+                            else:
+                                result = "Não foi possível baixar o arquivo. Status Code: " + \
+                                    str(response.status_code)
                         try:
                             
                             chrome.set_window_size(800, 800)
@@ -1895,18 +1899,17 @@ def creator_2NR_NAV():
                                 chrome.switch_to.window(janela_principal)
                             else:
                                 print('Falha ao logar na surfshark')
-
                         print('Logou com sucesso na surfshark')
 
                         locais = ['Canada', 'Australia', 'Netherlands', 'Poland', 'United Kingdom',
                                   'Germany', 'Africa', 'Japan', 'Indonesia', 'India', 'Denmark', 'France', 'USA']
-                        local_surf = random.choice(locais)
-                        print(f'Regiao escolhida {local_surf}')
+                        local_vpn = random.choice(locais)
+                        print(f'Regiao escolhida {local_vpn}')
                         chrome.driver.refresh()
                         time.sleep(5)
                         try:
                             chrome.send_keys(
-                                "//input[@data-test='location-search-input']", local_surf)
+                                "//input[@data-test='location-search-input']", local_vpn)
                         except:
                             window['output'].print(
                                 f'[{datetime.now().strftime("%H:%M:%S")}] Erro ao logar na VPN.')
@@ -1925,8 +1928,92 @@ def creator_2NR_NAV():
                             print('VPN conectada')
                             time.sleep(5)
                         except:
-                            print('Não foi possivel conectar')
 
+                    elif vpn_nav == 'TouchVPN':
+                        file_path = './storage/touchvpn.crx'
+                        import zipfile
+
+                        if os.path.exists("./storage/touchvpn/"):
+                            result = f"A pasta 'touchvpn' já existe em '{file_path}'."
+                        else:
+                            # URL para download
+                            url = 'https://www.dropbox.com/scl/fi/xlfanzmvr46zd36ki8o6s/touchvpn.crx?rlkey=ue55t76a21aur82c9ecm9d5al&st=muc5temz&dl=1'
+
+                            # Fazendo o download do arquivo
+                            response = requests.get(url)
+                            if response.status_code == 200:
+                                with open(file_path, 'wb') as file:
+                                    file.write(response.content)
+                                print("Arquivo 'touchvpn.crx' baixado e salvo em './storage/touchvpn.crx'.")
+                                # Caminho do arquivo original (altere para o seu caminho de arquivo)
+                                caminho_original = './storage/touchvpn.crx'
+                                novo_caminho = './storage/touchvpn.zip'
+
+                                # Renomear o arquivo
+                                os.rename(caminho_original, novo_caminho)
+
+                                # Caminho do arquivo zip
+                                caminho_zip = './storage/touchvpn.zip'
+
+                                # Diretório de destino para extrair
+                                diretorio_destino = './storage/touchvpn/'
+
+                                # Remover um arquivo anterior, se existir
+                                arquivo_antigo = './storage/touchvpn'
+                                if os.path.exists(arquivo_antigo):
+                                    os.remove(arquivo_antigo)
+
+                                # Criar o diretório de destino se ele não existir
+                                if not os.path.exists(diretorio_destino):
+                                    os.makedirs(diretorio_destino)
+
+                                # Extrair o arquivo zip
+                                with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+                                    zip_ref.extractall(diretorio_destino)
+
+                                print("Arquivo extraído com sucesso!")
+                                os.remove('./storage/touchvpn.zip')
+
+                            else:
+                                result = "Não foi possível baixar o arquivo. Status Code: " + \
+                                    str(response.status_code)
+                        time.sleep(5)
+                        chrome.driver.switch_to.window(
+                            chrome.driver.window_handles[-1])
+                        # Verificar se a URL está correta e fechar a aba
+                        if chrome.driver.current_url == "https://www.touchvpn.net/":
+                            chrome.driver.close()
+                        # Alternar de volta para a aba original
+                        chrome.driver.switch_to.window(
+                            chrome.driver.window_handles[0])
+                        chrome.open('chrome://extensions/')
+                        extensoes = chrome.execute_script(
+                            'return document.querySelector("extensions-manager").shadowRoot.querySelector("extensions-item-list").shadowRoot.querySelectorAll("extensions-item");'
+                        )
+
+                        id_extensao = None
+                        for ext in extensoes:
+                            nome_ext = chrome.execute_script('return arguments[0].shadowRoot.querySelector("#name").innerText;', ext)
+                            if "Touch" in nome_ext:  # Substitua pelo nome da sua extensão
+                                id_extensao = chrome.execute_script('return arguments[0].getAttribute("id");', ext)
+                                break
+
+                        if id_extensao:
+                            # Use o ID da extensão para abrir a página da extensão
+                            url_extensao = f'chrome-extension://{id_extensao}/panel/index.html'
+                            chrome.driver.get(url_extensao)
+                        else:
+                            print("ID da extensão não encontrado")
+                        chrome.wait_for_element("div[class=location]").click()
+                        locais = ['United States', 'Canada', 'Germany', 'Netherlands', 'United Kingdom']
+                        local_vpn = random.choice(locais)
+                        print(local_vpn)
+                        chrome.wait_for_element(f'''//div[contains(text(), '{local_vpn}')]/div[@class='flag']''').click()
+                        chrome.wait_for_element("div[id=ConnectionButton]").click()
+                        chrome.wait_for_element("div[id=AdBlocker]")
+                        if chrome.find_elements("div[id=AdBlocker]"):
+                            print('VPN Conectada')
+                            
                     janela_principal = chrome.driver.window_handles[0]
                     chrome.driver.switch_to.window(janela_principal)
                     url = f"https://www.instagram.com/"
@@ -2006,49 +2093,83 @@ def creator_2NR_NAV():
                             f'[{datetime.now().strftime("%H:%M:%S")}] Procurando outro IP')
                         window.Refresh()
                         tentativa = 1
-                        while True:
-                            chrome.execute_script(
-                                "window.open('a', 'new_tab')")
-                            janela_principal = chrome.driver.window_handles[0]
-                            nova_janela = chrome.driver.window_handles[-1]
-                            chrome.driver.switch_to.window(nova_janela)
-                            chrome.driver.get(url_extensao)
-                            chrome.wait_for_element(
-                                "//button[@data-test='disconnect-button']").click()
-                            time.sleep(2)
-                            # locais = ['Canada', 'Australia', 'Netherlands']
-                            # local_surf = random.choice(locais)
-                            chrome.send_keys(
-                                "//input[@data-test='location-search-input']", local_surf)
-                            chrome.click("//div[@data-test='location-title']")
-                            try:
+                        if vpn_nav == 'SurfShark':
+                            while True:
+                                chrome.execute_script(
+                                    "window.open('a', 'new_tab')")
+                                janela_principal = chrome.driver.window_handles[0]
+                                nova_janela = chrome.driver.window_handles[-1]
+                                chrome.driver.switch_to.window(nova_janela)
+                                chrome.driver.get(url_extensao)
                                 chrome.wait_for_element(
-                                    "//button[@data-test='disconnect-button']")
+                                    "//button[@data-test='disconnect-button']").click()
+                                time.sleep(2)
+                                # locais = ['Canada', 'Australia', 'Netherlands']
+                                # local_vpn = random.choice(locais)
+                                chrome.send_keys(
+                                    "//input[@data-test='location-search-input']", local_vpn)
+                                chrome.click("//div[@data-test='location-title']")
+                                try:
+                                    chrome.wait_for_element(
+                                        "//button[@data-test='disconnect-button']")
 
-                                print('VPN conectada')
-                                time.sleep(5)
-                            except:
-                                print('Não foi possivel conectar')
-                            chrome.driver.close()
-                            janela_principal = chrome.driver.window_handles[0]
-                            chrome.driver.switch_to.window(janela_principal)
-                            time.sleep(3)
-                            try:
-                                chrome.driver.uc_click(
-                                    '''button[type='submit']''', 5)
-                            except:
-                                chrome.driver.uc_click(
-                                    '''//button[@type='submit']''', 5)
+                                    print('VPN conectada')
+                                    time.sleep(5)
+                                except:
+                                    print('Não foi possivel conectar')
+                                chrome.driver.close()
+                                janela_principal = chrome.driver.window_handles[0]
+                                chrome.driver.switch_to.window(janela_principal)
+                                time.sleep(3)
+                                try:
+                                    chrome.driver.uc_click(
+                                        '''button[type='submit']''', 5)
+                                except:
+                                    chrome.driver.uc_click(
+                                        '''//button[@type='submit']''', 5)
 
-                            if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
-                                print('IP aceito')
-                                break
-                            tentativa += 1
-                            if tentativa == 3:
-                                window['output'].print(
-                                    f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
-                                window.Refresh()
-                                raise Exception("Não achou IP válido")
+                                if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
+                                    print('IP aceito')
+                                    break
+                                tentativa += 1
+                                if tentativa == 3:
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
+                                    window.Refresh()
+                                    raise Exception("Não achou IP válido")
+                        elif vpn_nav == 'TouchVPN':
+                            while True:
+                                chrome.execute_script(
+                                    "window.open('a', 'new_tab')")
+                                janela_principal = chrome.driver.window_handles[0]
+                                nova_janela = chrome.driver.window_handles[-1]
+                                chrome.driver.switch_to.window(nova_janela)
+                                chrome.driver.get(url_extensao)
+                                chrome.wait_for_element("div[id=ConnectionButton]").click()
+                                chrome.wait_for_element("div[class=location]")
+                                chrome.wait_for_element("div[id=ConnectionButton]").click()
+                                chrome.driver.close()
+                                janela_principal = chrome.driver.window_handles[0]
+                                chrome.driver.switch_to.window(janela_principal)
+                                time.sleep(3)
+                                try:
+                                    chrome.driver.uc_click(
+                                        '''button[type='submit']''', 5)
+                                except:
+                                    chrome.driver.uc_click(
+                                        '''//button[@type='submit']''', 5)
+
+                                if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
+                                    print('IP aceito')
+                                    break
+                                tentativa += 1
+                                if tentativa == 3:
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
+                                    window.Refresh()
+                                    raise Exception("Não achou IP válido")
+                                
+                    
 
                     try:
                         chrome.wait_for_element(
@@ -2237,6 +2358,7 @@ def creator_2NR_NAV():
                                 "suspended" in chrome.driver.current_url or
                                 len(chrome.find_elements("//div[contains(text(), 'Sua senha está incorreta. Confira-a.')]")) == 1 or
                                 len(chrome.find_elements("//div[text()='A sua conta foi desativada por violar nossos termos: http://instagram.com/about/legal/terms/']")) == 1 or
+                                len(chrome.find_elements("//div[text()='Houve um problema ao entrar no Instagram. Tente novamente em breve.']")) == 1 or
                                 len(chrome.find_elements("//div[text()='Não foi possível se conectar ao Instagram. Verifique se você está conectado à Internet e tente novamente.']")) == 1
                             ):
                                 print('Conta com SMS')
@@ -2348,7 +2470,7 @@ def creator_2NR_NAV():
                                     values = sheet.col_values(1)
                                     last_row = len(values)
                                     values = [user_completo + ' ' + senha, num, timestamp, maquina,
-                                              conteudo + ' - ' + '2NR + NAV', local_surf]
+                                              vpn_nav + ' - ' + '2NR + NAV', local_vpn]
                                     cell_list = sheet.range(
                                         f'A{last_row + 1}:F{last_row + 1}')
                                     for i, val in enumerate(values):
@@ -2386,7 +2508,7 @@ def creator_2NR_NAV():
                                     values = sheet.col_values(1)
                                     last_row = len(values)
                                     values = [user_completo + ' ' + senha, num, timestamp,
-                                              maquina, conteudo + ' - ' + '2NR + NAV', local_surf]
+                                              maquina, vpn_nav + ' - ' + '2NR + NAV', local_vpn]
                                     cell_list = sheet.range(
                                         f'A{last_row + 1}:F{last_row + 1}')
                                     for i, val in enumerate(values):
@@ -2423,7 +2545,7 @@ def creator_2NR_NAV():
                                     values = sheet.col_values(1)
                                     last_row = len(values)
                                     values = [user_completo + ' ' + senha, num, timestamp, maquina,
-                                              conteudo + ' - ' + '2NR + NAV', local_surf, user_mysql]
+                                              vpn_nav + ' - ' + '2NR + NAV', local_vpn, user_mysql]
                                     cell_list = sheet.range(
                                         f'A{last_row + 1}:G{last_row + 1}')
                                     for i, val in enumerate(values):
@@ -49719,7 +49841,7 @@ while True:
                             config6 = json.load(file)
                     except FileNotFoundError:
                         config6 = {}
-                    vpn_list = ["SurfShark"]
+                    vpn_list = ["SurfShark", "TouchVPN"]
                     dialog_layout = [
                         [sg.Checkbox('Usar essa aba como troca de IP', key='-troca_ip-',
                                      default=config6.get('usar_troca_ip', False))],
