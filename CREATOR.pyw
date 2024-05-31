@@ -1927,8 +1927,9 @@ def creator_2NR_NAV():
 
                             print('VPN conectada')
                             time.sleep(5)
-                        except:
-
+                        except Exception as e:
+                            print(e)
+                            
                     elif vpn_nav == 'TouchVPN':
                         file_path = './storage/touchvpn.crx'
                         import zipfile
