@@ -568,7 +568,7 @@ def creator_2NR_NAV():
     seguido = False
     regiao_vpn = 'Sem dados'
     app = "Nav"
-
+    global vpn_nav
     global sms
     global nomes
     global sobrenomes
@@ -1350,6 +1350,7 @@ def creator_2NR_NAV():
         if parar is True:
             print('Parando Thread')
             break
+        print(linha_ret)
         # if codigo_não_recebido_seguidos == 3:
         #    #tempo_aleatorio = random.randint(10, 40)
         #    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 3 códigos não recebidos seguidos.')
@@ -1666,6 +1667,7 @@ def creator_2NR_NAV():
                 window['output'].print(
                     f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo navegador.')
                 window.Refresh()
+
                 nav_oculto = config6['navegador_oculto']
                 usar_troca_ip = config6['usar_troca_ip']
                 if dialog_values['-vpnlista-'] == 'SurfShark':
@@ -1673,7 +1675,15 @@ def creator_2NR_NAV():
                 elif dialog_values['-vpnlista-'] == 'TouchVPN':
                     vpn_usada = 'touchvpn'
                 elif dialog_values['-vpnlista-'] == 'CyberGhost':
-                    vpn_usada = 'CyberGhost'
+                    vpn_usada = 'cyberghost'
+                elif dialog_values['-vpnlista-'] == 'ZenMate':
+                    vpn_usada = 'zenmate'
+                elif dialog_values['-vpnlista-'] == 'Aleatorio':
+                    vpn_usada = random.choice(['TouchVPN', 'CyberGhost', 'ZenMate'])
+                    vpn_nav = vpn_usada
+                    window['output'].print(
+                    f'[{datetime.now().strftime("%H:%M:%S")}] VPN Escolhida: {vpn_nav}.')
+                    window.Refresh()
                 with SB(uc=True, demo=False, headless=nav_oculto, incognito=True, extension_dir=rf'.\storage\recaptcha,{caminho_atual}\storage\{vpn_usada}') as chrome:
                     time.sleep(5)
 
@@ -2101,7 +2111,98 @@ def creator_2NR_NAV():
                                 chrome.wait_for_element("div[class=spinner]").click()
                                 chrome.wait_for_element('//h4[text()="Connected"]')
                                 
-                            
+                    elif vpn_nav == 'ZenMate':
+                        file_path = './storage/zenmate.crx'
+                        import zipfile
+
+                        if os.path.exists("./storage/zenmate/"):
+                            result = f"A pasta 'zenmate' já existe em '{file_path}'."
+                        else:
+                            # URL para download
+                            url = 'https://www.dropbox.com/scl/fi/ype15i0fln67zlxfjhsa7/zenmate.crx?rlkey=qc2wrm1zy8i63murehrgb16dr&st=7gkbc98m&dl=1'
+
+                            # Fazendo o download do arquivo
+                            response = requests.get(url)
+                            if response.status_code == 200:
+                                with open(file_path, 'wb') as file:
+                                    file.write(response.content)
+                                print("Arquivo 'zenmate.crx' baixado e salvo em './storage/zenmate.crx'.")
+                                # Caminho do arquivo original (altere para o seu caminho de arquivo)
+                                caminho_original = './storage/zenmate.crx'
+                                novo_caminho = './storage/zenmate.zip'
+
+                                # Renomear o arquivo
+                                os.rename(caminho_original, novo_caminho)
+
+                                # Caminho do arquivo zip
+                                caminho_zip = './storage/zenmate.zip'
+
+                                # Diretório de destino para extrair
+                                diretorio_destino = './storage/zenmate/'
+
+                                # Remover um arquivo anterior, se existir
+                                arquivo_antigo = './storage/zenmate'
+                                if os.path.exists(arquivo_antigo):
+                                    os.remove(arquivo_antigo)
+
+                                # Criar o diretório de destino se ele não existir
+                                if not os.path.exists(diretorio_destino):
+                                    os.makedirs(diretorio_destino)
+
+                                # Extrair o arquivo zip
+                                with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+                                    zip_ref.extractall(diretorio_destino)
+
+                                print("Arquivo extraído com sucesso!")
+                                os.remove('./storage/zenmate.zip')
+
+                            else:
+                                result = "Não foi possível baixar o arquivo. Status Code: " + \
+                                    str(response.status_code)
+                        
+                        chrome.open('chrome://extensions/')
+                        extensoes = chrome.execute_script(
+                            'return document.querySelector("extensions-manager").shadowRoot.querySelector("extensions-item-list").shadowRoot.querySelectorAll("extensions-item");'
+                        )
+
+                        id_extensao = None
+                        for ext in extensoes:
+                            nome_ext = chrome.execute_script('return arguments[0].shadowRoot.querySelector("#name").innerText;', ext)
+                            if "ZenMate" in nome_ext:
+                                id_extensao = chrome.execute_script('return arguments[0].getAttribute("id");', ext)
+                                break
+
+                        if id_extensao:
+                            url_extensao = f'chrome-extension://{id_extensao}/index.html'
+                            chrome.driver.get(url_extensao)
+                        else:
+                            print("ID da extensão não encontrado")
+                        
+                        locais = ['Germany', 'Romania', 'Singapore', 'United States']
+                        local_vpn = random.choice(locais)
+                        print(local_vpn)
+                        if local_vpn == 'Germany':
+                            local_zenmate = '#country-browsing-DE'
+                        elif local_vpn == 'Romania':
+                            local_zenmate = '#country-browsing-RO'
+                        elif local_vpn == 'Singapore':
+                            local_zenmate = '#country-browsing-SG'
+                        elif local_vpn == 'United States':
+                            local_zenmate = '#country-browsing-US'
+                        while True:
+                            if not chrome.find_elements("div[class=shield-container]"): 
+                                chrome.wait_for_element("app-onboarding").click()
+                            else:
+                                time.sleep(2)
+                                chrome.wait_for_element('//a[@routerlink="/servers"]').click()
+                                locais = ['Germnay', 'Romania', 'Singapore', 'United States']
+                                local_vpn = random.choice(locais)
+                                chrome.wait_for_element(f"{local_zenmate}").click()
+                                chrome.wait_for_element('div.proxy-status-container > div.pt-1.location-info > a')
+                                if chrome.find_element('div.proxy-status-container > div.pt-1.location-info > a').text == 'Connected to':
+                                    print('VPN Conectada')
+                                break
+
                     janela_principal = chrome.driver.window_handles[0]
                     chrome.driver.switch_to.window(janela_principal)
                     url = f"https://www.instagram.com/"
@@ -2299,6 +2400,60 @@ def creator_2NR_NAV():
                                     window.Refresh()
                                     raise Exception("Não achou IP válido")
                                 
+                        elif vpn_nav == 'ZenMate':
+                            while True:
+                                chrome.execute_script(
+                                    "window.open('a', 'new_tab')")
+                                janela_principal = chrome.driver.window_handles[0]
+                                nova_janela = chrome.driver.window_handles[-1]
+                                chrome.driver.switch_to.window(nova_janela)
+                                chrome.driver.get(url_extensao)
+                                chrome.wait_for_element("div.shield-container.active").click()
+                                time.sleep(2)
+                                while True:
+
+                                    if chrome.find_elements('body > app-root > main > app-campaign > app-image-campaign > div > div.header.white > a > i'):
+                                        
+                                        chrome.find_element('body > app-root > main > app-campaign > app-image-campaign > div > div.header.white > a > i').click()
+
+                                    elif chrome.find_elements('body > app-root > main > app-home > app-rate-us > div > div > button'):
+                                        
+                                        try:
+                                            chrome.find_element('body > app-root > main > app-home > app-rate-us > div > div > button').click()
+                                        except:
+                                            pass
+                                        break
+                                    
+                                    elif chrome.find_elements('div.shield-container'):
+                                        break
+
+                                chrome.wait_for_element("div.shield-container").click()
+                                time.sleep(2)
+                                while True:
+                                    if chrome.find_element('div.proxy-status-container > div.pt-1.location-info > a').text == 'Connected to':
+                                        print('VPN Conectada')
+                                        break
+                                
+                                chrome.driver.close()
+                                janela_principal = chrome.driver.window_handles[0]
+                                chrome.driver.switch_to.window(janela_principal)
+                                time.sleep(3)
+                                try:
+                                    chrome.driver.uc_click(
+                                        '''button[type='submit']''', 5)
+                                except:
+                                    chrome.driver.uc_click(
+                                        '''//button[@type='submit']''', 5)
+
+                                if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
+                                    print('IP aceito')
+                                    break
+                                tentativa += 1
+                                if tentativa == 3:
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
+                                    window.Refresh()
+                                    raise Exception("Não achou IP válido")
                     
 
                     try:
@@ -49971,7 +50126,7 @@ while True:
                             config6 = json.load(file)
                     except FileNotFoundError:
                         config6 = {}
-                    vpn_list = ["SurfShark", "TouchVPN", "CyberGhost"]
+                    vpn_list = ["Aleatorio", "SurfShark", "TouchVPN", "CyberGhost", "ZenMate"]
                     dialog_layout = [
                         [sg.Checkbox('Usar essa aba como troca de IP', key='-troca_ip-',
                                      default=config6.get('usar_troca_ip', False))],
