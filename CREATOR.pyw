@@ -1672,6 +1672,8 @@ def creator_2NR_NAV():
                     vpn_usada = 'surfshark'
                 elif dialog_values['-vpnlista-'] == 'TouchVPN':
                     vpn_usada = 'touchvpn'
+                elif dialog_values['-vpnlista-'] == 'CyberGhost':
+                    vpn_usada = 'CyberGhost'
                 with SB(uc=True, demo=False, headless=nav_oculto, incognito=True, extension_dir=rf'.\storage\recaptcha,{caminho_atual}\storage\{vpn_usada}') as chrome:
                     time.sleep(5)
 
@@ -2014,6 +2016,91 @@ def creator_2NR_NAV():
                         chrome.wait_for_element("div[id=AdBlocker]")
                         if chrome.find_elements("div[id=AdBlocker]"):
                             print('VPN Conectada')
+
+                    elif vpn_nav == 'CyberGhost':
+                        file_path = './storage/cyberghost.crx'
+                        import zipfile
+
+                        if os.path.exists("./storage/cyberghost/"):
+                            result = f"A pasta 'cyberghost' já existe em '{file_path}'."
+                        else:
+                            # URL para download
+                            url = 'https://www.dropbox.com/scl/fi/nw94zxsqdcyvs1x7i4r4e/cyberghost.crx?rlkey=162gv0ry8524g1mgt8gpf0n1c&st=vaj6u9r7&dl=1'
+
+                            # Fazendo o download do arquivo
+                            response = requests.get(url)
+                            if response.status_code == 200:
+                                with open(file_path, 'wb') as file:
+                                    file.write(response.content)
+                                print("Arquivo 'cyberghost.crx' baixado e salvo em './storage/cyberghost.crx'.")
+                                # Caminho do arquivo original (altere para o seu caminho de arquivo)
+                                caminho_original = './storage/cyberghost.crx'
+                                novo_caminho = './storage/cyberghost.zip'
+
+                                # Renomear o arquivo
+                                os.rename(caminho_original, novo_caminho)
+
+                                # Caminho do arquivo zip
+                                caminho_zip = './storage/cyberghost.zip'
+
+                                # Diretório de destino para extrair
+                                diretorio_destino = './storage/cyberghost/'
+
+                                # Remover um arquivo anterior, se existir
+                                arquivo_antigo = './storage/cyberghost'
+                                if os.path.exists(arquivo_antigo):
+                                    os.remove(arquivo_antigo)
+
+                                # Criar o diretório de destino se ele não existir
+                                if not os.path.exists(diretorio_destino):
+                                    os.makedirs(diretorio_destino)
+
+                                # Extrair o arquivo zip
+                                with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+                                    zip_ref.extractall(diretorio_destino)
+
+                                print("Arquivo extraído com sucesso!")
+                                os.remove('./storage/cyberghost.zip')
+
+                            else:
+                                result = "Não foi possível baixar o arquivo. Status Code: " + \
+                                    str(response.status_code)
+                        
+                        chrome.open('chrome://extensions/')
+                        extensoes = chrome.execute_script(
+                            'return document.querySelector("extensions-manager").shadowRoot.querySelector("extensions-item-list").shadowRoot.querySelectorAll("extensions-item");'
+                        )
+
+                        id_extensao = None
+                        for ext in extensoes:
+                            nome_ext = chrome.execute_script('return arguments[0].shadowRoot.querySelector("#name").innerText;', ext)
+                            if "CyberGhost" in nome_ext:
+                                id_extensao = chrome.execute_script('return arguments[0].getAttribute("id");', ext)
+                                break
+
+                        if id_extensao:
+                            url_extensao = f'chrome-extension://{id_extensao}/index.html'
+                            chrome.driver.get(url_extensao)
+                        else:
+                            print("ID da extensão não encontrado")
+                        
+                        locais = ['Romania', 'Netherlands', 'Germany', 'United States']
+                        local_vpn = random.choice(locais)
+                        print(local_vpn)
+                        if local_vpn == 'Romania':
+                            pass
+                        else:
+                            chrome.wait_for_element("span[class=selected-country]").click()
+                            chrome.wait_for_element(f"//span[normalize-space(text())='{local_vpn}']").click()
+                        chrome.wait_for_element("div[class=spinner]").click()
+                        while True:
+                            if chrome.find_elements('//h4[text()="Connected"]'):
+                                print('VPN Conectada')
+                                break
+                            elif chrome.find_elements('//h4[text()="connectPage.error"]'):
+                                chrome.wait_for_element("div[class=spinner]").click()
+                                chrome.wait_for_element('//h4[text()="Connected"]')
+                                
                             
                     janela_principal = chrome.driver.window_handles[0]
                     chrome.driver.switch_to.window(janela_principal)
@@ -2171,6 +2258,47 @@ def creator_2NR_NAV():
                                     window.Refresh()
                                     raise Exception("Não achou IP válido")
                                 
+                        elif vpn_nav == 'CyberGhost':
+                            while True:
+                                chrome.execute_script(
+                                    "window.open('a', 'new_tab')")
+                                janela_principal = chrome.driver.window_handles[0]
+                                nova_janela = chrome.driver.window_handles[-1]
+                                chrome.driver.switch_to.window(nova_janela)
+                                chrome.driver.get(url_extensao)
+                                chrome.wait_for_element("div[class=spinner]").click()
+                                chrome.wait_for_element('//h4[text()="Start a Connection"]')
+                                time.sleep(2)
+                                chrome.wait_for_element("div[class=spinner]").click()
+                                while True:
+                                    if chrome.find_elements('//h4[text()="Connected"]'):
+                                        print('VPN Conectada')
+                                        break
+                                    elif chrome.find_elements('//h4[text()="connectPage.error"]'):
+                                        chrome.wait_for_element("div[class=spinner]").click()
+                                        chrome.wait_for_element('//h4[text()="Connected"]')
+                                
+                                chrome.driver.close()
+                                janela_principal = chrome.driver.window_handles[0]
+                                chrome.driver.switch_to.window(janela_principal)
+                                time.sleep(3)
+                                try:
+                                    chrome.driver.uc_click(
+                                        '''button[type='submit']''', 5)
+                                except:
+                                    chrome.driver.uc_click(
+                                        '''//button[@type='submit']''', 5)
+
+                                if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
+                                    print('IP aceito')
+                                    break
+                                tentativa += 1
+                                if tentativa == 3:
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
+                                    window.Refresh()
+                                    raise Exception("Não achou IP válido")
+                                
                     
 
                     try:
@@ -2238,7 +2366,7 @@ def creator_2NR_NAV():
                         window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                         window.Refresh()
-
+                        raise Exception('skip')
                     captcha_element = chrome.find_elements(
                         "//input[@id='recaptcha-input']")
                     tentativas = 1
@@ -49843,7 +49971,7 @@ while True:
                             config6 = json.load(file)
                     except FileNotFoundError:
                         config6 = {}
-                    vpn_list = ["SurfShark", "TouchVPN"]
+                    vpn_list = ["SurfShark", "TouchVPN", "CyberGhost"]
                     dialog_layout = [
                         [sg.Checkbox('Usar essa aba como troca de IP', key='-troca_ip-',
                                      default=config6.get('usar_troca_ip', False))],
