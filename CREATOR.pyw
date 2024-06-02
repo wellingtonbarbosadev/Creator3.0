@@ -1708,7 +1708,7 @@ def creator_2NR_NAV():
                                 str(response.status_code)
                             
                 if not vpn_nav == "UrbanVPN":
-                    with SB(uc=True, demo=False, headless=nav_oculto, incognito=True, extension_dir=rf'.\storage\recaptcha,{caminho_atual}\storage\{vpn_usada}') as chrome:
+                    with SB(uc=True, locale_code='pt-br', demo=False, headless=nav_oculto, incognito=True, extension_dir=rf'.\storage\recaptcha,{caminho_atual}\storage\{vpn_usada}') as chrome:
                         time.sleep(5)
 
                         if vpn_nav == 'SurfShark':
@@ -2865,7 +2865,7 @@ def creator_2NR_NAV():
                                     print(e)
                                 break
                 else:
-                    with SB(uc=False, demo=False, headless=nav_oculto, incognito=True, extension_dir=rf'.\storage\recaptcha', extension_zip=rf'{caminho_atual}\storage\{vpn_usada}.crx') as chrome:
+                    with SB(uc=False, demo=False, locale_code='pt-br', headless=nav_oculto, incognito=True, extension_dir=rf'.\storage\recaptcha', extension_zip=rf'{caminho_atual}\storage\{vpn_usada}.crx') as chrome:
                         time.sleep(5)
 
                         if vpn_usada == 'urbanvpn':
