@@ -47718,7 +47718,7 @@ def executar_creator_2nr():
                                 ['pip', 'install', 'seleniumbase'])
                             from seleniumbase import SB
                         try:
-                            with SB(uc=True, headless=True, extension_dir=r'.\storage\adblock') as chrome:
+                            with SB(uc=True, headless=True, chromium_arg='--lang=pt-BR', extension_dir=r'.\storage\adblock') as chrome:
                                 url = f"https://emailnator.com/"
                                 chrome.set_window_size(1920, 1080)
                                 chrome.driver.uc_open_with_reconnect(url, 10)
@@ -48863,7 +48863,7 @@ def executar_creator_2nr():
                                 ['pip', 'install', 'seleniumbase'])
                             from seleniumbase import SB
                         try:
-                            with SB(uc=True, headless=True, extension_dir=r'.\storage\adblock') as chrome:
+                            with SB(uc=True, headless=True, chromium_arg='--lang=pt-BR', extension_dir=r'.\storage\adblock') as chrome:
                                 url = f"https://emailnator.com/"
                                 chrome.set_window_size(1920, 1080)
                                 chrome.driver.uc_open_with_reconnect(url, 10)
