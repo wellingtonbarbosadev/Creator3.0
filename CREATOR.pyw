@@ -3038,13 +3038,17 @@ def creator_2NR_NAV():
                                     nova_janela = chrome.driver.window_handles[-1]
                                     chrome.driver.switch_to.window(nova_janela)
                                     chrome.driver.get(url_extensao)
+                                    time.sleep(1)
+                                    if chrome.find_elements("#app > div > div.simple-layout.rate-us-page > div.simple-layout__header > div"):
+                                        chrome.find_element("#app > div > div.simple-layout.rate-us-page > div.simple-layout__header > div").click()
+                                        
                                     chrome.wait_for_element('div.play-button.play-button--pause').click()
                                     time.sleep(0.5)
                                     chrome.driver.get(url_extensao)
                                     time.sleep(2)
                                     if chrome.find_elements("#app > div > div.simple-layout.rate-us-page > div.simple-layout__header > div"):
-                                        
                                         chrome.find_element("#app > div > div.simple-layout.rate-us-page > div.simple-layout__header > div").click()
+
                                     chrome.wait_for_element('div.play-button.play-button--play').click()
                                     time.sleep(0.5)
                                     if chrome.find_elements('span.timer.main-page__timer'):
