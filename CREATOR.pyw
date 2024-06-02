@@ -3041,7 +3041,7 @@ def creator_2NR_NAV():
                                     chrome.wait_for_element('div.play-button.play-button--pause').click()
                                     time.sleep(0.5)
                                     chrome.driver.get(url_extensao)
-                                    time.sleep(0.5)
+                                    time.sleep(2)
                                     if chrome.find_elements("#app > div > div.simple-layout.rate-us-page > div.simple-layout__header > div"):
                                         
                                         chrome.find_element("#app > div > div.simple-layout.rate-us-page > div.simple-layout__header > div").click()
