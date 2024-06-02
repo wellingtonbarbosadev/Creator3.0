@@ -2952,11 +2952,13 @@ def creator_2NR_NAV():
                         try:
                             chrome.wait_for_element('button:contains("Permitir todos os cookies")').click()
                             print('Cookies aceito')
-                            time.sleep(10)
+                            time.sleep(5)
+                            chrome.driver.refresh()
+                            #chrome.wait_for_element_not_present('button:contains("Permitir todos os cookies")').click()
                         except:
                             print('Sem cookies')
                         chrome.wait_for_element(
-                            "a[href='/accounts/emailsignup/']").click()
+                            "a[href='/accounts/emailsignup/']", timeout=60).click()
 
                         lista_user = random.choices(range(0, 9), k=2)
                         lista_letras = random.choices(letras, k=2)
