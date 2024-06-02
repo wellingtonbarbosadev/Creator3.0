@@ -2207,7 +2207,7 @@ def creator_2NR_NAV():
                     chrome.driver.switch_to.window(janela_principal)
                     url = f"https://www.instagram.com/"
                     chrome.set_window_size(800, 800)
-                    chrome.driver.uc_open_with_reconnect(url, 10)
+                    chrome.driver.uc_open_with_reconnect(url, 5)
                     # time.sleep(30000)
                     try:
                         chrome.driver.uc_click(
@@ -2217,7 +2217,7 @@ def creator_2NR_NAV():
                     except:
                         print('Sem cookies')
                     chrome.driver.uc_click(
-                        "a[href='/accounts/emailsignup/']", 10)
+                        "a[href='/accounts/emailsignup/']", 4)
 
                     lista_user = random.choices(range(0, 9), k=2)
                     lista_letras = random.choices(letras, k=2)
@@ -2550,7 +2550,7 @@ def creator_2NR_NAV():
                                 # Wait for a short interval before checking again
                                 time.sleep(2)
                                 tentativas += 1
-                                if tentativas == 25:
+                                if tentativas == 40:
                                     window['output'].print(
                                         f'[{datetime.now().strftime("%H:%M:%S")}] Captcha não pode ser resolvido')
                                     window.Refresh()
@@ -2616,7 +2616,7 @@ def creator_2NR_NAV():
                             window['output'].print(
                                 f'[{datetime.now().strftime("%H:%M:%S")}] Tentando relogar')
                             window.Refresh()
-                            chrome.driver.uc_open_with_reconnect(url, 10)
+                            chrome.driver.uc_open_with_reconnect(url, 3)
                             try:
                                 chrome.driver.uc_click(
                                     'button:contains("Permitir todos os cookies")', 5)
@@ -2770,7 +2770,6 @@ def creator_2NR_NAV():
                                     # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
                                     num_rows = sum(
                                         1 for row in rows if regex.match(row[0]))
-                                    senha = gerar_senha(12)
                                 except Exception as e:
                                     print(e)
                                     window['output'].print(
