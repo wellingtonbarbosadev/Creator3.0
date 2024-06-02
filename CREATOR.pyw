@@ -3076,6 +3076,7 @@ def creator_2NR_NAV():
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                         window.Refresh()
+                                        chrome.driver.quit()
                                         raise Exception("Não achou IP válido")
                         
 
@@ -3087,6 +3088,7 @@ def creator_2NR_NAV():
                             window['output'].print(
                                 f'[{datetime.now().strftime("%H:%M:%S")}] IP Bloqueado ou Número bloqueado', text_color='red')
                             window.Refresh()
+                            chrome.driver.quit()
 
                         dia = str(random.randint(1, 28))
                         time.sleep(random.uniform(0.5, 2))
@@ -3145,6 +3147,7 @@ def creator_2NR_NAV():
                             window['output'].print(
                                 f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                             window.Refresh()
+                            chrome.driver.quit()
                             raise Exception('skip')
                         captcha_element = chrome.find_elements(
                             "//input[@id='recaptcha-input']")
@@ -3201,8 +3204,14 @@ def creator_2NR_NAV():
                         d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
 
                         try:
-                            cod = d(
-                                resourceId='pl.rs.sip.softphone.newapp:id/message').get_text(timeout=80)
+                            try:
+                                cod = d(
+                                    resourceId='pl.rs.sip.softphone.newapp:id/message').get_text(timeout=80)
+                            except:
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
+                                cod = d(
+                                    resourceId='pl.rs.sip.softphone.newapp:id/message').get_text(timeout=5)
 
                         except:
                             codigo_não_recebido_seguidos += 1
@@ -3220,6 +3229,7 @@ def creator_2NR_NAV():
                             window['output'].print(
                                 f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                             window.Refresh()
+                            chrome.driver.quit()
                             raise Exception(' ')
                         cod = cod.replace(' ', '')
                         codigo = re.sub('[^0-9]', '', cod)[:6]
@@ -3305,10 +3315,12 @@ def creator_2NR_NAV():
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                                         window.Refresh()
+                                        chrome.driver.quit()
                                         raise Exception('Número excluido')
                                     break
                             if "challenge" in chrome.driver.current_url or "suspended" in chrome.driver.current_url or len(chrome.find_elements("//div[contains(text(), 'Sua senha está incorreta. Confira-a.')]")) == 1:
                                 print('Conta com SMS')
+                                chrome.driver.quit()
                                 window['output'].print(
                                     f'[{datetime.now().strftime("%H:%M:%S")}] SMS.', text_color='red')
                                 window.Refresh()
@@ -3339,6 +3351,7 @@ def creator_2NR_NAV():
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
                                         window.Refresh()
+                                        chrome.driver.quit()
                                         raise Exception('Número excluido')
                                 break
                             if len(chrome.find_elements("//span[contains(text(), 'Página inicial')]")) == 1:
@@ -3353,6 +3366,7 @@ def creator_2NR_NAV():
                                     except:
                                         print('Sem cookies')
                                 troca_ip = 1
+                                chrome.driver.quit()
                                 try:
                                     conteudo = config['vpn']
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
@@ -3463,11 +3477,23 @@ def creator_2NR_NAV():
 
                                 except Exception as e:
                                     print(e)
+                                    try:
+                                        chrome.driver.quit()
+                                    except:
+                                        pass
                                 break
             except:
+                try:
+                    chrome.driver.quit()
+                except:
+                    pass
                 traceback.print_exc()
         except:
             traceback.print_exc()
+            try:
+                chrome.driver.quit()
+            except:
+                pass
 
 
 def instaface_criarinsta():
