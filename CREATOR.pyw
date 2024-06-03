@@ -1681,7 +1681,7 @@ def creator_2NR_NAV():
                 elif dialog_values['-vpnlista-'] == 'UrbanVPN':
                     vpn_usada = 'urbanvpn'
                 elif dialog_values['-vpnlista-'] == 'Aleatorio':
-                    vpn_usada = random.choice(['TouchVPN', 'CyberGhost', 'ZenMate', 'UrbanVPN'])
+                    vpn_usada = random.choice(['TouchVPN', 'CyberGhost', 'ZenMate'])
                     vpn_nav = vpn_usada
                     window['output'].print(
                     f'[{datetime.now().strftime("%H:%M:%S")}] VPN Escolhida: {vpn_nav}.')
