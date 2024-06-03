@@ -2225,7 +2225,7 @@ def creator_2NR_NAV():
                                     chrome.wait_for_element('//a[@routerlink="/servers"]').click()
                                     locais = ['Germnay', 'Romania', 'Singapore', 'United States']
                                     local_vpn = random.choice(locais)
-                                    if not chrome.find_elements(f"{local_zenmate}"):
+                                    if not chrome.find_elements(f"{local_zenmate}") or chrome.find_elements('xpath', "//div[@class='alert alert-danger text-center mt-2' and not(@hidden)]"):
                                         chrome.wait_for_element('//a[@routerlink="/home"]').click()
                                         time.sleep(4)
                                         chrome.wait_for_element('//a[@routerlink="/servers"]').click()
