@@ -2719,47 +2719,47 @@ def creator_2NR_NAV():
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                         window.Refresh()
                                         raise Exception("Não achou IP válido")
-                        elif vpn_nav == 'PlanetVPN':
-                                while True:
-                                    chrome.execute_script(
-                                        "window.open('a', 'new_tab')")
-                                    janela_principal = chrome.driver.window_handles[0]
-                                    nova_janela = chrome.driver.window_handles[-1]
-                                    chrome.driver.switch_to.window(nova_janela)
-                                    chrome.driver.get(url_extensao)
-
-                                    chrome.wait_for_element('button.button.button-connected').click()
-                                    time.sleep(2)
-                                    chrome.wait_for_element('button.button.button-disconnected').click()
-                                    time.sleep(1)
+                            elif vpn_nav == 'PlanetVPN':
                                     while True:
-                                        if chrome.find_elements("button.button.button-connected"):
-                                            print('VPN Conectada')
+                                        chrome.execute_script(
+                                            "window.open('a', 'new_tab')")
+                                        janela_principal = chrome.driver.window_handles[0]
+                                        nova_janela = chrome.driver.window_handles[-1]
+                                        chrome.driver.switch_to.window(nova_janela)
+                                        chrome.driver.get(url_extensao)
+
+                                        chrome.wait_for_element('button.button.button-connected').click()
+                                        time.sleep(2)
+                                        chrome.wait_for_element('button.button.button-disconnected').click()
+                                        time.sleep(1)
+                                        while True:
+                                            if chrome.find_elements("button.button.button-connected"):
+                                                print('VPN Conectada')
+                                                break
+                                            elif chrome.find_elements("button.button.button-disconnected"):
+                                                chrome.find_element("button.button.button-disconnected").click()
+
+                                        
+                                        chrome.driver.close()
+                                        janela_principal = chrome.driver.window_handles[0]
+                                        chrome.driver.switch_to.window(janela_principal)
+                                        time.sleep(3)
+                                        try:
+                                            chrome.driver.uc_click(
+                                                '''button[type='submit']''', 5)
+                                        except:
+                                            chrome.driver.uc_click(
+                                                '''//button[@type='submit']''', 5)
+
+                                        if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
+                                            print('IP aceito')
                                             break
-                                        elif chrome.find_elements("button.button.button-disconnected"):
-                                            chrome.find_element("button.button.button-disconnected").click()
-
-                                    
-                                    chrome.driver.close()
-                                    janela_principal = chrome.driver.window_handles[0]
-                                    chrome.driver.switch_to.window(janela_principal)
-                                    time.sleep(3)
-                                    try:
-                                        chrome.driver.uc_click(
-                                            '''button[type='submit']''', 5)
-                                    except:
-                                        chrome.driver.uc_click(
-                                            '''//button[@type='submit']''', 5)
-
-                                    if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
-                                        print('IP aceito')
-                                        break
-                                    tentativa += 1
-                                    if tentativa == 5:
-                                        window['output'].print(
-                                            f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
-                                        window.Refresh()
-                                        raise Exception("Não achou IP válido")
+                                        tentativa += 1
+                                        if tentativa == 5:
+                                            window['output'].print(
+                                                f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
+                                            window.Refresh()
+                                            raise Exception("Não achou IP válido")
 
 
                         try:
@@ -2798,7 +2798,7 @@ def creator_2NR_NAV():
                             "//select[@title='Mês:']").send_keys(month_text)
                         time.sleep(2)
                         chrome.driver.uc_click('button:contains("Avançar")', 15)
-                        if len(chrome.find_elements("//p[@id='ssfErrorAlert']")) == 1:
+                        if len(chrome.find_elements("//p[@id='ssfErrorAlert']")) == 1 or chrome.find_elements("//span[contains(text(), 'Não foi possível criar uma conta para você')]"):
                             print('IP Bloqueado ou Número bloqueado')
                             window['output'].print(
                                 f'[{datetime.now().strftime("%H:%M:%S")}] IP Bloqueado ou Número bloqueado', text_color='red')
