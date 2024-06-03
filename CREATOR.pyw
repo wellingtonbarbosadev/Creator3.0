@@ -2194,20 +2194,18 @@ def creator_2NR_NAV():
                             extensoes = chrome.execute_script(
                                 'return document.querySelector("extensions-manager").shadowRoot.querySelector("extensions-item-list").shadowRoot.querySelectorAll("extensions-item");'
                             )
-
                             id_extensao = None
                             for ext in extensoes:
                                 nome_ext = chrome.execute_script('return arguments[0].shadowRoot.querySelector("#name").innerText;', ext)
                                 if "ZenMate" in nome_ext:
                                     id_extensao = chrome.execute_script('return arguments[0].getAttribute("id");', ext)
                                     break
-
                             if id_extensao:
                                 url_extensao = f'chrome-extension://{id_extensao}/index.html'
                                 chrome.driver.get(url_extensao)
                             else:
                                 print("ID da extensão não encontrado")
-                            
+
                             locais = ['Germany', 'Romania', 'Singapore', 'United States']
                             local_vpn = random.choice(locais)
                             print(local_vpn)
@@ -2221,17 +2219,22 @@ def creator_2NR_NAV():
                                 local_zenmate = '#country-browsing-US'
                             while True:
                                 if not chrome.find_elements("div[class=shield-container]"): 
-                                    chrome.wait_for_element("app-onboarding").click()
+                                    chrome.driver.get(url_extensao)
                                 else:
                                     time.sleep(2)
                                     chrome.wait_for_element('//a[@routerlink="/servers"]').click()
                                     locais = ['Germnay', 'Romania', 'Singapore', 'United States']
                                     local_vpn = random.choice(locais)
+                                    if not chrome.find_elements(f"{local_zenmate}"):
+                                        chrome.wait_for_element('//a[@routerlink="/home"]').click()
+                                        time.sleep(4)
+                                        chrome.wait_for_element('//a[@routerlink="/servers"]').click()
                                     chrome.wait_for_element(f"{local_zenmate}").click()
+                                    time.sleep(3)
                                     chrome.wait_for_element('div.proxy-status-container > div.pt-1.location-info > a')
                                     if chrome.find_element('div.proxy-status-container > div.pt-1.location-info > a').text == 'Connected to':
                                         print('VPN Conectada')
-                                    break
+                                        break
                         
                         elif vpn_nav == 'VeePN':
                             file_path = './storage/veepn.crx'
