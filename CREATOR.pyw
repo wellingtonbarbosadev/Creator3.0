@@ -2231,7 +2231,11 @@ def creator_2NR_NAV():
                                         chrome.wait_for_element('//a[@routerlink="/servers"]').click()
                                     chrome.wait_for_element(f"{local_zenmate}").click()
                                     time.sleep(3)
-                                    chrome.wait_for_element('div.proxy-status-container > div.pt-1.location-info > a')
+                                    try:
+                                        chrome.wait_for_element('div.proxy-status-container > div.pt-1.location-info > a')
+                                    except:
+                                        chrome.get(url_extensao)
+                                        chrome.wait_for_element('div.proxy-status-container > div.pt-1.location-info > a')
                                     if chrome.find_element('div.proxy-status-container > div.pt-1.location-info > a').text == 'Connected to':
                                         print('VPN Conectada')
                                         break
