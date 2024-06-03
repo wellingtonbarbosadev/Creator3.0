@@ -1670,6 +1670,7 @@ def creator_2NR_NAV():
 
                 nav_oculto = config6['navegador_oculto']
                 usar_troca_ip = config6['usar_troca_ip']
+
                 if dialog_values['-vpnlista-'] == 'SurfShark':
                     vpn_usada = 'surfshark'
                 elif dialog_values['-vpnlista-'] == 'TouchVPN':
@@ -1680,12 +1681,17 @@ def creator_2NR_NAV():
                     vpn_usada = 'zenmate'
                 elif dialog_values['-vpnlista-'] == 'UrbanVPN':
                     vpn_usada = 'urbanvpn'
+                elif dialog_values['-vpnlista-'] == 'VeePN':
+                    vpn_usada = 'veepn'
+                elif dialog_values['-vpnlista-'] == 'PlanetVPN':
+                    vpn_usada = 'planetvpn'
                 elif dialog_values['-vpnlista-'] == 'Aleatorio':
-                    vpn_usada = random.choice(['TouchVPN', 'CyberGhost', 'ZenMate'])
+                    vpn_usada = random.choice(['TouchVPN', 'CyberGhost', 'ZenMate', 'VeePN', 'PlanetVPN'])
                     vpn_nav = vpn_usada
                     window['output'].print(
                     f'[{datetime.now().strftime("%H:%M:%S")}] VPN Escolhida: {vpn_nav}.')
                     window.Refresh()
+
                 if vpn_usada == 'urbanvpn':
                     file_path = './storage/urbanvpn.crx'
                     import zipfile
@@ -2227,7 +2233,197 @@ def creator_2NR_NAV():
                                         print('VPN Conectada')
                                     break
                         
+                        elif vpn_nav == 'VeePN':
+                            file_path = './storage/veepn.crx'
+                            import zipfile
+
+                            if os.path.exists("./storage/veepn/"):
+                                result = f"A pasta 'veepn' já existe em '{file_path}'."
+                            else:
+                                # URL para download
+                                url = 'https://www.dropbox.com/scl/fi/ube9dvmevvhhk5eqt32gt/veepn.crx?rlkey=yuzwpgst6vo0oohhtcsi7i65o&dl=1'
+
+                                # Fazendo o download do arquivo
+                                response = requests.get(url)
+                                if response.status_code == 200:
+                                    with open(file_path, 'wb') as file:
+                                        file.write(response.content)
+                                    print("Arquivo 'veepn.crx' baixado e salvo em './storage/veepn.crx'.")
+                                    # Caminho do arquivo original (altere para o seu caminho de arquivo)
+                                    caminho_original = './storage/veepn.crx'
+                                    novo_caminho = './storage/veepn.zip'
+
+                                    # Renomear o arquivo
+                                    os.rename(caminho_original, novo_caminho)
+
+                                    # Caminho do arquivo zip
+                                    caminho_zip = './storage/veepn.zip'
+
+                                    # Diretório de destino para extrair
+                                    diretorio_destino = './storage/veepn/'
+
+                                    # Remover um arquivo anterior, se existir
+                                    arquivo_antigo = './storage/veepn'
+                                    if os.path.exists(arquivo_antigo):
+                                        os.remove(arquivo_antigo)
+
+                                    # Criar o diretório de destino se ele não existir
+                                    if not os.path.exists(diretorio_destino):
+                                        os.makedirs(diretorio_destino)
+
+                                    # Extrair o arquivo zip
+                                    with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+                                        zip_ref.extractall(diretorio_destino)
+
+                                    print("Arquivo extraído com sucesso!")
+                                    os.remove('./storage/veepn.zip')
+
+                                else:
+                                    result = "Não foi possível baixar o arquivo. Status Code: " + \
+                                        str(response.status_code)
                             
+                            chrome.open('chrome://extensions/')
+                            extensoes = chrome.execute_script(
+                                'return document.querySelector("extensions-manager").shadowRoot.querySelector("extensions-item-list").shadowRoot.querySelectorAll("extensions-item");'
+                            )
+
+                            id_extensao = None
+                            for ext in extensoes:
+                                nome_ext = chrome.execute_script('return arguments[0].shadowRoot.querySelector("#name").innerText;', ext)
+                                if "Vee" in nome_ext:
+                                    id_extensao = chrome.execute_script('return arguments[0].getAttribute("id");', ext)
+                                    break
+
+                            if id_extensao:
+                                url_extensao = f'chrome-extension://{id_extensao}/html/foreground.html'
+                                chrome.driver.get(url_extensao)
+                            else:
+                                print("ID da extensão não encontrado")
+                            
+                            chrome.driver.switch_to.window(
+                                chrome.driver.window_handles[-1])
+                            # Verificar se a URL está correta e fechar a aba
+                            if "https://veepn.com" in chrome.driver.current_url:
+                                chrome.driver.close()
+                            # Alternar de volta para a aba original
+                            chrome.driver.switch_to.window(
+                                chrome.driver.window_handles[0])
+
+                            chrome.wait_for_element("button.next").click()
+                            chrome.wait_for_element("button.next").click()
+                            if chrome.find_elements("div.footer-decline-text"):
+                                chrome.wait_for_element("div.footer-decline-text").click()
+
+                            locais = ['France', 'Netherlands','Singapore', 'London','Virginia', 'Oregon']
+                            local_vpn = random.choice(locais)
+                            print(local_vpn)
+                            chrome.wait_for_element("div.current-region-upper-block").click()
+                            chrome.wait_for_element("input.region-search-input").send_keys(local_vpn)
+                            chrome.wait_for_element("div.radio.off").click()
+                            chrome.wait_for_element('div[id=mainBtn]').click()
+                            while True:
+                                if chrome.find_element("div.description.fadeIn.linebreak").text == 'VPN is ON':
+                                    print('VPN Conectada')
+                                    break
+                                elif chrome.find_element("div.description.fadeIn.linebreak").text == 'VPN is OFF':
+                                    chrome.wait_for_element('div[id=mainBtn]').click()
+                                elif chrome.find_elements("div.footer-decline-text"):
+                                    chrome.wait_for_element("div.footer-decline-text").click()
+
+                        elif vpn_nav == 'PlanetVPN':
+                            file_path = './storage/planetvpn.crx'
+                            import zipfile
+
+                            if os.path.exists("./storage/planetvpn/"):
+                                result = f"A pasta 'planetvpn' já existe em '{file_path}'."
+                            else:
+                                # URL para download
+                                url = 'https://www.dropbox.com/scl/fi/5nkgxkdyd3hmbl2yezwpz/planetvpn.crx?rlkey=q67oe53sq6qoian2izabfxc5q&dl=1'
+
+                                # Fazendo o download do arquivo
+                                response = requests.get(url)
+                                if response.status_code == 200:
+                                    with open(file_path, 'wb') as file:
+                                        file.write(response.content)
+                                    print("Arquivo 'planetvpn.crx' baixado e salvo em './storage/planetvpn.crx'.")
+                                    # Caminho do arquivo original (altere para o seu caminho de arquivo)
+                                    caminho_original = './storage/planetvpn.crx'
+                                    novo_caminho = './storage/planetvpn.zip'
+
+                                    # Renomear o arquivo
+                                    os.rename(caminho_original, novo_caminho)
+
+                                    # Caminho do arquivo zip
+                                    caminho_zip = './storage/planetvpn.zip'
+
+                                    # Diretório de destino para extrair
+                                    diretorio_destino = './storage/planetvpn/'
+
+                                    # Remover um arquivo anterior, se existir
+                                    arquivo_antigo = './storage/planetvpn'
+                                    if os.path.exists(arquivo_antigo):
+                                        os.remove(arquivo_antigo)
+
+                                    # Criar o diretório de destino se ele não existir
+                                    if not os.path.exists(diretorio_destino):
+                                        os.makedirs(diretorio_destino)
+
+                                    # Extrair o arquivo zip
+                                    with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+                                        zip_ref.extractall(diretorio_destino)
+
+                                    print("Arquivo extraído com sucesso!")
+                                    os.remove('./storage/planetvpn.zip')
+
+                                else:
+                                    result = "Não foi possível baixar o arquivo. Status Code: " + \
+                                        str(response.status_code)
+                            
+                            chrome.open('chrome://extensions/')
+                            extensoes = chrome.execute_script(
+                                'return document.querySelector("extensions-manager").shadowRoot.querySelector("extensions-item-list").shadowRoot.querySelectorAll("extensions-item");'
+                            )
+
+                            id_extensao = None
+                            for ext in extensoes:
+                                nome_ext = chrome.execute_script('return arguments[0].shadowRoot.querySelector("#name").innerText;', ext)
+                                if "Planet" in nome_ext:
+                                    id_extensao = chrome.execute_script('return arguments[0].getAttribute("id");', ext)
+                                    break
+
+                            if id_extensao:
+                                url_extensao = f'chrome-extension://{id_extensao}/popup.html'
+                                chrome.driver.get(url_extensao)
+                            else:
+                                print("ID da extensão não encontrado")
+                            
+                            chrome.driver.switch_to.window(
+                                chrome.driver.window_handles[-1])
+                            # Verificar se a URL está correta e fechar a aba
+                            if "https://freevpnplanet.com/" in chrome.driver.current_url:
+                                chrome.driver.close()
+                            # Alternar de volta para a aba original
+                            chrome.driver.switch_to.window(
+                                chrome.driver.window_handles[0])
+
+                            chrome.wait_for_element("div.consent-button").click()
+                            chrome.wait_for_element("div.select-country").click()
+                            locais = ['Germany', 'United Kingdom', 'USA']
+                            local_vpn = random.choice(locais)
+                            print(local_vpn)
+                            chrome.wait_for_element("input.search-input").send_keys(local_vpn)
+                            chrome.wait_for_element("div.server-name").click()
+                            time.sleep(1)
+                            while True:
+                                if chrome.find_elements("button.button.button-connected"):
+                                    print('VPN Conectada')
+                                    break
+                                elif chrome.find_elements("button.button.button-disconnected"):
+                                    chrome.find_element("button.button.button-disconnected").click()
+
+                            
+
+
                         janela_principal = chrome.driver.window_handles[0]
                         chrome.driver.switch_to.window(janela_principal)
                         url = f"https://www.instagram.com/"
@@ -2482,6 +2678,89 @@ def creator_2NR_NAV():
                                         window.Refresh()
                                         raise Exception("Não achou IP válido")
                         
+                            elif vpn_nav == 'VeePN':
+                                while True:
+                                    chrome.execute_script(
+                                        "window.open('a', 'new_tab')")
+                                    janela_principal = chrome.driver.window_handles[0]
+                                    nova_janela = chrome.driver.window_handles[-1]
+                                    chrome.driver.switch_to.window(nova_janela)
+                                    chrome.driver.get(url_extensao)
+                                    chrome.wait_for_element('div[id=mainBtn]').click()
+                                    time.sleep(3)
+                                    chrome.wait_for_element('div[id=mainBtn]').click()
+                                    while True:
+                                        if chrome.find_element("div.description.fadeIn.linebreak").text == 'VPN is ON':
+                                            print('VPN Conectada')
+                                            break
+                                        elif chrome.find_element("div.description.fadeIn.linebreak").text == 'VPN is OFF':
+                                            chrome.wait_for_element('div[id=mainBtn]').click()
+                                        elif chrome.find_elements("div.footer-decline-text"):
+                                            chrome.wait_for_element("div.footer-decline-text").click()
+
+                                    
+                                    chrome.driver.close()
+                                    janela_principal = chrome.driver.window_handles[0]
+                                    chrome.driver.switch_to.window(janela_principal)
+                                    time.sleep(3)
+                                    try:
+                                        chrome.driver.uc_click(
+                                            '''button[type='submit']''', 5)
+                                    except:
+                                        chrome.driver.uc_click(
+                                            '''//button[@type='submit']''', 5)
+
+                                    if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
+                                        print('IP aceito')
+                                        break
+                                    tentativa += 1
+                                    if tentativa == 5:
+                                        window['output'].print(
+                                            f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
+                                        window.Refresh()
+                                        raise Exception("Não achou IP válido")
+                        elif vpn_nav == 'PlanetVPN':
+                                while True:
+                                    chrome.execute_script(
+                                        "window.open('a', 'new_tab')")
+                                    janela_principal = chrome.driver.window_handles[0]
+                                    nova_janela = chrome.driver.window_handles[-1]
+                                    chrome.driver.switch_to.window(nova_janela)
+                                    chrome.driver.get(url_extensao)
+
+                                    chrome.wait_for_element('button.button.button-connected').click()
+                                    time.sleep(2)
+                                    chrome.wait_for_element('button.button.button-disconnected').click()
+                                    time.sleep(1)
+                                    while True:
+                                        if chrome.find_elements("button.button.button-connected"):
+                                            print('VPN Conectada')
+                                            break
+                                        elif chrome.find_elements("button.button.button-disconnected"):
+                                            chrome.find_element("button.button.button-disconnected").click()
+
+                                    
+                                    chrome.driver.close()
+                                    janela_principal = chrome.driver.window_handles[0]
+                                    chrome.driver.switch_to.window(janela_principal)
+                                    time.sleep(3)
+                                    try:
+                                        chrome.driver.uc_click(
+                                            '''button[type='submit']''', 5)
+                                    except:
+                                        chrome.driver.uc_click(
+                                            '''//button[@type='submit']''', 5)
+
+                                    if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
+                                        print('IP aceito')
+                                        break
+                                    tentativa += 1
+                                    if tentativa == 5:
+                                        window['output'].print(
+                                            f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
+                                        window.Refresh()
+                                        raise Exception("Não achou IP válido")
+
 
                         try:
                             chrome.wait_for_element(
@@ -50782,7 +51061,7 @@ while True:
                             config6 = json.load(file)
                     except FileNotFoundError:
                         config6 = {}
-                    vpn_list = ["Aleatorio", "SurfShark", "TouchVPN", "CyberGhost", "ZenMate", "UrbanVPN"]
+                    vpn_list = ["Aleatorio", "SurfShark", "TouchVPN", "CyberGhost", "ZenMate", "PlanetVPN", "VeePN","UrbanVPN"]
                     dialog_layout = [
                         [sg.Checkbox('Usar essa aba como troca de IP', key='-troca_ip-',
                                      default=config6.get('usar_troca_ip', False))],
