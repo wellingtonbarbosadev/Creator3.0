@@ -2273,6 +2273,7 @@ def creator_2NR_NAV():
                         senha = gerar_senha(12)
                         print(senha)
                         num = f'+48{num}'
+                        chrome.wait_for_element("//input[@name='emailOrPhone']", timeout=30)
                         chrome.type("//input[@name='emailOrPhone']", num)
                         #for numero in num:
                         #    chrome.send_keys(
@@ -2347,7 +2348,7 @@ def creator_2NR_NAV():
                                         print('IP aceito')
                                         break
                                     tentativa += 1
-                                    if tentativa == 3:
+                                    if tentativa == 5:
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                         window.Refresh()
@@ -2363,6 +2364,7 @@ def creator_2NR_NAV():
                                     chrome.wait_for_element("div[id=ConnectionButton]").click()
                                     chrome.wait_for_element("div[class=location]")
                                     chrome.wait_for_element("div[id=ConnectionButton]").click()
+                                    time.sleep(3)
                                     chrome.driver.close()
                                     janela_principal = chrome.driver.window_handles[0]
                                     chrome.driver.switch_to.window(janela_principal)
@@ -2378,7 +2380,7 @@ def creator_2NR_NAV():
                                         print('IP aceito')
                                         break
                                     tentativa += 1
-                                    if tentativa == 3:
+                                    if tentativa == 5:
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                         window.Refresh()
@@ -2419,7 +2421,7 @@ def creator_2NR_NAV():
                                         print('IP aceito')
                                         break
                                     tentativa += 1
-                                    if tentativa == 3:
+                                    if tentativa == 5:
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                         window.Refresh()
