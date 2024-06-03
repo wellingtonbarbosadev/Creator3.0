@@ -3762,21 +3762,18 @@ def creator_2NR_NAV():
 
                                 except Exception as e:
                                     print(e)
-                                    chrome.save_screenshot('erro_nav.png')
                                     try:
                                         chrome.driver.quit()
                                     except:
                                         pass
                                 break
             except:
-                chrome.save_screenshot('erro_nav.png')
                 try:
                     chrome.driver.quit()
                 except:
                     pass
                 traceback.print_exc()
         except:
-            chrome.save_screenshot('erro_nav.png')
             traceback.print_exc()
             try:
                 chrome.driver.quit()
