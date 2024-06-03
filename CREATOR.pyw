@@ -2234,7 +2234,7 @@ def creator_2NR_NAV():
                                     try:
                                         chrome.wait_for_element('div.proxy-status-container > div.pt-1.location-info > a')
                                     except:
-                                        chrome.get(url_extensao)
+                                        chrome.driver.get(url_extensao)
                                         chrome.wait_for_element('div.proxy-status-container > div.pt-1.location-info > a')
                                     if chrome.find_element('div.proxy-status-container > div.pt-1.location-info > a').text == 'Connected to':
                                         print('VPN Conectada')
@@ -2435,18 +2435,23 @@ def creator_2NR_NAV():
                         chrome.driver.switch_to.window(janela_principal)
                         url = f"https://www.instagram.com/"
                         chrome.set_window_size(800, 800)
-                        chrome.driver.uc_open_with_reconnect(url, 5)
+                        chrome.driver.uc_open_with_reconnect(url, 10)
                         # time.sleep(30000)
                         try:
                             chrome.driver.uc_click(
                                 'button:contains("Permitir todos os cookies")', 5)
                             print('Cookies aceito')
+                            cook = True
                             time.sleep(5)
                         except:
                             print('Sem cookies')
-                        chrome.driver.uc_click(
-                            "a[href='/accounts/emailsignup/']", 4)
-
+                            cook = False
+                        try:
+                            chrome.driver.uc_click(
+                                "a[href='/accounts/emailsignup/']", 4)
+                        except:
+                            chrome.driver.refresh()
+                            chrome.driver.uc_click("a[href='/accounts/emailsignup/']", 4)
                         lista_user = random.choices(range(0, 9), k=2)
                         lista_letras = random.choices(letras, k=2)
                         nomea = fake.first_name_male().replace(" ", "")
