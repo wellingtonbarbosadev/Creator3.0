@@ -2480,76 +2480,76 @@ def creator_2NR_NAV():
                                 else:
                                     result = "Não foi possível baixar o arquivo. Status Code: " + \
                                         str(response.status_code)
-                            
-                                chrome.open('chrome://extensions/')
-                                extensoes = chrome.execute_script(
-                                    'return document.querySelector("extensions-manager").shadowRoot.querySelector("extensions-item-list").shadowRoot.querySelectorAll("extensions-item");'
-                                )
+                        
+                            chrome.open('chrome://extensions/')
+                            extensoes = chrome.execute_script(
+                                'return document.querySelector("extensions-manager").shadowRoot.querySelector("extensions-item-list").shadowRoot.querySelectorAll("extensions-item");'
+                            )
 
-                                id_extensao = None
-                                for ext in extensoes:
-                                    nome_ext = chrome.execute_script('return arguments[0].shadowRoot.querySelector("#name").innerText;', ext)
-                                    if "Troywell" in nome_ext:
-                                        id_extensao = chrome.execute_script('return arguments[0].getAttribute("id");', ext)
-                                        break
+                            id_extensao = None
+                            for ext in extensoes:
+                                nome_ext = chrome.execute_script('return arguments[0].shadowRoot.querySelector("#name").innerText;', ext)
+                                if "Troywell" in nome_ext:
+                                    id_extensao = chrome.execute_script('return arguments[0].getAttribute("id");', ext)
+                                    break
 
-                                if id_extensao:
-                                    url_extensao = f'chrome-extension://{id_extensao}/popup.html'
-                                    chrome.driver.get(url_extensao)
-                                else:
-                                    print("ID da extensão não encontrado")
+                            if id_extensao:
+                                url_extensao = f'chrome-extension://{id_extensao}/popup.html'
+                                chrome.driver.get(url_extensao)
+                            else:
+                                print("ID da extensão não encontrado")
 
+                            try:
+                                chrome.wait_for_element("div.button.analytics__button", timeout=2).click()
+                            except:
+                                chrome.driver.get(url_extensao)
+                                chrome.wait_for_element("div.button.analytics__button").click()
+                            chrome.wait_for_element("div.server-select__row").click()
+                            time.sleep(2)
+                            locais = ['Alemanha', 'Polônia', 'Holanda', 'Japão', 'Austrália', 'França', 'Noruega', 'África do Sul', 'Espanha', 'Canadá']
+                            local_vpn = random.choice(locais)
+                            print(local_vpn)
+                            chrome.wait_for_element("input.search__input").send_keys(local_vpn)
+                            while True:
                                 try:
-                                    chrome.wait_for_element("div.button.analytics__button", timeout=2).click()
+                                    chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+                                    break
                                 except:
                                     chrome.driver.get(url_extensao)
-                                    chrome.wait_for_element("div.button.analytics__button").click()
-                                chrome.wait_for_element("div.server-select__row").click()
-                                time.sleep(2)
-                                locais = ['Alemanha', 'Polônia', 'Holanda', 'Japão', 'Austrália', 'França', 'Noruega', 'África do Sul', 'Espanha', 'Canadá']
-                                local_vpn = random.choice(locais)
-                                print(local_vpn)
-                                chrome.wait_for_element("input.search__input").send_keys(local_vpn)
-                                while True:
-                                    try:
-                                        chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
-                                        break
-                                    except:
-                                        chrome.driver.get(url_extensao)
-                                        chrome.wait_for_element("div.server-select__row").click()
-                                        time.sleep(2)
-                                        local_vpn = random.choice(locais)
-                                        chrome.wait_for_element("input.search__input").clear()
-                                        chrome.wait_for_element("input.search__input").send_keys(local_vpn)
-                                        chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+                                    chrome.wait_for_element("div.server-select__row").click()
+                                    time.sleep(2)
+                                    local_vpn = random.choice(locais)
+                                    chrome.wait_for_element("input.search__input").clear()
+                                    chrome.wait_for_element("input.search__input").send_keys(local_vpn)
+                                    chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
 
-                                chrome.wait_for_element("div.connect-button").click()
-                                try:
+                            chrome.wait_for_element("div.connect-button").click()
+                            try:
+                                chrome.wait_for_element("div.connection-block__label")
+                            except:
+                                if chrome.find_elements("div.button.button_selected.connection-failed__button.connection-failed__button_blue"):
+                                    chrome.find_element("div.button.button_selected.connection-failed__button.connection-failed__button_blue").click()
+                                    chrome.wait_for_element("div.server-select__row").click()
+                                    time.sleep(2)
+                                    local_vpn = random.choice(locais)
+                                    chrome.wait_for_element("input.search__input").send_keys(local_vpn)
+                                    chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+                                    chrome.wait_for_element("div.connect-button").click()
                                     chrome.wait_for_element("div.connection-block__label")
-                                except:
-                                    if chrome.find_elements("div.button.button_selected.connection-failed__button.connection-failed__button_blue"):
-                                        chrome.find_element("div.button.button_selected.connection-failed__button.connection-failed__button_blue").click()
-                                        chrome.wait_for_element("div.server-select__row").click()
-                                        time.sleep(2)
-                                        local_vpn = random.choice(locais)
-                                        chrome.wait_for_element("input.search__input").send_keys(local_vpn)
-                                        chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
-                                        chrome.wait_for_element("div.connect-button").click()
-                                        chrome.wait_for_element("div.connection-block__label")
-                                time.sleep(1)
-                                while True:
-                                    if chrome.find_elements("div.connection-block__label"):
-                                        print('VPN Conectada')
-                                        break
-                                    elif chrome.find_elements("div.button.button_selected.connection-failed__button.connection-failed__button_blue"):
-                                        chrome.find_element("div.button.button_selected.connection-failed__button.connection-failed__button_blue").click()
-                                        chrome.wait_for_element("div.server-select__row").click()
-                                        time.sleep(2)
-                                        local_vpn = random.choice(locais)
-                                        chrome.wait_for_element("input.search__input").send_keys(local_vpn)
-                                        chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
-                                        chrome.wait_for_element("div.connect-button").click()
-                                        chrome.wait_for_element("div.connection-block__label")
+                            time.sleep(1)
+                            while True:
+                                if chrome.find_elements("div.connection-block__label"):
+                                    print('VPN Conectada')
+                                    break
+                                elif chrome.find_elements("div.button.button_selected.connection-failed__button.connection-failed__button_blue"):
+                                    chrome.find_element("div.button.button_selected.connection-failed__button.connection-failed__button_blue").click()
+                                    chrome.wait_for_element("div.server-select__row").click()
+                                    time.sleep(2)
+                                    local_vpn = random.choice(locais)
+                                    chrome.wait_for_element("input.search__input").send_keys(local_vpn)
+                                    chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+                                    chrome.wait_for_element("div.connect-button").click()
+                                    chrome.wait_for_element("div.connection-block__label")
 
 
                         janela_principal = chrome.driver.window_handles[0]
