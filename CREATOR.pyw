@@ -3098,6 +3098,7 @@ def creator_2NR_NAV():
                         window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
                         window.Refresh()
+                        troca_ip_estatica = 0
                         d.app_start('pl.rs.sip.softphone.newapp')
                         time.sleep(5)
                         if d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').exists:
