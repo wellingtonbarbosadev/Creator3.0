@@ -2220,11 +2220,13 @@ def creator_2NR_NAV():
                             while True:
                                 if not chrome.find_elements("div[class=shield-container]"): 
                                     chrome.driver.get(url_extensao)
+                                    time.sleep(2)
                                 else:
                                     time.sleep(2)
                                     chrome.wait_for_element('//a[@routerlink="/servers"]').click()
                                     locais = ['Germnay', 'Romania', 'Singapore', 'United States']
                                     local_vpn = random.choice(locais)
+                                    time.sleep(2)
                                     if not chrome.find_elements(f"{local_zenmate}") or chrome.find_elements('xpath', "//div[@class='alert alert-danger text-center mt-2' and not(@hidden)]"):
                                         chrome.wait_for_element('//a[@routerlink="/home"]').click()
                                         time.sleep(4)
