@@ -1681,12 +1681,14 @@ def creator_2NR_NAV():
                     vpn_usada = 'zenmate'
                 elif dialog_values['-vpnlista-'] == 'UrbanVPN':
                     vpn_usada = 'urbanvpn'
+                elif dialog_values['-vpnlista-'] == 'Troywell':
+                    vpn_usada = 'troywell'
                 elif dialog_values['-vpnlista-'] == 'VeePN':
                     vpn_usada = 'veepn'
                 elif dialog_values['-vpnlista-'] == 'PlanetVPN':
                     vpn_usada = 'planetvpn'
                 elif dialog_values['-vpnlista-'] == 'Aleatorio':
-                    vpn_usada = random.choice(['TouchVPN', 'CyberGhost', 'VeePN', 'PlanetVPN'])
+                    vpn_usada = random.choice(['TouchVPN', 'CyberGhost', 'VeePN', 'PlanetVPN', 'Troywell'])
                     vpn_nav = vpn_usada
                     window['output'].print(
                     f'[{datetime.now().strftime("%H:%M:%S")}] VPN Escolhida: {vpn_nav}.')
@@ -2430,7 +2432,124 @@ def creator_2NR_NAV():
                                 elif chrome.find_elements("button.button.button-disconnected"):
                                     chrome.find_element("button.button.button-disconnected").click()
 
+                        elif vpn_nav == 'Troywell':
+                            file_path = './storage/troywell.crx'
+                            import zipfile
+
+                            if os.path.exists("./storage/troywell/"):
+                                result = f"A pasta 'troywell' já existe em '{file_path}'."
+                            else:
+                                # URL para download
+                                url = 'https://www.dropbox.com/scl/fi/rn25p6mmg57pmikq8d2xu/troywell.crx?rlkey=wwmakky5j6952lisr19723vw7&dl=1'
+
+                                # Fazendo o download do arquivo
+                                response = requests.get(url)
+                                if response.status_code == 200:
+                                    with open(file_path, 'wb') as file:
+                                        file.write(response.content)
+                                    print("Arquivo 'troywell.crx' baixado e salvo em './storage/troywell.crx'.")
+                                    # Caminho do arquivo original (altere para o seu caminho de arquivo)
+                                    caminho_original = './storage/troywell.crx'
+                                    novo_caminho = './storage/troywell.zip'
+
+                                    # Renomear o arquivo
+                                    os.rename(caminho_original, novo_caminho)
+
+                                    # Caminho do arquivo zip
+                                    caminho_zip = './storage/troywell.zip'
+
+                                    # Diretório de destino para extrair
+                                    diretorio_destino = './storage/troywell/'
+
+                                    # Remover um arquivo anterior, se existir
+                                    arquivo_antigo = './storage/troywell'
+                                    if os.path.exists(arquivo_antigo):
+                                        os.remove(arquivo_antigo)
+
+                                    # Criar o diretório de destino se ele não existir
+                                    if not os.path.exists(diretorio_destino):
+                                        os.makedirs(diretorio_destino)
+
+                                    # Extrair o arquivo zip
+                                    with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+                                        zip_ref.extractall(diretorio_destino)
+
+                                    print("Arquivo extraído com sucesso!")
+                                    os.remove('./storage/troywell.zip')
+
+                                else:
+                                    result = "Não foi possível baixar o arquivo. Status Code: " + \
+                                        str(response.status_code)
                             
+                            chrome.open('chrome://extensions/')
+                            extensoes = chrome.execute_script(
+                                'return document.querySelector("extensions-manager").shadowRoot.querySelector("extensions-item-list").shadowRoot.querySelectorAll("extensions-item");'
+                            )
+
+                            id_extensao = None
+                            for ext in extensoes:
+                                nome_ext = chrome.execute_script('return arguments[0].shadowRoot.querySelector("#name").innerText;', ext)
+                                if "Troywell" in nome_ext:
+                                    id_extensao = chrome.execute_script('return arguments[0].getAttribute("id");', ext)
+                                    break
+
+                            if id_extensao:
+                                url_extensao = f'chrome-extension://{id_extensao}/popup.html'
+                                chrome.driver.get(url_extensao)
+                            else:
+                                print("ID da extensão não encontrado")
+
+                            try:
+                                chrome.wait_for_element("div.button.analytics__button", timeout=2).click()
+                            except:
+                                chrome.get(url_extensao)
+                                chrome.wait_for_element("div.button.analytics__button").click()
+                            chrome.wait_for_element("div.server-select__row").click()
+                            time.sleep(2)
+                            locais = ['Alemanha', 'Polônia', 'Holanda', 'Japão', 'Austrália', 'França', 'Noruega', 'África do Sul', 'Espanha', 'Canadá']
+                            local_vpn = random.choice(locais)
+                            print(local_vpn)
+                            chrome.wait_for_element("input.search__input").send_keys(local_vpn)
+                            while True:
+                                try:
+                                    chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+                                    break
+                                except:
+                                    chrome.get(url_extensao)
+                                    chrome.wait_for_element("div.server-select__row").click()
+                                    time.sleep(2)
+                                    local_vpn = random.choice(locais)
+                                    chrome.wait_for_element("input.search__input").clear()
+                                    chrome.wait_for_element("input.search__input").send_keys(local_vpn)
+                                    chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+
+                            chrome.wait_for_element("div.connect-button").click()
+                            try:
+                                chrome.wait_for_element("div.connection-block__label")
+                            except:
+                                if chrome.find_elements("div.button.button_selected.connection-failed__button.connection-failed__button_blue"):
+                                    chrome.find_element("div.button.button_selected.connection-failed__button.connection-failed__button_blue").click()
+                                    chrome.wait_for_element("div.server-select__row").click()
+                                    time.sleep(2)
+                                    local_vpn = random.choice(locais)
+                                    chrome.wait_for_element("input.search__input").send_keys(local_vpn)
+                                    chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+                                    chrome.wait_for_element("div.connect-button").click()
+                                    chrome.wait_for_element("div.connection-block__label")
+                            time.sleep(1)
+                            while True:
+                                if chrome.find_elements("div.connection-block__label"):
+                                    print('VPN Conectada')
+                                    break
+                                elif chrome.find_elements("div.button.button_selected.connection-failed__button.connection-failed__button_blue"):
+                                    chrome.find_element("div.button.button_selected.connection-failed__button.connection-failed__button_blue").click()
+                                    chrome.wait_for_element("div.server-select__row").click()
+                                    time.sleep(2)
+                                    local_vpn = random.choice(locais)
+                                    chrome.wait_for_element("input.search__input").send_keys(local_vpn)
+                                    chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+                                    chrome.wait_for_element("div.connect-button").click()
+                                    chrome.wait_for_element("div.connection-block__label")
 
 
                         janela_principal = chrome.driver.window_handles[0]
@@ -2734,46 +2853,118 @@ def creator_2NR_NAV():
                                         window.Refresh()
                                         raise Exception("Não achou IP válido")
                             elif vpn_nav == 'PlanetVPN':
+                                while True:
+                                    chrome.execute_script(
+                                        "window.open('a', 'new_tab')")
+                                    janela_principal = chrome.driver.window_handles[0]
+                                    nova_janela = chrome.driver.window_handles[-1]
+                                    chrome.driver.switch_to.window(nova_janela)
+                                    chrome.driver.get(url_extensao)
+
+                                    chrome.wait_for_element('button.button.button-connected').click()
+                                    time.sleep(2)
+                                    chrome.wait_for_element('button.button.button-disconnected').click()
+                                    time.sleep(1)
                                     while True:
-                                        chrome.execute_script(
-                                            "window.open('a', 'new_tab')")
-                                        janela_principal = chrome.driver.window_handles[0]
-                                        nova_janela = chrome.driver.window_handles[-1]
-                                        chrome.driver.switch_to.window(nova_janela)
-                                        chrome.driver.get(url_extensao)
-
-                                        chrome.wait_for_element('button.button.button-connected').click()
-                                        time.sleep(2)
-                                        chrome.wait_for_element('button.button.button-disconnected').click()
-                                        time.sleep(1)
-                                        while True:
-                                            if chrome.find_elements("button.button.button-connected"):
-                                                print('VPN Conectada')
-                                                break
-                                            elif chrome.find_elements("button.button.button-disconnected"):
-                                                chrome.find_element("button.button.button-disconnected").click()
-
-                                        
-                                        chrome.driver.close()
-                                        janela_principal = chrome.driver.window_handles[0]
-                                        chrome.driver.switch_to.window(janela_principal)
-                                        time.sleep(3)
-                                        try:
-                                            chrome.driver.uc_click(
-                                                '''button[type='submit']''', 5)
-                                        except:
-                                            chrome.driver.uc_click(
-                                                '''//button[@type='submit']''', 5)
-
-                                        if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
-                                            print('IP aceito')
+                                        if chrome.find_elements("button.button.button-connected"):
+                                            print('VPN Conectada')
                                             break
-                                        tentativa += 1
-                                        if tentativa == 5:
-                                            window['output'].print(
-                                                f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
-                                            window.Refresh()
-                                            raise Exception("Não achou IP válido")
+                                        elif chrome.find_elements("button.button.button-disconnected"):
+                                            chrome.find_element("button.button.button-disconnected").click()
+
+                                    
+                                    chrome.driver.close()
+                                    janela_principal = chrome.driver.window_handles[0]
+                                    chrome.driver.switch_to.window(janela_principal)
+                                    time.sleep(3)
+                                    try:
+                                        chrome.driver.uc_click(
+                                            '''button[type='submit']''', 5)
+                                    except:
+                                        chrome.driver.uc_click(
+                                            '''//button[@type='submit']''', 5)
+
+                                    if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
+                                        print('IP aceito')
+                                        break
+                                    tentativa += 1
+                                    if tentativa == 5:
+                                        window['output'].print(
+                                            f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
+                                        window.Refresh()
+                                        raise Exception("Não achou IP válido")
+
+                            elif vpn_nav == 'Troywell':
+                                while True:
+                                    chrome.execute_script(
+                                        "window.open('a', 'new_tab')")
+                                    janela_principal = chrome.driver.window_handles[0]
+                                    nova_janela = chrome.driver.window_handles[-1]
+                                    chrome.driver.switch_to.window(nova_janela)
+                                    chrome.driver.get(url_extensao)
+
+                                    chrome.wait_for_element('div.connect-button').click()
+                                    chrome.wait_for_element("div.server-select__row").click()
+                                    time.sleep(2)
+                                    chrome.wait_for_element("input.search__input").send_keys(local_vpn)
+                                    while True:
+                                        try:
+                                            chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+                                            break
+                                        except:
+                                            chrome.get(url_extensao)
+                                            chrome.wait_for_element("div.server-select__row").click()
+                                            time.sleep(2)
+                                            chrome.wait_for_element("input.search__input").clear()
+                                            chrome.wait_for_element("input.search__input").send_keys(local_vpn)
+                                            chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+
+                                    chrome.wait_for_element("div.connect-button").click()
+                                    try:
+                                        chrome.wait_for_element("div.connection-block__label")
+                                    except:
+                                        if chrome.find_elements("div.button.button_selected.connection-failed__button.connection-failed__button_blue"):
+                                            chrome.find_element("div.button.button_selected.connection-failed__button.connection-failed__button_blue").click()
+                                            chrome.wait_for_element("div.server-select__row").click()
+                                            time.sleep(2)
+                                            chrome.wait_for_element("input.search__input").send_keys(local_vpn)
+                                            chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+                                            chrome.wait_for_element("div.connect-button").click()
+                                            chrome.wait_for_element("div.connection-block__label")
+                                    time.sleep(1)
+                                    while True:
+                                        if chrome.find_elements("div.connection-block__label"):
+                                            print('VPN Conectada')
+                                            break
+                                        elif chrome.find_elements("div.button.button_selected.connection-failed__button.connection-failed__button_blue"):
+                                            chrome.find_element("div.button.button_selected.connection-failed__button.connection-failed__button_blue").click()
+                                            chrome.wait_for_element("div.server-select__row").click()
+                                            time.sleep(2)
+                                            chrome.wait_for_element("input.search__input").send_keys(local_vpn)
+                                            chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+                                            chrome.wait_for_element("div.connect-button").click()
+                                            chrome.wait_for_element("div.connection-block__label")
+                                    
+                                    chrome.driver.close()
+                                    janela_principal = chrome.driver.window_handles[0]
+                                    chrome.driver.switch_to.window(janela_principal)
+                                    time.sleep(3)
+                                    try:
+                                        chrome.driver.uc_click(
+                                            '''button[type='submit']''', 5)
+                                    except:
+                                        chrome.driver.uc_click(
+                                            '''//button[@type='submit']''', 5)
+
+                                    if len(chrome.find_elements("//select[@title='Ano:']")) == 1:
+                                        print('IP aceito')
+                                        break
+                                    tentativa += 1
+                                    if tentativa == 5:
+                                        window['output'].print(
+                                            f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
+                                        window.Refresh()
+                                        raise Exception("Não achou IP válido")
 
 
                         try:
@@ -51075,7 +51266,7 @@ while True:
                             config6 = json.load(file)
                     except FileNotFoundError:
                         config6 = {}
-                    vpn_list = ["Aleatorio", "SurfShark", "TouchVPN", "CyberGhost", "ZenMate", "PlanetVPN", "VeePN","UrbanVPN"]
+                    vpn_list = ["Aleatorio", "SurfShark", "TouchVPN", "CyberGhost", "ZenMate", "PlanetVPN", "VeePN", "Troywell","UrbanVPN"]
                     dialog_layout = [
                         [sg.Checkbox('Usar essa aba como troca de IP', key='-troca_ip-',
                                      default=config6.get('usar_troca_ip', False))],
