@@ -2602,14 +2602,16 @@ def creator_2NR_NAV():
                         senha = gerar_senha(12)
                         print(senha)
                         num = f'+48{num}'
+                        chrome.type("//input[@name='fullName']", nome_completo)
+                        time.sleep(random.uniform(0.5, 2))
                         chrome.wait_for_element("//input[@name='emailOrPhone']", timeout=30)
                         chrome.type("//input[@name='emailOrPhone']", num)
                         #for numero in num:
                         #    chrome.send_keys(
                         #        "//input[@name='emailOrPhone']", f'{numero}')
                         #    time.sleep(random.uniform(0.001, 0.05))
-                        time.sleep(random.uniform(0.5, 2))
-                        chrome.type("//input[@name='fullName']", nome_completo)
+                        
+                        
                         #for nome in nome_completo:
                         #    chrome.send_keys("//input[@name='fullName']", nome)
                         #    time.sleep(random.uniform(0.001, 0.05))
@@ -2904,15 +2906,17 @@ def creator_2NR_NAV():
                                     chrome.driver.get(url_extensao)
 
                                     chrome.wait_for_element('div.connect-button').click()
+                                    time.sleep(2)
                                     chrome.wait_for_element("div.server-select__row").click()
                                     time.sleep(2)
                                     chrome.wait_for_element("input.search__input").send_keys(local_vpn)
                                     while True:
                                         try:
-                                            chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
+                                            chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]", timeout=4).click()
                                             break
                                         except:
                                             chrome.driver.get(url_extensao)
+                                            time.sleep(2)
                                             chrome.wait_for_element("div.server-select__row").click()
                                             time.sleep(2)
                                             chrome.wait_for_element("input.search__input").clear()
