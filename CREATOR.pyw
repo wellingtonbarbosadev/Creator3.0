@@ -2912,7 +2912,7 @@ def creator_2NR_NAV():
                                             chrome.wait_for_element(f"(//div[@class='location__name' and text()='{local_vpn}'])[last()]").click()
                                             break
                                         except:
-                                            chrome.get(url_extensao)
+                                            chrome.driver.get(url_extensao)
                                             chrome.wait_for_element("div.server-select__row").click()
                                             time.sleep(2)
                                             chrome.wait_for_element("input.search__input").clear()
