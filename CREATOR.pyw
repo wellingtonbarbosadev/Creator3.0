@@ -1345,6 +1345,7 @@ def creator_2NR_NAV():
         raise Exception('skip')
         sms = True
     troca_ip = 1
+    troca_ip_estatica = 0
     while parar is False:
         senha = gerar_senha(12)
         if parar is True:
@@ -1622,6 +1623,19 @@ def creator_2NR_NAV():
                     except Exception as e:
                         print(e)
                     raise Exception('skip')
+                
+                if troca_ip_estatica == 2:
+                    try:
+                        time.sleep(1)
+                        d.xpath(
+                            '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[1]/androidx.appcompat.widget.LinearLayoutCompat').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
+                        print('2 IP Bloqueado seguidos, apagando número')
+                        troca_ip_estatica = 0
+                        time.sleep(3)
+                    except Exception as e:
+                        print(e)
                 try:
                     qtd_num2 = d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[*]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.TextView[1]')
@@ -1649,6 +1663,7 @@ def creator_2NR_NAV():
                         print(e)
                     continue
                 window.Refresh()
+                
                 try:
                     num = d.xpath(
                         '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[1]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.TextView[1]').get_text()
@@ -2683,6 +2698,7 @@ def creator_2NR_NAV():
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                         window.Refresh()
+                                        troca_ip_estatica += 1
                                         raise Exception("Não achou IP válido")
                             elif vpn_nav == 'TouchVPN':
                                 while True:
@@ -2715,6 +2731,7 @@ def creator_2NR_NAV():
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                         window.Refresh()
+                                        troca_ip_estatica += 1
                                         raise Exception("Não achou IP válido")
                                     
                             elif vpn_nav == 'CyberGhost':
@@ -2756,6 +2773,7 @@ def creator_2NR_NAV():
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                         window.Refresh()
+                                        troca_ip_estatica += 1
                                         raise Exception("Não achou IP válido")
                                     
                             elif vpn_nav == 'ZenMate':
@@ -2811,6 +2829,7 @@ def creator_2NR_NAV():
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                         window.Refresh()
+                                        troca_ip_estatica += 1
                                         raise Exception("Não achou IP válido")
                         
                             elif vpn_nav == 'VeePN':
@@ -2853,6 +2872,7 @@ def creator_2NR_NAV():
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                         window.Refresh()
+                                        troca_ip_estatica += 1
                                         raise Exception("Não achou IP válido")
                             elif vpn_nav == 'PlanetVPN':
                                 while True:
@@ -2894,6 +2914,7 @@ def creator_2NR_NAV():
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                         window.Refresh()
+                                        troca_ip_estatica += 1
                                         raise Exception("Não achou IP válido")
 
                             elif vpn_nav == 'Troywell':
@@ -2968,6 +2989,7 @@ def creator_2NR_NAV():
                                         window['output'].print(
                                             f'[{datetime.now().strftime("%H:%M:%S")}] Não achou IP válido', text_color='red')
                                         window.Refresh()
+                                        troca_ip_estatica += 1
                                         raise Exception("Não achou IP válido")
 
 
