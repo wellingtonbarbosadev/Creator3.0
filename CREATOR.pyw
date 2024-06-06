@@ -2357,7 +2357,7 @@ def creator_FREESMS_NAV():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, num, timestamp, maquina,
-                                        vpn_nav + ' - ' + '2NR + NAV', local_vpn]
+                                        vpn_nav + ' - ' + 'FREESMS + NAV', local_vpn]
                                 cell_list = sheet.range(
                                     f'A{last_row + 1}:F{last_row + 1}')
                                 for i, val in enumerate(values):
@@ -2394,7 +2394,7 @@ def creator_FREESMS_NAV():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, num, timestamp,
-                                        maquina, vpn_nav + ' - ' + '2NR + NAV', local_vpn]
+                                        maquina, vpn_nav + ' - ' + 'FREESMS + NAV', local_vpn]
                                 cell_list = sheet.range(
                                     f'A{last_row + 1}:F{last_row + 1}')
                                 for i, val in enumerate(values):
@@ -2431,7 +2431,7 @@ def creator_FREESMS_NAV():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, num, timestamp, maquina,
-                                        vpn_nav + ' - ' + '2NR + NAV', local_vpn, user_mysql]
+                                        vpn_nav + ' - ' + 'FREESMS + NAV', local_vpn, user_mysql]
                                 cell_list = sheet.range(
                                     f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
