@@ -592,6 +592,7 @@ def creator_FREESMS_NAV():
     global sobrenomes
     global nome
     global contagem
+    global lista_site
     global sobrenome
     global lista_user
     window['Executar'].update(disabled=True)
@@ -765,11 +766,11 @@ def creator_FREESMS_NAV():
         if dialog_values['-site_escolhido-'] == 'temporary-phone-number.com':
             prov_atual = 'temporary-phone-number.com'
         elif dialog_values['-site_escolhido-'] == 'Aleatório':
-            lista_site = lista_site.remove('Aleatório')
+            lista_site = ['quackr.io', 'temporary-phone-number.com']
             prov_atual = random.choice(lista_site)
             print(prov_atual)
             window['output'].print(
-                f'[{datetime.now().strftime("%H:%M:%S")}] Provedor atual: {vpn_nav}.')
+                f'[{datetime.now().strftime("%H:%M:%S")}] Provedor atual: {prov_atual}.')
             window.Refresh()
 
         ##################### VPNs ######################
