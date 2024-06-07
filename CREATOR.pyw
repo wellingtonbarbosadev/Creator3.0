@@ -762,7 +762,10 @@ def creator_FREESMS_NAV():
         ###################### PROVEDORES ######################
         if dialog_values['-site_escolhido-'] == 'quackr.io':
             prov_atual = 'quackr.io'
+        if dialog_values['-site_escolhido-'] == 'temporary-phone-number.com':
+            prov_atual = 'temporary-phone-number.com'
         elif dialog_values['-site_escolhido-'] == 'Aleatório':
+            lista_site = lista_site.remove('Aleatório')
             prov_atual = random.choice(lista_site)
             print(prov_atual)
             window['output'].print(
@@ -1586,7 +1589,7 @@ def creator_FREESMS_NAV():
                         chrome.wait_for_element("div.button.analytics__button").click()
                     chrome.wait_for_element("div.server-select__row").click()
                     time.sleep(2)
-                    locais = ['Alemanha', 'Polônia', 'Holanda', 'Japão', 'Austrália', 'França', 'Noruega', 'África do Sul', 'Espanha', 'Canadá']
+                    locais = ['Alemanha', 'Polônia', 'Holanda', 'Japão', 'Austrália', 'França', 'Noruega', 'África do Sul', 'Canadá']
                     local_vpn = random.choice(locais)
                     print(local_vpn)
                     chrome.wait_for_element("input.search__input").send_keys(local_vpn)
@@ -1686,7 +1689,51 @@ def creator_FREESMS_NAV():
                     window.Refresh()
                     print(num)
                     criou = False
+                    
+                elif prov_atual == 'temporary-phone-number.com':
+                    url_prov = 'https://temporary-phone-number.com/'
+                    if criou:
+                        url_prov = url_atual
 
+                    if criou:
+                        chrome.open(url_prov)
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Utilizando o mesmo número.')
+                        window.Refresh()
+                        chrome.set_window_size(800, 2000)
+                        chrome.execute_script(
+                            "document.body.style.zoom='50%'")
+                    else:
+                        chrome.open(url_prov)
+                        lista = ['2', '3', '4', '5', '6', '7', '8', '9', '11', '12', '13', '14', '15', '16', '17',
+                                '18', '20']
+                        numero_escolhido = random.choice(lista)
+
+                        while True:
+                            if '+7 ' in chrome.find_element('xpath', f'/html/body/div[2]/div/section[2]/div[1]/div[{numero_escolhido}]/a/div/span[2]').text:
+                                #print('É da russia')
+                                lista = ['2', '3', '4', '5', '6', '7', '8', '9', '11', '12', '13', '14', '15', '16', '17',
+                                    '18', '20']
+                                numero_escolhido = random.choice(lista)
+
+                                #chrome.highlight('xpath', f'/html/body/div[2]/div/section[2]/div[1]/div[{numero_escolhido}]/a')
+                            else:
+                                #print('Não é da russia')
+                                break
+                        chrome.wait_for_element(f'/html/body/div[2]/div/section[2]/div[1]/div[{numero_escolhido}]/a').click()
+                        
+
+                    time.sleep(5)
+                    chrome.wait_for_element('h1.btn1')
+                    num = chrome.find_element('h1.btn1').text
+                    print(num)
+                    url_atual = chrome.driver.current_url
+                    chrome.execute_script("document.body.style.zoom='50%'")
+                    window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Número: {num}')
+                    window.Refresh()
+                    print(num)
+                    criou = False
                 ################# PEGAR NÚMERO #################
 
                 #chrome.execute_script("window.open('a', 'new_tab')")
@@ -2252,6 +2299,71 @@ def creator_FREESMS_NAV():
                     except Exception as e:
                         print(e)
                         raise Exception("Codigo não recebido.")
+                    
+                elif prov_atual == 'temporary-phone-number.com':
+                    try:
+                        encontrado = False
+                        chrome.driver.default_get(url_atual)
+                        tentativa = 0
+                        while not encontrado and tentativa < 6:
+                            if "#google_vignette" in chrome.driver.current_url:
+                                chrome.driver.refresh()
+                                chrome.execute_script(
+                                    "document.body.style.zoom='50%'")
+                                try:
+                                    chrome.execute_script("""
+                                    var l = document.getElementsByClassName("footer-overlay-regulated")[0];
+                                    l.parentNode.removeChild(l);
+                                    """)
+                                except:
+                                    pass
+                                try:
+                                    chrome.execute_script("""
+                                    var l = document.getElementsByClassName("message is-info")[0];
+                                    l.parentNode.removeChild(l);
+                                    """)
+                                except:
+                                    pass
+                                time.sleep(3)
+                            try:
+                                botao_fechar = chrome.find_elements("div.fc-ab-root.button.fc-close")
+                                chrome.execute_script(
+                                    "arguments[0].click();", botao_fechar)
+                            except:
+                                pass
+                            try:
+                                elemento = chrome.wait_for_element('div.direct-chat-text').text
+                                time_second = chrome.wait_for_element('time.timeago.direct-chat-timestamp.pull-left').text
+                                # print(time_second)
+                            except:
+                                elemento = 'Não recebeu'
+                                time_second = 'Não recebeu'
+                            if 'Instagram' in elemento and (
+                                    'seconds' in time_second or '1 minute ago' in time_second or '2 minute ago' in time_second):
+                                encontrado = True
+                                match = re.search(r'\d+\s*\d+\s*\d+\s*\d+\s*\d+\s*\d+',
+                                                elemento)  # Extrai seis grupos de dígitos, permitindo espaços entre eles
+                                if match:
+                                    numeros = ''.join(match.group().split())
+                                    chrome.driver.close()
+                            else:
+                                # Clique no outro elemento
+                                tentativa = tentativa + 1
+                                chrome.driver.refresh()
+                                chrome.execute_script(
+                                    "document.body.style.zoom='50%'")
+                                time.sleep(10)
+                        if tentativa == 6:
+                            #chrome.driver.quit()
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Codigo não recebido.')
+                            window.Refresh()
+
+                            raise Exception("Codigo não recebido.")
+                    except Exception as e:
+                        print(e)
+                        raise Exception("Codigo não recebido.")
+
 
                 ########## RECEBER CODIGO ##########
                 janela_insta = chrome.driver.window_handles[0]
@@ -53149,7 +53261,7 @@ while True:
                     except FileNotFoundError:
                         config7 = {}
 
-                    lista_site = ['Aleatório', 'quackr.io']
+                    lista_site = ['Aleatório', 'quackr.io', 'temporary-phone-number.com']
                     vpn_list = ["Aleatorio", "SurfShark", "TouchVPN", "CyberGhost", "ZenMate", "PlanetVPN", "VeePN", "Troywell","UrbanVPN"]
                     dialog_layout = [
                         [sg.Text('Provedor: ', font=('Open Sans', 12)),
