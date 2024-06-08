@@ -765,8 +765,10 @@ def creator_FREESMS_NAV():
             prov_atual = 'quackr.io'
         if dialog_values['-site_escolhido-'] == 'temporary-phone-number.com':
             prov_atual = 'temporary-phone-number.com'
+        if dialog_values['-site_escolhido-'] == 'smstome.com':
+            prov_atual = 'smstome.com'
         elif dialog_values['-site_escolhido-'] == 'Aleatório':
-            lista_site = ['quackr.io', 'temporary-phone-number.com']
+            lista_site = ['quackr.io', 'temporary-phone-number.com', 'smstome.com']
             prov_atual = random.choice(lista_site)
             print(prov_atual)
             window['output'].print(
@@ -1414,7 +1416,7 @@ def creator_FREESMS_NAV():
                     print(local_vpn)
                     chrome.wait_for_element("div.current-region-upper-block").click()
                     chrome.wait_for_element("input.region-search-input").send_keys(local_vpn)
-                    chrome.wait_for_element("div.radio.off").click()
+                    chrome.wait_for_element("div.radio.off", timeout=25).click()
                     chrome.wait_for_element('div[id=mainBtn]').click()
                     while True:
                         if chrome.find_element("div.description.fadeIn.linebreak").text == 'VPN is ON':
@@ -1730,6 +1732,80 @@ def creator_FREESMS_NAV():
                     print(num)
                     url_atual = chrome.driver.current_url
                     chrome.execute_script("document.body.style.zoom='50%'")
+                    window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Número: {num}')
+                    window.Refresh()
+                    print(num)
+                    criou = False
+
+                elif prov_atual == 'smstome.com':
+                    url_prov = 'smstome.com'
+                    if criou:
+                        url_prov = url_atual
+
+                    if criou:
+                        chrome.open(url_prov)
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Utilizando o mesmo número.')
+                        window.Refresh()
+                        chrome.set_window_size(800, 2000)
+                        chrome.execute_script(
+                            "document.body.style.zoom='50%'")
+                    else:
+                        chrome.open(url_prov)
+                        if chrome.find_elements('button.fc-button.fc-cta-consent.fc-primary-button'):
+                            chrome.wait_for_element('button.fc-button.fc-cta-consent.fc-primary-button').click()
+                        while True:
+                            rnd = random.randint(1, 8)
+                            if rnd == 1 or rnd == 2 or rnd == 7:
+                                rnd = random.randint(1, 8)
+                            else:
+                                break
+                        print(rnd)
+                        chrome.wait_for_element('xpath',f'/html/body/main/header/section/div/div[2]/ul/li[{rnd}]/a').click()
+                                        #/html/body/main/header/section/div/div[2]/ul/li[1]/a
+                        if rnd == 4:
+                            primeiro_nome = fake.first_name()
+                            primeiro_nome = primeiro_nome.replace(' ', '')
+                            sobrenome_smstome = fake.last_name()
+                            primeiro_nome = re.sub(r'[^a-zA-Z0-9._%+-]+', '', primeiro_nome)
+                            sobrenome_smstome = re.sub(r'[^a-zA-Z0-9._%+-]+', '', sobrenome_smstome)
+                            email_customizado = f"{primeiro_nome.lower()}.{sobrenome_smstome.lower()}@{fake.free_email_domain()}"
+                            #email_customizado = re.sub(r'[^a-zA-Z0-9._%+-]+', '', email_customizado)
+                            chrome.open('https://smstome.com/sign-up')
+                            chrome.wait_for_element('input[name=name]').send_keys(primeiro_nome + ' ' + sobrenome_smstome)
+                            chrome.wait_for_element('input[name=email]').send_keys(email_customizado)
+                            senha_smstome = fake.password(length=12, special_chars=True, digits=True, upper_case=True, lower_case=True)
+                            chrome.wait_for_element('input[name=password]').send_keys(senha_smstome)
+                            expressao = chrome.wait_for_element('xpath','/html/body/main/header/section/div/form/div[4]/label').text
+                            expressao = expressao.replace('What is ', '')
+                            expressao = expressao.replace('?', '')
+                            resultado = resultado = eval(expressao)
+                            chrome.wait_for_element('input[name=captcha]').send_keys(resultado)
+                            chrome.wait_for_element('button.btn.btn-primary').click()
+                            time.sleep(2)
+                            chrome.open('https://smstome.com/country/france')
+                            
+                        num_pag = chrome.wait_for_element('/html/body/main/section/div[8]/div/a[13]').text
+                        num_pag = int(num_pag) - 1
+                        num_pag = random.randint(1, int(num_pag))
+                        print(num_pag)
+                        url_agora = chrome.driver.current_url
+                        chrome.get(f'{url_agora}?page={num_pag}')
+                        numero_de_elementos = random.randint(1, 7)
+                        rnd2 = random.randint(1, 3)
+                        try:
+                            #print(numero_de_elementos, rnd2)
+                            chrome.wait_for_element(f'/html/body/main/section/div[{numero_de_elementos}]/div[{rnd2}]/div/div/div[3]/a').click()
+                        except:
+                            chrome.wait_for_element(f'/html/body/main/section/div[{numero_de_elementos}]/div[1]/div/div/div[3]/a').click()
+                        
+
+                    time.sleep(5)
+                    url_atual = chrome.driver.current_url
+                    chrome.execute_script("document.body.style.zoom='50%'")
+                    num = chrome.wait_for_element('/html/body/main/header/section/h1/small/b').text
+                    print(num)
                     window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] Número: {num}')
                     window.Refresh()
@@ -2364,9 +2440,50 @@ def creator_FREESMS_NAV():
                     except Exception as e:
                         print(e)
                         raise Exception("Codigo não recebido.")
+                    
+                elif prov_atual == 'smstome.com':
+                    try:
+                        encontrado = False
+                        chrome.driver.default_get(url_atual)
+                        tentativa = 0
+                        while not encontrado and tentativa < 6:
+                            chrome.execute_script(
+                                "document.body.style.zoom='50%'")
+                            elemento = chrome.wait_for_element(f'/html/body/main/section/div[1]/table/tbody/tr[1]/td[3]').text
+                            print(elemento)
+                            # print(elemento)
+                            time_second = chrome.wait_for_element(f'/html/body/main/section/div[1]/table/tbody/tr[1]/td[2]').text
+                            print(time_second)
+                            # print(time_second)
+                            if 'Instagram' in elemento and (
+                                    'seconds' in time_second or '1 minute ago' in time_second or '2 minutes ago' in time_second):
+                                encontrado = True
+                                match = re.search(r'\d+\s*\d+\s*\d+\s*\d+\s*\d+\s*\d+',
+                                                elemento)  # Extrai seis grupos de dígitos, permitindo espaços entre eles
+                                if match:
+                                    numeros = ''.join(match.group().split())
+                                    chrome.driver.close()
+                            else:
+                                # Clique no outro elemento
+                                tentativa = tentativa + 1
+                                chrome.driver.refresh()
+                                chrome.execute_script(
+                                    "document.body.style.zoom='50%'")
+                                time.sleep(7)
+                        if tentativa == 6:
+                            #chrome.driver.quit()
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Codigo não recebido.')
+                            window.Refresh()
+
+                            raise Exception("Codigo não recebido.")
+                    except Exception as e:
+                        print(e)
+                        raise Exception("Codigo não recebido.")
 
 
                 ########## RECEBER CODIGO ##########
+
                 janela_insta = chrome.driver.window_handles[0]
                 chrome.driver.switch_to.window(janela_insta)
 
@@ -2383,7 +2500,9 @@ def creator_FREESMS_NAV():
 
                 time.sleep(random.uniform(0.5, 2))
                 chrome.driver.uc_click('button:contains("Confirmar")', 20)
+                tentativa_log = 0
                 while True:
+                    print(tentativa_log)
                     if len(chrome.find_elements("//p[@id='phoneSignupConfirmErrorAlert']")) == 1:
                         window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] Tentando relogar')
@@ -2416,7 +2535,8 @@ def creator_FREESMS_NAV():
                             len(chrome.find_elements("//div[contains(text(), 'Sua senha está incorreta. Confira-a.')]")) == 1 or
                             len(chrome.find_elements("//div[text()='A sua conta foi desativada por violar nossos termos: http://instagram.com/about/legal/terms/']")) == 1 or
                             len(chrome.find_elements("//div[text()='Houve um problema ao entrar no Instagram. Tente novamente em breve.']")) == 1 or
-                            len(chrome.find_elements("//div[text()='Não foi possível se conectar ao Instagram. Verifique se você está conectado à Internet e tente novamente.']")) == 1
+                            len(chrome.find_elements("//div[text()='Não foi possível se conectar ao Instagram. Verifique se você está conectado à Internet e tente novamente.']")) == 1 or
+                            tentativa_log == 30
                         ):
                             print('Conta com SMS')
                             window['output'].print(
@@ -2428,8 +2548,9 @@ def creator_FREESMS_NAV():
                         window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] SMS.', text_color='red')
                         window.Refresh()
-                        
                         break
+                    tentativa_log += 1
+                    time.sleep(2)
                     if len(chrome.find_elements("//span[contains(text(), 'Página inicial')]")) == 1:
                         print('Conta criada com sucesso')
                         criou = True
@@ -2470,7 +2591,7 @@ def creator_FREESMS_NAV():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, num, timestamp, maquina,
-                                        vpn_nav + ' - ' + 'FREESMS + NAV', local_vpn]
+                                        vpn_nav + ' - ' + f'FREESMS + NAV: {prov_atual}', local_vpn]
                                 cell_list = sheet.range(
                                     f'A{last_row + 1}:F{last_row + 1}')
                                 for i, val in enumerate(values):
@@ -2507,7 +2628,7 @@ def creator_FREESMS_NAV():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, num, timestamp,
-                                        maquina, vpn_nav + ' - ' + 'FREESMS + NAV', local_vpn]
+                                        maquina, vpn_nav + ' - ' + f'FREESMS + NAV: {prov_atual}', local_vpn]
                                 cell_list = sheet.range(
                                     f'A{last_row + 1}:F{last_row + 1}')
                                 for i, val in enumerate(values):
@@ -2544,7 +2665,7 @@ def creator_FREESMS_NAV():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, num, timestamp, maquina,
-                                        vpn_nav + ' - ' + 'FREESMS + NAV', local_vpn, user_mysql]
+                                        vpn_nav + ' - ' + f'FREESMS + NAV: {prov_atual}', local_vpn, user_mysql]
                                 cell_list = sheet.range(
                                     f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
@@ -4351,7 +4472,7 @@ def creator_2NR_NAV():
                             print(local_vpn)
                             chrome.wait_for_element("div.current-region-upper-block").click()
                             chrome.wait_for_element("input.region-search-input").send_keys(local_vpn)
-                            chrome.wait_for_element("div.radio.off").click()
+                            chrome.wait_for_element("div.radio.off", timeout=25).click()
                             chrome.wait_for_element('div[id=mainBtn]').click()
                             while True:
                                 if chrome.find_element("div.description.fadeIn.linebreak").text == 'VPN is ON':
@@ -5155,6 +5276,7 @@ def creator_2NR_NAV():
 
                         time.sleep(random.uniform(0.5, 2))
                         chrome.driver.uc_click('button:contains("Confirmar")', 20)
+                        tentativa_log = 0
                         while True:
                             if len(chrome.find_elements("//p[@id='phoneSignupConfirmErrorAlert']")) == 1:
                                 window['output'].print(
@@ -5188,7 +5310,8 @@ def creator_2NR_NAV():
                                     len(chrome.find_elements("//div[contains(text(), 'Sua senha está incorreta. Confira-a.')]")) == 1 or
                                     len(chrome.find_elements("//div[text()='A sua conta foi desativada por violar nossos termos: http://instagram.com/about/legal/terms/']")) == 1 or
                                     len(chrome.find_elements("//div[text()='Houve um problema ao entrar no Instagram. Tente novamente em breve.']")) == 1 or
-                                    len(chrome.find_elements("//div[text()='Não foi possível se conectar ao Instagram. Verifique se você está conectado à Internet e tente novamente.']")) == 1
+                                    len(chrome.find_elements("//div[text()='Não foi possível se conectar ao Instagram. Verifique se você está conectado à Internet e tente novamente.']")) == 1 or
+                                    tentativa_log == 30
                                 ):
                                     print('Conta com SMS')
                                     window['output'].print(
@@ -5260,6 +5383,9 @@ def creator_2NR_NAV():
                                         window.Refresh()
                                         raise Exception('Número excluido')
                                 break
+                        
+                            tentativa_log += 1
+                            time.sleep(2)
                             if len(chrome.find_elements("//span[contains(text(), 'Página inicial')]")) == 1:
                                 print('Conta criada com sucesso')
                                 time.sleep(4)
@@ -53262,7 +53388,7 @@ while True:
                     except FileNotFoundError:
                         config7 = {}
 
-                    lista_site = ['Aleatório', 'quackr.io', 'temporary-phone-number.com']
+                    lista_site = ['Aleatório', 'quackr.io', 'temporary-phone-number.com', 'smstome.com']
                     vpn_list = ["Aleatorio", "SurfShark", "TouchVPN", "CyberGhost", "ZenMate", "PlanetVPN", "VeePN", "Troywell","UrbanVPN"]
                     dialog_layout = [
                         [sg.Text('Provedor: ', font=('Open Sans', 12)),
