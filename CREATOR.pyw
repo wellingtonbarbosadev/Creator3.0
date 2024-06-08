@@ -2550,7 +2550,7 @@ def creator_FREESMS_NAV():
                         window.Refresh()
                         break
                     if tentativa_log == 30:
-                         window['output'].print(
+                        window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] Tempo excedido', text_color='red')
                         window.Refresh()
                     tentativa_log += 1
