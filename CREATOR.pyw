@@ -2535,8 +2535,8 @@ def creator_FREESMS_NAV():
                             len(chrome.find_elements("//div[contains(text(), 'Sua senha está incorreta. Confira-a.')]")) == 1 or
                             len(chrome.find_elements("//div[text()='A sua conta foi desativada por violar nossos termos: http://instagram.com/about/legal/terms/']")) == 1 or
                             len(chrome.find_elements("//div[text()='Houve um problema ao entrar no Instagram. Tente novamente em breve.']")) == 1 or
-                            len(chrome.find_elements("//div[text()='Não foi possível se conectar ao Instagram. Verifique se você está conectado à Internet e tente novamente.']")) == 1 or
-                            tentativa_log == 30
+                            len(chrome.find_elements("//div[text()='Não foi possível se conectar ao Instagram. Verifique se você está conectado à Internet e tente novamente.']")) == 1
+                            
                         ):
                             print('Conta com SMS')
                             window['output'].print(
@@ -2549,6 +2549,10 @@ def creator_FREESMS_NAV():
                             f'[{datetime.now().strftime("%H:%M:%S")}] SMS.', text_color='red')
                         window.Refresh()
                         break
+                    if tentativa_log == 30:
+                         window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Tempo excedido', text_color='red')
+                        window.Refresh()
                     tentativa_log += 1
                     time.sleep(2)
                     if len(chrome.find_elements("//span[contains(text(), 'Página inicial')]")) == 1:
@@ -5310,8 +5314,7 @@ def creator_2NR_NAV():
                                     len(chrome.find_elements("//div[contains(text(), 'Sua senha está incorreta. Confira-a.')]")) == 1 or
                                     len(chrome.find_elements("//div[text()='A sua conta foi desativada por violar nossos termos: http://instagram.com/about/legal/terms/']")) == 1 or
                                     len(chrome.find_elements("//div[text()='Houve um problema ao entrar no Instagram. Tente novamente em breve.']")) == 1 or
-                                    len(chrome.find_elements("//div[text()='Não foi possível se conectar ao Instagram. Verifique se você está conectado à Internet e tente novamente.']")) == 1 or
-                                    tentativa_log == 30
+                                    len(chrome.find_elements("//div[text()='Não foi possível se conectar ao Instagram. Verifique se você está conectado à Internet e tente novamente.']")) == 1
                                 ):
                                     print('Conta com SMS')
                                     window['output'].print(
@@ -5383,7 +5386,10 @@ def creator_2NR_NAV():
                                         window.Refresh()
                                         raise Exception('Número excluido')
                                 break
-                        
+                            if tentativa_log == 30:
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Tempo excedido', text_color='red')
+                                window.Refresh()
                             tentativa_log += 1
                             time.sleep(2)
                             if len(chrome.find_elements("//span[contains(text(), 'Página inicial')]")) == 1:
