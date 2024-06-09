@@ -2553,6 +2553,7 @@ def creator_FREESMS_NAV():
                         window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] Tempo excedido', text_color='red')
                         window.Refresh()
+                        raise Exception('Tempo excedido')
                     tentativa_log += 1
                     time.sleep(2)
                     if len(chrome.find_elements("//span[contains(text(), 'Página inicial')]")) == 1:
@@ -5272,6 +5273,10 @@ def creator_2NR_NAV():
                         window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] Codigo recebido: {codigo}')
                         window.Refresh()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonSettings').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
                         codigo = cod
                         for codigo in cod:
                             chrome.send_keys(
@@ -5390,6 +5395,7 @@ def creator_2NR_NAV():
                                 window['output'].print(
                                     f'[{datetime.now().strftime("%H:%M:%S")}] Tempo excedido', text_color='red')
                                 window.Refresh()
+                                raise Exception('Tempo excedido')
                             tentativa_log += 1
                             time.sleep(2)
                             if len(chrome.find_elements("//span[contains(text(), 'Página inicial')]")) == 1:
@@ -5514,6 +5520,418 @@ def creator_2NR_NAV():
 
                                 except Exception as e:
                                     print(e)
+                                
+                                if config6['criar_por_cima']:
+                                    chrome.driver.quit()
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Tentando criar por cima.')
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo instagram no emulador.')
+                                    window.Refresh()
+                                    d.app_start('com.instagram.android')
+                                    d(text="Entrar").wait(timeout=60)
+                                    time.sleep(2)
+                                    d.set_fastinput_ime(True)
+                                    d.settings['operation_delay'] = (.5, 1)
+                                    d.settings['operation_delay_methods'] = ['click', 'swipe', 'drag', 'press', 'set_text']
+                                    
+                                    def escrever_devagar(element, text, delay=0.1):
+                                        text_to_enter = ''
+                                        element.clear_text()
+                                        for char in text:
+                                            text_to_enter += char
+                                            element.set_text(text_to_enter)
+                                            time.sleep(delay)
+
+                                    escrever_devagar(d(className="android.widget.EditText", instance=0), user_completo, delay=0.2)
+                                    #.set_text(user_completo)
+                                    escrever_devagar(d(className="android.widget.EditText", instance=1), senha, delay=0.4)
+
+                                    #.set_text(senha)
+                                    d(text='Entrar').click()
+                                    d(text="Agora não").click(timeout=60)
+                                    d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=60)
+                                    d(resourceId="com.instagram.android:id/netego_carousel_cta").click(timeout=60)
+                                    if d(text="Não permitir acesso").wait(timeout=30):
+                                        d(text="Não permitir acesso").click(timeout=60)
+                                    seguir_sugeridos = 0
+                                    while seguir_sugeridos < 10:
+                                        d(resourceId="com.instagram.android:id/recommended_user_card_follow_button").click(timeout=60)
+                                        d(resourceId="com.instagram.android:id/recommended_user_dismiss_button").click(timeout=60)
+                                        time.sleep(0.5)
+                                        seguir_sugeridos += 1
+
+                                    d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
+                                    d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=30)
+                                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.LinearLayout[last()]/android.widget.FrameLayout/android.widget.ImageView').click(timeout=30)
+                                    d(text="Criar nova conta").click(timeout=20)
+
+                                    lista_user = random.choices(range(0, 9), k=2)
+                                    lista_letras = random.choices(letras, k=2)
+                                    nomea = fake.first_name_male().replace(" ", "")
+                                    nome = unicodedata.normalize('NFKD', nomea).encode(
+                                        'ASCII', 'ignore').decode('ASCII')
+                                    sobrenomea = fake.last_name().replace(" ", "").lower()
+                                    sobrenome = unicodedata.normalize('NFKD', sobrenomea).encode(
+                                        'ASCII', 'ignore').decode('ASCII')
+                                    nome_completo = nome + ' ' + sobrenome
+                                    nome_completo_s = nome + sobrenome
+                                    numeros_concatenados = ''.join(str(numero)
+                                                                for numero in lista_user)
+                                    user_completo1 = nome_completo_s + '' + \
+                                        str(numeros_concatenados) + ''.join(lista_letras)
+                                    user_completo = random.randint(1, len(user_completo1))
+                                    string_with_dot = user_completo1[:user_completo] + \
+                                        '_' + user_completo1[user_completo:]
+                                    user_completo_antigo = string_with_dot.lower()
+                                    escolha = random.choice(["_", "."])
+                                    user_completo = nome + escolha + sobrenome + \
+                                        str(numeros_concatenados) + ''.join(lista_letras)
+                                    print(user_completo)
+
+                                    #d(resourceId="com.instagram.android:id/username").set_text(user_completo)
+                                    print(user_completo)
+                                    escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.2)
+                                    time.sleep(5)
+                                    d(resourceId="com.instagram.android:id/button_text").click(timeout=20)
+
+                                    try:
+                                        senha = gerar_senha(12)
+                                        print(senha)
+                                        d(resourceId="com.instagram.android:id/password").wait(timeout=25)
+                                        #d(resourceId="com.instagram.android:id/password").set_text(senha)
+                                        escrever_devagar(d(resourceId="com.instagram.android:id/password"), senha, delay=0.2)
+
+                                        d(text="Avançar").click(timeout=15)
+                                        d(text="Adicionar novo telefone ou email").click(timeout=30)
+                                        #ddi_insta = d(resourceId="com.instagram.android:id/country_code_picker").get_text(timeout=20)
+                                        #ddi_bruto = re.findall(r'\d+', ddi_insta)
+                                        #ddi = ''.join(ddi_bruto)
+                                        num_insta = num.replace('+48', '')
+                                        
+                                        #num_insta = num_insta.replace(ddi, '')
+                                        #d(text="Telefone").set_text(num_insta)
+                                        escrever_devagar(d(className="android.widget.EditText"), num_insta, delay=0.2)
+
+                                        d(text="Avançar").click(timeout=15)
+                                        if d(text="Alterar número de telefone ou reenviar SMS").wait(timeout=10):
+                                            d.app_start('pl.rs.sip.softphone.newapp')
+                                            if d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').exists:
+                                                print('2NR deslogou')
+                                                d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click(timeout=60)
+                                                time.sleep(5)
+
+                                                d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email2nr)
+                                                time.sleep(0.5)
+                                                d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha2nr)
+                                                time.sleep(0.5)
+                                                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogin').click()
+                                                time.sleep(3)
+
+                                            d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
+
+                                            try:
+                                                try:
+                                                    cod = d(
+                                                        resourceId='pl.rs.sip.softphone.newapp:id/message').get_text(timeout=80)
+                                                except:
+                                                    d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
+                                                    d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
+                                                    cod = d(
+                                                        resourceId='pl.rs.sip.softphone.newapp:id/message').get_text(timeout=5)
+
+                                            except:
+                                                codigo_não_recebido_seguidos += 1
+                                                window['output'].print(
+                                                    f'[{datetime.now().strftime("%H:%M:%S")}] Código não recebido.')
+                                                window.Refresh()
+                                                raise Exception(' ')
+                                            cod = cod.replace(' ', '')
+                                            codigo = re.sub('[^0-9]', '', cod)[:6]
+                                            window['output'].print(
+                                                f'[{datetime.now().strftime("%H:%M:%S")}] Codigo recebido: {codigo}')
+                                            window.Refresh()
+                                            escrever_devagar(d(className="android.widget.EditText"), codigo, delay=0.2)
+                                            d(text="Avançar").click(timeout=10)
+                                        try:
+                                            d(text="Pular").wait(timeout=30)
+                                        except:
+                                            window['output'].print(
+                                                f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
+                                            window.Refresh()
+                                            try:
+                                                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
+                                                            stdout=subprocess.DEVNULL,
+                                                            stderr=subprocess.DEVNULL, check=True, shell=True)
+
+                                            except:
+                                                pass
+
+                                            conteudo = config['vpn']
+                                            if conteudo == "AVG":
+                                                vpn_avg()
+                                            elif conteudo == "SurfShark":
+                                                vpn_surf()
+                                            elif conteudo == "Nenhuma":
+                                                nenhuma_vpn()
+                                            elif conteudo == "Avast":
+                                                vpn_avast()
+                                            elif conteudo == "ExpressVPN":
+                                                vpn_express()
+                                            elif conteudo == "PiaVPN":
+                                                vpn_pia()
+                                            elif conteudo == "TunnelBear":
+                                                vpn_tunnelbear()
+                                            elif conteudo == "BetterNet":
+                                                vpn_better()
+                                            elif conteudo == "CyberGhost":
+                                                vpn_cyberghost()
+                                            elif conteudo == "NordVPN":
+                                                vpn_nord()
+                                            elif conteudo == "HotspotShield":
+                                                vpn_hotspotshield()
+                                            elif conteudo == "WindscribeVPN":
+                                                vpn_windscribe()
+                                            elif conteudo == "HmaVPN":
+                                                vpn_hma()
+                                            else:
+                                                window['output'].print(
+                                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                                window.Refresh()
+                                            raise Exception("Restrição")
+                                        time.sleep(5)
+                                        if d(text="Pular").wait(timeout=10):
+                                            print('Conta criada')
+                                            d(text="Pular").click(timeout=20)
+                                            d(text="Pular").click_exists(timeout=5)
+
+                                            if d(text="Pública").wait(timeout=5):
+                                                d(text="Pública").click()
+                                                d(text="Pular").click(timeout=20)
+                                        else:
+                                            print("SMS")
+                                            window['output'].print(
+                                                f'[{datetime.now().strftime("%H:%M:%S")}] SMS.')
+                                            window.Refresh()
+                                            try:
+                                                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
+                                                            stdout=subprocess.DEVNULL,
+                                                            stderr=subprocess.DEVNULL, check=True, shell=True)
+
+                                            except:
+                                                pass
+
+                                            conteudo = config['vpn']
+                                            if conteudo == "AVG":
+                                                vpn_avg()
+                                            elif conteudo == "SurfShark":
+                                                vpn_surf()
+                                            elif conteudo == "Nenhuma":
+                                                nenhuma_vpn()
+                                            elif conteudo == "Avast":
+                                                vpn_avast()
+                                            elif conteudo == "ExpressVPN":
+                                                vpn_express()
+                                            elif conteudo == "PiaVPN":
+                                                vpn_pia()
+                                            elif conteudo == "TunnelBear":
+                                                vpn_tunnelbear()
+                                            elif conteudo == "BetterNet":
+                                                vpn_better()
+                                            elif conteudo == "CyberGhost":
+                                                vpn_cyberghost()
+                                            elif conteudo == "NordVPN":
+                                                vpn_nord()
+                                            elif conteudo == "HotspotShield":
+                                                vpn_hotspotshield()
+                                            elif conteudo == "WindscribeVPN":
+                                                vpn_windscribe()
+                                            elif conteudo == "HmaVPN":
+                                                vpn_hma()
+                                            else:
+                                                window['output'].print(
+                                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                                window.Refresh()
+                                            raise Exception("Restrição")
+                                            
+                                        d(text="Pular").wait(timeout=60)
+                                        d(text="Pular").click(timeout=20)
+                                        d(text="Pular").wait(timeout=60)
+                                        d(text="Pular").click(timeout=20)
+                                        d(resourceId="com.instagram.android:id/action_bar_button_action").click(timeout=30)
+
+                                    except Exception as e:
+                                        if d(text="Aguarde alguns minutos antes de tentar novamente."):
+                                            print('Restrição')
+                                        else:
+                                            print(f"Algum erro: {e}")
+
+                                    try:
+                                        while True:
+                                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=60)
+                                            d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=30)
+                                            d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.LinearLayout[last()]/android.widget.FrameLayout/android.widget.ImageView').click(timeout=30)
+                                            d(text="Criar nova conta").click(timeout=20)
+
+                                            lista_user = random.choices(range(0, 9), k=2)
+                                            lista_letras = random.choices(letras, k=2)
+                                            nomea = fake.first_name_male().replace(" ", "")
+                                            nome = unicodedata.normalize('NFKD', nomea).encode(
+                                                'ASCII', 'ignore').decode('ASCII')
+                                            sobrenomea = fake.last_name().replace(" ", "").lower()
+                                            sobrenome = unicodedata.normalize('NFKD', sobrenomea).encode(
+                                                'ASCII', 'ignore').decode('ASCII')
+                                            nome_completo = nome + ' ' + sobrenome
+                                            nome_completo_s = nome + sobrenome
+                                            numeros_concatenados = ''.join(str(numero)
+                                                                        for numero in lista_user)
+                                            user_completo1 = nome_completo_s + '' + \
+                                                str(numeros_concatenados) + ''.join(lista_letras)
+                                            user_completo = random.randint(1, len(user_completo1))
+                                            string_with_dot = user_completo1[:user_completo] + \
+                                                '_' + user_completo1[user_completo:]
+                                            user_completo_antigo = string_with_dot.lower()
+                                            escolha = random.choice(["_", "."])
+                                            user_completo = nome + escolha + sobrenome + \
+                                                str(numeros_concatenados) + ''.join(lista_letras)
+                                            print(user_completo)
+
+                                            d(resourceId="com.instagram.android:id/username").set_text(user_completo)
+                                            time.sleep(5)
+                                            d(resourceId="com.instagram.android:id/button_text").click(timeout=20)
+                                            senha = gerar_senha(12)
+                                            print(senha)
+                                            d(resourceId="com.instagram.android:id/password").wait(timeout=25)
+                                            d(resourceId="com.instagram.android:id/password").set_text(senha)
+                                            d(text="Avançar").click(timeout=15)
+
+                                            if d(text="Adicione sua data de nascimento").wait(timeout=5):
+                                                d(text="Avançar").click()
+                                                d(text="OK").click(timeout=5)
+                                                d(text="Inserir idade").click(timeout=5)
+                                                d(resourceId="com.instagram.android:id/entered_age").set_text(random.randint(18, 50))
+                                                d(text="Avançar").click(timeout=5)
+                                                
+
+
+                                            d(text="Adicionar novo telefone ou email").click(timeout=30)
+                                            ddi_insta = d(resourceId="com.instagram.android:id/country_code_picker").get_text(timeout=20)
+                                            ddi_bruto = re.findall(r'\d+', ddi_insta)
+                                            ddi = ''.join(ddi_bruto)
+                                            num_insta = num.replace('+', '')
+                                            num_insta = num_insta.replace(ddi, '')
+                                            d(text="Telefone").set_text(num_insta)
+                                            d(text="Avançar").click(timeout=15)
+                                            try:
+                                                d(text="Pular").wait(timeout=30)
+                                            except:
+                                                window['output'].print(
+                                                f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
+                                                window.Refresh()
+                                                try:
+                                                    subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
+                                                                stdout=subprocess.DEVNULL,
+                                                                stderr=subprocess.DEVNULL, check=True, shell=True)
+
+                                                except:
+                                                    pass
+
+                                                conteudo = config['vpn']
+                                                if conteudo == "AVG":
+                                                    vpn_avg()
+                                                elif conteudo == "SurfShark":
+                                                    vpn_surf()
+                                                elif conteudo == "Nenhuma":
+                                                    nenhuma_vpn()
+                                                elif conteudo == "Avast":
+                                                    vpn_avast()
+                                                elif conteudo == "ExpressVPN":
+                                                    vpn_express()
+                                                elif conteudo == "PiaVPN":
+                                                    vpn_pia()
+                                                elif conteudo == "TunnelBear":
+                                                    vpn_tunnelbear()
+                                                elif conteudo == "BetterNet":
+                                                    vpn_better()
+                                                elif conteudo == "CyberGhost":
+                                                    vpn_cyberghost()
+                                                elif conteudo == "NordVPN":
+                                                    vpn_nord()
+                                                elif conteudo == "HotspotShield":
+                                                    vpn_hotspotshield()
+                                                elif conteudo == "WindscribeVPN":
+                                                    vpn_windscribe()
+                                                elif conteudo == "HmaVPN":
+                                                    vpn_hma()
+                                                else:
+                                                    window['output'].print(
+                                                        "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                                    window.Refresh()
+                                                raise Exception("Restrição")
+                                            
+                                            time.sleep(5)
+                                            if d(text="Pular").wait(timeout=10):
+                                                print('Conta criada')
+                                                d(text="Pular").click(timeout=20)
+                                                d(text="Pular").click_exists(timeout=5)
+
+                                                if d(text="Pública").wait(timeout=5):
+                                                    d(text="Pública").click()
+                                                    d(text="Pular").click(timeout=20)
+                                            else:
+                                                print("SMS")
+                                                window['output'].print(
+                                                    f'[{datetime.now().strftime("%H:%M:%S")}] SMS.')
+                                                window.Refresh()
+                                                try:
+                                                    subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
+                                                                stdout=subprocess.DEVNULL,
+                                                                stderr=subprocess.DEVNULL, check=True, shell=True)
+
+                                                except:
+                                                    pass
+
+                                                conteudo = config['vpn']
+                                                if conteudo == "AVG":
+                                                    vpn_avg()
+                                                elif conteudo == "SurfShark":
+                                                    vpn_surf()
+                                                elif conteudo == "Nenhuma":
+                                                    nenhuma_vpn()
+                                                elif conteudo == "Avast":
+                                                    vpn_avast()
+                                                elif conteudo == "ExpressVPN":
+                                                    vpn_express()
+                                                elif conteudo == "PiaVPN":
+                                                    vpn_pia()
+                                                elif conteudo == "TunnelBear":
+                                                    vpn_tunnelbear()
+                                                elif conteudo == "BetterNet":
+                                                    vpn_better()
+                                                elif conteudo == "CyberGhost":
+                                                    vpn_cyberghost()
+                                                elif conteudo == "NordVPN":
+                                                    vpn_nord()
+                                                elif conteudo == "HotspotShield":
+                                                    vpn_hotspotshield()
+                                                elif conteudo == "WindscribeVPN":
+                                                    vpn_windscribe()
+                                                elif conteudo == "HmaVPN":
+                                                    vpn_hma()
+                                                else:
+                                                    window['output'].print(
+                                                        "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                                    window.Refresh()
+                                                raise Exception("Restrição")
+                                                
+                                            d(text="Pular").wait(timeout=60)
+                                            d(text="Pular").click(timeout=20)
+                                            d(text="Pular").wait(timeout=60)
+                                            d(text="Pular").click(timeout=20)
+                                            d(resourceId="com.instagram.android:id/action_bar_button_action").click(timeout=30)
+
+                                    except Exception as e:
+                                        print(f"Algum erro no processo de criação por cima: {e}")
+
+
                                 break
                 else:
                     with SB(uc=False, demo=False, locale_code='pt-br', headless=nav_oculto, incognito=True, extension_dir=rf'.\storage\recaptcha', extension_zip=rf'{caminho_atual}\storage\{vpn_usada}.crx') as chrome:
@@ -53521,6 +53939,8 @@ while True:
                                       default_text=config6.get("senhavpn", "Senha VPN"))],
                         [sg.Checkbox('Navegador oculto', key='-navegador_oculto-',
                                      default=config6.get('navegador_oculto', False))],
+                        [sg.Checkbox('Criar por cima', key='-criar_por_cima-', visible=False,
+                                     default=config6.get('criar_por_cima', False))],
                         [sg.Button('Executar', button_color='#1c2024')]
                     ]
 
@@ -53557,6 +53977,7 @@ while True:
                             config6 = {
                                 "usar_troca_ip": dialog_values['-troca_ip-'],
                                 "navegador_oculto": dialog_values['-navegador_oculto-'],
+                                "criar_por_cima": dialog_values['-criar_por_cima-'],
                                 "emailvpn": dialog_values['-emailvpn-'],
                                 "senhavpn": dialog_values['-senhavpn-'],
                                 "metodo": ip
