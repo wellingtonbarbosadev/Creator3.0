@@ -4786,8 +4786,9 @@ def creator_CLONER_EMAIL():
                 f'[{datetime.now().strftime("%H:%M:%S")}] Clonando Instagram')
             window.Refresh()
             package_name = "com.lbe.parallel.intl"
-            clear_command = f"adb shell pm clear {package_name}"
-            subprocess.run(clear_command.split(), capture_output=True, text=True)
+            d.app_clear(package_name)
+            #clear_command = f"adb shell pm clear {package_name}"
+            #subprocess.run(clear_command.split(), capture_output=True, text=True)
             clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm32"
             subprocess.run(clear_command.split(), capture_output=True, text=True)
             permissions = [
@@ -4795,7 +4796,8 @@ def creator_CLONER_EMAIL():
                 "android.permission.READ_EXTERNAL_STORAGE",
                 "android.permission.WRITE_EXTERNAL_STORAGE",
                 "android.permission.ACCESS_FINE_LOCATION",
-                "android.permission.ACCESS_COARSE_LOCATION"
+                "android.permission.ACCESS_COARSE_LOCATION",
+                "android.permission.READ_CONTACTS"
             ]
 
 
@@ -4871,127 +4873,185 @@ def creator_CLONER_EMAIL():
                         raise Exception("IP Bloqueado")
             d(text='Cadastrar-se com o email').click(timeout=30)
             cod_chegou = False
-            base_url = "https://api.mail.tm"
-            def get_domain():
-                url = f"{base_url}/domains"
-                response = requests.get(url)
-                if response.status_code == 200:
-                    domains = response.json()['hydra:member']
-                    return random.choice(domains)['domain']
-                else:
-                    print("Erro ao obter domínios:", response.json())
-                    return None
-
-            def generate_random_email(domain):
-                username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=10))
-                return f"{username}@{domain}"
-
-            def create_account(email, password):
-                url = f"{base_url}/accounts"
-                data = {
-                    "address": email,
-                    "password": password
-                }
-                response = requests.post(url, json=data)
-                if response.status_code == 201:
-                    print("Conta criada com sucesso!")
-                    return response.json()
-                else:
-                    print("Erro ao criar conta:", response.json())
-                    return None
-
-            def get_token(email, password):
-                url = f"{base_url}/token"
-                data = {
-                    "address": email,
-                    "password": password
-                }
-                response = requests.post(url, json=data)
-                if response.status_code == 200:
-                    print("Token obtido com sucesso!")
-                    return response.json()
-                else:
-                    print("Erro ao obter token:", response.json())
-                    return None
-
-            def check_messages(token):
-                global codigo
-                while True:
-                    if d(text="Cadastrar-se com o número de celular"):
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
-                        window.Refresh()
-                        conteudo = config['vpn']
-                        if conteudo == "AVG":
-                            vpn_avg()
-                        elif conteudo == "SurfShark":
-                            vpn_surf()
-                        elif conteudo == "Nenhuma":
-                            nenhuma_vpn()
-                        elif conteudo == "Avast":
-                            vpn_avast()
-                        elif conteudo == "ExpressVPN":
-                            vpn_express()
-                        elif conteudo == "PiaVPN":
-                            vpn_pia()
-                        elif conteudo == "TunnelBear":
-                            vpn_tunnelbear()
-                        elif conteudo == "BetterNet":
-                            vpn_better()
-                        elif conteudo == "CyberGhost":
-                            vpn_cyberghost()
-                        elif conteudo == "NordVPN":
-                            vpn_nord()
-                        elif conteudo == "HotspotShield":
-                            vpn_hotspotshield()
-                        elif conteudo == "WindscribeVPN":
-                            vpn_windscribe()
-                        elif conteudo == "HmaVPN":
-                            vpn_hma()
-                        else:
-                            window['output'].print(
-                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
-                            window.Refresh()
-                        raise Exception("Restrição")
-                    url = f"{base_url}/messages"
-                    headers = {
-                        "Authorization": f"Bearer {token}"
-                    }
-                    response = requests.get(url, headers=headers)
-                    if response.status_code == 200:
-                        messages = response.json()['hydra:member']
-                        
-                        time.sleep(5)
-                        for message in messages:
-                            
-                            if "Instagram" in message['subject']:
-                                codigo = re.sub('[^0-9]', '', message['subject'])[:6]
-                                print(codigo)
-                                cod_chegou = True
-                                raise Exception("Código recebido")
-                    else:
-                        print("Erro ao verificar mensagens:", response.json())
-
-            domain = get_domain()
-            if domain:
-                email = generate_random_email(domain)
-                password = ''.join(random.choices(string.ascii_letters + string.digits, k=12))
-                print(f"Criando conta com e-mail: {email} e senha: {password}")
+            email_escolhido = random.choice(["MailTM", "1SecMail"])
+            if email_escolhido == "MailTM":
                 window['output'].print(
-                    f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                        f'[{datetime.now().strftime("%H:%M:%S")}] MailTM sendo utilizado')
+                window.Refresh()
+                base_url = "https://api.mail.tm"
+                def get_domain():
+                    url = f"{base_url}/domains"
+                    response = requests.get(url)
+                    if response.status_code == 200:
+                        domains = response.json()['hydra:member']
+                        return random.choice(domains)['domain']
+                    else:
+                        print("Erro ao obter domínios:", response.json())
+                        return None
+
+                def generate_random_email(domain):
+                    username = ''.join(random.choices(string.ascii_lowercase + string.digits, k=10))
+                    return f"{username}@{domain}"
+
+                def create_account(email, password):
+                    url = f"{base_url}/accounts"
+                    data = {
+                        "address": email,
+                        "password": password
+                    }
+                    response = requests.post(url, json=data)
+                    if response.status_code == 201:
+                        print("Conta criada com sucesso!")
+                        return response.json()
+                    else:
+                        print("Erro ao criar conta:", response.json())
+                        return None
+
+                def get_token(email, password):
+                    url = f"{base_url}/token"
+                    data = {
+                        "address": email,
+                        "password": password
+                    }
+                    response = requests.post(url, json=data)
+                    if response.status_code == 200:
+                        print("Token obtido com sucesso!")
+                        return response.json()
+                    else:
+                        print("Erro ao obter token:", response.json())
+                        return None
+
+                def check_messages(token):
+                    global codigo
+                    while True:
+                        if d(text="Cadastrar-se com o número de celular"):
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
+                            window.Refresh()
+                            conteudo = config['vpn']
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "TunnelBear":
+                                vpn_tunnelbear()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                            raise Exception("Restrição")
+                        url = f"{base_url}/messages"
+                        headers = {
+                            "Authorization": f"Bearer {token}"
+                        }
+                        response = requests.get(url, headers=headers)
+                        if response.status_code == 200:
+                            messages = response.json()['hydra:member']
+                            
+                            time.sleep(5)
+                            for message in messages:
+                                
+                                if "Instagram" in message['subject']:
+                                    codigo = re.sub('[^0-9]', '', message['subject'])[:6]
+                                    print(codigo)
+                                    cod_chegou = True
+                                    raise Exception("Código recebido")
+                        else:
+                            print("Erro ao verificar mensagens:", response.json())
+
+                domain = get_domain()
+                if domain:
+                    email = generate_random_email(domain)
+                    password = ''.join(random.choices(string.ascii_letters + string.digits, k=12))
+                    print(f"Criando conta com e-mail: {email} e senha: {password}")
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                    window.Refresh()
+                    escrever_devagar(d(className="android.widget.EditText"), email, delay=0.05)
+                    #d(className="android.widget.EditText").set_text(email)
+                    d(text="Avançar").click(timeout=30)
+                    time.sleep(5)
+                    account = create_account(email, password)
+                    if account:
+                        token_data = get_token(email, password)
+                        if token_data:
+                            token = token_data['token']
+                            try:
+                                check_messages(token)
+                            except Exception as e:
+                                pass
+            elif email_escolhido == "1SecMail":
+                window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] 1SecMail sendo utilizado')
+                window.Refresh()
+                def generate_email():
+                    response = requests.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
+                    email = response.json()[0]
+                    login, domain = email.split('@')
+                    return login, domain, email
+
+                # Função para verificar emails
+                def check_inbox(login, domain):
+                    response = requests.get(f"https://www.1secmail.com/api/v1/?action=getMessages&login={login}&domain={domain}")
+                    return response.json()
+
+                # Função para obter o conteúdo do email
+                def read_email(login, domain, message_id):
+                    response = requests.get(f"https://www.1secmail.com/api/v1/?action=readMessage&login={login}&domain={domain}&id={message_id}")
+                    return response.json()
+
+                # Função principal
+                login, domain, email = generate_email()
+                print(f"Email temporário gerado: {email}")
+                window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
                 window.Refresh()
                 escrever_devagar(d(className="android.widget.EditText"), email, delay=0.05)
-                #d(className="android.widget.EditText").set_text(email)
+                d(className="android.widget.EditText").set_text(email)
                 d(text="Avançar").click(timeout=30)
-                time.sleep(5)
-                account = create_account(email, password)
-                if account:
-                    token_data = get_token(email, password)
-                    if token_data:
-                        token = token_data['token']
-                        try:
-                            check_messages(token)
-                        except Exception as e:
-                            pass
+                # Aguardar por emails (você pode ajustar o tempo e o número de verificações conforme necessário)
+                cod_chegou = False
+                for _ in range(20):
+                    time.sleep(3)  # Esperar 10 segundos antes de verificar novamente
+                    messages = check_inbox(login, domain)
+                    if cod_chegou is True: break
+                    for message in messages:
+                        if 'Instagram' in message['subject']:
+                            print(f"Email encontrado: {message['subject']}")
+                            email_content = read_email(login, domain, message['id'])
+                            
+                            # Extrair os seis primeiros algarismos do conteúdo
+                            digits = message['subject']
+                            if digits:
+                                codigo = re.sub('[^0-9]', '', digits)[:6]
+
+                                print(f"Seis primeiros algarismos: {codigo}")
+                                cod_chegou = True
+                                break
+                                
+                            else:
+                                print("Nenhum algarismo encontrado no conteúdo do email.")
+                            
+
             escrever_devagar(d(className="android.widget.EditText"), codigo, delay=0.05)
             #d(className="android.widget.EditText").set_text(codigo)
             d(text="Avançar").click(timeout=30)
