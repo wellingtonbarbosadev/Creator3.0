@@ -4813,7 +4813,11 @@ def creator_CLONER_EMAIL():
             d.app_start(package_name)
             d(text="Agree and continue").click(timeout=15)
             d(text='CONTINUAR').click(timeout=20)
-            d(text='COMEÇAR').click(timeout=20)
+            try:
+                d(text='COMEÇAR').click(timeout=15)
+            except:
+                d(text="Consent").click()
+                d(text='COMEÇAR').click(timeout=20)
             d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
             #d(text="Adicionar Apps").wait(timeout=30)
             d(text="ACEITAR").click()
@@ -5078,8 +5082,48 @@ def creator_CLONER_EMAIL():
                 d(text="Avançar").click(timeout=30)
                 # Aguardar por emails (você pode ajustar o tempo e o número de verificações conforme necessário)
                 cod_chegou = False
-                for _ in range(20):
-                    time.sleep(3)  # Esperar 10 segundos antes de verificar novamente
+                while True:
+                    time.sleep(2)
+                    if tentativa == 10:
+                        d(text="Não recebi o código").click()
+                        d(text="Reenviar código de confirmação").click()
+                    else:
+                        tentativa += 1
+                    if tentativa2 == 20:
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Código não recebido')
+                        window.Refresh()
+                        conteudo = config['vpn']
+                        if conteudo == "AVG":
+                            vpn_avg()
+                        elif conteudo == "SurfShark":
+                            vpn_surf()
+                        elif conteudo == "Nenhuma":
+                            nenhuma_vpn()
+                        elif conteudo == "Avast":
+                            vpn_avast()
+                        elif conteudo == "ExpressVPN":
+                            vpn_express()
+                        elif conteudo == "PiaVPN":
+                            vpn_pia()
+                        elif conteudo == "TunnelBear":
+                            vpn_tunnelbear()
+                        elif conteudo == "BetterNet":
+                            vpn_better()
+                        elif conteudo == "CyberGhost":
+                            vpn_cyberghost()
+                        elif conteudo == "NordVPN":
+                            vpn_nord()
+                        elif conteudo == "HotspotShield":
+                            vpn_hotspotshield()
+                        elif conteudo == "WindscribeVPN":
+                            vpn_windscribe()
+                        elif conteudo == "HmaVPN":
+                            vpn_hma()
+                        else:
+                            window['output'].print(
+                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                            window.Refresh()
+                        raise Exception("Código não recebido")
                     messages = check_inbox(login, domain)
                     if cod_chegou is True: break
                     for message in messages:
