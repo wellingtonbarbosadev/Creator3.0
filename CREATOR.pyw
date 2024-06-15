@@ -5128,6 +5128,8 @@ def creator_CLONER_EMAIL():
                                 "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                             window.Refresh()
                         raise Exception("Código não recebido")
+                    else:
+                        tentativa2 += 1
                     messages = check_inbox(login, domain)
                     if cod_chegou is True: break
                     for message in messages:
