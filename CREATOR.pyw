@@ -4822,6 +4822,7 @@ def creator_CLONER_EMAIL():
                 d(text="Adicionar Apps").click(timeout=10)
                 d(text="Instagram").click(timeout=10)
                 d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
+            time.sleep(2)
             while True:
                 if d(text="Tentar novamente"):
                     d(text="Tentar novamente").click()
@@ -4832,6 +4833,9 @@ def creator_CLONER_EMAIL():
                 elif d(text="Criar nova conta"):
                     d(text="Criar nova conta").click()
                     break
+                elif d(text="Adicionar Apps"):
+                    d(text="Instagram").click(timeout=10)
+                    time.sleep(2)
                 elif d(text="Recarregar"):
                     d(text="Recarregar").click()
                     time.sleep(3)
@@ -4923,7 +4927,50 @@ def creator_CLONER_EMAIL():
 
                 def check_messages(token):
                     global codigo
+                    tentativa = 0
+                    tentativa2 = 0
                     while True:
+                        time.sleep(2)
+                        if tentativa == 10:
+                            d(text="Não recebi o código").click()
+                            d(text="Reenviar código de confirmação").click()
+                        else:
+                            tentativa += 1
+                        if tentativa2 == 20:
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Código não recebido')
+                            window.Refresh()
+                            conteudo = config['vpn']
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "TunnelBear":
+                                vpn_tunnelbear()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                            raise Exception("Código não recebido")
                         if d(text="Cadastrar-se com o número de celular"):
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
                             window.Refresh()
@@ -4973,6 +5020,7 @@ def creator_CLONER_EMAIL():
                                 if "Instagram" in message['subject']:
                                     codigo = re.sub('[^0-9]', '', message['subject'])[:6]
                                     print(codigo)
+                                    escrever_devagar(d(className="android.widget.EditText"), codigo, delay=0.05)
                                     cod_chegou = True
                                     raise Exception("Código recebido")
                         else:
@@ -5045,6 +5093,7 @@ def creator_CLONER_EMAIL():
                                 codigo = re.sub('[^0-9]', '', digits)[:6]
 
                                 print(f"Seis primeiros algarismos: {codigo}")
+                                escrever_devagar(d(className="android.widget.EditText"), codigo, delay=0.05)
                                 cod_chegou = True
                                 break
                                 
@@ -5052,7 +5101,7 @@ def creator_CLONER_EMAIL():
                                 print("Nenhum algarismo encontrado no conteúdo do email.")
                             
 
-            escrever_devagar(d(className="android.widget.EditText"), codigo, delay=0.05)
+            
             #d(className="android.widget.EditText").set_text(codigo)
             d(text="Avançar").click(timeout=30)
             d(text='Crie uma senha').wait(timeout=30)
