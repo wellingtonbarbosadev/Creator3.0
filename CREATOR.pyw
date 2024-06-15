@@ -4801,7 +4801,7 @@ def creator_CLONER_EMAIL():
 
             # Conceder cada permissão
             for permission in permissions:
-                command = f"adb shell pm grant {package_name} {permission}"
+                command = f"adb -s {porta} shell pm grant {package_name} {permission}"
                 result = subprocess.run(command.split(), capture_output=True, text=True)
                 if result.returncode == 0:
                     pass
