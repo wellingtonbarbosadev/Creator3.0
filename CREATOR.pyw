@@ -5329,16 +5329,19 @@ def creator_CLONER_EMAIL():
                         print(e)
                         pass
                     d(text="Pular").click(timeout=30)
+                    d(textContains="Em seguida, você pode permitir o acesso").wait(timeout=30)
+                    d(text="Pular").click(timeout=30)
                     d(text="Receba sugestões do Facebook").wait(timeout=30)
-                    d(text="Pular").click(timeout=30)
-                    d(text="Seguir amigos").wait(timeout=30)
-                    d(text="Pular").click(timeout=30)
-                    d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
                     d(text="Pular").click(timeout=30)
                     d(text="Convide amigos para seguirem você").wait(timeout=30)
                     d(text="Pular").click(timeout=30)
                     d(text="Encontrar pessoas").wait(timeout=30)
                     d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                    #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
+                    #d(text="Pular").click(timeout=30)
+                    
+                    #d(text="Encontrar pessoas").wait(timeout=30)
+                    #d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
                     d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                     d(resourceId="com.instagram.android:id/netego_carousel_cta").click(timeout=60)
                     if d(text="Não permitir acesso").wait(timeout=30):
