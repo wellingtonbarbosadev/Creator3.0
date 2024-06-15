@@ -5082,6 +5082,8 @@ def creator_CLONER_EMAIL():
                 d(text="Avançar").click(timeout=30)
                 # Aguardar por emails (você pode ajustar o tempo e o número de verificações conforme necessário)
                 cod_chegou = False
+                tentativa = 0
+                tentativa2 = 0
                 while True:
                     time.sleep(2)
                     if tentativa == 10:
