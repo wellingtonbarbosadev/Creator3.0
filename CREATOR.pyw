@@ -4938,6 +4938,7 @@ def creator_CLONER_EMAIL():
                         if tentativa == 10:
                             d(text="Não recebi o código").click()
                             d(text="Reenviar código de confirmação").click()
+                            tentativa = 11
                         else:
                             tentativa += 1
                         if tentativa2 == 20:
@@ -5089,6 +5090,7 @@ def creator_CLONER_EMAIL():
                     if tentativa == 10:
                         d(text="Não recebi o código").click()
                         d(text="Reenviar código de confirmação").click()
+                        tentativa = 11
                     else:
                         tentativa += 1
                     if tentativa2 == 20:
