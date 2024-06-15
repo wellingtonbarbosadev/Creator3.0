@@ -5335,10 +5335,16 @@ def creator_CLONER_EMAIL():
                     d(text="Pular").click(timeout=30)
                     d(text="Receba sugestões do Facebook").wait(timeout=30)
                     d(text="Pular").click(timeout=30)
+                    d(text="Seguir amigos").wait(timeout=30)
+                    d(text="Pular").click(timeout=30)
                     d(text="Convide amigos para seguirem você").wait(timeout=30)
                     d(text="Pular").click(timeout=30)
-                    d(text="Encontrar pessoas").wait(timeout=30)
-                    d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                    time.sleep(3)
+                    if d(textContains="Siga mais 5"):
+                        d(text="Avançar").click(timeout=30)
+                    else:
+                        d(text="Encontrar pessoas").wait(timeout=30)
+                        d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
                     #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
                     #d(text="Pular").click(timeout=30)
                     
