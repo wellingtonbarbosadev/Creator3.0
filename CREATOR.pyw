@@ -4830,6 +4830,8 @@ def creator_CLONER_EMAIL():
             while True:
                 if d(text="Tentar novamente"):
                     d(text="Tentar novamente").click()
+                elif d(text="Ir para o app"):
+                    d(text="Ir para o app").click()
                 elif d(text="Termos e Política de Privacidade"):
                     d.xpath('//android.widget.Button[@content-desc="Continuar"]').click()
                     time.sleep(2)
