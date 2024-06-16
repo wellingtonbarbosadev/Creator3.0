@@ -5099,7 +5099,7 @@ def creator_CLONER_NUM():
                 d(text='Crie uma senha').wait(timeout=30)
                 senha = gerar_senha(12)
                 escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05)
-                #d(className="android.widget.EditText").set_text(senha)
+                #escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05)
                 d(text="Avançar").click(timeout=30)
                 d(text="Agora não").click(timeout=30)
                 try:
@@ -5147,7 +5147,7 @@ def creator_CLONER_NUM():
                 d(className="android.widget.EditText").set_text(nome_completo)
                 d(text="Avançar").click(timeout=30)
                 d(text="Crie um nome de usuário").wait(timeout=30)
-                #d(className="android.widget.EditText").set_text(user_completo)
+                #escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.05)
                 window['output'].print(
                     f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
                 window.Refresh()
@@ -5283,6 +5283,7 @@ def creator_CLONER_NUM():
                             time.sleep(3)
                             if d(textContains="Siga mais 5"):
                                 d(text="Avançar").click(timeout=30)
+                                time.sleep(10)
                             else:
                                 d(text="Encontrar pessoas").wait(timeout=30)
                                 d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
@@ -5352,7 +5353,7 @@ def creator_CLONER_NUM():
                         print(user_completo)
 
                         d(text="Escolha um nome de usuário").wait(timeout=30)
-                        d(className="android.widget.EditText").set_text(user_completo)
+                        escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.05)
                         while True:
                             if d(textContains='não está disponível.'):
                                 d(resourceId='com.instagram.android:id/username_suggestion_text').click()
@@ -5361,7 +5362,7 @@ def creator_CLONER_NUM():
                         d(text="Avançar", enabled=True).click()
                         d(text="Crie uma senha").wait(timeout=20)
                         senha = gerar_senha(12)
-                        d(className="android.widget.EditText").set_text(senha)
+                        escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05)
                         time.sleep(0.5)
                         d(text="Avançar", enabled=True).click()
                         d(text='Concluir o cadastro').click(timeout=20)
@@ -5673,7 +5674,7 @@ def creator_CLONER_NUM():
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
                         window.Refresh()
                         d(text="Escolha um nome de usuário").wait(timeout=30)
-                        d(className="android.widget.EditText").set_text(user_completo)
+                        escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.05)
                         while True:
                             if d(textContains='não está disponível.'):
                                 d(resourceId='com.instagram.android:id/username_suggestion_text').click()
@@ -5682,7 +5683,7 @@ def creator_CLONER_NUM():
                         d(text="Avançar", enabled=True).click()
                         d(text="Crie uma senha").wait(timeout=20)
                         senha = gerar_senha(12)
-                        d(className="android.widget.EditText").set_text(senha)
+                        escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05)
                         time.sleep(0.5)
                         d(text="Avançar", enabled=True).click()
                         d(text='Concluir o cadastro').click(timeout=20)
@@ -7022,7 +7023,7 @@ def creator_CLONER_EMAIL():
             d(text='Crie uma senha').wait(timeout=30)
             senha = gerar_senha(12)
             escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05)
-            #d(className="android.widget.EditText").set_text(senha)
+            #escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05)
             d(text="Avançar").click(timeout=30)
             d(text="Agora não").click(timeout=30)
             try:
@@ -7070,7 +7071,7 @@ def creator_CLONER_EMAIL():
             d(className="android.widget.EditText").set_text(nome_completo)
             d(text="Avançar").click(timeout=30)
             d(text="Crie um nome de usuário").wait(timeout=30)
-            #d(className="android.widget.EditText").set_text(user_completo)
+            #escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.05)
             window['output'].print(
                 f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
             window.Refresh()
@@ -7206,6 +7207,7 @@ def creator_CLONER_EMAIL():
                         time.sleep(3)
                         if d(textContains="Siga mais 5"):
                             d(text="Avançar").click(timeout=30)
+                            time.sleep(10)
                         else:
                             d(text="Encontrar pessoas").wait(timeout=30)
                             d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
@@ -7275,7 +7277,7 @@ def creator_CLONER_EMAIL():
                     print(user_completo)
 
                     d(text="Escolha um nome de usuário").wait(timeout=30)
-                    d(className="android.widget.EditText").set_text(user_completo)
+                    escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.05)
                     while True:
                         if d(textContains='não está disponível.'):
                             d(resourceId='com.instagram.android:id/username_suggestion_text').click()
@@ -7284,7 +7286,7 @@ def creator_CLONER_EMAIL():
                     d(text="Avançar", enabled=True).click()
                     d(text="Crie uma senha").wait(timeout=20)
                     senha = gerar_senha(12)
-                    d(className="android.widget.EditText").set_text(senha)
+                    escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05)
                     time.sleep(0.5)
                     d(text="Avançar", enabled=True).click()
                     d(text='Concluir o cadastro').click(timeout=20)
@@ -7596,7 +7598,7 @@ def creator_CLONER_EMAIL():
                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
                     window.Refresh()
                     d(text="Escolha um nome de usuário").wait(timeout=30)
-                    d(className="android.widget.EditText").set_text(user_completo)
+                    escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.05)
                     while True:
                         if d(textContains='não está disponível.'):
                             d(resourceId='com.instagram.android:id/username_suggestion_text').click()
@@ -7605,7 +7607,7 @@ def creator_CLONER_EMAIL():
                     d(text="Avançar", enabled=True).click()
                     d(text="Crie uma senha").wait(timeout=20)
                     senha = gerar_senha(12)
-                    d(className="android.widget.EditText").set_text(senha)
+                    escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05)
                     time.sleep(0.5)
                     d(text="Avançar", enabled=True).click()
                     d(text='Concluir o cadastro').click(timeout=20)
