@@ -4842,18 +4842,64 @@ def creator_CLONER_NUM():
                 window['output'].print(
                     f'[{datetime.now().strftime("%H:%M:%S")}] Clonando Instagram')
                 window.Refresh()
-                package_name = "com.lbe.parallel.intl"
-                d.app_clear(package_name)
-                #clear_command = f"adb shell pm clear {package_name}"
-                #subprocess.run(clear_command.split(), capture_output=True, text=True)
-                try:
-                    clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm32"
-                    subprocess.run(clear_command.split(), capture_output=True, text=True)
-                except: pass
-                try:
-                    clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm64"
-                    subprocess.run(clear_command.split(), capture_output=True, text=True)
-                except: pass
+                #package_name = "com.lbe.parallel.intl"
+                #d.app_clear(package_name)
+                ##clear_command = f"adb shell pm clear {package_name}"
+                ##subprocess.run(clear_command.split(), capture_output=True, text=True)
+                #try:
+                #    clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm32"
+                #    subprocess.run(clear_command.split(), capture_output=True, text=True)
+                #except: pass
+                #try:
+                #    clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm64"
+                #    subprocess.run(clear_command.split(), capture_output=True, text=True)
+                #except: pass
+                #permissions = [
+                #    "android.permission.CALL_PHONE",
+                #    "android.permission.READ_EXTERNAL_STORAGE",
+                #    "android.permission.WRITE_EXTERNAL_STORAGE",
+                #    "android.permission.ACCESS_FINE_LOCATION",
+                #    "android.permission.ACCESS_COARSE_LOCATION",
+                #    "android.permission.READ_CONTACTS"
+                #]
+#
+#
+                ## Conceder cada permissão
+                #for permission in permissions:
+                #    command = f"adb -s {porta} shell pm grant {package_name} {permission}"
+                #    result = subprocess.run(command.split(), capture_output=True, text=True)
+                #    if result.returncode == 0:
+                #        pass
+                #        #print(f"Permissão '{permission}' concedida para '{package_name}'.")
+                #    else:
+                #        print(f"Erro ao conceder permissão '{permission}': {result.stderr}")
+                #d.app_start(package_name)
+                #d(text="Agree and continue").click(timeout=15)
+                #d(text='CONTINUAR').click(timeout=20)
+                #try:
+                #    d(text='COMEÇAR').click(timeout=15)
+                #except:
+                #    d(textContains="Consent").click()
+                #    d(text='COMEÇAR').click(timeout=20)
+                #d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
+                ##d(text="Adicionar Apps").wait(timeout=30)
+                #d(text="ACEITAR").click()
+                #try: d(text="Instagram").click(timeout=10)
+                #except: 
+                #    d(text="Adicionar Apps").click(timeout=10)
+                #    d(text="Instagram").click(timeout=10)
+                #    d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
+                #time.sleep(2)
+
+
+                from PIL import Image
+                import numpy as np
+                import time
+                import random
+                import os
+                import tempfile
+                d.app_clear("com.ludashi.dualspaceprox")
+                package_name = "com.ludashi.dualspaceprox"
                 permissions = [
                     "android.permission.CALL_PHONE",
                     "android.permission.READ_EXTERNAL_STORAGE",
@@ -4862,8 +4908,6 @@ def creator_CLONER_NUM():
                     "android.permission.ACCESS_COARSE_LOCATION",
                     "android.permission.READ_CONTACTS"
                 ]
-
-
                 # Conceder cada permissão
                 for permission in permissions:
                     command = f"adb -s {porta} shell pm grant {package_name} {permission}"
@@ -4873,23 +4917,84 @@ def creator_CLONER_NUM():
                         #print(f"Permissão '{permission}' concedida para '{package_name}'.")
                     else:
                         print(f"Erro ao conceder permissão '{permission}': {result.stderr}")
-                d.app_start(package_name)
-                d(text="Agree and continue").click(timeout=15)
-                d(text='CONTINUAR').click(timeout=20)
-                try:
-                    d(text='COMEÇAR').click(timeout=15)
-                except:
-                    d(text="Consent").click()
-                    d(text='COMEÇAR').click(timeout=20)
-                d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
-                #d(text="Adicionar Apps").wait(timeout=30)
-                d(text="ACEITAR").click()
-                try: d(text="Instagram").click(timeout=10)
-                except: 
-                    d(text="Adicionar Apps").click(timeout=10)
-                    d(text="Instagram").click(timeout=10)
-                    d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
+                d.app_start("com.ludashi.dualspaceprox")
+                d(textContains="INICIAR").click(timeout=30)
                 time.sleep(2)
+                d(resourceId="com.ludashi.dualspaceprox:id/search").click(timeout=30)
+                time.sleep(2)
+                try:
+                    d(resourceId="com.ludashi.dualspaceprox:id/input_edit").set_text("Instagra")
+                except:
+                    d(resourceId="com.ludashi.dualspaceprox:id/search").click(timeout=30)
+                    time.sleep(3)
+                    d(resourceId="com.ludashi.dualspaceprox:id/input_edit").set_text("Instagra")
+                    time.sleep(1)
+
+                d(text="Instagram").click(timeout=20)
+                d.press("back")
+                d.press("back")
+                d(resourceId="com.ludashi.dualspaceprox:id/btn_clone").click(timeout=20)
+                d(text="Instagram(1)").click(timeout=30)
+                d(text="Instagram(1)").click(timeout=30)
+                time.sleep(3)
+
+                screenshot_path = os.path.join(tempfile.gettempdir(), f"screen{random.randint(000,999)}.png")
+                d.screenshot(screenshot_path)
+
+                # Esperar um pouco para garantir que a captura de tela seja salva
+                time.sleep(2)
+
+                # Abrir a imagem da captura de tela
+                img = Image.open(screenshot_path)
+                img_array = np.array(img)
+
+                # Definir a cor que você está procurando (RGB)
+                target_color = (31, 109, 238)  # Exemplo: vermelho
+
+                # Encontrar o último pixel com a cor alvo
+                def find_last_color_pixel(image_array, target_color):
+                    # Converte a imagem para o espaço de cores RGB
+                    img_rgb = img_array[:, :, :3]
+
+                    # Calcula a diferença entre cada pixel e a cor alvo
+                    diff = np.abs(img_rgb - np.array(target_color))
+
+                    # Soma as diferenças para cada canal RGB
+                    total_diff = np.sum(diff, axis=-1)
+
+                    # Encontra todos os índices onde a diferença é zero (corresponde à cor alvo)
+                    indices = np.argwhere(total_diff == 0)
+
+                    # Se não houver índices encontrados, retorna None
+                    if len(indices) == 0:
+                        return None, None
+
+                    # Encontra o último índice onde a diferença é zero
+                    last_index = indices[-1]
+
+                    # Obtém as coordenadas do último pixel com a cor alvo
+                    y, x = last_index
+
+                    return x, y
+
+                x, y = find_last_color_pixel(img_array, target_color)
+
+                if x is not None and y is not None:
+                    print(f"Último pixel encontrado na posição: ({x}, {y})")
+
+                    # Converter x e y para inteiros
+                    x = int(x)
+                    y = int(y)
+
+                    # Clicar no pixel encontrado
+                    d.click(x, y)
+                else:
+                    print("Cor não encontrada na imagem.")
+
+                # Remover a captura de tela temporária no computador
+                os.remove(screenshot_path)
+
+
                 while True:
                     if d(text="Tentar novamente"):
                         d(text="Tentar novamente").click()
@@ -4897,7 +5002,10 @@ def creator_CLONER_NUM():
                         d(text="Ir para o app").click()
                     elif d(text="Termos e Política de Privacidade"):
                         d.xpath('//android.widget.Button[@content-desc="Continuar"]').click()
-                        time.sleep(2)
+                        time.sleep(5)
+                        if not d(text="Criar nova conta"):
+                            d.press("back")
+                            d(text="Instagram(1)").click(timeout=30)
                         
                     elif d(text="Criar nova conta"):
                         d(text="Criar nova conta").click()
@@ -4998,6 +5106,7 @@ def creator_CLONER_NUM():
                     window.Refresh()
                     # MUDAR PARA INSTA
                     d.press("recent")
+                    time.sleep(1)
                     d.press("recent")
                     # MUDAR PARA INSTA
                     time.sleep(2)
@@ -5035,6 +5144,7 @@ def creator_CLONER_NUM():
                     except: pass
                     # MUDAR PARA INSTA
                     d.press("recent")
+                    time.sleep(1)
                     d.press("recent")
                     # MUDAR PARA INSTA
                     d.app_start('pl.rs.sip.softphone.newapp')
@@ -5101,6 +5211,7 @@ def creator_CLONER_NUM():
 
                 # MUDAR PARA INSTA
                 d.press("recent")
+                time.sleep(1)
                 d.press("recent")
                 # MUDAR PARA INSTA
                 d(text='Avançar').wait(timeout=30)
@@ -5168,8 +5279,12 @@ def creator_CLONER_NUM():
                 d(text="Avançar").click(timeout=30)
                 d(text="Concordo").click(timeout=30)
 
-                while True:
-                    if d(text="Pular"):
+                for i in range(11):
+                    time.sleep(2)
+                    if d(resourceId="com.instagram.android:id/tab_avatar"):
+                        d(resourceId="com.instagram.android:id/tab_avatar").click()
+                        time.sleep(5)
+                    elif d(text="Pular") or d(resourceId="com.instagram.android:id/tab_avatar"):
                         print("Conta criada")
                         try:
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
@@ -5299,15 +5414,16 @@ def creator_CLONER_NUM():
                                 d(text="Encontrar pessoas").wait(timeout=30)
                                 d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
                         except:
-                            package_name = "com.lbe.parallel.intl"
+                            #package_name = "com.lbe.parallel.intl"
+                            package_name = "com.ludashi.dualspaceprox"
                             d.app_stop(package_name)
                             #clear_command = f"adb shell pm clear {package_name}"
                             #subprocess.run(clear_command.split(), capture_output=True, text=True)
                             try:
-                                d.app_stop("adb shell pm clear com.lbe.parallel.intl.arm32")
+                                d.app_stop("com.lbe.parallel.intl.arm32")
                             except: pass
                             try:
-                                d.app_stop("adb shell pm clear com.lbe.parallel.intl.arm64")
+                                d.app_stop("com.lbe.parallel.intl.arm64")
                             except: pass
                             d.app_start(package_name)
                             while True:
@@ -5315,6 +5431,8 @@ def creator_CLONER_NUM():
                                     d(text="Ir para o app").click()
                                 elif d(text="Adicionar Apps"):
                                     d(text="Instagram").click(timeout=10)
+                                elif d(text="Instagram(1)"):
+                                    d(text="Instagram(1)").click(timeout=30)
 
                         #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
                         #d(text="Pular").click(timeout=30)
@@ -5337,8 +5455,26 @@ def creator_CLONER_NUM():
                         #    seguir_sugeridos += 1
     #
                         #d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
+                        d(text="seguindo").click()
+                        seguir_sugeridos = 0
+                        while seguir_sugeridos < 10:
+                            try:
+                                d(text="Seguir").click(timeout=1)
+                                seguir_sugeridos += 1
+                            except:
+                                width, height = d.window_size()
+                                start_x = width // 2
+                                start_y = height * 3 // 4  # Comece no 75% da altura
+                                end_x = width // 2
+                                end_y = height // 4  # Termine no 25% da altura
+
+                                # Realize o swipe
+                                d.swipe(start_x, start_y, end_x, end_y, duration=0.5)
+                                if not d(text="Seguir"):
+                                    break
+                        d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
                         d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=30)
-                        d(text="Adicionar conta").click(timeout=30)
+                        d(textContains="Adicionar conta").click(timeout=30)
                         d(text="Criar nova conta").click(timeout=20)
                         lista_user = random.choices(range(0, 9), k=2)
                         lista_letras = random.choices(letras, k=2)
@@ -5364,7 +5500,7 @@ def creator_CLONER_NUM():
                         print(user_completo)
 
                         d(text="Escolha um nome de usuário").wait(timeout=30)
-                        escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.05)
+                        escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.05, por_vez=1)
                         while True:
                             if d(textContains='não está disponível.'):
                                 d(resourceId='com.instagram.android:id/username_suggestion_text').click()
@@ -5373,45 +5509,55 @@ def creator_CLONER_NUM():
                         d(text="Avançar", enabled=True).click()
                         d(text="Crie uma senha").wait(timeout=20)
                         senha = gerar_senha(12)
-                        escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05)
-                        time.sleep(0.5)
+                        escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05, por_vez=1)
+                        time.sleep(2)
                         d(text="Avançar", enabled=True).click()
+                        time.sleep(3)
                         d(text='Concluir o cadastro').click(timeout=20)
-                        if d(text='Tente novamente mais tarde').wait(timeout=5):
-                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
-                            window.Refresh()
-                            conteudo = config['vpn']
-                            if conteudo == "AVG":
-                                vpn_avg()
-                            elif conteudo == "SurfShark":
-                                vpn_surf()
-                            elif conteudo == "Nenhuma":
-                                nenhuma_vpn()
-                            elif conteudo == "Avast":
-                                vpn_avast()
-                            elif conteudo == "ExpressVPN":
-                                vpn_express()
-                            elif conteudo == "PiaVPN":
-                                vpn_pia()
-                            elif conteudo == "TunnelBear":
-                                vpn_tunnelbear()
-                            elif conteudo == "BetterNet":
-                                vpn_better()
-                            elif conteudo == "CyberGhost":
-                                vpn_cyberghost()
-                            elif conteudo == "NordVPN":
-                                vpn_nord()
-                            elif conteudo == "HotspotShield":
-                                vpn_hotspotshield()
-                            elif conteudo == "WindscribeVPN":
-                                vpn_windscribe()
-                            elif conteudo == "HmaVPN":
-                                vpn_hma()
-                            else:
-                                window['output'].print(
-                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                        while True:
+                            if (
+                                d(text='Tente novamente mais tarde') or 
+                                d(textContains="Ocorreu um erro de rede desconhecido") or
+                                d(textContains="feedback_required")
+
+                            ):
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
                                 window.Refresh()
-                            raise Exception("Restrição")
+                                conteudo = config['vpn']
+                                if conteudo == "AVG":
+                                    vpn_avg()
+                                elif conteudo == "SurfShark":
+                                    vpn_surf()
+                                elif conteudo == "Nenhuma":
+                                    nenhuma_vpn()
+                                elif conteudo == "Avast":
+                                    vpn_avast()
+                                elif conteudo == "ExpressVPN":
+                                    vpn_express()
+                                elif conteudo == "PiaVPN":
+                                    vpn_pia()
+                                elif conteudo == "TunnelBear":
+                                    vpn_tunnelbear()
+                                elif conteudo == "BetterNet":
+                                    vpn_better()
+                                elif conteudo == "CyberGhost":
+                                    vpn_cyberghost()
+                                elif conteudo == "NordVPN":
+                                    vpn_nord()
+                                elif conteudo == "HotspotShield":
+                                    vpn_hotspotshield()
+                                elif conteudo == "WindscribeVPN":
+                                    vpn_windscribe()
+                                elif conteudo == "HmaVPN":
+                                    vpn_hma()
+                                else:
+                                    window['output'].print(
+                                        "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                    window.Refresh()
+                                raise Exception("Restrição")
+                            
+                            elif d(text='Pular'): break
+                        time.sleep(5)
                         d(text='Pular').wait(timeout=30)
                         time.sleep(5)
                         if d(text="Pular"):
@@ -5653,6 +5799,9 @@ def creator_CLONER_NUM():
                                 "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                             window.Refresh()
                         raise Exception("SMS")
+                else:
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel criar esta conta')
+                    window.Refresh()
                 try:
                     while True:
                         window['output'].print(linha_ret)
@@ -6654,18 +6803,63 @@ def creator_CLONER_EMAIL():
             window['output'].print(
                 f'[{datetime.now().strftime("%H:%M:%S")}] Clonando Instagram')
             window.Refresh()
-            package_name = "com.lbe.parallel.intl"
-            d.app_clear(package_name)
-            #clear_command = f"adb shell pm clear {package_name}"
-            #subprocess.run(clear_command.split(), capture_output=True, text=True)
-            try:
-                clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm32"
-                subprocess.run(clear_command.split(), capture_output=True, text=True)
-            except: pass
-            try:
-                clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm64"
-                subprocess.run(clear_command.split(), capture_output=True, text=True)
-            except: pass
+            #package_name = "com.lbe.parallel.intl"
+            #d.app_clear(package_name)
+            ##clear_command = f"adb shell pm clear {package_name}"
+            ##subprocess.run(clear_command.split(), capture_output=True, text=True)
+            #try:
+            #    clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm32"
+            #    subprocess.run(clear_command.split(), capture_output=True, text=True)
+            #except: pass
+            #try:
+            #    clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm64"
+            #    subprocess.run(clear_command.split(), capture_output=True, text=True)
+            #except: pass
+            #permissions = [
+            #    "android.permission.CALL_PHONE",
+            #    "android.permission.READ_EXTERNAL_STORAGE",
+            #    "android.permission.WRITE_EXTERNAL_STORAGE",
+            #    "android.permission.ACCESS_FINE_LOCATION",
+            #    "android.permission.ACCESS_COARSE_LOCATION",
+            #    "android.permission.READ_CONTACTS"
+            #]
+#
+#
+            ## Conceder cada permissão
+            #for permission in permissions:
+            #    command = f"adb -s {porta} shell pm grant {package_name} {permission}"
+            #    result = subprocess.run(command.split(), capture_output=True, text=True)
+            #    if result.returncode == 0:
+            #        pass
+            #        #print(f"Permissão '{permission}' concedida para '{package_name}'.")
+            #    else:
+            #        print(f"Erro ao conceder permissão '{permission}': {result.stderr}")
+            #d.app_start(package_name)
+            #d(text="Agree and continue").click(timeout=15)
+            #d(text='CONTINUAR').click(timeout=20)
+            #try:
+            #    d(text='COMEÇAR').click(timeout=15)
+            #except:
+            #    d(text="Consent").click()
+            #    d(text='COMEÇAR').click(timeout=20)
+            #d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
+            ##d(text="Adicionar Apps").wait(timeout=30)
+            #d(text="ACEITAR").click()
+            #try: d(text="Instagram").click(timeout=10)
+            #except: 
+            #    d(text="Adicionar Apps").click(timeout=10)
+            #    d(text="Instagram").click(timeout=10)
+            #    d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
+            #time.sleep(2)
+
+            from PIL import Image
+            import numpy as np
+            import time
+            import random
+            import os
+            import tempfile
+            d.app_clear("com.ludashi.dualspaceprox")
+            package_name = "com.ludashi.dualspaceprox"
             permissions = [
                 "android.permission.CALL_PHONE",
                 "android.permission.READ_EXTERNAL_STORAGE",
@@ -6674,8 +6868,6 @@ def creator_CLONER_EMAIL():
                 "android.permission.ACCESS_COARSE_LOCATION",
                 "android.permission.READ_CONTACTS"
             ]
-
-
             # Conceder cada permissão
             for permission in permissions:
                 command = f"adb -s {porta} shell pm grant {package_name} {permission}"
@@ -6685,23 +6877,83 @@ def creator_CLONER_EMAIL():
                     #print(f"Permissão '{permission}' concedida para '{package_name}'.")
                 else:
                     print(f"Erro ao conceder permissão '{permission}': {result.stderr}")
-            d.app_start(package_name)
-            d(text="Agree and continue").click(timeout=15)
-            d(text='CONTINUAR').click(timeout=20)
-            try:
-                d(text='COMEÇAR').click(timeout=15)
-            except:
-                d(text="Consent").click()
-                d(text='COMEÇAR').click(timeout=20)
-            d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
-            #d(text="Adicionar Apps").wait(timeout=30)
-            d(text="ACEITAR").click()
-            try: d(text="Instagram").click(timeout=10)
-            except: 
-                d(text="Adicionar Apps").click(timeout=10)
-                d(text="Instagram").click(timeout=10)
-                d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
+            d.app_start("com.ludashi.dualspaceprox")
+            d(textContains="INICIAR").click(timeout=30)
             time.sleep(2)
+            d(resourceId="com.ludashi.dualspaceprox:id/search").click(timeout=30)
+            time.sleep(2)
+            try:
+                d(resourceId="com.ludashi.dualspaceprox:id/input_edit").set_text("Instagra")
+            except:
+                d(resourceId="com.ludashi.dualspaceprox:id/search").click(timeout=30)
+                time.sleep(3)
+                d(resourceId="com.ludashi.dualspaceprox:id/input_edit").set_text("Instagra")
+                time.sleep(1)
+
+            d(text="Instagram").click(timeout=20)
+            d.press("back")
+            d.press("back")
+            d(resourceId="com.ludashi.dualspaceprox:id/btn_clone").click(timeout=20)
+            d(text="Instagram(1)").click(timeout=30)
+            d(text="Instagram(1)").click(timeout=30)
+            time.sleep(3)
+
+            screenshot_path = os.path.join(tempfile.gettempdir(), f"screen{random.randint(000,999)}.png")
+            d.screenshot(screenshot_path)
+
+            # Esperar um pouco para garantir que a captura de tela seja salva
+            time.sleep(2)
+
+            # Abrir a imagem da captura de tela
+            img = Image.open(screenshot_path)
+            img_array = np.array(img)
+
+            # Definir a cor que você está procurando (RGB)
+            target_color = (31, 109, 238)  # Exemplo: vermelho
+
+            # Encontrar o último pixel com a cor alvo
+            def find_last_color_pixel(image_array, target_color):
+                # Converte a imagem para o espaço de cores RGB
+                img_rgb = img_array[:, :, :3]
+
+                # Calcula a diferença entre cada pixel e a cor alvo
+                diff = np.abs(img_rgb - np.array(target_color))
+
+                # Soma as diferenças para cada canal RGB
+                total_diff = np.sum(diff, axis=-1)
+
+                # Encontra todos os índices onde a diferença é zero (corresponde à cor alvo)
+                indices = np.argwhere(total_diff == 0)
+
+                # Se não houver índices encontrados, retorna None
+                if len(indices) == 0:
+                    return None, None
+
+                # Encontra o último índice onde a diferença é zero
+                last_index = indices[-1]
+
+                # Obtém as coordenadas do último pixel com a cor alvo
+                y, x = last_index
+
+                return x, y
+
+            x, y = find_last_color_pixel(img_array, target_color)
+
+            if x is not None and y is not None:
+                print(f"Último pixel encontrado na posição: ({x}, {y})")
+
+                # Converter x e y para inteiros
+                x = int(x)
+                y = int(y)
+
+                # Clicar no pixel encontrado
+                d.click(x, y)
+            else:
+                print("Cor não encontrada na imagem.")
+
+            # Remover a captura de tela temporária no computador
+            os.remove(screenshot_path)
+
             while True:
                 if d(text="Tentar novamente"):
                     d(text="Tentar novamente").click()
@@ -6709,7 +6961,12 @@ def creator_CLONER_EMAIL():
                     d(text="Ir para o app").click()
                 elif d(text="Termos e Política de Privacidade"):
                     d.xpath('//android.widget.Button[@content-desc="Continuar"]').click()
-                    time.sleep(2)
+                    time.sleep(5)
+                    if not d(text="Criar nova conta"):
+                        d.press("back")
+                        d(text="Instagram(1)").click(timeout=30)
+
+                    
                     
                 elif d(text="Criar nova conta"):
                     d(text="Criar nova conta").click()
@@ -6963,7 +7220,7 @@ def creator_CLONER_EMAIL():
                 tentativa = 0
                 tentativa2 = 0
                 while True:
-                    time.sleep(2)
+                    time.sleep(3)
                     if tentativa == 10:
                         d(text="Não recebi o código").click()
                         d(text="Reenviar código de confirmação").click()
@@ -7092,8 +7349,12 @@ def creator_CLONER_EMAIL():
             d(text="Avançar").click(timeout=30)
             d(text="Concordo").click(timeout=30)
 
-            while True:
-                if d(text="Pular"):
+            for i in range(10):
+                time.sleep(2)
+                if d(resourceId="com.instagram.android:id/tab_avatar"):
+                    d(resourceId="com.instagram.android:id/tab_avatar").click()
+                    time.sleep(5)
+                elif d(text="Pular") or d(resourceId="com.instagram.android:id/tab_avatar"):
                     print("Conta criada")
                     try:
                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
@@ -7223,15 +7484,16 @@ def creator_CLONER_EMAIL():
                             d(text="Encontrar pessoas").wait(timeout=30)
                             d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
                     except:
-                        package_name = "com.lbe.parallel.intl"
+                        #package_name = "com.lbe.parallel.intl"
+                        package_name = "com.ludashi.dualspaceprox"
                         d.app_stop(package_name)
                         #clear_command = f"adb shell pm clear {package_name}"
                         #subprocess.run(clear_command.split(), capture_output=True, text=True)
                         try:
-                            d.app_stop("adb shell pm clear com.lbe.parallel.intl.arm32")
+                            d.app_stop("com.lbe.parallel.intl.arm32")
                         except: pass
                         try:
-                            d.app_stop("adb shell pm clear com.lbe.parallel.intl.arm64")
+                            d.app_stop("com.lbe.parallel.intl.arm64")
                         except: pass
                         d.app_start(package_name)
                         while True:
@@ -7239,6 +7501,8 @@ def creator_CLONER_EMAIL():
                                 d(text="Ir para o app").click()
                             elif d(text="Adicionar Apps"):
                                 d(text="Instagram").click(timeout=10)
+                            elif d(text="Instagram(1)"):
+                                d(text="Instagram(1)").click(timeout=30)
 
                     #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
                     #d(text="Pular").click(timeout=30)
@@ -7259,11 +7523,29 @@ def creator_CLONER_EMAIL():
                     #    d(resourceId="com.instagram.android:id/recommended_user_dismiss_button").click(timeout=60)
                     #    time.sleep(0.5)
                     #    seguir_sugeridos += 1
-#
-                    #d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
+                    d(text="seguindo").click()
+                    seguir_sugeridos = 0
+                    while seguir_sugeridos < 10:
+                        try:
+                            d(text="Seguir").click(timeout=1)
+                            seguir_sugeridos += 1
+                        except:
+                            width, height = d.window_size()
+                            start_x = width // 2
+                            start_y = height * 3 // 4  # Comece no 75% da altura
+                            end_x = width // 2
+                            end_y = height // 4  # Termine no 25% da altura
+
+                            # Realize o swipe
+                            d.swipe(start_x, start_y, end_x, end_y, duration=0.5)
+                            if not d(text="Seguir"):
+                                break
+                    d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
                     d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=30)
-                    d(text="Adicionar conta").click(timeout=30)
+                    d(textContains="Adicionar conta").click(timeout=30)
                     d(text="Criar nova conta").click(timeout=20)
+                    window['output'].print(linha_ret)
+                    window.Refresh()
                     lista_user = random.choices(range(0, 9), k=2)
                     lista_letras = random.choices(letras, k=2)
                     nomea = fake.first_name_male().replace(" ", "")
@@ -7288,7 +7570,9 @@ def creator_CLONER_EMAIL():
                     print(user_completo)
 
                     d(text="Escolha um nome de usuário").wait(timeout=30)
-                    escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.05)
+                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
+                    window.Refresh()
+                    escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.05, chunk_size=1)
                     while True:
                         if d(textContains='não está disponível.'):
                             d(resourceId='com.instagram.android:id/username_suggestion_text').click()
@@ -7297,46 +7581,54 @@ def creator_CLONER_EMAIL():
                     d(text="Avançar", enabled=True).click()
                     d(text="Crie uma senha").wait(timeout=20)
                     senha = gerar_senha(12)
-                    escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05)
-                    time.sleep(0.5)
+                    escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05, chunk_size=1)
+                    time.sleep(2)
                     d(text="Avançar", enabled=True).click()
+                    time.sleep(3)
                     d(text='Concluir o cadastro').click(timeout=20)
-                    if d(text='Tente novamente mais tarde').wait(timeout=5):
-                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
-                        window.Refresh()
-                        conteudo = config['vpn']
-                        if conteudo == "AVG":
-                            vpn_avg()
-                        elif conteudo == "SurfShark":
-                            vpn_surf()
-                        elif conteudo == "Nenhuma":
-                            nenhuma_vpn()
-                        elif conteudo == "Avast":
-                            vpn_avast()
-                        elif conteudo == "ExpressVPN":
-                            vpn_express()
-                        elif conteudo == "PiaVPN":
-                            vpn_pia()
-                        elif conteudo == "TunnelBear":
-                            vpn_tunnelbear()
-                        elif conteudo == "BetterNet":
-                            vpn_better()
-                        elif conteudo == "CyberGhost":
-                            vpn_cyberghost()
-                        elif conteudo == "NordVPN":
-                            vpn_nord()
-                        elif conteudo == "HotspotShield":
-                            vpn_hotspotshield()
-                        elif conteudo == "WindscribeVPN":
-                            vpn_windscribe()
-                        elif conteudo == "HmaVPN":
-                            vpn_hma()
-                        else:
-                            window['output'].print(
-                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                    while True:
+                        if (
+                            d(text='Tente novamente mais tarde') or 
+                            d(textContains="Ocorreu um erro de rede desconhecido") or
+                            d(textContains="feedback_required")
+
+                        ):
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
                             window.Refresh()
-                        raise Exception("Restrição")
-                    d(text='Pular').wait(timeout=30)
+                            conteudo = config['vpn']
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "TunnelBear":
+                                vpn_tunnelbear()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                            raise Exception("Restrição")
+                        
+                        elif d(text='Pular'): break
                     time.sleep(5)
                     if d(text="Pular"):
                         print("Conta criada")
@@ -7577,6 +7869,9 @@ def creator_CLONER_EMAIL():
                             "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                         window.Refresh()
                     raise Exception("SMS")
+            else:
+                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel criar esta conta')
+                window.Refresh()
             try:
                 while True:
                     window['output'].print(linha_ret)
