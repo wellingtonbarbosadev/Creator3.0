@@ -5270,27 +5270,50 @@ def creator_CLONER_NUM():
                         except Exception as e:
                             print(e)
                             pass
-                        d(text="Pular").click(timeout=30)
-                        d(textContains="Em seguida, você pode permitir o acesso").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        d(text="Receba sugestões do Facebook").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        d(text="Seguir amigos").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        d(text="Convide amigos para seguirem você").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        time.sleep(3)
-                        if d(textContains="Siga mais 5"):
-                            d(text="Avançar").click(timeout=30)
-                        else:
-                            d(text="Encontrar pessoas").wait(timeout=30)
-                            d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                        try:
+                            d(text="Pular").click(timeout=30)
+                            d(textContains="Em seguida, você pode permitir o acesso").wait(timeout=30)
+                            d(text="Pular").click(timeout=30)
+                            d(text="Receba sugestões do Facebook").wait(timeout=30)
+                            d(text="Pular").click(timeout=30)
+                            d(text="Seguir amigos").wait(timeout=30)
+                            d(text="Pular").click(timeout=30)
+                            d(text="Convide amigos para seguirem você").wait(timeout=30)
+                            d(text="Pular").click(timeout=30)
+                            time.sleep(3)
+                            if d(textContains="Siga mais 5"):
+                                d(text="Avançar").click(timeout=30)
+                            else:
+                                d(text="Encontrar pessoas").wait(timeout=30)
+                                d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                        except:
+                            package_name = "com.lbe.parallel.intl"
+                            d.app_stop(package_name)
+                            #clear_command = f"adb shell pm clear {package_name}"
+                            #subprocess.run(clear_command.split(), capture_output=True, text=True)
+                            try:
+                                d.app_stop("adb shell pm clear com.lbe.parallel.intl.arm32")
+                            except: pass
+                            try:
+                                d.app_stop("adb shell pm clear com.lbe.parallel.intl.arm64")
+                            except: pass
+                            d.app_start(package_name)
+                            while True:
+                                if d(text="Ir para o app"):
+                                    d(text="Ir para o app").click()
+                                elif d(text="Adicionar Apps"):
+                                    d(text="Instagram").click(timeout=10)
+
                         #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
                         #d(text="Pular").click(timeout=30)
                         
                         #d(text="Encontrar pessoas").wait(timeout=30)
                         #d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
-                        d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                        try:
+                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                        except:
+                            d(textContains="Permitir todos os cookies").click()
+                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                         #d(resourceId="com.instagram.android:id/netego_carousel_cta").click(timeout=60)
                         #if d(text="Não permitir acesso").wait(timeout=30):
                         #    d(text="Não permitir acesso").click(timeout=60)
@@ -7170,27 +7193,50 @@ def creator_CLONER_EMAIL():
                     except Exception as e:
                         print(e)
                         pass
-                    d(text="Pular").click(timeout=30)
-                    d(textContains="Em seguida, você pode permitir o acesso").wait(timeout=30)
-                    d(text="Pular").click(timeout=30)
-                    d(text="Receba sugestões do Facebook").wait(timeout=30)
-                    d(text="Pular").click(timeout=30)
-                    d(text="Seguir amigos").wait(timeout=30)
-                    d(text="Pular").click(timeout=30)
-                    d(text="Convide amigos para seguirem você").wait(timeout=30)
-                    d(text="Pular").click(timeout=30)
-                    time.sleep(3)
-                    if d(textContains="Siga mais 5"):
-                        d(text="Avançar").click(timeout=30)
-                    else:
-                        d(text="Encontrar pessoas").wait(timeout=30)
-                        d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                    try:
+                        d(text="Pular").click(timeout=30)
+                        d(textContains="Em seguida, você pode permitir o acesso").wait(timeout=30)
+                        d(text="Pular").click(timeout=30)
+                        d(text="Receba sugestões do Facebook").wait(timeout=30)
+                        d(text="Pular").click(timeout=30)
+                        d(text="Seguir amigos").wait(timeout=30)
+                        d(text="Pular").click(timeout=30)
+                        d(text="Convide amigos para seguirem você").wait(timeout=30)
+                        d(text="Pular").click(timeout=30)
+                        time.sleep(3)
+                        if d(textContains="Siga mais 5"):
+                            d(text="Avançar").click(timeout=30)
+                        else:
+                            d(text="Encontrar pessoas").wait(timeout=30)
+                            d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                    except:
+                        package_name = "com.lbe.parallel.intl"
+                        d.app_stop(package_name)
+                        #clear_command = f"adb shell pm clear {package_name}"
+                        #subprocess.run(clear_command.split(), capture_output=True, text=True)
+                        try:
+                            d.app_stop("adb shell pm clear com.lbe.parallel.intl.arm32")
+                        except: pass
+                        try:
+                            d.app_stop("adb shell pm clear com.lbe.parallel.intl.arm64")
+                        except: pass
+                        d.app_start(package_name)
+                        while True:
+                            if d(text="Ir para o app"):
+                                d(text="Ir para o app").click()
+                            elif d(text="Adicionar Apps"):
+                                d(text="Instagram").click(timeout=10)
+
                     #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
                     #d(text="Pular").click(timeout=30)
                     
                     #d(text="Encontrar pessoas").wait(timeout=30)
                     #d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
-                    d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                    try:
+                        d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                    except:
+                        d(textContains="Permitir todos os cookies").click()
+                        d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                     #d(resourceId="com.instagram.android:id/netego_carousel_cta").click(timeout=60)
                     #if d(text="Não permitir acesso").wait(timeout=30):
                     #    d(text="Não permitir acesso").click(timeout=60)
