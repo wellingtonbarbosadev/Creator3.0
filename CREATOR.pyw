@@ -5453,7 +5453,8 @@ def creator_CLONER_NUM():
                                 d(text="Instagram").click(timeout=10)
                             elif d(text="Instagram(1)"):
                                 d(text="Instagram(1)").click(timeout=30)
-                            else: break
+                            elif d(resourceId="com.instagram.android:id/tab_avatar"):
+                                break
                         try:
                             d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                         except:
@@ -5515,7 +5516,7 @@ def creator_CLONER_NUM():
                         print(user_completo)
 
                         d(text="Escolha um nome de usuário").wait(timeout=30)
-                        escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.05, por_vez=1)
+                        escrever_devagar(d(className="android.widget.EditText"), user_completo, delay=0.05, chunk_size=1)
                         while True:
                             if d(textContains='não está disponível.'):
                                 d(resourceId='com.instagram.android:id/username_suggestion_text').click()
@@ -5524,7 +5525,7 @@ def creator_CLONER_NUM():
                         d(text="Avançar", enabled=True).click()
                         d(text="Crie uma senha").wait(timeout=20)
                         senha = gerar_senha(12)
-                        escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05, por_vez=1)
+                        escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05, chunk_size=1)
                         time.sleep(2)
                         d(text="Avançar", enabled=True).click()
                         time.sleep(3)
@@ -7620,7 +7621,8 @@ def creator_CLONER_EMAIL():
                             d(text="Instagram").click(timeout=10)
                         elif d(text="Instagram(1)"):
                             d(text="Instagram(1)").click(timeout=30)
-                        else: break
+                        elif d(resourceId="com.instagram.android:id/tab_avatar"):
+                            break
                     try:
                         d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                     except:
