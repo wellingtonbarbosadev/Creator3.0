@@ -4604,6 +4604,12 @@ def creator_CLONER_NUM():
             except: pass
             try: d.app_clear("pl.rs.sip.softphone.newapp")
             except: pass
+            try: d.app_stop("com.lbe.parallel.intl")
+            except: pass
+            try: d.app_stop("com.lbe.parallel.intl.arm32")
+            except: pass
+            try: d.app_stop("com.lbe.parallel.intl.arm64")
+            except: pass
             senha = gerar_senha(12)
             if parar is True:
                 print('Parando Thread')
@@ -4942,24 +4948,29 @@ def creator_CLONER_NUM():
                 d(text='Cadastrar-se com o email').wait(timeout=30)
                 num = f"+48{num}"
                 escrever_devagar(d(className="android.widget.EditText"), num, delay=0.05)
-                time.sleep(3)
-                if d(textContains="Você está tentando entrar?"):
+                d(text="Avançar").click(timeout=30)
+                time.sleep(5)
+                if d(textContains="Você está tentando entrar?").wait(timeout=15):
                     d(text="Criar nova conta").click()
                     time.sleep(3)
+                if d(text="Enviar código por SMS"):
+                    d(text="Enviar código por SMS").click()
+                    d(text="Avançar").click(timeout=30)
                 try:
                     d(text="Não recebi o código").wait(timeout=30)
                 except:
                     print("Restrição")
                     time.sleep(1000)
                     raise Exception("Restrição")
-
+                
                 window['output'].print(
                     f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código...')
                 window.Refresh()
                 troca_ip_estatica = 0
                 # MUDAR PARA 2NR
-                d.press("recent")
-                d.press("recent")
+                d.app_start("pl.rs.sip.softphone.newapp")
+                #d.press("recent")
+                #d.press("recent")
                 # MUDAR PARA 2NR
                 time.sleep(5)
                 if d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').exists:
@@ -5093,7 +5104,7 @@ def creator_CLONER_NUM():
                 d.press("recent")
                 # MUDAR PARA INSTA
                 d(text='Avançar').wait(timeout=30)
-                escrever_devagar(d(className="android.widget.EditText"), cod, delay=0.05)
+                escrever_devagar(d(className="android.widget.EditText"), codigo, delay=0.05)
 
                 d(text="Avançar").click(timeout=30)
                 d(text='Crie uma senha').wait(timeout=30)
