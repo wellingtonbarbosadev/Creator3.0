@@ -5440,7 +5440,8 @@ def creator_CLONER_NUM():
                                     d(text="Instagram").click(timeout=10)
                                 elif d(text="Instagram(1)"):
                                     d(text="Instagram(1)").click(timeout=30)
-                                else: break
+                                elif d(resourceId="com.instagram.android:id/tab_avatar"):
+                                    break
                         #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
                         #d(text="Pular").click(timeout=30)
                         
@@ -7609,7 +7610,8 @@ def creator_CLONER_EMAIL():
                                 d(text="Instagram").click(timeout=10)
                             elif d(text="Instagram(1)"):
                                 d(text="Instagram(1)").click(timeout=30)
-                            else: break
+                            elif d(resourceId="com.instagram.android:id/tab_avatar"):
+                                break
                     #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
                     #d(text="Pular").click(timeout=30)
                     
