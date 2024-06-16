@@ -5439,12 +5439,21 @@ def creator_CLONER_NUM():
                                     d(text="Instagram").click(timeout=10)
                                 elif d(text="Instagram(1)"):
                                     d(text="Instagram(1)").click(timeout=30)
-
+                                else: break
                         #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
                         #d(text="Pular").click(timeout=30)
                         
                         #d(text="Encontrar pessoas").wait(timeout=30)
                         #d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                        while True:
+                            time.sleep(5)
+                            if d(text="Ir para o app"):
+                                d(text="Ir para o app").click()
+                            elif d(text="Adicionar Apps"):
+                                d(text="Instagram").click(timeout=10)
+                            elif d(text="Instagram(1)"):
+                                d(text="Instagram(1)").click(timeout=30)
+                            else: break
                         try:
                             d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                         except:
@@ -5678,15 +5687,57 @@ def creator_CLONER_NUM():
                             except Exception as e:
                                 print(e)
                                 pass
-                            d(text="Pular").click()
-                            d(text="Seguir amigos").wait(timeout=30)
-                            d(text="Pular").click(timeout=30)
-                            d(text="Adicionar foto do perfil").wait(timeout=30)
-                            d(text="Pular").click(timeout=30)
-                            d(text="Convide amigos para seguirem você").wait(timeout=30)
-                            d(text="Pular").click(timeout=30)
-                            d(text="Encontrar pessoas").wait(timeout=30)
-                            d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                            try:
+                                d(text="Pular").click()
+                                #d(text="Seguir amigos").wait(timeout=30)
+                                #d(text="Pular").click(timeout=30)
+                                d(text="Adicionar foto do perfil").wait(timeout=30)
+                                d(text="Pular").click(timeout=30)
+                                d(text="Convide amigos para seguirem você").wait(timeout=30)
+                                d(text="Pular").click(timeout=30)
+                                d(text="Encontrar pessoas").wait(timeout=30)
+                                d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                            except:
+                                #package_name = "com.lbe.parallel.intl"
+                                package_name = "com.lbe.parallel.intl"
+                                d.app_stop(package_name)
+                                #clear_command = f"adb shell pm clear {package_name}"
+                                #subprocess.run(clear_command.split(), capture_output=True, text=True)
+                                try:
+                                    d.app_stop("com.lbe.parallel.intl.arm32")
+                                except: pass
+                                try:
+                                    d.app_stop("com.lbe.parallel.intl.arm64")
+                                except: pass
+                                d.app_start(package_name)
+                                while True:
+                                    if d(text="Ir para o app"):
+                                        d(text="Ir para o app").click()
+                                    elif d(text="Adicionar Apps"):
+                                        d(text="Instagram").click(timeout=10)
+                                    elif d(text="Instagram(1)"):
+                                        d(text="Instagram(1)").click(timeout=30)
+                                    else: break
+                            #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
+                            #d(text="Pular").click(timeout=30)
+                            
+                            #d(text="Encontrar pessoas").wait(timeout=30)
+                            #d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                            while True:
+                                time.sleep(5)
+                                if d(text="Ir para o app"):
+                                    d(text="Ir para o app").click()
+                                elif d(text="Adicionar Apps"):
+                                    d(text="Instagram").click(timeout=10)
+                                elif d(text="Instagram(1)"):
+                                    d(text="Instagram(1)").click(timeout=30)
+                                else: break
+                            try:
+                                d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                            except:
+                                d(textContains="Permitir todos os cookies").click()
+                                d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+
                             break
                     elif d(text="RELATAR PROBLEMA"):
                         conteudo = config['vpn']
@@ -6003,16 +6054,56 @@ def creator_CLONER_NUM():
                             except Exception as e:
                                 print(e)
                                 pass
-                            d(text="Pular").click()
-                            d(text="Seguir amigos").wait(timeout=30)
-                            d(text="Pular").click(timeout=30)
-                            d(text="Adicionar foto do perfil").wait(timeout=30)
-                            d(text="Pular").click(timeout=30)
-                            d(text="Convide amigos para seguirem você").wait(timeout=30)
-                            d(text="Pular").click(timeout=30)
-                            d(text="Encontrar pessoas").wait(timeout=30)
-                            d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
-                        
+                            try:
+                                d(text="Pular").click()
+                                d(text="Seguir amigos").wait(timeout=30)
+                                d(text="Pular").click(timeout=30)
+                                d(text="Adicionar foto do perfil").wait(timeout=30)
+                                d(text="Pular").click(timeout=30)
+                                d(text="Convide amigos para seguirem você").wait(timeout=30)
+                                d(text="Pular").click(timeout=30)
+                                d(text="Encontrar pessoas").wait(timeout=30)
+                                d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                            except:
+                                #package_name = "com.lbe.parallel.intl"
+                                package_name = "com.lbe.parallel.intl"
+                                d.app_stop(package_name)
+                                #clear_command = f"adb shell pm clear {package_name}"
+                                #subprocess.run(clear_command.split(), capture_output=True, text=True)
+                                try:
+                                    d.app_stop("com.lbe.parallel.intl.arm32")
+                                except: pass
+                                try:
+                                    d.app_stop("com.lbe.parallel.intl.arm64")
+                                except: pass
+                                d.app_start(package_name)
+                                while True:
+                                    if d(text="Ir para o app"):
+                                        d(text="Ir para o app").click()
+                                    elif d(text="Adicionar Apps"):
+                                        d(text="Instagram").click(timeout=10)
+                                    elif d(text="Instagram(1)"):
+                                        d(text="Instagram(1)").click(timeout=30)
+                                    else: break
+                            #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
+                            #d(text="Pular").click(timeout=30)
+                            
+                            #d(text="Encontrar pessoas").wait(timeout=30)
+                            #d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                            while True:
+                                time.sleep(5)
+                                if d(text="Ir para o app"):
+                                    d(text="Ir para o app").click()
+                                elif d(text="Adicionar Apps"):
+                                    d(text="Instagram").click(timeout=10)
+                                elif d(text="Instagram(1)"):
+                                    d(text="Instagram(1)").click(timeout=30)
+                                else: break
+                            try:
+                                d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                            except:
+                                d(textContains="Permitir todos os cookies").click()
+                                d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                 except Exception as e:
                     print(e)
                     if not str(e) == '':
@@ -7515,12 +7606,21 @@ def creator_CLONER_EMAIL():
                                 d(text="Instagram").click(timeout=10)
                             elif d(text="Instagram(1)"):
                                 d(text="Instagram(1)").click(timeout=30)
-
+                            else: break
                     #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
                     #d(text="Pular").click(timeout=30)
                     
                     #d(text="Encontrar pessoas").wait(timeout=30)
                     #d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                    while True:
+                        time.sleep(5)
+                        if d(text="Ir para o app"):
+                            d(text="Ir para o app").click()
+                        elif d(text="Adicionar Apps"):
+                            d(text="Instagram").click(timeout=10)
+                        elif d(text="Instagram(1)"):
+                            d(text="Instagram(1)").click(timeout=30)
+                        else: break
                     try:
                         d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                     except:
@@ -7754,15 +7854,57 @@ def creator_CLONER_EMAIL():
                         except Exception as e:
                             print(e)
                             pass
-                        d(text="Pular").click()
-                        d(text="Seguir amigos").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        d(text="Adicionar foto do perfil").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        d(text="Convide amigos para seguirem você").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        d(text="Encontrar pessoas").wait(timeout=30)
-                        d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                        try:
+                            d(text="Pular").click()
+                            #d(text="Seguir amigos").wait(timeout=30)
+                            #d(text="Pular").click(timeout=30)
+                            d(text="Adicionar foto do perfil").wait(timeout=30)
+                            d(text="Pular").click(timeout=30)
+                            d(text="Convide amigos para seguirem você").wait(timeout=30)
+                            d(text="Pular").click(timeout=30)
+                            d(text="Encontrar pessoas").wait(timeout=30)
+                            d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                        except:
+                            #package_name = "com.lbe.parallel.intl"
+                            package_name = "com.lbe.parallel.intl"
+                            d.app_stop(package_name)
+                            #clear_command = f"adb shell pm clear {package_name}"
+                            #subprocess.run(clear_command.split(), capture_output=True, text=True)
+                            try:
+                                d.app_stop("com.lbe.parallel.intl.arm32")
+                            except: pass
+                            try:
+                                d.app_stop("com.lbe.parallel.intl.arm64")
+                            except: pass
+                            d.app_start(package_name)
+                            while True:
+                                if d(text="Ir para o app"):
+                                    d(text="Ir para o app").click()
+                                elif d(text="Adicionar Apps"):
+                                    d(text="Instagram").click(timeout=10)
+                                elif d(text="Instagram(1)"):
+                                    d(text="Instagram(1)").click(timeout=30)
+                                else: break
+                        #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
+                        #d(text="Pular").click(timeout=30)
+                        
+                        #d(text="Encontrar pessoas").wait(timeout=30)
+                        #d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                        while True:
+                            time.sleep(5)
+                            if d(text="Ir para o app"):
+                                d(text="Ir para o app").click()
+                            elif d(text="Adicionar Apps"):
+                                d(text="Instagram").click(timeout=10)
+                            elif d(text="Instagram(1)"):
+                                d(text="Instagram(1)").click(timeout=30)
+                            else: break
+                        try:
+                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                        except:
+                            d(textContains="Permitir todos os cookies").click()
+                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+
                         break
                 elif d(text="RELATAR PROBLEMA"):
                     conteudo = config['vpn']
@@ -8079,16 +8221,56 @@ def creator_CLONER_EMAIL():
                         except Exception as e:
                             print(e)
                             pass
-                        d(text="Pular").click()
-                        d(text="Seguir amigos").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        d(text="Adicionar foto do perfil").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        d(text="Convide amigos para seguirem você").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        d(text="Encontrar pessoas").wait(timeout=30)
-                        d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                        try:
+                            d(text="Pular").click()
+                            d(text="Seguir amigos").wait(timeout=30)
+                            d(text="Pular").click(timeout=30)
+                            d(text="Adicionar foto do perfil").wait(timeout=30)
+                            d(text="Pular").click(timeout=30)
+                            d(text="Convide amigos para seguirem você").wait(timeout=30)
+                            d(text="Pular").click(timeout=30)
+                            d(text="Encontrar pessoas").wait(timeout=30)
+                            d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                        except:
+                            #package_name = "com.lbe.parallel.intl"
+                            package_name = "com.lbe.parallel.intl"
+                            d.app_stop(package_name)
+                            #clear_command = f"adb shell pm clear {package_name}"
+                            #subprocess.run(clear_command.split(), capture_output=True, text=True)
+                            try:
+                                d.app_stop("com.lbe.parallel.intl.arm32")
+                            except: pass
+                            try:
+                                d.app_stop("com.lbe.parallel.intl.arm64")
+                            except: pass
+                            d.app_start(package_name)
+                            while True:
+                                if d(text="Ir para o app"):
+                                    d(text="Ir para o app").click()
+                                elif d(text="Adicionar Apps"):
+                                    d(text="Instagram").click(timeout=10)
+                                elif d(text="Instagram(1)"):
+                                    d(text="Instagram(1)").click(timeout=30)
+                                else: break
+                        #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
+                        #d(text="Pular").click(timeout=30)
                         
+                        #d(text="Encontrar pessoas").wait(timeout=30)
+                        #d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                        while True:
+                            time.sleep(5)
+                            if d(text="Ir para o app"):
+                                d(text="Ir para o app").click()
+                            elif d(text="Adicionar Apps"):
+                                d(text="Instagram").click(timeout=10)
+                            elif d(text="Instagram(1)"):
+                                d(text="Instagram(1)").click(timeout=30)
+                            else: break
+                        try:
+                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                        except:
+                            d(textContains="Permitir todos os cookies").click()
+                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
             except Exception as e:
                 print(e)
                 if not str(e) == '':
