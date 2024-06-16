@@ -5403,22 +5403,23 @@ def creator_CLONER_NUM():
                             print(e)
                             pass
                         try:
-                            d(text="Pular").click(timeout=30)
-                            d(textContains="Em seguida, você pode permitir o acesso").wait(timeout=30)
-                            d(text="Pular").click(timeout=30)
-                            d(text="Receba sugestões do Facebook").wait(timeout=30)
-                            d(text="Pular").click(timeout=30)
-                            d(text="Seguir amigos").wait(timeout=30)
-                            d(text="Pular").click(timeout=30)
-                            d(text="Convide amigos para seguirem você").wait(timeout=30)
-                            d(text="Pular").click(timeout=30)
-                            time.sleep(3)
-                            if d(textContains="Siga mais 5"):
-                                d(text="Avançar").click(timeout=30)
-                                time.sleep(10)
-                            else:
-                                d(text="Encontrar pessoas").wait(timeout=30)
-                                d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                            raise Exception("Criar por cima")
+                            #d(text="Pular").click(timeout=30)
+                            #d(textContains="Em seguida, você pode permitir o acesso").wait(timeout=30)
+                            #d(text="Pular").click(timeout=30)
+                            #d(text="Receba sugestões do Facebook").wait(timeout=30)
+                            #d(text="Pular").click(timeout=30)
+                            #d(text="Seguir amigos").wait(timeout=30)
+                            #d(text="Pular").click(timeout=30)
+                            #d(text="Convide amigos para seguirem você").wait(timeout=30)
+                            #d(text="Pular").click(timeout=30)
+                            #time.sleep(3)
+                            #if d(textContains="Siga mais 5"):
+                            #    d(text="Avançar").click(timeout=30)
+                            #    time.sleep(10)
+                            #else:
+                            #    d(text="Encontrar pessoas").wait(timeout=30)
+                            #    d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
                         except:
                             #package_name = "com.lbe.parallel.intl"
                             package_name = "com.lbe.parallel.intl"
@@ -7571,22 +7572,23 @@ def creator_CLONER_EMAIL():
                         print(e)
                         pass
                     try:
-                        d(text="Pular").click(timeout=30)
-                        d(textContains="Em seguida, você pode permitir o acesso").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        d(text="Receba sugestões do Facebook").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        d(text="Seguir amigos").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        d(text="Convide amigos para seguirem você").wait(timeout=30)
-                        d(text="Pular").click(timeout=30)
-                        time.sleep(3)
-                        if d(textContains="Siga mais 5"):
-                            d(text="Avançar").click(timeout=30)
-                            time.sleep(10)
-                        else:
-                            d(text="Encontrar pessoas").wait(timeout=30)
-                            d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                        raise Exception("Criar por cima")
+                        #d(text="Pular").click(timeout=30)
+                        #d(textContains="Em seguida, você pode permitir o acesso").wait(timeout=30)
+                        #d(text="Pular").click(timeout=30)
+                        #d(text="Receba sugestões do Facebook").wait(timeout=30)
+                        #d(text="Pular").click(timeout=30)
+                        #d(text="Seguir amigos").wait(timeout=30)
+                        #d(text="Pular").click(timeout=30)
+                        #d(text="Convide amigos para seguirem você").wait(timeout=30)
+                        #d(text="Pular").click(timeout=30)
+                        #time.sleep(3)
+                        #if d(textContains="Siga mais 5"):
+                        #    d(text="Avançar").click(timeout=30)
+                        #    time.sleep(10)
+                        #else:
+                        #    d(text="Encontrar pessoas").wait(timeout=30)
+                        #    d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
                     except:
                         #package_name = "com.lbe.parallel.intl"
                         package_name = "com.lbe.parallel.intl"
