@@ -5014,7 +5014,10 @@ def creator_CLONER_NUM():
                         d(text="Instagram").click(timeout=10)
                         time.sleep(2)
                     elif d(text="Instagram(1)"):
-                        d(text="Instagram(1)").click(timeout=10)
+                        try:    
+                            d(textContains="Instagram").click(timeout=10)
+                        except Exception as e:
+                            print(e)
                         time.sleep(2)
                     elif d(text="Recarregar"):
                         d(text="Recarregar").click()
@@ -6978,7 +6981,10 @@ def creator_CLONER_EMAIL():
                     d(text="Instagram").click(timeout=10)
                     time.sleep(2)
                 elif d(text="Instagram(1)"):
-                    d(text="Instagram(1)").click(timeout=10)
+                    try:    
+                        d(textContains="Instagram").click(timeout=10)
+                    except Exception as e:
+                        print(e)
                     time.sleep(2)
                 elif d(text="Recarregar"):
                     d(text="Recarregar").click()
