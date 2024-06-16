@@ -5457,6 +5457,8 @@ def creator_CLONER_NUM():
                                 d(text="Instagram").click(timeout=10)
                             elif d(text="Instagram(1)"):
                                 d(text="Instagram(1)").click(timeout=30)
+                            elif d(textContains="Permitir todos os cookies"):
+                                d(textContains="Permitir todos os cookies").click()
                             elif d(resourceId="com.instagram.android:id/tab_avatar"):
                                 break
                         try:
@@ -7639,6 +7641,8 @@ def creator_CLONER_EMAIL():
                             except: pass
                         elif d(text="Instagram(1)"):
                             d(text="Instagram(1)").click(timeout=30)
+                        elif d(textContains="Permitir todos os cookies"):
+                            d(textContains="Permitir todos os cookies").click()
                         elif d(resourceId="com.instagram.android:id/tab_avatar"):
                             break
                     try:
