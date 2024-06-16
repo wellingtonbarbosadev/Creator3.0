@@ -5437,7 +5437,9 @@ def creator_CLONER_NUM():
                                 if d(text="Ir para o app"):
                                     d(text="Ir para o app").click()
                                 elif d(text="Adicionar Apps"):
-                                    d(text="Instagram").click(timeout=10)
+                                    try:
+                                        d(text="Instagram").click(timeout=10)
+                                    except: pass
                                 elif d(text="Instagram(1)"):
                                     d(text="Instagram(1)").click(timeout=30)
                                 elif d(resourceId="com.instagram.android:id/tab_avatar"):
@@ -5691,15 +5693,16 @@ def creator_CLONER_NUM():
                                 print(e)
                                 pass
                             try:
-                                d(text="Pular").click()
-                                #d(text="Seguir amigos").wait(timeout=30)
-                                #d(text="Pular").click(timeout=30)
-                                d(text="Adicionar foto do perfil").wait(timeout=30)
-                                d(text="Pular").click(timeout=30)
-                                d(text="Convide amigos para seguirem você").wait(timeout=30)
-                                d(text="Pular").click(timeout=30)
-                                d(text="Encontrar pessoas").wait(timeout=30)
-                                d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                                raise Exception("Criar por cima")
+                               #d(text="Pular").click()
+                               ##d(text="Seguir amigos").wait(timeout=30)
+                               ##d(text="Pular").click(timeout=30)
+                               #d(text="Adicionar foto do perfil").wait(timeout=30)
+                               #d(text="Pular").click(timeout=30)
+                               #d(text="Convide amigos para seguirem você").wait(timeout=30)
+                               #d(text="Pular").click(timeout=30)
+                               #d(text="Encontrar pessoas").wait(timeout=30)
+                               #d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
                             except:
                                 #package_name = "com.lbe.parallel.intl"
                                 package_name = "com.lbe.parallel.intl"
@@ -5717,10 +5720,14 @@ def creator_CLONER_NUM():
                                     if d(text="Ir para o app"):
                                         d(text="Ir para o app").click()
                                     elif d(text="Adicionar Apps"):
-                                        d(text="Instagram").click(timeout=10)
+                                        try:
+                                            d(text="Instagram").click(timeout=10)
+                                        except:
+                                            pass
                                     elif d(text="Instagram(1)"):
                                         d(text="Instagram(1)").click(timeout=30)
-                                    else: break
+                                    elif d(resourceId="com.instagram.android:id/tab_avatar"):
+                                        break
                             #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
                             #d(text="Pular").click(timeout=30)
                             
@@ -5731,7 +5738,9 @@ def creator_CLONER_NUM():
                                 if d(text="Ir para o app"):
                                     d(text="Ir para o app").click()
                                 elif d(text="Adicionar Apps"):
-                                    d(text="Instagram").click(timeout=10)
+                                    try:
+                                        d(text="Instagram").click(timeout=10)
+                                    except: pass
                                 elif d(text="Instagram(1)"):
                                     d(text="Instagram(1)").click(timeout=30)
                                 else: break
@@ -7607,7 +7616,10 @@ def creator_CLONER_EMAIL():
                             if d(text="Ir para o app"):
                                 d(text="Ir para o app").click()
                             elif d(text="Adicionar Apps"):
-                                d(text="Instagram").click(timeout=10)
+                                try:
+                                    d(text="Instagram").click(timeout=10)
+                                except:
+                                    pass
                             elif d(text="Instagram(1)"):
                                 d(text="Instagram(1)").click(timeout=30)
                             elif d(resourceId="com.instagram.android:id/tab_avatar"):
@@ -7622,7 +7634,9 @@ def creator_CLONER_EMAIL():
                         if d(text="Ir para o app"):
                             d(text="Ir para o app").click()
                         elif d(text="Adicionar Apps"):
-                            d(text="Instagram").click(timeout=10)
+                            try:
+                                d(text="Instagram").click(timeout=10)
+                            except: pass
                         elif d(text="Instagram(1)"):
                             d(text="Instagram(1)").click(timeout=30)
                         elif d(resourceId="com.instagram.android:id/tab_avatar"):
@@ -7861,15 +7875,23 @@ def creator_CLONER_EMAIL():
                             print(e)
                             pass
                         try:
-                            d(text="Pular").click()
+                            raise Exception("Criar por cima")
+                            #d(text="Pular").click(timeout=30)
+                            #d(textContains="Em seguida, você pode permitir o acesso").wait(timeout=30)
+                            #d(text="Pular").click(timeout=30)
+                            #d(text="Receba sugestões do Facebook").wait(timeout=30)
+                            #d(text="Pular").click(timeout=30)
                             #d(text="Seguir amigos").wait(timeout=30)
                             #d(text="Pular").click(timeout=30)
-                            d(text="Adicionar foto do perfil").wait(timeout=30)
-                            d(text="Pular").click(timeout=30)
-                            d(text="Convide amigos para seguirem você").wait(timeout=30)
-                            d(text="Pular").click(timeout=30)
-                            d(text="Encontrar pessoas").wait(timeout=30)
-                            d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
+                            #d(text="Convide amigos para seguirem você").wait(timeout=30)
+                            #d(text="Pular").click(timeout=30)
+                            #time.sleep(3)
+                            #if d(textContains="Siga mais 5"):
+                            #    d(text="Avançar").click(timeout=30)
+                            #    time.sleep(10)
+                            #else:
+                            #    d(text="Encontrar pessoas").wait(timeout=30)
+                            #    d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
                         except:
                             #package_name = "com.lbe.parallel.intl"
                             package_name = "com.lbe.parallel.intl"
@@ -7887,10 +7909,13 @@ def creator_CLONER_EMAIL():
                                 if d(text="Ir para o app"):
                                     d(text="Ir para o app").click()
                                 elif d(text="Adicionar Apps"):
-                                    d(text="Instagram").click(timeout=10)
+                                    try:
+                                        d(text="Instagram").click(timeout=10)
+                                    except: pass
                                 elif d(text="Instagram(1)"):
                                     d(text="Instagram(1)").click(timeout=30)
-                                else: break
+                                elif d(resourceId="com.instagram.android:id/tab_avatar"):
+                                    break
                         #d(text="Sincronize seus contatos para encontrar seus amigos").wait(timeout=30)
                         #d(text="Pular").click(timeout=30)
                         
