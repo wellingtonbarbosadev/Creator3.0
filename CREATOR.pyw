@@ -5013,6 +5013,9 @@ def creator_CLONER_NUM():
                     elif d(text="Adicionar Apps"):
                         d(text="Instagram").click(timeout=10)
                         time.sleep(2)
+                    elif d(text="Instagram(1)"):
+                        d(text="Instagram(1)").click(timeout=10)
+                        time.sleep(2)
                     elif d(text="Recarregar"):
                         d(text="Recarregar").click()
                         time.sleep(3)
@@ -6973,6 +6976,9 @@ def creator_CLONER_EMAIL():
                     break
                 elif d(text="Adicionar Apps"):
                     d(text="Instagram").click(timeout=10)
+                    time.sleep(2)
+                elif d(text="Instagram(1)"):
+                    d(text="Instagram(1)").click(timeout=10)
                     time.sleep(2)
                 elif d(text="Recarregar"):
                     d(text="Recarregar").click()
