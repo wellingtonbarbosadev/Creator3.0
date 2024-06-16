@@ -5303,7 +5303,7 @@ def creator_CLONER_NUM():
     #
                         #d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
                         d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=30)
-                        d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.LinearLayout[last()]/android.widget.FrameLayout/android.widget.ImageView').click(timeout=30)
+                        d(text="Adicionar conta").click(timeout=30)
                         d(text="Criar nova conta").click(timeout=20)
                         lista_user = random.choices(range(0, 9), k=2)
                         lista_letras = random.choices(letras, k=2)
@@ -7203,7 +7203,7 @@ def creator_CLONER_EMAIL():
 #
                     #d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
                     d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=30)
-                    d.xpath('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.LinearLayout[last()]/android.widget.FrameLayout/android.widget.ImageView').click(timeout=30)
+                    d(text="Adicionar conta").click(timeout=30)
                     d(text="Criar nova conta").click(timeout=20)
                     lista_user = random.choices(range(0, 9), k=2)
                     lista_letras = random.choices(letras, k=2)
