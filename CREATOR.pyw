@@ -4842,64 +4842,18 @@ def creator_CLONER_NUM():
                 window['output'].print(
                     f'[{datetime.now().strftime("%H:%M:%S")}] Clonando Instagram')
                 window.Refresh()
-                #package_name = "com.lbe.parallel.intl"
-                #d.app_clear(package_name)
-                ##clear_command = f"adb shell pm clear {package_name}"
-                ##subprocess.run(clear_command.split(), capture_output=True, text=True)
-                #try:
-                #    clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm32"
-                #    subprocess.run(clear_command.split(), capture_output=True, text=True)
-                #except: pass
-                #try:
-                #    clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm64"
-                #    subprocess.run(clear_command.split(), capture_output=True, text=True)
-                #except: pass
-                #permissions = [
-                #    "android.permission.CALL_PHONE",
-                #    "android.permission.READ_EXTERNAL_STORAGE",
-                #    "android.permission.WRITE_EXTERNAL_STORAGE",
-                #    "android.permission.ACCESS_FINE_LOCATION",
-                #    "android.permission.ACCESS_COARSE_LOCATION",
-                #    "android.permission.READ_CONTACTS"
-                #]
-#
-#
-                ## Conceder cada permissão
-                #for permission in permissions:
-                #    command = f"adb -s {porta} shell pm grant {package_name} {permission}"
-                #    result = subprocess.run(command.split(), capture_output=True, text=True)
-                #    if result.returncode == 0:
-                #        pass
-                #        #print(f"Permissão '{permission}' concedida para '{package_name}'.")
-                #    else:
-                #        print(f"Erro ao conceder permissão '{permission}': {result.stderr}")
-                #d.app_start(package_name)
-                #d(text="Agree and continue").click(timeout=15)
-                #d(text='CONTINUAR').click(timeout=20)
-                #try:
-                #    d(text='COMEÇAR').click(timeout=15)
-                #except:
-                #    d(textContains="Consent").click()
-                #    d(text='COMEÇAR').click(timeout=20)
-                #d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
-                ##d(text="Adicionar Apps").wait(timeout=30)
-                #d(text="ACEITAR").click()
-                #try: d(text="Instagram").click(timeout=10)
-                #except: 
-                #    d(text="Adicionar Apps").click(timeout=10)
-                #    d(text="Instagram").click(timeout=10)
-                #    d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
-                #time.sleep(2)
-
-
-                from PIL import Image
-                import numpy as np
-                import time
-                import random
-                import os
-                import tempfile
-                d.app_clear("com.ludashi.dualspaceprox")
-                package_name = "com.ludashi.dualspaceprox"
+                package_name = "com.lbe.parallel.intl"
+                d.app_clear(package_name)
+                #clear_command = f"adb shell pm clear {package_name}"
+                #subprocess.run(clear_command.split(), capture_output=True, text=True)
+                try:
+                    clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm32"
+                    subprocess.run(clear_command.split(), capture_output=True, text=True)
+                except: pass
+                try:
+                    clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm64"
+                    subprocess.run(clear_command.split(), capture_output=True, text=True)
+                except: pass
                 permissions = [
                     "android.permission.CALL_PHONE",
                     "android.permission.READ_EXTERNAL_STORAGE",
@@ -4908,6 +4862,8 @@ def creator_CLONER_NUM():
                     "android.permission.ACCESS_COARSE_LOCATION",
                     "android.permission.READ_CONTACTS"
                 ]
+#
+#
                 # Conceder cada permissão
                 for permission in permissions:
                     command = f"adb -s {porta} shell pm grant {package_name} {permission}"
@@ -4917,82 +4873,126 @@ def creator_CLONER_NUM():
                         #print(f"Permissão '{permission}' concedida para '{package_name}'.")
                     else:
                         print(f"Erro ao conceder permissão '{permission}': {result.stderr}")
-                d.app_start("com.ludashi.dualspaceprox")
-                d(textContains="INICIAR").click(timeout=30)
-                time.sleep(2)
-                d(resourceId="com.ludashi.dualspaceprox:id/search").click(timeout=30)
-                time.sleep(2)
+                d.app_start(package_name)
+                d(text="Agree and continue").click(timeout=15)
+                d(text='CONTINUAR').click(timeout=20)
                 try:
-                    d(resourceId="com.ludashi.dualspaceprox:id/input_edit").set_text("Instagra")
+                    d(text='COMEÇAR').click(timeout=15)
                 except:
-                    d(resourceId="com.ludashi.dualspaceprox:id/search").click(timeout=30)
-                    time.sleep(3)
-                    d(resourceId="com.ludashi.dualspaceprox:id/input_edit").set_text("Instagra")
-                    time.sleep(1)
-
-                d(text="Instagram").click(timeout=20)
-                d.press("back")
-                d.press("back")
-                d(resourceId="com.ludashi.dualspaceprox:id/btn_clone").click(timeout=20)
-                d(text="Instagram(1)").click(timeout=30)
-                d(text="Instagram(1)").click(timeout=30)
-                time.sleep(3)
-
-                screenshot_path = os.path.join(tempfile.gettempdir(), f"screen{random.randint(000,999)}.png")
-                d.screenshot(screenshot_path)
-
-                # Esperar um pouco para garantir que a captura de tela seja salva
+                    d(textContains="Consent").click()
+                    d(text='COMEÇAR').click(timeout=20)
+                d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
+                #d(text="Adicionar Apps").wait(timeout=30)
+                d(text="ACEITAR").click()
+                try: d(text="Instagram").click(timeout=10)
+                except: 
+                    d(text="Adicionar Apps").click(timeout=10)
+                    d(text="Instagram").click(timeout=10)
+                    d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
                 time.sleep(2)
 
-                # Abrir a imagem da captura de tela
-                img = Image.open(screenshot_path)
-                img_array = np.array(img)
 
-                # Definir a cor que você está procurando (RGB)
-                target_color = (31, 109, 238)  # Exemplo: vermelho
-
-                # Encontrar o último pixel com a cor alvo
-                def find_last_color_pixel(image_array, target_color):
-                    # Converte a imagem para o espaço de cores RGB
-                    img_rgb = img_array[:, :, :3]
-
-                    # Calcula a diferença entre cada pixel e a cor alvo
-                    diff = np.abs(img_rgb - np.array(target_color))
-
-                    # Soma as diferenças para cada canal RGB
-                    total_diff = np.sum(diff, axis=-1)
-
-                    # Encontra todos os índices onde a diferença é zero (corresponde à cor alvo)
-                    indices = np.argwhere(total_diff == 0)
-
-                    # Se não houver índices encontrados, retorna None
-                    if len(indices) == 0:
-                        return None, None
-
-                    # Encontra o último índice onde a diferença é zero
-                    last_index = indices[-1]
-
-                    # Obtém as coordenadas do último pixel com a cor alvo
-                    y, x = last_index
-
-                    return x, y
-
-                x, y = find_last_color_pixel(img_array, target_color)
-
-                if x is not None and y is not None:
-                    print(f"Último pixel encontrado na posição: ({x}, {y})")
-
-                    # Converter x e y para inteiros
-                    x = int(x)
-                    y = int(y)
-
-                    # Clicar no pixel encontrado
-                    d.click(x, y)
-                else:
-                    print("Cor não encontrada na imagem.")
-
-                # Remover a captura de tela temporária no computador
-                os.remove(screenshot_path)
+                #from PIL import Image
+                #import numpy as np
+                #import time
+                #import random
+                #import os
+                #import tempfile
+                #d.app_clear("com.ludashi.dualspaceprox")
+                #package_name = "com.ludashi.dualspaceprox"
+                #permissions = [
+                #    "android.permission.CALL_PHONE",
+                #    "android.permission.READ_EXTERNAL_STORAGE",
+                #    "android.permission.WRITE_EXTERNAL_STORAGE",
+                #    "android.permission.ACCESS_FINE_LOCATION",
+                #    "android.permission.ACCESS_COARSE_LOCATION",
+                #    "android.permission.READ_CONTACTS"
+                #]
+                ## Conceder cada permissão
+                #for permission in permissions:
+                #    command = f"adb -s {porta} shell pm grant {package_name} {permission}"
+                #    result = subprocess.run(command.split(), capture_output=True, text=True)
+                #    if result.returncode == 0:
+                #        pass
+                #        #print(f"Permissão '{permission}' concedida para '{package_name}'.")
+                #    else:
+                #        print(f"Erro ao conceder permissão '{permission}': {result.stderr}")
+                #d.app_start("com.ludashi.dualspaceprox")
+                #d(textContains="INICIAR").click(timeout=30)
+                #time.sleep(2)
+                #d(resourceId="com.ludashi.dualspaceprox:id/search").click(timeout=30)
+                #time.sleep(2)
+                #try:
+                #    d(resourceId="com.ludashi.dualspaceprox:id/input_edit").set_text("Instagra")
+                #except:
+                #    d(resourceId="com.ludashi.dualspaceprox:id/search").click(timeout=30)
+                #    time.sleep(3)
+                #    d(resourceId="com.ludashi.dualspaceprox:id/input_edit").set_text("Instagra")
+                #    time.sleep(1)
+#
+                #d(text="Instagram").click(timeout=20)
+                #d.press("back")
+                #d.press("back")
+                #d(resourceId="com.ludashi.dualspaceprox:id/btn_clone").click(timeout=20)
+                #d(text="Instagram(1)").click(timeout=30)
+                #d(text="Instagram(1)").click(timeout=30)
+                #time.sleep(3)
+#
+                #screenshot_path = os.path.join(tempfile.gettempdir(), f"screen{random.randint(000,999)}.png")
+                #d.screenshot(screenshot_path)
+#
+                ## Esperar um pouco para garantir que a captura de tela seja salva
+                #time.sleep(2)
+#
+                ## Abrir a imagem da captura de tela
+                #img = Image.open(screenshot_path)
+                #img_array = np.array(img)
+#
+                ## Definir a cor que você está procurando (RGB)
+                #target_color = (31, 109, 238)  # Exemplo: vermelho
+#
+                ## Encontrar o último pixel com a cor alvo
+                #def find_last_color_pixel(image_array, target_color):
+                #    # Converte a imagem para o espaço de cores RGB
+                #    img_rgb = img_array[:, :, :3]
+#
+                #    # Calcula a diferença entre cada pixel e a cor alvo
+                #    diff = np.abs(img_rgb - np.array(target_color))
+#
+                #    # Soma as diferenças para cada canal RGB
+                #    total_diff = np.sum(diff, axis=-1)
+#
+                #    # Encontra todos os índices onde a diferença é zero (corresponde à cor alvo)
+                #    indices = np.argwhere(total_diff == 0)
+#
+                #    # Se não houver índices encontrados, retorna None
+                #    if len(indices) == 0:
+                #        return None, None
+#
+                #    # Encontra o último índice onde a diferença é zero
+                #    last_index = indices[-1]
+#
+                #    # Obtém as coordenadas do último pixel com a cor alvo
+                #    y, x = last_index
+#
+                #    return x, y
+#
+                #x, y = find_last_color_pixel(img_array, target_color)
+#
+                #if x is not None and y is not None:
+                #    print(f"Último pixel encontrado na posição: ({x}, {y})")
+#
+                #    # Converter x e y para inteiros
+                #    x = int(x)
+                #    y = int(y)
+#
+                #    # Clicar no pixel encontrado
+                #    d.click(x, y)
+                #else:
+                #    print("Cor não encontrada na imagem.")
+#
+                ## Remover a captura de tela temporária no computador
+                #os.remove(screenshot_path)
 
 
                 while True:
@@ -5014,7 +5014,7 @@ def creator_CLONER_NUM():
                         d(text="Instagram").click(timeout=10)
                         time.sleep(2)
                     elif d(text="Instagram(1)"):
-                        try:    
+                        try:
                             d(textContains="Instagram").click(timeout=10)
                         except Exception as e:
                             print(e)
@@ -5285,7 +5285,7 @@ def creator_CLONER_NUM():
                 d(text="Avançar").click(timeout=30)
                 d(text="Concordo").click(timeout=30)
 
-                for i in range(11):
+                for i in range(21):
                     time.sleep(2)
                     if d(resourceId="com.instagram.android:id/tab_avatar"):
                         d(resourceId="com.instagram.android:id/tab_avatar").click()
@@ -5421,7 +5421,7 @@ def creator_CLONER_NUM():
                                 d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
                         except:
                             #package_name = "com.lbe.parallel.intl"
-                            package_name = "com.ludashi.dualspaceprox"
+                            package_name = "com.lbe.parallel.intl"
                             d.app_stop(package_name)
                             #clear_command = f"adb shell pm clear {package_name}"
                             #subprocess.run(clear_command.split(), capture_output=True, text=True)
@@ -6809,63 +6809,18 @@ def creator_CLONER_EMAIL():
             window['output'].print(
                 f'[{datetime.now().strftime("%H:%M:%S")}] Clonando Instagram')
             window.Refresh()
-            #package_name = "com.lbe.parallel.intl"
-            #d.app_clear(package_name)
-            ##clear_command = f"adb shell pm clear {package_name}"
-            ##subprocess.run(clear_command.split(), capture_output=True, text=True)
-            #try:
-            #    clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm32"
-            #    subprocess.run(clear_command.split(), capture_output=True, text=True)
-            #except: pass
-            #try:
-            #    clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm64"
-            #    subprocess.run(clear_command.split(), capture_output=True, text=True)
-            #except: pass
-            #permissions = [
-            #    "android.permission.CALL_PHONE",
-            #    "android.permission.READ_EXTERNAL_STORAGE",
-            #    "android.permission.WRITE_EXTERNAL_STORAGE",
-            #    "android.permission.ACCESS_FINE_LOCATION",
-            #    "android.permission.ACCESS_COARSE_LOCATION",
-            #    "android.permission.READ_CONTACTS"
-            #]
-#
-#
-            ## Conceder cada permissão
-            #for permission in permissions:
-            #    command = f"adb -s {porta} shell pm grant {package_name} {permission}"
-            #    result = subprocess.run(command.split(), capture_output=True, text=True)
-            #    if result.returncode == 0:
-            #        pass
-            #        #print(f"Permissão '{permission}' concedida para '{package_name}'.")
-            #    else:
-            #        print(f"Erro ao conceder permissão '{permission}': {result.stderr}")
-            #d.app_start(package_name)
-            #d(text="Agree and continue").click(timeout=15)
-            #d(text='CONTINUAR').click(timeout=20)
-            #try:
-            #    d(text='COMEÇAR').click(timeout=15)
-            #except:
-            #    d(text="Consent").click()
-            #    d(text='COMEÇAR').click(timeout=20)
-            #d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
-            ##d(text="Adicionar Apps").wait(timeout=30)
-            #d(text="ACEITAR").click()
-            #try: d(text="Instagram").click(timeout=10)
-            #except: 
-            #    d(text="Adicionar Apps").click(timeout=10)
-            #    d(text="Instagram").click(timeout=10)
-            #    d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
-            #time.sleep(2)
-
-            from PIL import Image
-            import numpy as np
-            import time
-            import random
-            import os
-            import tempfile
-            d.app_clear("com.ludashi.dualspaceprox")
-            package_name = "com.ludashi.dualspaceprox"
+            package_name = "com.lbe.parallel.intl"
+            d.app_clear(package_name)
+            #clear_command = f"adb shell pm clear {package_name}"
+            #subprocess.run(clear_command.split(), capture_output=True, text=True)
+            try:
+                clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm32"
+                subprocess.run(clear_command.split(), capture_output=True, text=True)
+            except: pass
+            try:
+                clear_command = f"adb shell pm clear com.lbe.parallel.intl.arm64"
+                subprocess.run(clear_command.split(), capture_output=True, text=True)
+            except: pass
             permissions = [
                 "android.permission.CALL_PHONE",
                 "android.permission.READ_EXTERNAL_STORAGE",
@@ -6874,6 +6829,8 @@ def creator_CLONER_EMAIL():
                 "android.permission.ACCESS_COARSE_LOCATION",
                 "android.permission.READ_CONTACTS"
             ]
+#
+#
             # Conceder cada permissão
             for permission in permissions:
                 command = f"adb -s {porta} shell pm grant {package_name} {permission}"
@@ -6883,82 +6840,125 @@ def creator_CLONER_EMAIL():
                     #print(f"Permissão '{permission}' concedida para '{package_name}'.")
                 else:
                     print(f"Erro ao conceder permissão '{permission}': {result.stderr}")
-            d.app_start("com.ludashi.dualspaceprox")
-            d(textContains="INICIAR").click(timeout=30)
-            time.sleep(2)
-            d(resourceId="com.ludashi.dualspaceprox:id/search").click(timeout=30)
-            time.sleep(2)
+            d.app_start(package_name)
+            d(text="Agree and continue").click(timeout=15)
+            d(text='CONTINUAR').click(timeout=20)
             try:
-                d(resourceId="com.ludashi.dualspaceprox:id/input_edit").set_text("Instagra")
+                d(text='COMEÇAR').click(timeout=15)
             except:
-                d(resourceId="com.ludashi.dualspaceprox:id/search").click(timeout=30)
-                time.sleep(3)
-                d(resourceId="com.ludashi.dualspaceprox:id/input_edit").set_text("Instagra")
-                time.sleep(1)
-
-            d(text="Instagram").click(timeout=20)
-            d.press("back")
-            d.press("back")
-            d(resourceId="com.ludashi.dualspaceprox:id/btn_clone").click(timeout=20)
-            d(text="Instagram(1)").click(timeout=30)
-            d(text="Instagram(1)").click(timeout=30)
-            time.sleep(3)
-
-            screenshot_path = os.path.join(tempfile.gettempdir(), f"screen{random.randint(000,999)}.png")
-            d.screenshot(screenshot_path)
-
-            # Esperar um pouco para garantir que a captura de tela seja salva
+                d(text="Consent").click()
+                d(text='COMEÇAR').click(timeout=20)
+            d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
+            #d(text="Adicionar Apps").wait(timeout=30)
+            d(text="ACEITAR").click()
+            try: d(text="Instagram").click(timeout=10)
+            except: 
+                d(text="Adicionar Apps").click(timeout=10)
+                d(text="Instagram").click(timeout=10)
+                d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
             time.sleep(2)
 
-            # Abrir a imagem da captura de tela
-            img = Image.open(screenshot_path)
-            img_array = np.array(img)
-
-            # Definir a cor que você está procurando (RGB)
-            target_color = (31, 109, 238)  # Exemplo: vermelho
-
-            # Encontrar o último pixel com a cor alvo
-            def find_last_color_pixel(image_array, target_color):
-                # Converte a imagem para o espaço de cores RGB
-                img_rgb = img_array[:, :, :3]
-
-                # Calcula a diferença entre cada pixel e a cor alvo
-                diff = np.abs(img_rgb - np.array(target_color))
-
-                # Soma as diferenças para cada canal RGB
-                total_diff = np.sum(diff, axis=-1)
-
-                # Encontra todos os índices onde a diferença é zero (corresponde à cor alvo)
-                indices = np.argwhere(total_diff == 0)
-
-                # Se não houver índices encontrados, retorna None
-                if len(indices) == 0:
-                    return None, None
-
-                # Encontra o último índice onde a diferença é zero
-                last_index = indices[-1]
-
-                # Obtém as coordenadas do último pixel com a cor alvo
-                y, x = last_index
-
-                return x, y
-
-            x, y = find_last_color_pixel(img_array, target_color)
-
-            if x is not None and y is not None:
-                print(f"Último pixel encontrado na posição: ({x}, {y})")
-
-                # Converter x e y para inteiros
-                x = int(x)
-                y = int(y)
-
-                # Clicar no pixel encontrado
-                d.click(x, y)
-            else:
-                print("Cor não encontrada na imagem.")
-
-            # Remover a captura de tela temporária no computador
-            os.remove(screenshot_path)
+            #from PIL import Image
+            #import numpy as np
+            #import time
+            #import random
+            #import os
+            #import tempfile
+            #d.app_clear("com.ludashi.dualspaceprox")
+            #package_name = "com.ludashi.dualspaceprox"
+            #permissions = [
+            #    "android.permission.CALL_PHONE",
+            #    "android.permission.READ_EXTERNAL_STORAGE",
+            #    "android.permission.WRITE_EXTERNAL_STORAGE",
+            #    "android.permission.ACCESS_FINE_LOCATION",
+            #    "android.permission.ACCESS_COARSE_LOCATION",
+            #    "android.permission.READ_CONTACTS"
+            #]
+            ## Conceder cada permissão
+            #for permission in permissions:
+            #    command = f"adb -s {porta} shell pm grant {package_name} {permission}"
+            #    result = subprocess.run(command.split(), capture_output=True, text=True)
+            #    if result.returncode == 0:
+            #        pass
+            #        #print(f"Permissão '{permission}' concedida para '{package_name}'.")
+            #    else:
+            #        print(f"Erro ao conceder permissão '{permission}': {result.stderr}")
+            #d.app_start("com.ludashi.dualspaceprox")
+            #d(textContains="INICIAR").click(timeout=30)
+            #time.sleep(2)
+            #d(resourceId="com.ludashi.dualspaceprox:id/search").click(timeout=30)
+            #time.sleep(2)
+            #try:
+            #    d(resourceId="com.ludashi.dualspaceprox:id/input_edit").set_text("Instagra")
+            #except:
+            #    d(resourceId="com.ludashi.dualspaceprox:id/search").click(timeout=30)
+            #    time.sleep(3)
+            #    d(resourceId="com.ludashi.dualspaceprox:id/input_edit").set_text("Instagra")
+            #    time.sleep(1)
+#
+            #d(text="Instagram").click(timeout=20)
+            #d.press("back")
+            #d.press("back")
+            #d(resourceId="com.ludashi.dualspaceprox:id/btn_clone").click(timeout=20)
+            #d(text="Instagram(1)").click(timeout=30)
+            #d(text="Instagram(1)").click(timeout=30)
+            #time.sleep(3)
+#
+            #screenshot_path = os.path.join(tempfile.gettempdir(), f"screen{random.randint(000,999)}.png")
+            #d.screenshot(screenshot_path)
+#
+            ## Esperar um pouco para garantir que a captura de tela seja salva
+            #time.sleep(2)
+#
+            ## Abrir a imagem da captura de tela
+            #img = Image.open(screenshot_path)
+            #img_array = np.array(img)
+#
+            ## Definir a cor que você está procurando (RGB)
+            #target_color = (31, 109, 238)  # Exemplo: vermelho
+#
+            ## Encontrar o último pixel com a cor alvo
+            #def find_last_color_pixel(image_array, target_color):
+            #    # Converte a imagem para o espaço de cores RGB
+            #    img_rgb = img_array[:, :, :3]
+#
+            #    # Calcula a diferença entre cada pixel e a cor alvo
+            #    diff = np.abs(img_rgb - np.array(target_color))
+#
+            #    # Soma as diferenças para cada canal RGB
+            #    total_diff = np.sum(diff, axis=-1)
+#
+            #    # Encontra todos os índices onde a diferença é zero (corresponde à cor alvo)
+            #    indices = np.argwhere(total_diff == 0)
+#
+            #    # Se não houver índices encontrados, retorna None
+            #    if len(indices) == 0:
+            #        return None, None
+#
+            #    # Encontra o último índice onde a diferença é zero
+            #    last_index = indices[-1]
+#
+            #    # Obtém as coordenadas do último pixel com a cor alvo
+            #    y, x = last_index
+#
+            #    return x, y
+#
+            #x, y = find_last_color_pixel(img_array, target_color)
+#
+            #if x is not None and y is not None:
+            #    print(f"Último pixel encontrado na posição: ({x}, {y})")
+#
+            #    # Converter x e y para inteiros
+            #    x = int(x)
+            #    y = int(y)
+#
+            #    # Clicar no pixel encontrado
+            #    d.click(x, y)
+            #else:
+            #    print("Cor não encontrada na imagem.")
+#
+            ## Remover a captura de tela temporária no computador
+            #os.remove(screenshot_path)
 
             while True:
                 if d(text="Tentar novamente"):
@@ -7361,7 +7361,7 @@ def creator_CLONER_EMAIL():
             d(text="Avançar").click(timeout=30)
             d(text="Concordo").click(timeout=30)
 
-            for i in range(10):
+            for i in range(20):
                 time.sleep(2)
                 if d(resourceId="com.instagram.android:id/tab_avatar"):
                     d(resourceId="com.instagram.android:id/tab_avatar").click()
@@ -7497,7 +7497,7 @@ def creator_CLONER_EMAIL():
                             d.xpath('//android.widget.Button[@content-desc="Avançar"]/android.widget.ImageView').click(timeout=10)
                     except:
                         #package_name = "com.lbe.parallel.intl"
-                        package_name = "com.ludashi.dualspaceprox"
+                        package_name = "com.lbe.parallel.intl"
                         d.app_stop(package_name)
                         #clear_command = f"adb shell pm clear {package_name}"
                         #subprocess.run(clear_command.split(), capture_output=True, text=True)
