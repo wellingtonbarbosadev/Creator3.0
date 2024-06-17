@@ -2087,7 +2087,7 @@ def creator_2NRv2():
                                     window['output'].print(
                                         "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                                     window.Refresh()
-                                
+                                raise Exception('skip')
                             except Exception as e:
                                 raise Exception('skip')
 
