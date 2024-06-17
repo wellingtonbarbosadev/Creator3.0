@@ -4104,6 +4104,31 @@ def creator_CLONER_NUM():
         from rich.console import Console
     import os
     import time
+
+    try:
+        from PIL import Image
+        import cv2
+        import numpy as np
+        import tempfile
+        import random
+        import os
+        import requests
+        from io import BytesIO
+    except:
+        subprocess.run(['venv/scripts/activate.bat'], shell=True)
+        subprocess.run(f'pip install pillow opencv-python-headless numpy',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        subprocess.run(['deactivate'], shell=True)
+        from PIL import Image
+        import cv2
+        import numpy as np
+        import tempfile
+        import random
+        import os
+        import requests
+        from io import BytesIO
+
     try:
         import uiautomator2 as u2
         subprocess.run(['pip', 'install', 'packaging==21.3'],
@@ -4879,7 +4904,48 @@ def creator_CLONER_NUM():
                 try:
                     d(text='COMEÇAR').click(timeout=15)
                 except:
-                    d(textContains="Consent").click()
+                    image_url = "https://www.dropbox.com/scl/fi/qag56h0ps1yaa8sfh4091/Captura-de-tela-2024-06-16-184155.png?rlkey=mhh2dyb1gf7eaw8uqzhbh0wmo&st=x0ngbkzk&dl=1"
+
+                    # Baixe a imagem de referência
+                    response = requests.get(image_url)
+                    template = Image.open(BytesIO(response.content))
+                    template_path = os.path.join(tempfile.gettempdir(), f"consent.png")
+                    template.save(template_path)
+
+                    # Converta a imagem de referência para o formato necessário
+                    template = cv2.cvtColor(np.array(template), cv2.COLOR_RGB2BGR)
+
+                    # Conecte ao dispositivo
+                    d = u2.connect()
+
+                    # Capture a tela
+                    screenshot = d.screenshot(format='pillow')
+                    screenshot_path = os.path.join(tempfile.gettempdir(), f"screen{random.randint(000,999)}.png")
+                    screenshot.save(screenshot_path)
+                    print(screenshot_path)
+
+                    # Carregue a imagem da tela e a imagem de referência
+                    screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
+
+                    # Realize a correspondência de templates usando OpenCV
+                    result = cv2.matchTemplate(screenshot, template, cv2.TM_CCOEFF_NORMED)
+
+                    # Defina um limite para considerar uma correspondência válida
+                    threshold = 0.0
+                    loc = np.where(result >= threshold)
+
+                    # Encontre o ponto (x, y) do centro da correspondência
+                    if len(loc[0]) > 0:
+                        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+                        top_left = max_loc
+                        h, w, _ = template.shape
+                        center_x = top_left[0] + w // 2
+                        center_y = top_left[1] + h // 2
+                        # Clique na posição calculada
+                        d.click(center_x, center_y)
+                        print(f"Imagem encontrada e clicada na posição ({center_x}, {center_y}).")
+                    else:
+                        print("Imagem de referência não encontrada na tela.")
                     d(text='COMEÇAR').click(timeout=20)
                 d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
                 #d(text="Adicionar Apps").wait(timeout=30)
@@ -6212,6 +6278,29 @@ def creator_CLONER_EMAIL():
     import os
     import time
     import requests
+    try:
+        from PIL import Image
+        import cv2
+        import numpy as np
+        import tempfile
+        import random
+        import os
+        import requests
+        from io import BytesIO
+    except:
+        subprocess.run(['venv/scripts/activate.bat'], shell=True)
+        subprocess.run(f'pip install pillow opencv-python-headless numpy',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        subprocess.run(['deactivate'], shell=True)
+        from PIL import Image
+        import cv2
+        import numpy as np
+        import tempfile
+        import random
+        import os
+        import requests
+        from io import BytesIO
     import hashlib
     import subprocess
 
@@ -6951,7 +7040,48 @@ def creator_CLONER_EMAIL():
             try:
                 d(text='COMEÇAR').click(timeout=15)
             except:
-                d(text="Consent").click()
+                image_url = "https://www.dropbox.com/scl/fi/qag56h0ps1yaa8sfh4091/Captura-de-tela-2024-06-16-184155.png?rlkey=mhh2dyb1gf7eaw8uqzhbh0wmo&st=x0ngbkzk&dl=1"
+
+                # Baixe a imagem de referência
+                response = requests.get(image_url)
+                template = Image.open(BytesIO(response.content))
+                template_path = os.path.join(tempfile.gettempdir(), f"consent.png")
+                template.save(template_path)
+
+                # Converta a imagem de referência para o formato necessário
+                template = cv2.cvtColor(np.array(template), cv2.COLOR_RGB2BGR)
+
+                # Conecte ao dispositivo
+                d = u2.connect()
+
+                # Capture a tela
+                screenshot = d.screenshot(format='pillow')
+                screenshot_path = os.path.join(tempfile.gettempdir(), f"screen{random.randint(000,999)}.png")
+                screenshot.save(screenshot_path)
+                print(screenshot_path)
+
+                # Carregue a imagem da tela e a imagem de referência
+                screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
+
+                # Realize a correspondência de templates usando OpenCV
+                result = cv2.matchTemplate(screenshot, template, cv2.TM_CCOEFF_NORMED)
+
+                # Defina um limite para considerar uma correspondência válida
+                threshold = 0.0
+                loc = np.where(result >= threshold)
+
+                # Encontre o ponto (x, y) do centro da correspondência
+                if len(loc[0]) > 0:
+                    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
+                    top_left = max_loc
+                    h, w, _ = template.shape
+                    center_x = top_left[0] + w // 2
+                    center_y = top_left[1] + h // 2
+                    # Clique na posição calculada
+                    d.click(center_x, center_y)
+                    print(f"Imagem encontrada e clicada na posição ({center_x}, {center_y}).")
+                else:
+                    print("Imagem de referência não encontrada na tela.")
                 d(text='COMEÇAR').click(timeout=20)
             d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
             #d(text="Adicionar Apps").wait(timeout=30)
