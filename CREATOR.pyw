@@ -5066,6 +5066,8 @@ def creator_CLONER_NUM():
                         d(text="Tentar novamente").click()
                     elif d(text="Ir para o app"):
                         d(text="Ir para o app").click()
+                    elif d(text="ENTENDI"):
+                        d(text="ENTENDI").click()
                     elif d(text="Termos e Política de Privacidade"):
                         d.xpath('//android.widget.Button[@content-desc="Continuar"]').click()
                         time.sleep(5)
@@ -7200,6 +7202,8 @@ def creator_CLONER_EMAIL():
                     d(text="Tentar novamente").click()
                 elif d(text="Ir para o app"):
                     d(text="Ir para o app").click()
+                elif d(text="ENTENDI"):
+                    d(text="ENTENDI").click()
                 elif d(text="Termos e Política de Privacidade"):
                     d.xpath('//android.widget.Button[@content-desc="Continuar"]').click()
                     time.sleep(5)
