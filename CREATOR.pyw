@@ -4953,7 +4953,7 @@ def creator_CLONER_NUM():
                 try: d(text="Instagram").click(timeout=10)
                 except: 
                     d(text="Adicionar Apps").click(timeout=10)
-                    d(text="Instagram").click(timeout=10)
+                    #d(text="Instagram").click(timeout=10)
                     d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
                 time.sleep(2)
 
@@ -7091,7 +7091,7 @@ def creator_CLONER_EMAIL():
             try: d(text="Instagram").click(timeout=10)
             except: 
                 d(text="Adicionar Apps").click(timeout=10)
-                d(text="Instagram").click(timeout=10)
+                #d(text="Instagram").click(timeout=10)
                 d(resourceId="com.lbe.parallel.intl:id/clone_add").click(timeout=25)
             time.sleep(2)
 
