@@ -7056,7 +7056,6 @@ def creator_CLONER_EMAIL():
                 template = cv2.cvtColor(np.array(template), cv2.COLOR_RGB2BGR)
 
                 # Conecte ao dispositivo
-                d = u2.connect()
 
                 # Capture a tela
                 screenshot = d.screenshot(format='pillow')
