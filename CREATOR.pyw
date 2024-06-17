@@ -325,7 +325,7 @@ def get_ip():
 
 
 gc = gspread.service_account(filename='relatorio.json')
-sh = gc.open('contas_criadas')
+sh = gc.open('funcionamento')
 
 worksheet = sh.worksheet('IPs')
 
@@ -426,7 +426,7 @@ if registrado is False:
             # Substitua com o caminho para sua chave de API
             gc = gspread.service_account(filename='relatorio.json')
             # Substitua pelo nome da sua planilha
-            sh = gc.open('contas_criadas')
+            sh = gc.open('funcionamento')
             return sh
 
         ip = get_ip()
@@ -2998,7 +2998,7 @@ def creator_LITE_EMAIL():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -3275,7 +3275,7 @@ def creator_LITE_EMAIL():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -3446,7 +3446,7 @@ def creator_LITE_EMAIL():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -3863,7 +3863,7 @@ def creator_LITE_EMAIL():
                                             funcionamento, scope)
                                         client = gspread.authorize(creds)
 
-                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                         sheet_name = 'relatorio_geral'
                                         # Insert user, password, and timestamp into first empty row
                                         sheet = client.open_by_key(
@@ -5451,7 +5451,7 @@ def creator_CLONER_NUM():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -5743,7 +5743,7 @@ def creator_CLONER_NUM():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -6117,7 +6117,7 @@ def creator_CLONER_NUM():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -7696,7 +7696,7 @@ def creator_CLONER_EMAIL():
                                 funcionamento, scope)
                             client = gspread.authorize(creds)
 
-                            spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                            spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                             sheet_name = 'relatorio_geral'
                             # Insert user, password, and timestamp into first empty row
                             sheet = client.open_by_key(
@@ -7991,7 +7991,7 @@ def creator_CLONER_EMAIL():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -8369,7 +8369,7 @@ def creator_CLONER_EMAIL():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -10545,7 +10545,7 @@ def creator_FREESMS_NAV():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -13386,7 +13386,7 @@ def creator_2NR_NAV():
                                             funcionamento, scope)
                                         client = gspread.authorize(creds)
 
-                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                         sheet_name = 'relatorio_geral'
                                         # Insert user, password, and timestamp into first empty row
                                         sheet = client.open_by_key(
@@ -13682,7 +13682,7 @@ def creator_2NR_NAV():
                                                         funcionamento, scope)
                                                     client = gspread.authorize(creds)
 
-                                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                                     sheet_name = 'relatorio_geral'
                                                     # Insert user, password, and timestamp into first empty row
                                                     sheet = client.open_by_key(
@@ -13967,7 +13967,7 @@ def creator_2NR_NAV():
                                                             funcionamento, scope)
                                                         client = gspread.authorize(creds)
 
-                                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                                         sheet_name = 'relatorio_geral'
                                                         # Insert user, password, and timestamp into first empty row
                                                         sheet = client.open_by_key(
@@ -14647,7 +14647,7 @@ def creator_2NR_NAV():
                                             funcionamento, scope)
                                         client = gspread.authorize(creds)
 
-                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                         sheet_name = 'relatorio_geral'
                                         # Insert user, password, and timestamp into first empty row
                                         sheet = client.open_by_key(
@@ -15219,7 +15219,7 @@ def instaface_criarinsta():
                         creds = ServiceAccountCredentials.from_json_keyfile_dict(
                             funcionamento, scope)
                         client = gspread.authorize(creds)
-                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                         sheet_name = 'relatorio_geral'
                         # Insert user, password, and timestamp into first empty row
                         sheet = client.open_by_key(
@@ -17884,7 +17884,7 @@ def free_sms_beta2():
                                 funcionamento, scope)
                             client = gspread.authorize(creds)
 
-                            spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                            spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                             sheet_name = 'relatorio_geral'
                             # Insert user, password, and timestamp into first empty row
                             sheet = client.open_by_key(
@@ -18051,7 +18051,7 @@ def free_sms_beta2():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -18395,7 +18395,7 @@ def free_sms_beta2():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -19740,7 +19740,7 @@ def free_sms():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -19871,7 +19871,7 @@ def free_sms():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -20149,7 +20149,7 @@ def free_sms():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -22949,7 +22949,7 @@ def temporary_phone_number_com():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -23226,7 +23226,7 @@ def temporary_phone_number_com():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -23380,7 +23380,7 @@ def temporary_phone_number_com():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -23795,7 +23795,7 @@ def temporary_phone_number_com():
                                             funcionamento, scope)
                                         client = gspread.authorize(creds)
 
-                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                         sheet_name = 'relatorio_geral'
                                         # Insert user, password, and timestamp into first empty row
                                         sheet = client.open_by_key(
@@ -26037,7 +26037,7 @@ def insta_5sim_normal():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -26315,7 +26315,7 @@ def insta_5sim_normal():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -26438,7 +26438,7 @@ def insta_5sim_normal():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -26747,7 +26747,7 @@ def insta_5sim_normal():
                                             funcionamento, scope)
                                         client = gspread.authorize(creds)
 
-                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                         sheet_name = 'relatorio_geral'
                                         # Insert user, password, and timestamp into first empty row
                                         sheet = client.open_by_key(
@@ -29581,7 +29581,7 @@ def smstome_com():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -29858,7 +29858,7 @@ def smstome_com():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -30012,7 +30012,7 @@ def smstome_com():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -30427,7 +30427,7 @@ def smstome_com():
                                             funcionamento, scope)
                                         client = gspread.authorize(creds)
 
-                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                         sheet_name = 'relatorio_geral'
                                         # Insert user, password, and timestamp into first empty row
                                         sheet = client.open_by_key(
@@ -33185,7 +33185,7 @@ def freereceivesms_com():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -33462,7 +33462,7 @@ def freereceivesms_com():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -33616,7 +33616,7 @@ def freereceivesms_com():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -34031,7 +34031,7 @@ def freereceivesms_com():
                                             funcionamento, scope)
                                         client = gspread.authorize(creds)
 
-                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                         sheet_name = 'relatorio_geral'
                                         # Insert user, password, and timestamp into first empty row
                                         sheet = client.open_by_key(
@@ -36896,7 +36896,7 @@ def receive_smss():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -37173,7 +37173,7 @@ def receive_smss():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -37327,7 +37327,7 @@ def receive_smss():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -37742,7 +37742,7 @@ def receive_smss():
                                             funcionamento, scope)
                                         client = gspread.authorize(creds)
 
-                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                         sheet_name = 'relatorio_geral'
                                         # Insert user, password, and timestamp into first empty row
                                         sheet = client.open_by_key(
@@ -40728,7 +40728,7 @@ def quackr_io():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -41006,7 +41006,7 @@ def quackr_io():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -41161,7 +41161,7 @@ def quackr_io():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -41576,7 +41576,7 @@ def quackr_io():
                                             funcionamento, scope)
                                         client = gspread.authorize(creds)
 
-                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                         sheet_name = 'relatorio_geral'
                                         # Insert user, password, and timestamp into first empty row
                                         sheet = client.open_by_key(
@@ -42931,7 +42931,7 @@ def free_sms_lite():
                             funcionamento, scope)
                         client = gspread.authorize(creds)
 
-                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                         sheet_name = 'relatorio_geral'
                         # Insert user, password, and timestamp into first empty row
                         sheet = client.open_by_key(
@@ -43228,7 +43228,7 @@ def free_sms_lite():
                                 funcionamento, scope)
                             client = gspread.authorize(creds)
 
-                            spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                            spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                             sheet_name = 'relatorio_geral'
                             # Insert user, password, and timestamp into first empty row
                             sheet = client.open_by_key(
@@ -44393,7 +44393,7 @@ def insta_face_litee():
                             funcionamento, scope)
                         client = gspread.authorize(creds)
 
-                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                         sheet_name = 'relatorio_geral'
                         # Insert user, password, and timestamp into first empty row
                         sheet = client.open_by_key(
@@ -44674,7 +44674,7 @@ def insta_face_litee():
                                 funcionamento, scope)
                             client = gspread.authorize(creds)
 
-                            spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                            spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                             sheet_name = 'relatorio_geral'
                             # Insert user, password, and timestamp into first empty row
                             sheet = client.open_by_key(
@@ -45767,7 +45767,7 @@ def criarporcima():
                             funcionamento, scope)
                         client = gspread.authorize(creds)
 
-                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                         sheet_name = 'relatorio_geral'
                         # Insert user, password, and timestamp into first empty row
                         sheet = client.open_by_key(
@@ -46903,7 +46903,7 @@ def executar_mailtm():
                         funcionamento, scope)
                     client = gspread.authorize(creds)
 
-                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                     sheet_name = 'relatorio_geral'
                     # Insert user, password, and timestamp into first empty row
                     sheet = client.open_by_key(
@@ -47369,7 +47369,7 @@ def executar_mailtm():
                             funcionamento, scope)
                         client = gspread.authorize(creds)
 
-                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                         sheet_name = 'relatorio_geral'
                         # Insert user, password, and timestamp into first empty row
                         sheet = client.open_by_key(
@@ -48509,7 +48509,7 @@ def executar_minuteinbox():
                         funcionamento, scope)
                     client = gspread.authorize(creds)
 
-                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                     sheet_name = 'relatorio_geral'
                     # Insert user, password, and timestamp into first empty row
                     sheet = client.open_by_key(
@@ -48943,7 +48943,7 @@ def executar_minuteinbox():
                             funcionamento, scope)
                         client = gspread.authorize(creds)
 
-                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                         sheet_name = 'relatorio_geral'
                         # Insert user, password, and timestamp into first empty row
                         sheet = client.open_by_key(
@@ -50618,7 +50618,7 @@ def executar_2nr():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -50975,7 +50975,7 @@ def executar_2nr():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -51258,7 +51258,7 @@ def executar_2nr():
                                             funcionamento, scope)
                                         client = gspread.authorize(creds)
 
-                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                         sheet_name = 'relatorio_geral'
                                         # Insert user, password, and timestamp into first empty row
                                         sheet = client.open_by_key(
@@ -54050,7 +54050,7 @@ def executar_2nr_insta():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -54327,7 +54327,7 @@ def executar_2nr_insta():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -54498,7 +54498,7 @@ def executar_2nr_insta():
                                         funcionamento, scope)
                                     client = gspread.authorize(creds)
 
-                                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                     sheet_name = 'relatorio_geral'
                                     # Insert user, password, and timestamp into first empty row
                                     sheet = client.open_by_key(
@@ -54915,7 +54915,7 @@ def executar_2nr_insta():
                                             funcionamento, scope)
                                         client = gspread.authorize(creds)
 
-                                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                         sheet_name = 'relatorio_geral'
                                         # Insert user, password, and timestamp into first empty row
                                         sheet = client.open_by_key(
@@ -56410,7 +56410,7 @@ def insta_face_lite():
                         funcionamento, scope)
                     client = gspread.authorize(creds)
 
-                    spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                    spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                     sheet_name = 'relatorio_geral'
                     # Insert user, password, and timestamp into first empty row
                     sheet = client.open_by_key(
@@ -56713,7 +56713,7 @@ def insta_face_lite():
                                     funcionamento, scope)
                                 client = gspread.authorize(creds)
 
-                                spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                                 sheet_name = 'relatorio_geral'
                                 # Insert user, password, and timestamp into first empty row
                                 sheet = client.open_by_key(
@@ -56936,7 +56936,7 @@ def insta_face_lite():
                             funcionamento, scope)
                         client = gspread.authorize(creds)
                         try:
-                            spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                            spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                             sheet_name = 'relatorio_geral'
                             # Insert user, password, and timestamp into first empty row
                             sheet = client.open_by_key(
@@ -59408,7 +59408,7 @@ def executar_creator_2nr():
                             creds = ServiceAccountCredentials.from_json_keyfile_dict(
                                 funcionamento, scope)
                             client = gspread.authorize(creds)
-                            spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                            spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                             sheet_name = 'relatorio_geral2nr'
                             # Insert user, password, and timestamp into first empty row
                             sheet = client.open_by_key(
@@ -61189,7 +61189,7 @@ def executar_creator_2nr():
                         creds = ServiceAccountCredentials.from_json_keyfile_dict(
                             funcionamento, scope)
                         client = gspread.authorize(creds)
-                        spreadsheet_id = '1dA96HvQ8_i5Ybn8daBrffmhwwAjBmsTbrivGMxlJMa4'
+                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
                         sheet_name = 'relatorio_geral2nr'
                         # Insert user, password, and timestamp into first empty row
                         sheet = client.open_by_key(
