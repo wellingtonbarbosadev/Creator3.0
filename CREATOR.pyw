@@ -5565,7 +5565,9 @@ def creator_CLONER_NUM():
                         d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
                         try:
                             d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                        except: d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                        except: 
+                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                            d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                         d(textContains="Adicionar conta").click(timeout=30)
                         d(text="Criar nova conta").click(timeout=20)
                         lista_user = random.choices(range(0, 9), k=2)
@@ -7814,7 +7816,9 @@ def creator_CLONER_EMAIL():
                     d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
                     try:
                         d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                    except: d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                    except: 
+                        d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                        d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                     d(textContains="Adicionar conta").click(timeout=30)
                     d(text="Criar nova conta").click(timeout=20)
                     window['output'].print(linha_ret)
