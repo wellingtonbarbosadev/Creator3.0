@@ -1835,7 +1835,7 @@ def creator_2NRv2():
                         print('Tela de adicionar número')
                         escrever_devagar(d(className="android.widget.EditText"), f'+48{num}', chunk_size=3)
                         d(text="Avançar").click()
-                        time.sleep(5)
+                        time.sleep(15)
                         if d(textContains="Você está tentando entrar?").wait(timeout=15):
                             d(text="Criar nova conta").click()
                             time.sleep(3)
