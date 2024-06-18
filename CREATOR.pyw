@@ -1658,9 +1658,10 @@ def creator_2NRv2():
                     element.clear_text()
                     current_text = ""
                     for i in range(0, len(text), chunk_size):
+                        if d(text='EXCLUIR'):
+                            d.press('back')
                         current_text += text[i:i+chunk_size]
                         element.set_text(current_text)
-                        time.sleep(delay)
                         if d(text='EXCLUIR'):
                             d.press('back')
                 def gerar_senha(tamanho=12):
@@ -2313,7 +2314,7 @@ def creator_2NRv2():
                             d(text="Escolha um nome de usuário").wait(timeout=30)
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
                             window.Refresh()
-                            escrever_devagar(d(className="android.widget.EditText"), user_completo, chunk_size=1)
+                            escrever_devagar(d(className="android.widget.EditText"), user_completo, chunk_size=4)
                             while True:
                                 if d(textContains='não está disponível.'):
                                     d(resourceId='com.instagram.android:id/username_suggestion_text').click()
@@ -2329,13 +2330,13 @@ def creator_2NRv2():
                             d(text="Crie uma senha").wait(timeout=20)
                             senha = gerar_senha(12)
                             
-                            escrever_devagar(d(className="android.widget.EditText"), senha, chunk_size=1)
+                            escrever_devagar(d(className="android.widget.EditText"), senha, chunk_size=4)
                             time.sleep(2)
                             d(text="Avançar", enabled=True).click()
                             time.sleep(3)
                             d(text='Adicionar novo telefone ou email').click(timeout=20)
                             d(text="Adicionar telefone ou email").wait(timeout=30)
-                            escrever_devagar(d(className="android.widget.EditText"), num, chunk_size=1)
+                            escrever_devagar(d(className="android.widget.EditText"), num, chunk_size=2)
                             time.sleep(1)
                             d(text="Avançar", enabled=True).click()
 
