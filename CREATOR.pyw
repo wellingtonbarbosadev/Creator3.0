@@ -1993,11 +1993,11 @@ def creator_2NRv2():
                         time.sleep(5)
                         d(text="Avançar").click(timeout=30)
                         time.sleep(5)
-                    elif d(textContains="Aceite os termos e"):
+                    elif d(textContains="Aceite os termos e") or d(textContains="leia e concorde com nossos termos"):
                         print('Tela de termos e políticas')
                         d(text="Concordo").click()
                         while True:
-                            if d(text="Concordo") and d(textContains="Aceite os termos e"):
+                            if d(text="Concordo") and d(textContains="Aceite os termos e") or d(text="Concordo") and d(textContains="leia e concorde com nossos termos"):
                                 d(text="Já tem uma conta?").click(timeout=25)
                                 d(text="ENTRAR").click(timeout=10)
                                 d(className="android.widget.EditText", instance=0).set_text(user_completo)
