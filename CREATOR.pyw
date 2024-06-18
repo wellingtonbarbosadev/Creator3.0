@@ -1661,6 +1661,8 @@ def creator_2NRv2():
                         current_text += text[i:i+chunk_size]
                         element.set_text(current_text)
                         time.sleep(delay)
+                        if d(text='EXCLUIR'):
+                            d.press('back')
                 def gerar_senha(tamanho=12):
                     if tamanho < 6:
                         raise ValueError("A senha deve ter pelo menos 6 caracteres.")
