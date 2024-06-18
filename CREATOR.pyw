@@ -1697,11 +1697,6 @@ def creator_2NRv2():
                 d.app_start('com.instagram.android', use_monkey=True)
                 
                 while True:
-                    try:
-                        with open("config.json", "r") as f:
-                            config = json.load(f)
-                    except FileNotFoundError:
-                        config = {}
                     if d(text="Criar nova conta"):
                         print('Tela de login')
                         d(text="Criar nova conta").click()
@@ -2047,6 +2042,51 @@ def creator_2NRv2():
                                     raise Exception("Restrição")
                             elif not d(textContains="Aceite os termos e"):
                                 break
+
+                    elif d(textContains="Ocorreu um erro") and d(textContains='Tentar novamente'):
+                        print('Tela de erro de tradução')
+                        d(textContains='Tentar novamente').click()
+                        time.sleep(10)
+                        if d(textContains='Tentar novamente'):
+                            print('Não foi possível passar da tela')
+                            try:
+                                conteudo = config['vpn']
+                        #
+                                # Executa a função correspondente ao conteúdo do arquivo
+                                if conteudo == "AVG":
+                                    vpn_avg()
+                                elif conteudo == "SurfShark":
+                                    vpn_surf()
+                                elif conteudo == "Nenhuma":
+                                    nenhuma_vpn()
+                                elif conteudo == "Avast":
+                                    vpn_avast()
+                                elif conteudo == "ExpressVPN":
+                                    vpn_express()
+                                elif conteudo == "PiaVPN":
+                                    vpn_pia()
+                                elif conteudo == "TunnelBear":
+                                    vpn_tunnelbear()
+                                elif conteudo == "BetterNet":
+                                    vpn_better()
+                                elif conteudo == "CyberGhost":
+                                    vpn_cyberghost()
+                                elif conteudo == "NordVPN":
+                                    vpn_nord()
+                                elif conteudo == "HotspotShield":
+                                    vpn_hotspotshield()
+                                elif conteudo == "WindscribeVPN":
+                                    vpn_windscribe()
+                                elif conteudo == "HmaVPN":
+                                    vpn_hma()
+                                else:
+                                    window['output'].print(
+                                        "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                    window.Refresh()
+                                raise Exception('skip')
+                            except Exception as e:
+                                raise Exception('skip')
+                    
                     elif d(text="A Página não está disponível no momento"):
                         print('Tela de página não disponível')
                         d.press('back')
