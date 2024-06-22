@@ -1,4 +1,4 @@
-
+global stop_event
 from tkinter import FALSE
 from socket import timeout
 from operator import truediv
@@ -460,6 +460,8 @@ inicio = [
         [sg.Button("CREATOR", font=('Open Sans', 9),
                    button_color='#1c2024', border_width=0, size=(35, 1))],
         [sg.Button("CREATOR 2NR", font=('Open Sans', 9),
+                   button_color='#1c2024', border_width=0, size=(35, 1))],
+        [sg.Button("CREATOR TWILIO", font=('Open Sans', 9), disabled=True,
                    button_color='#1c2024', border_width=0, size=(35, 1))],
         [sg.Button("DIVISOR", font=('Open Sans', 9),
                    button_color='#1c2024', border_width=0, size=(35, 1))],
@@ -63511,6 +63513,1816 @@ def executar_creator_2nr():
                                text_color=('cyan'))
         window.Refresh()
 
+def creator_TWILIO():
+    global email
+    global stop_event
+    import time
+    import re
+    import requests
+    import os
+    os.environ['WDM_LOG_LEVEL'] = '0'
+    import random
+    import PySimpleGUI as sg
+    import json
+    from datetime import datetime
+    import threading
+    import subprocess
+    from mailtm import Email
+    import string
+    import zipfile
+
+    
+    file_path = './storage/adblock.crx'
+
+    def baixar_arquivo(url, caminho_arquivo, pasta_destino):
+        # Verifica e cria a pasta destino, se necessário
+        if os.path.exists(pasta_destino):
+            return
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Baixando navegador...')
+        window.Refresh()
+        # Se a pasta não existir, cria a pasta destino
+        os.makedirs(pasta_destino)
+
+        # Continua com o download do arquivo
+        resposta = requests.get(url, stream=True)
+        tamanho_total = int(resposta.headers.get('content-length', 0))
+
+        with open(caminho_arquivo, 'wb') as file:
+            for dados in resposta.iter_content(chunk_size=4096):
+                file.write(dados)
+
+        # Extrai o arquivo
+        with zipfile.ZipFile(caminho_arquivo, 'r') as zip_ref:
+            zip_ref.extractall(pasta_destino)
+
+        # Apaga o arquivo zip após a extração
+        os.remove(caminho_arquivo)
+        print("\nDownload e extração concluídos.")
+
+    url = 'https://www.dropbox.com/scl/fi/9juftou3q4k4kj2o7mzhq/chrome-win.zip?rlkey=84n9pwxouhu9punpcjg32onbz&dl=1'
+    caminho_arquivo = './storage/driver/driver.zip'
+    pasta_destino = './storage/driver/'
+
+    baixar_arquivo(url, caminho_arquivo, pasta_destino)
+    if os.path.exists("./storage/adblock/"):
+        result = f"A pasta 'adblock' já existe em '{file_path}'."
+    else:
+        # URL para download
+        url = 'https://www.dropbox.com/scl/fi/2tu2g6ulqwr2xk20kut1x/adblock.crx?rlkey=55rysc1sspa7t81ldybg8t6iy&dl=1'
+
+        # Fazendo o download do arquivo
+        response = requests.get(url)
+        if response.status_code == 200:
+            with open(file_path, 'wb') as file:
+                file.write(response.content)
+            print("Arquivo 'adblock.crx' baixado e salvo em './storage/adblock.crx'.")
+            # Caminho do arquivo original (altere para o seu caminho de arquivo)
+            caminho_original = './storage/adblock.crx'
+            novo_caminho = './storage/adblock.zip'
+
+            # Renomear o arquivo
+            os.rename(caminho_original, novo_caminho)
+
+            # Caminho do arquivo zip
+            caminho_zip = './storage/adblock.zip'
+
+            # Diretório de destino para extrair
+            diretorio_destino = './storage/adblock/'
+
+            # Remover um arquivo anterior, se existir
+            arquivo_antigo = './storage/adblock'
+            if os.path.exists(arquivo_antigo):
+                os.remove(arquivo_antigo)
+
+            # Criar o diretório de destino se ele não existir
+            if not os.path.exists(diretorio_destino):
+                os.makedirs(diretorio_destino)
+
+            # Extrair o arquivo zip
+            with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+                zip_ref.extractall(diretorio_destino)
+
+            print("Arquivo extraído com sucesso!")
+            os.remove('./storage/adblock.zip')
+
+        else:
+            result = "Não foi possível baixar o arquivo. Status Code: " + \
+                str(response.status_code)
+    from selenium import webdriver
+    from selenium.webdriver.chrome.service import Service
+    from selenium.webdriver.chrome.options import Options
+    from seleniumbase import SB
+    from seleniumbase import Driver
+    from bs4 import BeautifulSoup
+    import random
+    import pyautogui
+    import uiautomator2 as u2
+    from selenium.webdriver.common.keys import Keys
+    try:
+        from minuteinbox import Inbox
+    except:
+        subprocess.run(['venv/scripts/activate.bat'], shell=True)
+        subprocess.run(['pip', 'install', 'minuteinbox'])
+        subprocess.run(['deactivate'], shell=True)
+        from minuteinbox import Inbox
+    from faker import Faker
+    linha_ret = '_________________________________________________\n'
+    fake = Faker('pt_BR')
+    try:
+        import uiautomator2 as u2
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+    except:
+        subprocess.run(['venv/scripts/activate.bat'], shell=True)
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
+        subprocess.run(['deactivate'], shell=True)
+        subprocess.run(['pip', 'install', '--upgrade', 'requests'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        import requests
+        time.sleep(10)
+        import uiautomator2 as u2
+
+    # use without parameters to create a new inbox
+    # inbox = Inbox()
+
+    try:
+        with open('configuracoes\\configTwilio.json', 'r') as file:
+            configTwilio = json.load(file)
+    except FileNotFoundError:
+        configTwilio = {}
+    try:
+        with open('configuracoes\\configTwilio.json', 'r') as file:
+            config = json.load(file)
+    except FileNotFoundError:
+        config = {}
+    d = u2.connect(f'{porta}')
+    subprocess.run(f'adb -s {porta} uninstall io.appium.uiautomator2.server.test',
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
+    subprocess.run(f'adb -s {porta} uninstall io.appium.uiautomator2.server',
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
+
+    import random
+    from selenium.webdriver.remote.webelement import WebElement
+    import string
+    import re
+    import pygetwindow as gw
+    from wsgiref.headers import tspecials
+    try:
+        from tempinbox import TempEmail
+    except:
+        import requests
+        import os
+        from pathlib import Path
+        url = "https://www.dropbox.com/scl/fi/ll7cbtfled6dy1209fw4r/nome_do_arquivo.tar.gz?rlkey=aljtozyyj9vzzhcnqwr86tfnd&dl=1"
+        nome_do_arquivo = "gmail2.tar.gz"
+        caminho_do_arquivo = Path(
+            __file__).parent / nome_do_arquivo
+        # Baixar o arquivo da URL
+        response = requests.get(url)
+        with open(caminho_do_arquivo, 'wb') as arquivo:
+            arquivo.write(response.content)
+        # Instalar o pacote localmente usando pip com aspas duplas no caminho
+        os.system(f'pip install "{caminho_do_arquivo}"')
+
+    contagem = 0
+    troca_ip = 0
+
+    def gerar_id():
+        chars = string.ascii_lowercase + string.digits
+        android_id = ''.join(random.choice(chars) for i in range(16))
+        return android_id
+
+    def vpn_avast():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da Avast', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop("com.avast.android.vpn")
+            d.app_start("com.avast.android.vpn", ".app.wizard.WizardActivity")
+            time.sleep(10)
+        except Exception as e:
+            print(e)
+        abc = False
+
+    def nenhuma_vpn():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        time.sleep(10)
+
+    def vpn_hotspotshield():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da HotspotShield',
+                               text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop('hotspotshield.android.vpn')
+            d.app_start('hotspotshield.android.vpn')
+        except Exception as e:
+            print(e)
+        d(resourceId='hotspotshield.android.vpn:id/tryAgainButton').click()
+        time.sleep(5)
+        d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
+
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        #            stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        abc = False
+
+    def vpn_pia():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da PiaVPN', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop('com.privateinternetaccess.android')
+            d.app_start('com.privateinternetaccess.android')
+        except:
+            pass
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        #            stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
+        time.sleep(3)
+        d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
+
+        abc = False
+
+    def vpn_express():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da ExpressVPN', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop('com.expressvpn.vpn')
+            d.app_start('com.expressvpn.vpn')
+        except:
+            pass
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        #            stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        d(resourceId='com.expressvpn.vpn:id/obiButton').click()
+        time.sleep(3)
+        d(resourceId='com.expressvpn.vpn:id/obiButton').click()
+
+        abc = False
+
+    def vpn_nord():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da NordVPN', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+        sms = True
+        try:
+            d.app_stop('com.nordvpn.android')
+            d.app_start('com.nordvpn.android', '.MainActivity')
+        except:
+            pass
+        time.sleep(10)
+        time.sleep(5)
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        abc = False
+
+    def vpn_surf():
+        global nome
+        global sobrenome
+        global sms
+        sms = True
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da SurfShark', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+
+        try:
+            d.app_stop('com.surfshark.vpnclient.android')
+            d.app_start('com.surfshark.vpnclient.android')
+        except:
+            pass
+        time.sleep(15)
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        abc = False
+
+    def vpn_better():
+        global nome
+        global sobrenome
+        global sms
+        sms = True
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da BetterNet', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        try:
+            d.app_stop('com.freevpnintouch')
+            d.app_start('com.freevpnintouch')
+        except:
+            pass
+        time.sleep(10)
+        dialog = d(resourceId='com.freevpnintouch:id/dialogCtaPositive')
+        connect = d(
+            resourceId='com.freevpnintouch:id/buttonConnect').get_text(timeout=80)
+        if dialog.exists:
+            d(resourceId='com.freevpnintouch:id/dialogCtaPositive').click()
+            time.sleep(3)
+            d(resourceId='com.freevpnintouch:id/buttonConnect').click()
+            # time.sleep(5)
+            d(resourceId='com.freevpnintouch:id/buttonConnect').click()
+        while connect == 'CONNECT':
+            d(resourceId='com.freevpnintouch:id/buttonConnect').click()
+            time.sleep(4)
+            connect = d(
+                resourceId='com.freevpnintouch:id/buttonConnect').get_text(timeout=80)
+            # WebDriverWait(driver, 20).until(
+            # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
+        # time.sleep(5)
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+        ip = '' + porta
+
+        output = subprocess.check_output(
+            ['adb', '-s', ip, 'shell', 'ifconfig'])
+
+        # Verifica se a conexão VPN está ativa
+        if not "tun0" in str(output):
+            window['output'].print("Não conectado na BetterNet.")
+            window.Refresh()
+            try:
+                connect = d(
+                    resourceId='com.freevpnintouch:id/buttonConnect').get_text(timeout=80)
+                d.app_stop('com.freevpnintouch')
+                d.app_start('com.freevpnintouch')
+                while connect == 'CONNECT':
+                    d(resourceId='com.freevpnintouch:id/buttonConnect').click()
+                    time.sleep(4)
+                    connect = d(
+                        resourceId='com.freevpnintouch:id/buttonConnect').get_text(timeout=80)
+            except:
+                pass
+        abc = False
+
+    def vpn_cyberghost():
+        global nome
+        global sobrenome
+        global sms
+        sms = True
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da CyberGhost', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+
+        try:
+            d.app_stop('de.mobileconcepts.cyberghost')
+            d.app_start('de.mobileconcepts.cyberghost')
+        except:
+            pass
+        # time.sleep(3)
+        d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
+        rate = d(resourceId='de.mobileconcepts.cyberghost:id/rate_me_text')
+        if rate.exists:
+            d(resourceId='android:id/button2').click()
+        time.sleep(2)
+        d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
+        # time.sleep(5)
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+        abc = False
+
+    def vpn_tunnelbear():
+        global nome
+        global sobrenome
+        global sms
+        global regiao_vpn
+        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da TunnelBear',
+                               text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop('com.tunnelbear.android')
+            d.app_start("com.tunnelbear.android")
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
+        except Exception as e:
+            print(e)
+            pass
+
+    def vpn_avg():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da AVG', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop('com.avg.android.vpn')
+            d.app_start("com.avg.android.vpn",
+                        "com.avast.android.vpn.app.wizard.WizardActivity")
+        except:
+            pass
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        #               stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        time.sleep(30)
+
+    def vpn_windscribe():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da Windscribe', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            # subprocess.run(f'adb shell am start -n com.avg.android.vpn/com.avast.android.vpn.app.wizard.WizardActivity', shell=True)
+            d.app_stop("com.windscribe.vpn")
+            d.app_start("com.windscribe.vpn")
+        except:
+            pass
+        d(resourceId='com.windscribe.vpn:id/on_off_button').click()
+        time.sleep(10)
+
+    def vpn_hma():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da HMA', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            # subprocess.run(f'adb shell am start -n com.avg.android.vpn/com.avast.android.vpn.app.wizard.WizardActivity', shell=True)
+
+            d.app_stop("com.hidemyass.hidemyassprovpn")
+            time.sleep(3)
+            d.app_start('com.hidemyass.hidemyassprovpn',
+                        'com.avast.android.vpn.activity.HmaOnboardingActivity')
+        except:
+            pass
+        time.sleep(10)
+
+
+    try:
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+    except:
+        pass
+    troca_ip = 0
+    
+    while True:
+        try:
+            window['output'].print(linha_ret)
+            window.Refresh()
+            window['output'].print(
+                f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo 2NR')
+            window.Refresh()
+
+            try:
+                scope = ["https://spreadsheets.google.com/feeds",
+                        "https://www.googleapis.com/auth/drive"]
+                creds = ServiceAccountCredentials.from_json_keyfile_name(
+                    'credentials.json', scope)
+                client = gspread.authorize(creds)
+                #
+                spreadsheet_id = config['spreadsheet']
+                sheet_name = 'contas'
+                # Insert user, password, and timestamp into first empty row
+                sheet = client.open_by_key(
+                    spreadsheet_id).worksheet(sheet_name)
+                values = sheet.col_values(1)
+                #
+                # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                rows = sheet.get_all_values()
+                #
+                # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                regex = re.compile(r'\S+\s\S+')
+                #
+                # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                num_rows = sum(1 for row in rows if regex.match(row[0]))
+                window['total'].update(num_rows)
+            except Exception as e:
+                print(e)
+                window['output'].print(
+                    f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro ao acessar a planilha.')
+                window.Refresh()
+                window['output'].print(
+                    f'[{datetime.now().strftime("%H:%M:%S")}] Tentando novamente em 1 minuto.')
+                window.Refresh()
+                time.sleep(60)
+                raise Exception('skip')
+
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+
+            except Exception as e:
+                print('Verifique se o Instagram está instalado.')
+                print(e)
+                pass
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, check=True, shell=True)
+            except Exception as e:
+                print(e)
+                pass
+            try:
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server',
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL, shell=True)
+            except:
+                pass
+            window.Refresh()
+
+            try:
+                # time.sleep(10)
+
+                gerar_id()
+                android_id = gerar_id()
+                subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
+                            shell=True)
+                try:
+                    subprocess.run(
+                        f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.READ_CONTACTS',
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+                    subprocess.run(
+                        f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.CAMERA',
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+                    subprocess.run(
+                        f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.RECORD_AUDIO',
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+                    try:
+                        subprocess.run(
+                            f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.ACCESS_NOTIFICATION_POLICY',
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+                    except:
+                        pass
+
+                    subprocess.run(
+                        f'adb -s {porta} shell pm grant pl.rs.sip.softphone.newapp android.permission.POST_NOTIFICATIONS',
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+                except:
+                    pass
+                try:
+                    d.app_start('pl.rs.sip.softphone.newapp')
+                except:
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro ao abrir o 2NR, tentando novamente.')
+                    window.Refresh()
+                time.sleep(3)
+                scope = ["https://spreadsheets.google.com/feeds",
+                        "https://www.googleapis.com/auth/drive"]
+                creds = ServiceAccountCredentials.from_json_keyfile_name(
+                    'credentials.json', scope)
+                client = gspread.authorize(creds)
+
+                spreadsheet_id = config['spreadsheet']
+                sheet_name = config['2nr']
+
+                sheet = client.open_by_key(
+                    spreadsheet_id).worksheet(sheet_name)
+                # Obtém todas as células
+                cells = sheet.get_all_values()
+
+                # Armazena as células que correspondem à condição
+                matches = [cell for row in cells for cell in row if
+                        re.match(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', cell)]
+
+                # Armazena a lista de células correspondentes à condição em uma variável
+                regex2nr = matches
+                while len(regex2nr) == 0:
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Nenhuma conta do 2NR encontrada.\nTentando novamente em 5 min.')
+                    window.Refresh()
+                    scope = ["https://spreadsheets.google.com/feeds",
+                            "https://www.googleapis.com/auth/drive"]
+                    creds = ServiceAccountCredentials.from_json_keyfile_name(
+                        'credentials.json', scope)
+                    client = gspread.authorize(creds)
+
+                    spreadsheet_id = config['spreadsheet']
+
+                    sheet_name = config['2nr']
+                    sheet = client.open_by_key(
+                        spreadsheet_id).worksheet(sheet_name)
+                    # Insert user, password, and timestamp into first empty row
+                    sheet = client.open_by_key(
+                        spreadsheet_id).worksheet(sheet_name)
+                    values = sheet.col_values(1)
+
+                    # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                    rows = sheet.get_all_values()
+
+                    # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                    regex = re.compile(r'\S+\s\S+')
+                    sheet_name = config['2nr']
+                    # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                    try:
+                        num_rows = sum(1 for row in rows if regex.match(row[0]))
+                    except:
+                        pass
+                    window['total'].update(num_rows)
+
+                    time.sleep(300)
+                    cells = sheet.get_all_values()
+
+                    # Armazena as células que correspondem à condição
+                    matches = [cell for row in cells for cell in row if
+                            re.match(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', cell)]
+
+                    # Armazena a lista de células correspondentes à condição em uma variável
+                    regex2nr = matches
+                window['output'].print(
+                    f'[{datetime.now().strftime("%H:%M:%S")}] {len(regex2nr)} conta(s) encontrada.')
+                window.Refresh()
+                time.sleep(3)
+                try:
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click(timeout=60)
+                except Exception as e:
+                    print(e)
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao clicar em login. Tentando novamente.')
+                    window.Refresh()
+                    subprocess.run(
+                        f'uiautomator2 -s {porta} uninstall com.github.uiautomator',
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+                    raise Exception('Ocorreu um erro ao clicar em login.')
+                time.sleep(5)
+                spreadsheet_id = config['spreadsheet']
+                sheet_name = config['2nr']
+                sheet = client.open_by_key(
+                    spreadsheet_id).worksheet(sheet_name)
+                # Obtém todas as células
+
+                # Define a faixa de células para leitura
+                first_linha = sheet.cell(1, 1).value
+
+                # Divide a string em duas partes separadas por um espaço em branco
+                partes = first_linha.split(' ')
+
+                # Atribui a primeira parte (endereço de e-mail) à variável email2nr
+                email2nr = partes[0]
+
+                # Atribui a segunda parte (texto) à variável senha2nr
+                senha2nr = partes[1]
+                window['output'].print(
+                    f'[{datetime.now().strftime("%H:%M:%S")}] Email 2NR: {email2nr}')
+                window.Refresh()
+                d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email2nr)
+                time.sleep(0.5)
+                d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha2nr)
+                time.sleep(0.5)
+                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogin').click()
+                time.sleep(3)
+                perm = d(resourceId='pl.rs.sip.softphone.newapp:id/messages')
+                if perm.exists(timeout=30):
+                    time.sleep(10)
+                    pass
+                else:
+                    try:
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Conta não existe.')
+                        window.Refresh()
+                        scope = ["https://spreadsheets.google.com/feeds",
+                                "https://www.googleapis.com/auth/drive"]
+                        creds = ServiceAccountCredentials.from_json_keyfile_name(
+                            'credentials.json', scope)
+                        client = gspread.authorize(creds)
+                        # Abre a planilha e a planilha de uma determinada aba
+                        spreadsheet_id = config['spreadsheet']
+                        sheet_name = config['2nr']
+                        sheet = client.open_by_key(
+                            spreadsheet_id).worksheet(sheet_name)
+
+                        # Apaga a primeira célula da coluna A e desloca as células abaixo
+                        sheet.delete_rows(1, 1)
+                        conteudo = config['vpn']
+                        if conteudo == "AVG":
+                            vpn_avg()
+                        elif conteudo == "SurfShark":
+                            vpn_surf()
+                        elif conteudo == "Nenhuma":
+                            nenhuma_vpn()
+                        elif conteudo == "Avast":
+                            vpn_avast()
+                        elif conteudo == "ExpressVPN":
+                            vpn_express()
+                        elif conteudo == "PiaVPN":
+                            vpn_pia()
+                        elif conteudo == "TunnelBear":
+                            vpn_tunnelbear()
+                        elif conteudo == "BetterNet":
+                            vpn_better()
+                        elif conteudo == "CyberGhost":
+                            vpn_cyberghost()
+                        elif conteudo == "NordVPN":
+                            vpn_nord()
+                        elif conteudo == "HotspotShield":
+                            vpn_hotspotshield()
+                        elif conteudo == "WindscribeVPN":
+                            vpn_windscribe()
+                        elif conteudo == "HmaVPN":
+                            vpn_hma()
+                        else:
+                            window['output'].print(
+                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                            window.Refresh()
+                        raise Exception('skip')
+                    except Exception as e:
+                        print(e)
+                        raise Exception('skip')
+                try:
+                    qtd_num2 = d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[*]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.TextView[1]')
+                    qtd_num = qtd_num2.all()
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] {len(qtd_num)} número(s) encontrado.')
+                except Exception as e:
+                    print(e)
+                if len(qtd_num) == 0:
+                    try:
+                        scope = ["https://spreadsheets.google.com/feeds",
+                                "https://www.googleapis.com/auth/drive"]
+                        creds = ServiceAccountCredentials.from_json_keyfile_name(
+                            'credentials.json', scope)
+                        client = gspread.authorize(creds)
+                        # Abre a planilha e a planilha de uma determinada aba
+                        spreadsheet_id = config['spreadsheet']
+                        sheet_name = config['2nr']
+                        sheet = client.open_by_key(
+                            spreadsheet_id).worksheet(sheet_name)
+
+                        # Apaga a primeira célula da coluna A e desloca as células abaixo
+                        sheet.delete_rows(1, 1)
+                    except Exception as e:
+                        print(e)
+                    continue
+                window.Refresh()
+                try:
+                    num = d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[1]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.TextView[1]').get_text()
+                    num = num.replace(' ', '')
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Número: +48{num}')
+                    window.Refresh()
+                    email = num
+                except Exception as e:
+                    print(e)
+                d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
+                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonSettings').click()
+                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
+                d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
+            except Exception as e:
+                print(e)
+                print('Erro no processo de login no 2nr')
+                raise Exception('skip')
+            lista_user = random.choices(range(0, 9), k=2)
+            lista_letras = random.choices(letras, k=2)
+            nomea = fake.first_name_male().replace(" ", "")
+            nome = unicodedata.normalize('NFKD', nomea).encode(
+                'ASCII', 'ignore').decode('ASCII')
+            sobrenomea = fake.last_name().replace(" ", "").lower()
+            sobrenome = unicodedata.normalize('NFKD', sobrenomea).encode(
+                'ASCII', 'ignore').decode('ASCII')
+            nome_completo = nome + ' ' + sobrenome
+            nome_completo_s = nome + sobrenome
+            numeros_concatenados = ''.join(str(numero)
+                                        for numero in lista_user)
+            user_completo1 = nome_completo_s + '' + \
+                str(numeros_concatenados) + ''.join(lista_letras)
+            user_completo = random.randint(1, len(user_completo1))
+            string_with_dot = user_completo1[:user_completo] + \
+                '_' + user_completo1[user_completo:]
+            user_completo_antigo = string_with_dot.lower()
+            escolha = random.choice(["_", "."])
+            user_completo = nome + escolha + sobrenome + \
+                str(numeros_concatenados) + ''.join(lista_letras)
+
+            def gerar_senha(tamanho=12):
+                if tamanho < 6:
+                    raise ValueError("A senha deve ter pelo menos 6 caracteres.")
+
+                # Define uma lista de letras maiúsculas e minúsculas
+                letras_maiusculas = [random.choice(
+                    string.ascii_uppercase) for _ in range(tamanho // 2)]
+                letras_minusculas = [random.choice(
+                    string.ascii_lowercase) for _ in range(tamanho // 2)]
+
+                # Intercale as letras maiúsculas e minúsculas
+                senha = ''.join(''.join(pair)
+                                for pair in zip(letras_maiusculas, letras_minusculas))
+
+                # Adiciona caracteres especiais, números e @
+                caracteres_permitidos = string.ascii_letters + string.digits + string.punctuation
+                caracteres_permitidos = caracteres_permitidos.replace(
+                    "~", "")  # Remove ~ e outros acentos
+
+                senha += ''.join(random.choice(caracteres_permitidos)
+                                for _ in range(tamanho - len(senha) - 3))
+                # Adiciona pelo menos uma letra maiúscula
+                senha += random.choice(string.ascii_uppercase)
+                senha += random.choice(string.digits)  # Adiciona pelo menos um número
+                senha += "@"
+
+                # Mistura os caracteres
+                senha = ''.join(random.sample(senha, len(senha)))
+
+                return senha
+            if vpn_nav == 'SurfShark':
+                vpn_usada = 'surfshark'
+                chosen_proxy = None
+            elif vpn_nav == 'Proxy Gratuito': 
+                from threading import Thread, Lock
+                from queue import Queue
+                import re
+                import random
+                window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Procurando proxies válidos')
+                window.Refresh()
+                # URL da API para obter os proxies
+                
+                test_urls = [
+                    "https://ipinfo.io/json",
+                    "https://www.twilio.com"
+                ]
+
+                api_url = "https://api.proxyscrape.com/v3/free-proxy-list/get?request=displayproxies&proxy_format=protocolipport&format=text&anonymity=Elite&timeout=1000"
+                #api_url = "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&proxy_format=protocolipport&timeout=10000&country=all&ssl=all&anonymity=all"
+
+                # Função para obter proxies da API
+                def fetch_proxies(api_url):
+                    try:
+                        response = requests.get(api_url)
+                        proxies = response.text.split('\n')
+                        return [proxy.strip() for proxy in proxies if proxy.strip()]
+                    except requests.RequestException as e:
+                        print(f"Erro ao obter proxies: {e}")
+                        return []
+
+                # Obter proxies da API
+                proxies_list = fetch_proxies(api_url)
+
+                # Aleatorizar a ordem dos proxies
+                random.shuffle(proxies_list)
+
+                # Fila de proxies
+                proxy_queue = Queue()
+
+                # Adiciona proxies à fila
+                for proxy in proxies_list:
+                    proxy_queue.put(f"{proxy}")
+
+                # Lista para armazenar proxies válidos
+                valid_proxies = []
+
+                # Lock para proteger o acesso à lista de proxies válidos
+                list_lock = Lock()
+
+                # Variável de controle para parar threads
+                stop_event = False
+
+                def check_proxy():
+                    global stop_event
+                    while not proxy_queue.empty() and not stop_event:
+                        proxy = proxy_queue.get()
+                        successes = [False] * len(test_urls)  # Lista para acompanhar os sucessos em cada URL
+                        try:
+                            for i, test_url in enumerate(test_urls):
+                                response = requests.get(test_url, proxies={"http": proxy, "https": proxy}, timeout=2)
+                                if response.status_code == 200:
+                                    successes[i] = True
+                                else:
+                                    successes[i] = False
+                        except requests.RequestException:
+                            successes = [False] * len(test_urls)
+
+                        if all(successes):  # Se todos os testes forem bem-sucedidos
+                            with list_lock:
+                                if proxy not in valid_proxies:
+                                    valid_proxies.append(proxy)
+                                    print(f"Proxy válido: {proxy}")
+                                    if len(valid_proxies) >= 5:
+                                        stop_event = True
+                        else:
+                            pass
+                            #print(f"Proxy inválido: {proxy}")
+
+                        proxy_queue.task_done()
+
+                # Número de threads
+                num_threads = 20
+
+                # Criar e iniciar as threads
+                threads = []
+                for i in range(num_threads):
+                    thread = Thread(target=check_proxy)
+                    thread.start()
+                    threads.append(thread)
+
+                # Aguardar todas as threads terminarem
+                for thread in threads:
+                    thread.join()
+
+                # Escolher um proxy aleatório entre os válidos encontrados
+                if valid_proxies:
+                    chosen_proxy = random.choice(valid_proxies)
+                    print("Proxy escolhido aleatoriamente:", chosen_proxy)
+                else:
+                    print("Nenhum proxy válido encontrado")
+            if vpn_nav != 'Proxy Gratuito':
+                caminho_extrecaptcha = rf'.\storage\recaptcha,{caminho_atual}\storage\{vpn_usada}'
+            elif vpn_nav == 'Proxy Gratuito':
+                caminho_extrecaptcha = rf'.\storage\recaptcha'
+            
+            with SB(uc=True,pls='eager', ad_block_on=True, locale_code='pt-br', demo=False, incognito=True, extension_dir=caminho_extrecaptcha, proxy=chosen_proxy) as chrome:
+                time.sleep(2)
+                from pywinauto import Desktop
+
+                desktop = Desktop(backend="uia")
+
+                # Definir variáveis para armazenar a janela ativa e seu handle
+                active_window = None
+                active_handle = None
+
+                # Iterar sobre todas as janelas do desktop
+                for window2 in desktop.windows():
+                    if window2.is_active():
+                        active_window = window2
+                        active_handle = window2.handle
+                        print(f"Handle da janela ativa: {active_handle}")
+                        print(f"Título da janela ativa: {active_window.window_text()}")
+                        break  # Para assim que encontrar a janela ativa
+                else:
+                    pass
+                    #print("Nenhuma janela ativa encontrada.")
+                time.sleep(3)
+                if vpn_nav == 'SurfShark':
+                    file_path = './storage/surfshark.crx'
+                    import zipfile
+#
+                    if os.path.exists("./storage/surfshark/"):
+                        result = f"A pasta 'surfshark' já existe em '{file_path}'."
+                    else:
+                        # URL para download
+                        url = 'https://www.dropbox.com/scl/fi/e4f4h29zl5s5tywjp1ev2/surfshark.crx?rlkey=zb499vqpr8swexgd8yrsu6rvc&dl=1'
+#
+                        # Fazendo o download do arquivo
+                        response = requests.get(url)
+                        if response.status_code == 200:
+                            with open(file_path, 'wb') as file:
+                                file.write(response.content)
+                            print("Arquivo 'surfshark.crx' baixado e salvo em './storage/surfshark.crx'.")
+                            # Caminho do arquivo original (altere para o seu caminho de arquivo)
+                            caminho_original = './storage/surfshark.crx'
+                            novo_caminho = './storage/surfshark.zip'
+#
+                            # Renomear o arquivo
+                            os.rename(caminho_original, novo_caminho)
+#
+                            # Caminho do arquivo zip
+                            caminho_zip = './storage/surfshark.zip'
+#
+                            # Diretório de destino para extrair
+                            diretorio_destino = './storage/surfshark/'
+#
+                            # Remover um arquivo anterior, se existir
+                            arquivo_antigo = './storage/surfshark'
+                            if os.path.exists(arquivo_antigo):
+                                os.remove(arquivo_antigo)
+#
+                            # Criar o diretório de destino se ele não existir
+                            if not os.path.exists(diretorio_destino):
+                                os.makedirs(diretorio_destino)
+#
+                            # Extrair o arquivo zip
+                            with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+                                zip_ref.extractall(diretorio_destino)
+#
+                            print("Arquivo extraído com sucesso!")
+                            os.remove('./storage/surfshark.zip')
+#
+                        else:
+                            result = "Não foi possível baixar o arquivo. Status Code: " + \
+                                str(response.status_code)
+                    try:
+                        
+                        chrome.set_window_size(800, 800)
+                        # Alternar para a nova aba
+                        chrome.driver.switch_to.window(
+                            chrome.driver.window_handles[-1])
+#
+                        # Verificar se a URL está correta e fechar a aba
+                        if chrome.driver.current_url == "https://surfshark.com/pt-br/download/chrome/onboarding":
+                            chrome.driver.close()
+#
+                        # Alternar de volta para a aba original
+                        chrome.driver.switch_to.window(
+                            chrome.driver.window_handles[0])
+                        chrome.open('chrome://extensions/')
+                        extensoes = chrome.execute_script(
+                            'return document.querySelector("extensions-manager").shadowRoot.querySelector("extensions-item-list").shadowRoot.querySelectorAll("extensions-item");'
+                        )
+#
+                        id_extensao = None
+                        for ext in extensoes:
+                            nome_ext = chrome.execute_script(
+                                'return arguments[0].shadowRoot.querySelector("#name").innerText;', ext)
+                            if "Surf" in nome_ext:
+                                id_extensao = chrome.execute_script(
+                                    'return arguments[0].getAttribute("id");', ext)
+                                break
+#
+                        if id_extensao:
+                            url_extensao = f'chrome-extension://{id_extensao}/index.html'
+                            # chrome.get(url_extensao)
+                            # print(f"Página da extensão aberta em {url_extensao}")
+                        else:
+                            print("ID da extensão não encontrado")
+                        # Continuar com outras operações na aba original, se necessário
+                    except Exception as e:
+                        print(e)
+                    if os.path.exists(r'.\storage\cookies_surf.json'):
+                        chrome.driver.uc_open_with_reconnect(
+                            'https://my.surfshark.com/auth/login', 4)
+                        try:
+                            chrome.save_screenshot('erro_nav.png')
+                            chrome.switch_to_frame(
+                                'iframe[id^="cf-chl"]', timeout=1)
+                            print(chrome.driver.find_elements(
+                                By.XPATH, '//*[@id="challenge-stage"]/div/label/input'))
+                            # chrome.driver.uc_click('//*[@id="challenge-stage"]/div/label/input')
+                            chrome.driver.uc_click(
+                                'span')
+                            chrome.save_screenshot('erro_nav.png')
+                            # chrome.driver.execute_script("arguments[0].click();", chrome.driver.find_element(By.XPATH, '//*[@id="challenge-stage"]/div/label/input'))
+                        except Exception as e:
+                            print('Sem Cloudflare')
+                        with open(r'.\storage\cookies_surf.json', 'r') as file:
+                            cookies = json.load(file)
+#
+                        # Adiciona os cookies salvos ao navegador
+                        for cookie in cookies:
+                            chrome.driver.add_cookie(cookie)
+#
+                        # Recarrega a página para usar os cookies
+                        print('Adicionou os cookies')
+                        time.sleep(2)
+                        chrome.refresh()
+                        time.sleep(2)
+                        if chrome.driver.current_url == 'https://my.surfshark.com/home/dashboard':
+                            chrome.driver.get(url_extensao)
+                            chrome.wait_for_element(
+                                "//button[@data-test='login-in-button']").click()
+                            time.sleep(3)
+                        elif 'https://my.surfshark.com/auth/login' in chrome.driver.current_url:
+                            try:
+                                chrome.driver.get(url_extensao)
+                                chrome.wait_for_element(
+                                    "//button[@data-test='login-in-button']").click()
+#
+                                time.sleep(5)
+                                nova_janela = chrome.driver.window_handles[-1]
+                                chrome.driver.switch_to.window(nova_janela)
+                                time.sleep(4)
+                                if chrome.driver.current_url == 'https://my.surfshark.com/account/extension-login-success':
+#
+                                    time.sleep(5)
+                                    chrome.driver.close()
+                                nova_janela = chrome.driver.window_handles[0]
+                                chrome.driver.switch_to.window(nova_janela)
+#
+                                time.sleep(3)
+                            except Exception as e:
+                                print(e)
+                    else:
+                        chrome.driver.switch_to.window(
+                            chrome.driver.window_handles[0])
+                        import time
+                        # Abre uma nova aba para a extensão (geralmente chrome-extension://<extension-id>/)
+                        chrome.driver.get(url_extensao)
+                        chrome.wait_for_element(
+                            "//button[@data-test='login-in-button']").click()
+                        time.sleep(3)
+                        janela_principal = chrome.driver.window_handles[0]
+                        nova_janela = chrome.driver.window_handles[1]
+                        chrome.driver.switch_to.window(nova_janela)
+                        print(chrome.driver.current_url)
+                        email_surf = emailvpn
+                        senha_surf = senhavpn
+                        try:
+                            chrome.save_screenshot('erro_nav.png')
+                            chrome.switch_to_frame(
+                                'iframe[id^="cf-chl"]', timeout=1)
+                            print(chrome.driver.find_elements(
+                                By.XPATH, '//*[@id="challenge-stage"]/div/label/input'))
+                            # chrome.driver.uc_click('//*[@id="challenge-stage"]/div/label/input')
+                            chrome.driver.uc_click(
+                                'span')
+                            chrome.save_screenshot('erro_nav.png')
+                            # chrome.driver.execute_script("arguments[0].click();", chrome.driver.find_element(By.XPATH, '//*[@id="challenge-stage"]/div/label/input'))
+                        except Exception as e:
+                            print('Sem Cloudflare 2')
+                        chrome.send_keys(
+                            "//input[@name='emailField']", email_surf)
+                        chrome.send_keys(
+                            "//input[@name='passwordField']", senha_surf)
+                        chrome.click(("//button[@id='loginSubmit']"))
+                        time.sleep(10)
+                        if chrome.driver.current_url == 'https://my.surfshark.com/account/extension-login-success':
+#
+                            cookies = chrome.driver.get_cookies()
+#
+                            # Guarde os cookies em um arquivo JSON
+                            with open(r'.\storage\cookies_surf.json', 'w') as file:
+                                json.dump(cookies, file)
+                        else:
+                            print('Falha ao logar na surfshark')
+                        chrome.driver.close()
+                        chrome.driver.switch_to.window(janela_principal)
+#
+                    if 'https://my.surfshark.com/auth/login' in chrome.driver.current_url:
+                        print('Falha ao logar na surfshark')
+                        chrome.driver.switch_to.window(
+                            chrome.driver.window_handles[0])
+                        import time
+                        # Abre uma nova aba para a extensão (geralmente chrome-extension://<extension-id>/)
+                        chrome.driver.get(url_extensao)
+                        chrome.wait_for_element(
+                            "//button[@data-test='login-in-button']").click()
+                        time.sleep(3)
+                        janela_principal = chrome.driver.window_handles[0]
+                        nova_janela = chrome.driver.window_handles[1]
+                        chrome.driver.switch_to.window(nova_janela)
+                        print(chrome.driver.current_url)
+                        email_surf = 'americanplayer@protonmail.com'
+                        senha_surf = 'Kotinha10@'
+                        chrome.send_keys(
+                            "//input[@name='emailField']", email_surf)
+                        chrome.send_keys(
+                            "//input[@name='passwordField']", senha_surf)
+                        chrome.click(("//button[@id='loginSubmit']"))
+                        time.sleep(10)
+                        if chrome.driver.current_url == 'https://my.surfshark.com/account/extension-login-success':
+                            if os.path.exists(r'.\storage\cookies_surf.json'):
+                                # Apaga o arquivo
+                                os.remove(
+                                    r'.\storage\cookies_surf.json')
+                                print(
+                                    f"cookies_surf.json foi apagado com sucesso.")
+                            else:
+                                print(f"cookies_surf.json não existe.")
+                            cookies = chrome.driver.get_cookies()
+#
+                            # Guarde os cookies em um arquivo JSON
+                            with open(r'.\storage\cookies_surf.json', 'w') as file:
+                                json.dump(cookies, file)
+                            chrome.driver.close()
+                            chrome.switch_to.window(janela_principal)
+                        else:
+                            print('Falha ao logar na surfshark')
+                    print('Logou com sucesso na surfshark')
+#
+                    locais = ['Canada', 'USA', 'Brazil']
+                    local_vpn = random.choice(locais)
+                    print(f'Regiao escolhida {local_vpn}')
+                    chrome.driver.refresh()
+                    time.sleep(5)
+                    try:
+                        chrome.send_keys(
+                            "//input[@data-test='location-search-input']", local_vpn)
+                    except:
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Erro ao logar na VPN.')
+                        window.Refresh()
+                        if os.path.exists(r'.\storage\cookies_surf.json'):
+                            # Apaga o arquivo
+                            os.remove(
+                                r'.\storage\cookies_surf.json')
+                            print(
+                                f"cookies_surf.json foi apagado com sucesso.")
+                    chrome.click("//div[@data-test='location-title']")
+                    try:
+                        chrome.wait_for_element(
+                            "//button[@data-test='disconnect-button']")
+#
+                        print('VPN conectada')
+                        time.sleep(5)
+                    except Exception as e:
+                        print(e)
+                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo Twilio')
+                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando 1 minuto')
+                window.Refresh()
+                chrome.uc_open_with_reconnect('https://www.twilio.com/try-twilio', 40)
+                
+                
+                client = TempEmail()
+                # Generate a temporary email address with specific options
+                email = client.generate_temp_email(
+                    domain=False, dot_gmail=True, plus_gmail=True)["email"][0]
+                email_real = email
+                log, dominio = email_real.split('@')
+                numero_aleatorio = random.randint(0, 9999)
+                email = f'{log}+{numero_aleatorio:04}@{dominio}'
+                print(email)
+                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                window.Refresh()
+
+                senha = gerar_senha(tamanho=16)
+                timeout = 60
+                start_time = time.time()
+                while time.time() - start_time < timeout:
+                    try:
+                        if chrome.find_elements('iframe[id^="cf-chl"]'):
+                            chrome.switch_to_frame("iframe")
+                            chrome.assert_element("div#success svg#success-icon")
+                            break
+                    except Exception as e:
+                        print(f'Captcha não solucionado: {e}')
+                        try:
+                            chrome.switch_to_default_content()
+                        except:
+                            pass
+                        pass
+                    #element = chrome.find_element('iframe[id^="cf-chl"]')
+                    #captcha_value = element.get_attribute('value')
+                    #if captcha_value:
+                    #    break
+                    try:
+                        try:
+                            if chrome.find_elements('iframe[id^="cf-chl"]'):
+                                chrome.switch_to_frame("iframe")
+                                print("Clicando com uc")
+                                chrome.driver.uc.click('span', 10)
+                                print("Clicou")
+                                chrome.assert_element("div#success svg#success-icon")
+                                print(1)
+                                break
+
+                        except:
+                            try:
+                                chrome.switch_to_default_content()
+                            except:
+                                pass
+                            if chrome.find_elements('iframe[id^="cf-chl"]'):
+                                chrome.driver.minimize_window()
+                                time.sleep(2)
+                                if active_window:
+                                    # Mover a janela para o topo
+                                    active_window.set_focus()
+                                    print("Janela movida para o topo.")
+                                    rect = window2.rectangle()
+                                    x = rect.left
+                                    y = rect.top
+                                    width = rect.width()
+                                    height = rect.height()
+
+                                    print(f"Coordenadas da janela ativa: ({x}, {y})")
+                                    print(f"Tamanho da janela ativa: {width}x{height}")
+
+                                    # Clicar no centro da janela
+                                    window2.click_input(coords=(x + width // 2, y + height // 2))
+                                    
+                                    print("Clicou no centro da janela.")
+                                else:
+                                    pass
+                                chrome.switch_to_frame("iframe")
+                                chrome.execute_script('document.querySelector("input").focus()')
+                                chrome.disconnect()
+                                time.sleep(2)
+                                pyautogui.press(' ')
+                                chrome.reconnect(3)
+                                
+                                print(2)
+                                break
+                            else:
+                                chrome.execute_script('document.querySelector("input").focus()')
+                                chrome.disconnect()
+                                time.sleep(2)
+                                pyautogui.press(' ')
+                                chrome.reconnect(3)
+                                
+                                print(3)
+                                break
+                    except Exception as e:
+                        print(e)
+                        pass
+                    time.sleep(1)  # Espera 1 segundo antes de tentar novamente
+
+                # Verifica se o campo 'captcha' foi preenchido corretamente dentro do tempo limite
+                #assert captcha_value, "O campo 'captcha' não foi preenchido dentro do tempo limite."
+                try:
+                    chrome.switch_to_default_content()
+                except:
+                    pass
+
+                def digitar_como_humano(elemento: WebElement, texto: str, min_delay=0.1, max_delay=0.2):
+                    """
+                    Digita o texto em um elemento da página, simulando digitação humana.
+
+                    :param elemento: O elemento do Selenium onde o texto será digitado.
+                    :param texto: O texto a ser digitado no elemento.
+                    :param min_delay: Atraso mínimo entre as teclas, em segundos.
+                    :param max_delay: Atraso máximo entre as teclas, em segundos.
+                    """
+                    for char in texto:
+                        elemento.send_keys(char)
+                        time.sleep(random.uniform(min_delay, max_delay))
+
+                
+                digitar_como_humano(chrome.wait_for_element('#first-name'), nome)
+                time.sleep(1)
+                digitar_como_humano(chrome.wait_for_element('#last-name'), sobrenome)
+                #chrome.wait_for_element('#last-name').send_keys(sobrenome)
+                time.sleep(1)
+                digitar_como_humano(chrome.wait_for_element('#email'), email)
+                #chrome.wait_for_element('#email').send_keys(email)
+                time.sleep(1)
+                digitar_como_humano(chrome.wait_for_element('#password'), senha)
+                #chrome.wait_for_element('#password').send_keys(senha)
+                time.sleep(1)
+                chrome.js_click('id','terms-of-service')
+                time.sleep(1)
+                chrome.wait_for_element('button[name=action]').click()
+                chrome.reconnect(15)
+                time.sleep(1)
+                print(senha)
+                chrome.wait_for_element('#verification_code', timeout=60)
+                time.sleep(3)
+                print('Esperando código')
+                # Get the content of a specific email (ID=2)
+                codigo = None
+                tentativa = 1
+                while True:
+                    email_list = client.get_mail_list(email)
+                    time.sleep(10)
+                    # Acessando a lista de mensagens
+                    message_list = email_list.get('messageData', [])
+                    # Verificando se há mensagens na lista
+                    message_list = email_list.get('messageData', [])
+                    # Verificando se há mensagens na lista
+                    id_msg = 0
+                    if message_list:
+                        for message in message_list:
+                            # Acessando o assunto da mensagem
+                            subject = message.get('from', '')
+                            id_msg += 1
+                            # Verificar se o assunto contém '2nr'
+                            if 'Twilio' in subject:
+                                break
+                            else:
+                                print("Aguardando código...")
+                    email_list = client.get_mail_list(email)
+                    if 'Twilio' in subject:
+                        break
+                    else:
+                        tentativa += 1
+                        if tentativa == 10:
+                            raise Exception('Email não chegou.')
+                email_content = client.get_mail_content(
+                    email, id=id_msg)
+                match = re.search(r'\b[A-Z0-9]{6}\b', email_content)
+                soup = BeautifulSoup(email_content, 'html.parser')
+
+                # Encontrando o elemento com id "verification-code"
+                verification_code_element = soup.find(id="verification-code")
+
+                # Extraindo o texto do elemento
+                if verification_code_element:
+                    verification_code = verification_code_element.get_text()
+                    print("Verification Code:", verification_code)
+                else:
+                    print("Verification code not found.")
+                window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Email verificado')
+                window.Refresh()
+                digitar_como_humano(chrome.wait_for_element('#verification_code'), verification_code)
+                #chrome.wait_for_element('#verification_code').send_keys(verification_code)
+                chrome.wait_for_element("//span[text()='Verify']").click()
+                chrome.wait_for_element('button[data-testid=country-reset-button]', timeout=60)
+                time.sleep(4)
+                chrome.wait_for_element('button[data-testid=country-reset-button]', timeout=30).click()
+                time.sleep(2)
+                #digitar_como_humano(chrome.wait_for_element('#downshift-1-menu'), "+48")
+                chrome.wait_for_element('#downshift-1-input').send_keys("+48")
+                time.sleep(1)
+                chrome.wait_for_element('#downshift-1-menu').click()
+                digitar_como_humano(chrome.wait_for_element('input[name=phoneNumber]'), num)
+                time.sleep(3)
+                #chrome.wait_for_element('input[name=phoneNumber]').send_keys(f"{num}")
+                chrome.wait_for_element("//span[text()='Send code via SMS']").click()
+                chrome.wait_for_element("//span[text()='Enter verification code']", timeout=30)
+                window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código')
+                window.Refresh()
+                d.app_start("pl.rs.sip.softphone.newapp")
+                time.sleep(5)
+                if d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').exists:
+                    print('2NR deslogou')
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click(timeout=60)
+                    time.sleep(5)
+
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/emailEdiText').set_text(email2nr)
+                    time.sleep(0.5)
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/passwordEdiText').set_text(senha2nr)
+                    time.sleep(0.5)
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/buttonLogin').click()
+                    time.sleep(3)
+
+                d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
+
+
+                try:
+                    cod = d(
+                        resourceId='pl.rs.sip.softphone.newapp:id/message').get_text(timeout=60)
+
+                except:
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Código não recebido')
+                    window.Refresh()
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click(timeout=30)
+                    time.sleep(1)
+                    d.xpath(
+                        '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[1]/androidx.appcompat.widget.LinearLayoutCompat').click()
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
+                    d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
+                    window.Refresh()
+                    raise Exception('Código não recebido')
+                
+                cod = cod.replace(' ', '')
+                codigo = re.sub('[^0-9]', '', cod)[:6]
+                code2nr = codigo
+                window['output'].print(
+                    f'[{datetime.now().strftime("%H:%M:%S")}] Codigo recebido: {codigo}')
+                window.Refresh()
+                d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
+                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonSettings').click()
+                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
+                d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
+                digitar_como_humano(chrome.wait_for_element('input[name=verificationCode]'), code2nr)
+                time.sleep(2)
+                #chrome.wait_for_element('input[name=verificationCode]').send_keys(f"{code2nr}")
+                chrome.js_click("//span[text()='Verify']")
+                chrome.reconnect(3)
+                d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click(timeout=30)
+                time.sleep(4)
+                d.xpath(
+                    '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[1]/androidx.appcompat.widget.LinearLayoutCompat').click()
+                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
+                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
+                window['output'].print(
+                    f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
+                window.Refresh()
+                recovery_code = chrome.wait_for_element('input[data-testid=recovery-code]', timeout=30)
+                recovery_code = recovery_code.get_attribute('value')
+                print(recovery_code)
+                chrome.js_click("//span[text()='Continue']")
+                chrome.disconnect()
+                chrome.reconnect(timeout=15)
+                try:
+                    chrome.wait_for_element("//span[text()='What do you plan to build with Twilio?']",timeout=60)
+                except Exception as e:
+                    if chrome.wait_for_element("//h1[text()='Verify your phone number']"):
+                        print('Verificando com novo número')
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonSettings').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click()
+                        try:
+                            num = d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[1]/androidx.appcompat.widget.LinearLayoutCompat/android.widget.LinearLayout/android.widget.TextView[1]').get_text()
+                            num = num.replace(' ', '')
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Número novo: +48{num}')
+                            window.Refresh()
+                            email = num
+                        except Exception as e:
+                            print(e)
+                        chrome.wait_for_element('button[data-testid=country-reset-button]').click()
+                        chrome.wait_for_element('#downshift-8-input').send_keys("+48")
+                        chrome.wait_for_element('#downshift-8-menu').click()
+                        chrome.wait_for_element('input[id=phone-input-mobile]').send_keys(f"{num}")
+                        chrome.js_click("//span[text()='Send Verification Code']")
+                        chrome.reconnect(timeout=10)
+                        chrome.wait_for_element("//h1[text()='Enter verification code']")
+                        
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/messages').click()
+
+
+                        try:
+                            cod = d(
+                                resourceId='pl.rs.sip.softphone.newapp:id/message').get_text(timeout=60)
+
+                        except:
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Código não recebido')
+                            window.Refresh()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/numbers').click(timeout=30)
+                            time.sleep(1)
+                            d.xpath(
+                                '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/androidx.appcompat.widget.LinearLayoutCompat/android.widget.FrameLayout[1]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/androidx.recyclerview.widget.RecyclerView/androidx.cardview.widget.CardView[1]/androidx.appcompat.widget.LinearLayoutCompat').click()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonDelete').click()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonAgree').click()
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Número excluído.')
+                            window.Refresh()
+                            raise Exception('Código não recebido')
+                        
+                        cod = cod.replace(' ', '')
+                        codigo = re.sub('[^0-9]', '', cod)[:6]
+                        code2nr = codigo
+
+                        chrome.wait_for_element('input[id=phone-code-input-mobile]').send_keys(f"{codigo}")
+                        chrome.js_click("//span[text()='Submit']")
+                        chrome.reconnect(timeout=10)
+                        try:
+                            chrome.wait_for_element("//span[text()='What do you plan to build with Twilio?']",timeout=60)
+                        except:
+                            print('Não foi possivel criar a conta')
+                            raise Exception('Não foi possivel criar a conta')
+                    elif chrome.wait_for_element("//p[text()='We are sorry that something went wrong, let’s get you up and running!"):
+                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta bloqueada')
+                        window.Refresh()
+                        print('Conta bloqueada')
+                        raise Exception('Conta bloqueada')
+                    else:
+                        print('Tentando logar')
+                        chrome.wait_for_element('#email').send_keys(email)
+                        chrome.js_click("//div[text()='Continue']")
+                        chrome.switch_to_frame(
+                            'iframe[id^="cf-chl"]')
+                        chrome.uc_click(
+                            'span')
+                        chrome.switch_to_default_content()
+                        chrome.wait_for_element('#password').send_keys(senha)
+
+                    
+                print('Conta criada com sucesso')
+                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                    text_color=('lime'))
+                window.Refresh()
+                contagem += 1
+                window['criadas'].update(contagem)
+                window.Refresh()
+                chrome.wait_for_element("input[id=downshift-0-input]").click()
+                chrome.wait_for_element("input[id=downshift-0-input]").send_keys(Keys.DOWN)
+                chrome.wait_for_element("input[id=downshift-0-input]").send_keys(Keys.ENTER)
+                chrome.wait_for_element("/html/body/div[1]/div/div[2]/div[2]/div[1]/div/div/div[3]/div/fieldset/div/div[4]").click()
+                chrome.wait_for_element("/html/body/div[1]/div/div[2]/div[2]/div[2]/div/div/div/div/fieldset/div/div[3]").click()
+                chrome.wait_for_element("//label[contains(., 'What is your goal today?')]/following-sibling::div//input").click()
+                chrome.wait_for_element("//label[contains(., 'What is your goal today?')]/following-sibling::div//input").send_keys(Keys.DOWN)
+                chrome.wait_for_element("//label[contains(., 'What is your goal today?')]/following-sibling::div//input").send_keys(Keys.ENTER)
+                chrome.js_click("//span[text()='Get Started with Twilio']")
+                sid = chrome.wait_for_element('input[data-testid=account-sid-input-value]', timeout=120)
+                sid = sid.get_attribute('value')
+                print(sid)
+                chrome.js_click("//span[text()='Show']")
+                token = chrome.wait_for_element('input[data-testid=auth-token-input-value]', timeout=30)
+                token = token.get_attribute('value')
+                print(token)
+                try:
+                    arquivo = open(
+                        'configuracoes/contas/twilio.txt', 'x')
+                except FileExistsError:
+                    arquivo = open(
+                        'configuracoes/contas/twilio.txt', 'a')
+                arquivo.write(sid + ' ' + token + "\n")
+                arquivo.close()
+        except Exception as e:
+            sms = True
+            if not str(e) == '':
+                traceback.print_exc()
 
 pool = concurrent.futures.ThreadPoolExecutor()
 while True:
@@ -64634,6 +66446,281 @@ while True:
                             "opcao": opcao
                         }
                         with open("config2nr.json", "w") as f:
+                            json.dump(config, f)
+
+                        # Atualizar os valores padrão dos campos na GUI de configuração
+                    janela_configuracoes.close()
+    if event == 'CREATOR TWILIO':
+        dialog_layout = [
+            [sg.Text('Digite a porta:', font=('Open Sans', 10))],
+            [sg.Input(key='port', font=('Open Sans', 10))],
+            [sg.Radio('Emulador', 'dispositivo', key='-emulador-', default=True),
+             sg.Radio('Celular', 'dispositivo', key='-celular-')],
+            [sg.Button('Avançar', font=('Open Sans', 10), button_color='#1c2024'),
+             sg.Button('?', button_color=('white', sg.theme_background_color()), border_width=0,
+                       tooltip='Mostrar dispositivos')]
+        ]
+        try:
+            state = config['fixtop']
+            if state:
+                dialog_window = sg.Window(
+                    'Digite a porta do celular.', dialog_layout, keep_on_top=True)
+            else:
+                dialog_window = sg.Window(
+                    'Digite a porta do celular.', dialog_layout, keep_on_top=False)
+        except:
+            dialog_window = sg.Window(
+                'Digite a porta do celular.', dialog_layout, keep_on_top=False)
+
+        # Loop principal da janela de diálogo
+        while True:
+            dialog_event, dialog_values = dialog_window.read()
+
+            # Finaliza a janela de diálogo se o usuário fechar a janela
+            if dialog_event == sg.WINDOW_CLOSED:
+                break
+            if dialog_event == '?':
+                def get_adb_devices():
+                    processo = subprocess.Popen(['adb', 'devices'], stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                                                text=True)
+                    saida, erro = processo.communicate()
+                    saida = saida.replace('List of devices attached\n', '')
+                    return erro if erro else saida
+                    # Conteúdo para o pop-up
+
+                adb_output = get_adb_devices()
+
+                # Layout do pop-up com texto selecionável
+                popup_layout = [
+                    [sg.Text('Dispositivos:', font=('Open Sans', 10))],
+                    [sg.Multiline(adb_output, size=(20, 4), disabled=True)],
+                    [sg.Button('Fechar', font=('Open Sans', 10), button_color='#1c2024')]]
+                sg.Window('...', popup_layout).read(close=True)
+            # Avança para a janela principal se o usuário clicar no botão
+            # Avança para a janela principal se o usuário clicar no botão
+            if dialog_event == 'Avançar':
+                if dialog_values['-emulador-']:
+                    port = dialog_values['port']
+                    porta = f'127.0.0.1:{port}'
+                elif dialog_values['-celular-']:
+                    porta = dialog_values['port']
+
+                break
+
+        dialog_window.close()
+        port = porta
+        time_img = 'storage\\img\\time.png'
+        url = "https://i.ibb.co/5vJ5sQz/time.png"
+        filename = 'time.png'
+        # Diretório onde você deseja verificar a existência do arquivo
+        diretorio = 'storage/img/'
+
+        caminho_arquivo = os.path.join(diretorio, filename)
+
+        if not os.path.exists(caminho_arquivo):
+            response = requests.get(url)
+
+            if response.status_code == 200:
+                image_content = response.content
+
+                with open(caminho_arquivo, 'wb') as image_file:
+                    image_file.write(image_content)
+                print("Imagem baixada com sucesso.")
+            else:
+                print("Falha ao baixar a imagem.")
+        else:
+            pass
+
+        layout = [
+            [
+                sg.Frame('WNx3 CREATOR', [
+                    [sg.Multiline(font=('Open Sans', 10),
+                                  key='output', size=(50, 15), disabled=True)]
+                ], border_width=5, title_location='n')
+            ],
+            [
+                sg.Button('Executar', button_color='#1c2024'),
+                sg.Button('Configurações', key='-config-',
+                          button_color='#1c2024'),
+                sg.Image(filename=check_img, pad=((40, 0), 0)
+                         ), sg.Text('0', key='total'),
+                sg.Image(filename=criada_img, pad=((0, 0), 0)
+                         ), sg.Text('0', key='criadas'),
+                sg.Image(filename=time_img, pad=((0, 0), 0)), sg.Text(
+                    "00:00:00", key="-TIME-", pad=((0, 0), 0))
+            ]
+        ]
+        window = sg.Window(
+            f'CREATOR TWILIO WNx3 | Porta: {porta}', layout, keep_on_top=False)
+
+        inicio.close()
+        while True:
+            minha_thread = None
+            parar = False
+            event, values = window.read()
+
+            # Finaliza a janela se o usuário fechar a janela
+            if event == sg.WINDOW_CLOSED:
+                parar = True
+                time_thread.join()
+                break
+
+            # Executa o código e atualiza a saída na Multiline em tempo real
+            if event == 'Executar':
+                try:
+                    with open('configuracoes\\configTwilio.json', 'r') as file:
+                        configTwilio = json.load(file)
+                except FileNotFoundError:
+                    configTwilio = {}
+                
+                contagem = 0
+                running = True
+
+                def format_time(seconds):
+                    hours = seconds // 3600
+                    minutes = (seconds % 3600) // 60
+                    seconds = seconds % 60
+                    return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+
+                #
+
+                def update_time(window):
+                    start_time = time.time()  # Armazena o tempo inicial
+                    while running:
+                        current_time = time.time() - start_time
+                        window["-TIME-"].update(format_time(int(current_time)))
+                        window.refresh()  # Atualiza a interface do usuário
+
+                time_thread = threading.Thread(
+                    target=update_time, args=(window,))
+                time_thread.start()
+                # tentativa = False
+                if not os.path.exists("credentials.json"):
+                    # se o arquivo não existe, pede o nome do arquivo ao usuário e armazena em uma variável global
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Nenhum credentials.json encontrado.')
+                    window.Refresh()
+                    time.sleep(200)
+                else:
+                    pass
+
+                contagem = 0
+                thread_parar = False
+                window['Executar'].update(disabled=True)
+                window.Refresh()
+                try:
+                    with open('configuracoes\\config6.json', 'r') as file:
+                        config6 = json.load(file)
+                except FileNotFoundError:
+                    config6 = {}
+                vpn_list = ["SurfShark", "Proxy Gratuito"]
+                dialog_layout = [
+                    [sg.Combo(vpn_list, default_value=config6.get("metodo", ""), readonly=True,
+                              key='-vpnlista-', visible=True)],
+                    [sg.InputText(key="-emailvpn-", visible=True,
+                                  default_text=config6.get("emailvpn", "Email VPN"))],
+                    [sg.InputText(key="-senhavpn-", visible=True,
+                                  default_text=config6.get("senhavpn", "Senha VPN"))],
+                    [sg.Button('Executar', button_color='#1c2024')]
+                ]
+
+                dialog_window = sg.Window(
+                    '...', dialog_layout, keep_on_top=False)
+
+                # Loop principal da janela de diálogo
+                while True:
+                    dialog_event, dialog_values = dialog_window.read(
+                        timeout=100)
+
+                    # Finaliza a janela de diálogo se o usuário fechar a janela
+                    if dialog_event == sg.WINDOW_CLOSED:
+                        raise Exception("Janela fechada")
+                    
+
+                    # Avança para a janela principal se o usuário clicar no botão
+                    if dialog_event == 'Executar':
+                        ip = dialog_values['-vpnlista-']
+                        config6 = {
+                            "emailvpn": dialog_values['-emailvpn-'],
+                            "senhavpn": dialog_values['-senhavpn-'],
+                            "metodo": ip
+                        }
+
+                        with open('configuracoes\\config6.json', 'w') as file:
+                            json.dump(config6, file)
+                        vpn_nav = dialog_values['-vpnlista-']
+                        break
+                dialog_window.close()
+                emailvpn = dialog_values['-emailvpn-']
+                senhavpn = dialog_values['-senhavpn-']
+                print(emailvpn)
+                window['output'].print(f'Bot iniciado.')
+                window.Refresh()
+                try:
+                    with open('configuracoes\\configTwilio.json', 'r') as file:
+                        configTwilio = json.load(file)
+                except FileNotFoundError:
+                    configTwilio = {}
+                try:
+                    with open('configuracoes\\configTwilio.json', 'r') as file:
+                        config = json.load(file)
+                except FileNotFoundError:
+                    config = {}
+
+                minha_thread = threading.Thread(target=creator_TWILIO)
+                minha_thread.start()
+            if event == 'clear':
+                window['output'].update('')
+                if not os.path.exists("credentials.json"):
+                    # se o arquivo não existe, pede o nome do arquivo ao usuário e armazena em uma variável global
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Nenhum credentials.json encontrado.')
+                    window.Refresh()
+                    time.sleep(200)
+                else:
+                    pass
+                if 'senha' not in config or config['maquina'] == '':
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Configure o bot primeiro.')
+                    window.Refresh()
+                    time.sleep(200)
+            if event == '-config-':
+                if user_mysql == 'wn3':
+                    estado_user = True
+                else:
+                    estado_user = True
+                try:
+                    with open('configuracoes\\configTwilio.json', 'r') as file:
+                        configTwilio = json.load(file)
+                except FileNotFoundError:
+                    configTwilio = {}
+                layout_configuracoes = [
+                    [sg.Text("SpreadsheetID: "),
+                     sg.InputText(key="spreadsheet", default_text=configTwilio.get("spreadsheet", ""))],
+                    [sg.Text("Planilha 2NR: "), sg.InputText(
+                        key="2nr", default_text=configTwilio.get("2nr", ""))],
+                    [sg.Button("Salvar")]
+                ]
+
+                # Criar a janela da GUI de configuração
+                janela_configuracoes = sg.Window(
+                    "Configurações", layout_configuracoes)
+
+                while True:
+                    # janela_configuracoes = sg.Window('Configurações', layout_configuracoes)
+                    evento, valores = janela_configuracoes.read()
+
+                    if evento == sg.WINDOW_CLOSED:
+                        thread_parar = True
+                        break
+
+                    if evento == "Salvar":
+                        config = {
+                            "spreadsheet": valores['spreadsheet'],
+                            "2nr": valores['2nr']
+
+                        }
+                        with open("configuracoes\\configTwilio.json", "w") as f:
                             json.dump(config, f)
 
                         # Atualizar os valores padrão dos campos na GUI de configuração
