@@ -63559,12 +63559,54 @@ def creator_TWILIO():
         # Apaga o arquivo zip após a extração
         os.remove(caminho_arquivo)
         print("\nDownload e extração concluídos.")
+    file_path = './storage/recaptcha.crx'
+    import zipfile
 
-    url = 'https://www.dropbox.com/scl/fi/9juftou3q4k4kj2o7mzhq/chrome-win.zip?rlkey=84n9pwxouhu9punpcjg32onbz&dl=1'
-    caminho_arquivo = './storage/driver/driver.zip'
-    pasta_destino = './storage/driver/'
+    if os.path.exists("./storage/recaptcha/"):
+        result = f"A pasta 'recaptcha' já existe em '{file_path}'."
+    else:
+        # URL para download
+        url = 'https://www.dropbox.com/scl/fi/ezzl75hi49jq9rq84vvpl/recaptcha.crx?rlkey=z2vyoo7rqc407l36atsjfajzg&st=cmpklgle&dl=1'
 
-    baixar_arquivo(url, caminho_arquivo, pasta_destino)
+        # Fazendo o download do arquivo
+        response = requests.get(url)
+        if response.status_code == 200:
+            with open(file_path, 'wb') as file:
+                file.write(response.content)
+            print("Arquivo 'recaptcha.crx' baixado e salvo em './storage/recaptcha.crx'.")
+            # Caminho do arquivo original (altere para o seu caminho de arquivo)
+            caminho_original = './storage/recaptcha.crx'
+            novo_caminho = './storage/recaptcha.zip'
+
+            # Renomear o arquivo
+            os.rename(caminho_original, novo_caminho)
+
+            # Caminho do arquivo zip
+            caminho_zip = './storage/recaptcha.zip'
+
+            # Diretório de destino para extrair
+            diretorio_destino = './storage/recaptcha/'
+
+            # Remover um arquivo anterior, se existir
+            arquivo_antigo = './storage/recaptcha'
+            if os.path.exists(arquivo_antigo):
+                os.remove(arquivo_antigo)
+
+            # Criar o diretório de destino se ele não existir
+            if not os.path.exists(diretorio_destino):
+                os.makedirs(diretorio_destino)
+
+            # Extrair o arquivo zip
+            with zipfile.ZipFile(caminho_zip, 'r') as zip_ref:
+                zip_ref.extractall(diretorio_destino)
+
+            print("Arquivo extraído com sucesso!")
+            os.remove('./storage/recaptcha.zip')
+
+        else:
+            result = "Não foi possível baixar o arquivo. Status Code: " + \
+                str(response.status_code)
+    
     if os.path.exists("./storage/adblock/"):
         result = f"A pasta 'adblock' já existe em '{file_path}'."
     else:
@@ -63616,7 +63658,20 @@ def creator_TWILIO():
     from seleniumbase import Driver
     from bs4 import BeautifulSoup
     import random
-    import pyautogui
+    try:
+        from pywinauto import Desktop
+    except:
+        subprocess.run(
+            ['pip', 'install', 'pywinauto'])
+        from pywinauto import Desktop
+
+        
+    try:
+        import pyautogui
+    except:
+        subprocess.run(
+            ['pip', 'install', 'pyautogui'])
+        import pyautogui
     import uiautomator2 as u2
     from selenium.webdriver.common.keys import Keys
     try:
@@ -64682,8 +64737,13 @@ def creator_TWILIO():
             
             with SB(uc=True,pls='eager', ad_block_on=True, locale_code='pt-br', demo=False, incognito=True, extension_dir=caminho_extrecaptcha, proxy=chosen_proxy) as chrome:
                 time.sleep(2)
-                from pywinauto import Desktop
-
+                
+                try:
+                    from pywinauto import Desktop
+                except:
+                    subprocess.run(
+                        ['pip', 'install', 'pywinauto'])
+                    from pywinauto import Desktop
                 desktop = Desktop(backend="uia")
 
                 # Definir variáveis para armazenar a janela ativa e seu handle
@@ -64962,7 +65022,6 @@ def creator_TWILIO():
                 
                 
                 client = TempEmail()
-                # Generate a temporary email address with specific options
                 email = client.generate_temp_email(
                     domain=False, dot_gmail=True, plus_gmail=True)["email"][0]
                 email_real = email
@@ -65079,6 +65138,7 @@ def creator_TWILIO():
                 #chrome.wait_for_element('#email').send_keys(email)
                 time.sleep(1)
                 digitar_como_humano(chrome.wait_for_element('#password'), senha)
+                print(senha)
                 #chrome.wait_for_element('#password').send_keys(senha)
                 time.sleep(1)
                 chrome.js_click('id','terms-of-service')
@@ -65086,7 +65146,7 @@ def creator_TWILIO():
                 chrome.wait_for_element('button[name=action]').click()
                 chrome.reconnect(15)
                 time.sleep(1)
-                print(senha)
+                
                 chrome.wait_for_element('#verification_code', timeout=60)
                 time.sleep(3)
                 print('Esperando código')
