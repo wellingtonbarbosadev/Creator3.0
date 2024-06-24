@@ -461,7 +461,7 @@ inicio = [
                    button_color='#1c2024', border_width=0, size=(35, 1))],
         [sg.Button("CREATOR 2NR", font=('Open Sans', 9),
                    button_color='#1c2024', border_width=0, size=(35, 1))],
-        [sg.Button("CREATOR TWILIO", font=('Open Sans', 9), disabled=True,
+        [sg.Button("CREATOR TWILIO", font=('Open Sans', 9), disabled=False,
                    button_color='#1c2024', border_width=0, size=(35, 1))],
         [sg.Button("DIVISOR", font=('Open Sans', 9),
                    button_color='#1c2024', border_width=0, size=(35, 1))],
@@ -64561,6 +64561,18 @@ def creator_TWILIO():
             if vpn_nav == 'SurfShark':
                 vpn_usada = 'surfshark'
                 chosen_proxy = None
+            elif vpn_nav == 'Minhas Proxies':
+                with open('.\\proxies.txt', 'r') as f:
+                    linhas = f.readlines()  # Lê todas as linhas e armazena em uma lista
+
+                # Escolhe uma linha aleatória
+                linha_aleatoria = random.choice(linhas)  # Escolhe uma linha aleatória
+
+                # Remove espaços em branco nas extremidades da linha
+                chosen_proxy = linha_aleatoria.strip()
+
+                # Imprime a linha aleatória
+                print(f"Proxy: {chosen_proxy}")
             elif vpn_nav == 'Proxy Gratuito': 
                 from threading import Thread, Lock
                 from queue import Queue
@@ -64659,10 +64671,14 @@ def creator_TWILIO():
                     print("Proxy escolhido aleatoriamente:", chosen_proxy)
                 else:
                     print("Nenhum proxy válido encontrado")
-            if vpn_nav != 'Proxy Gratuito':
-                caminho_extrecaptcha = rf'.\storage\recaptcha,{caminho_atual}\storage\{vpn_usada}'
+            if vpn_nav == 'Minhas Proxies':
+                caminho_extrecaptcha = rf'.\storage\recaptcha'
             elif vpn_nav == 'Proxy Gratuito':
                 caminho_extrecaptcha = rf'.\storage\recaptcha'
+            elif vpn_nav != 'Proxy Gratuito':
+                caminho_extrecaptcha = rf'.\storage\recaptcha,{caminho_atual}\storage\{vpn_usada}'
+                chosen_proxy = None
+            
             
             with SB(uc=True,pls='eager', ad_block_on=True, locale_code='pt-br', demo=False, incognito=True, extension_dir=caminho_extrecaptcha, proxy=chosen_proxy) as chrome:
                 time.sleep(2)
@@ -64995,32 +65011,27 @@ def creator_TWILIO():
                                 pass
                             if chrome.find_elements('iframe[id^="cf-chl"]'):
                                 chrome.driver.minimize_window()
-                                time.sleep(2)
-                                if active_window:
-                                    # Mover a janela para o topo
-                                    active_window.set_focus()
-                                    print("Janela movida para o topo.")
-                                    rect = window2.rectangle()
-                                    x = rect.left
-                                    y = rect.top
-                                    width = rect.width()
-                                    height = rect.height()
-
-                                    print(f"Coordenadas da janela ativa: ({x}, {y})")
-                                    print(f"Tamanho da janela ativa: {width}x{height}")
-
-                                    # Clicar no centro da janela
-                                    window2.click_input(coords=(x + width // 2, y + height // 2))
-                                    
-                                    print("Clicou no centro da janela.")
-                                else:
-                                    pass
-                                chrome.switch_to_frame("iframe")
-                                chrome.execute_script('document.querySelector("input").focus()')
-                                chrome.disconnect()
-                                time.sleep(2)
-                                pyautogui.press(' ')
-                                chrome.reconnect(3)
+                                time.sleep(0.5)
+                                #if active_window:
+                                #    # Mover a janela para o topo
+                                #    active_window.set_focus()
+                                #    print("Janela movida para o topo.")
+                                #    rect = window2.rectangle()
+                                #    x = rect.left
+                                #    y = rect.top
+                                #    width = rect.width()
+                                #    height = rect.height()
+#
+                                #    print(f"Coordenadas da janela ativa: ({x}, {y})")
+                                #    print(f"Tamanho da janela ativa: {width}x{height}")
+#
+                                #    ## Clicar no centro da janela
+                                #    #window2.click_input(coords=(x + width // 2, y + height // 2))
+                                #    #
+                                #    #print("Clicou no centro da janela.")
+                                #else:
+                                #    pass
+                                chrome.uc_gui_handle_cf()
                                 
                                 print(2)
                                 break
@@ -65211,7 +65222,7 @@ def creator_TWILIO():
                 chrome.disconnect()
                 chrome.reconnect(timeout=15)
                 try:
-                    chrome.wait_for_element("//span[text()='What do you plan to build with Twilio?']",timeout=60)
+                    chrome.wait_for_element("//span[text()='What do you plan to build with Twilio?']",timeout=80)
                 except Exception as e:
                     if chrome.wait_for_element("//h1[text()='Verify your phone number']"):
                         print('Verificando com novo número')
@@ -66613,7 +66624,7 @@ while True:
                         config6 = json.load(file)
                 except FileNotFoundError:
                     config6 = {}
-                vpn_list = ["SurfShark", "Proxy Gratuito"]
+                vpn_list = ["SurfShark", "Proxy Gratuito", "Minhas Proxies"]
                 dialog_layout = [
                     [sg.Combo(vpn_list, default_value=config6.get("metodo", ""), readonly=True,
                               key='-vpnlista-', visible=True)],
