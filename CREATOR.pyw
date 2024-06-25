@@ -65018,7 +65018,7 @@ def creator_TWILIO():
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo Twilio')
                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando 1 minuto')
                 window.Refresh()
-                chrome.uc_open_with_reconnect('https://www.twilio.com/try-twilio', 40)
+                chrome.driver.uc_open_with_reconnect('https://www.twilio.com/try-twilio', 40)
                 
                 
                 client = TempEmail()
@@ -65065,7 +65065,7 @@ def creator_TWILIO():
 
                         except:
                             try:
-                                chrome.switch_to_default_content()
+                                chrome.driver.switch_to_default_content()
                             except:
                                 pass
                             if chrome.find_elements('iframe[id^="cf-chl"]'):
@@ -65090,7 +65090,7 @@ def creator_TWILIO():
                                 #    #print("Clicou no centro da janela.")
                                 #else:
                                 #    pass
-                                chrome.uc_gui_handle_cf()
+                                chrome.driver.uc_gui_handle_cf()
                                 
                                 print(2)
                                 break
@@ -65353,7 +65353,7 @@ def creator_TWILIO():
                         chrome.js_click("//div[text()='Continue']")
                         chrome.switch_to_frame(
                             'iframe[id^="cf-chl"]')
-                        chrome.uc_click(
+                        chrome.driver.uc_click(
                             'span')
                         chrome.switch_to_default_content()
                         chrome.wait_for_element('#password').send_keys(senha)
