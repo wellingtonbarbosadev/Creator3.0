@@ -64294,15 +64294,6 @@ def creator_TWILIO():
                 raise Exception('skip')
 
             try:
-                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
-                            stdout=subprocess.DEVNULL,
-                            stderr=subprocess.DEVNULL, check=True, shell=True)
-
-            except Exception as e:
-                print('Verifique se o Instagram está instalado.')
-                print(e)
-                pass
-            try:
                 subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
                             stdout=subprocess.DEVNULL,
                             stderr=subprocess.DEVNULL, check=True, shell=True)
