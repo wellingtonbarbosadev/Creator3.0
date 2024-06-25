@@ -65086,11 +65086,28 @@ def creator_TWILIO():
                                 print(2)
                                 break
                             else:
-                                chrome.execute_script('document.querySelector("input").focus()')
-                                chrome.disconnect()
-                                time.sleep(2)
-                                pyautogui.press(' ')
-                                chrome.reconnect(3)
+                                chrome.driver.minimize_window()
+                                time.sleep(0.5)
+                                #if active_window:
+                                #    # Mover a janela para o topo
+                                #    active_window.set_focus()
+                                #    print("Janela movida para o topo.")
+                                #    rect = window2.rectangle()
+                                #    x = rect.left
+                                #    y = rect.top
+                                #    width = rect.width()
+                                #    height = rect.height()
+#
+                                #    print(f"Coordenadas da janela ativa: ({x}, {y})")
+                                #    print(f"Tamanho da janela ativa: {width}x{height}")
+#
+                                #    ## Clicar no centro da janela
+                                #    #window2.click_input(coords=(x + width // 2, y + height // 2))
+                                #    #
+                                #    #print("Clicou no centro da janela.")
+                                #else:
+                                #    pass
+                                chrome.driver.uc_gui_handle_cf()
                                 
                                 print(3)
                                 break
