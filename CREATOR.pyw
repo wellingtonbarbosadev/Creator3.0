@@ -65056,7 +65056,7 @@ def creator_TWILIO():
 
                         except:
                             try:
-                                chrome.driver.switch_to_default_content()
+                                chrome.switch_to_default_content()
                             except:
                                 pass
                             if chrome.find_elements('iframe[id^="cf-chl"]'):
@@ -65081,7 +65081,7 @@ def creator_TWILIO():
                                 #    #print("Clicou no centro da janela.")
                                 #else:
                                 #    pass
-                                chrome.driver.uc_gui_handle_cf()
+                                chrome.uc_gui_handle_cf()
                                 
                                 print(2)
                                 break
@@ -65107,7 +65107,7 @@ def creator_TWILIO():
                                 #    #print("Clicou no centro da janela.")
                                 #else:
                                 #    pass
-                                chrome.driver.uc_gui_handle_cf()
+                                chrome.uc_gui_handle_cf()
                                 
                                 print(3)
                                 break
