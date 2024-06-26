@@ -2324,7 +2324,7 @@ def creator_2NRv2():
                             d(text="Escolha um nome de usuário").wait(timeout=30)
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
                             window.Refresh()
-                            escrever_devagar(d(className="android.widget.EditText"), user_completo, chunk_size=4)
+                            d(className="android.widget.EditText").set_text(user_completo)
                             while True:
                                 if d(textContains='não está disponível.'):
                                     d(resourceId='com.instagram.android:id/username_suggestion_text').click()
