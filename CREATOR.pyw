@@ -2000,9 +2000,10 @@ def creator_2NRv2():
                     elif d(textContains="Aceite os termos e") or d(textContains="leia e concorde com nossos termos"):
                         print('Tela de termos e políticas')
                         d(text="Concordo").click()
+                        time.sleep(10)
                         while True:
                             if d(text="Concordo") and d(textContains="Aceite os termos e") or d(text="Concordo") and d(textContains="leia e concorde com nossos termos"):
-                                d(text="Já tem uma conta?").click(timeout=25)
+                                #d(text="Já tem uma conta?").click(timeout=25)
                                 d.app_stop('com.instagram.android')
                                 d.app_clear('com.instagram.android')
                                 d.app_start('com.instagram.android')
