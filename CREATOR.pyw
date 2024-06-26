@@ -1999,60 +1999,65 @@ def creator_2NRv2():
                         time.sleep(5)
                     elif d(textContains="Aceite os termos e") or d(textContains="leia e concorde com nossos termos"):
                         print('Tela de termos e políticas')
-                        d(text="Concordo").click()
-                        time.sleep(10)
-                        while True:
-                            if d(text="Concordo") and d(textContains="Aceite os termos e") or d(text="Concordo") and d(textContains="leia e concorde com nossos termos"):
-                                #d(text="Já tem uma conta?").click(timeout=25)
-                                d.app_stop('com.instagram.android')
-                                d.app_clear('com.instagram.android')
-                                d.app_start('com.instagram.android')
-                                #d(text="ENTRAR").click(timeout=10)
-                                d(className="android.widget.EditText").wait(timeout=40)
-                                d(className="android.widget.EditText", instance=0).set_text(user_completo)
-                                d(className="android.widget.EditText", instance=1).set_text(senha)
-                                d(text='Entrar').click()
-                                if d(text="Agora não").wait(timeout=10):
-                                    print('Conta criada')
-                                    d(text="Agora não").click()
-                                else:
-                                    conteudo = config['vpn']
-                                    window['output'].print(
-                                        f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
-                                    window.Refresh()
-                                    if conteudo == "AVG":
-                                        vpn_avg()
-                                    elif conteudo == "SurfShark":
-                                        vpn_surf()
-                                    elif conteudo == "Nenhuma":
-                                        nenhuma_vpn()
-                                    elif conteudo == "Avast":
-                                        vpn_avast()
-                                    elif conteudo == "ExpressVPN":
-                                        vpn_express()
-                                    elif conteudo == "PiaVPN":
-                                        vpn_pia()
-                                    elif conteudo == "TunnelBear":
-                                        vpn_tunnelbear()
-                                    elif conteudo == "BetterNet":
-                                        vpn_better()
-                                    elif conteudo == "CyberGhost":
-                                        vpn_cyberghost()
-                                    elif conteudo == "NordVPN":
-                                        vpn_nord()
-                                    elif conteudo == "HotspotShield":
-                                        vpn_hotspotshield()
-                                    elif conteudo == "WindscribeVPN":
-                                        vpn_windscribe()
-                                    elif conteudo == "HmaVPN":
-                                        vpn_hma()
+                        try:
+                            d(text="Concordo").click()
+                            time.sleep(10)
+                            while True:
+                                if d(text="Concordo") and d(textContains="Aceite os termos e") or d(text="Concordo") and d(textContains="leia e concorde com nossos termos"):
+                                    #d(text="Já tem uma conta?").click(timeout=25)
+                                    d.app_stop('com.instagram.android')
+                                    d.app_clear('com.instagram.android')
+                                    d.app_start('com.instagram.android')
+                                    #d(text="ENTRAR").click(timeout=10)
+                                    d(className="android.widget.EditText").wait(timeout=40)
+                                    d(className="android.widget.EditText", instance=0).set_text(user_completo)
+                                    d(className="android.widget.EditText", instance=1).set_text(senha)
+                                    d(text='Entrar').click()
+                                    if d(text="Agora não").wait(timeout=10):
+                                        print('Conta criada')
+                                        d(text="Agora não").click()
                                     else:
+                                        conteudo = config['vpn']
                                         window['output'].print(
-                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                            f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
                                         window.Refresh()
-                                    raise Exception("Restrição")
-                            elif not d(textContains="Aceite os termos e"):
-                                break
+                                        if conteudo == "AVG":
+                                            vpn_avg()
+                                        elif conteudo == "SurfShark":
+                                            vpn_surf()
+                                        elif conteudo == "Nenhuma":
+                                            nenhuma_vpn()
+                                        elif conteudo == "Avast":
+                                            vpn_avast()
+                                        elif conteudo == "ExpressVPN":
+                                            vpn_express()
+                                        elif conteudo == "PiaVPN":
+                                            vpn_pia()
+                                        elif conteudo == "TunnelBear":
+                                            vpn_tunnelbear()
+                                        elif conteudo == "BetterNet":
+                                            vpn_better()
+                                        elif conteudo == "CyberGhost":
+                                            vpn_cyberghost()
+                                        elif conteudo == "NordVPN":
+                                            vpn_nord()
+                                        elif conteudo == "HotspotShield":
+                                            vpn_hotspotshield()
+                                        elif conteudo == "WindscribeVPN":
+                                            vpn_windscribe()
+                                        elif conteudo == "HmaVPN":
+                                            vpn_hma()
+                                        else:
+                                            window['output'].print(
+                                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                            window.Refresh()
+                                        raise Exception("Restrição")
+                                elif not d(textContains="Aceite os termos e"):
+                                    break
+                        except Exception as e:
+                            if d(resourceId="com.instagram.android:id/tab_avatar"): pass
+                            else: print(e)
+                                
 
                     elif d(textContains="Ocorreu um erro") and d(textContains='Tentar novamente'):
                         print('Tela de erro de tradução')
