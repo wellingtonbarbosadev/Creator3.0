@@ -1314,6 +1314,7 @@ def creator_2NRv2():
         if parar is True:
             print('Parando Thread')
             break
+        print(linha_ret)
         # if codigo_não_recebido_seguidos == 3:
         #    #tempo_aleatorio = random.randint(10, 40)
         #    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 3 códigos não recebidos seguidos.')
@@ -2057,6 +2058,8 @@ def creator_2NRv2():
                         except Exception as e:
                             if d(resourceId="com.instagram.android:id/tab_avatar"): pass
                             else: print(e)
+                            if str(e) == 'Restrição':
+                                raise Exception('')
                                 
 
                     elif d(textContains="Ocorreu um erro") and d(textContains='Tentar novamente'):
@@ -2338,6 +2341,41 @@ def creator_2NRv2():
                                     break
                                 elif d(text='EXCLUIR'):
                                     d.press('back')
+                                elif d(textContains='Aguarde alguns minutos antes de tentar novamente'):
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
+                                    window.Refresh()
+                                    conteudo = config['vpn']
+                                    if conteudo == "AVG":
+                                        vpn_avg()
+                                    elif conteudo == "SurfShark":
+                                        vpn_surf()
+                                    elif conteudo == "Nenhuma":
+                                        nenhuma_vpn()
+                                    elif conteudo == "Avast":
+                                        vpn_avast()
+                                    elif conteudo == "ExpressVPN":
+                                        vpn_express()
+                                    elif conteudo == "PiaVPN":
+                                        vpn_pia()
+                                    elif conteudo == "TunnelBear":
+                                        vpn_tunnelbear()
+                                    elif conteudo == "BetterNet":
+                                        vpn_better()
+                                    elif conteudo == "CyberGhost":
+                                        vpn_cyberghost()
+                                    elif conteudo == "NordVPN":
+                                        vpn_nord()
+                                    elif conteudo == "HotspotShield":
+                                        vpn_hotspotshield()
+                                    elif conteudo == "WindscribeVPN":
+                                        vpn_windscribe()
+                                    elif conteudo == "HmaVPN":
+                                        vpn_hma()
+                                    else:
+                                        window['output'].print(
+                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                        window.Refresh()
+                                    raise Exception("Restrição")
                             try:
                                 d(text="Avançar", enabled=True).click(timeout=10)
                             except:
@@ -2361,7 +2399,9 @@ def creator_2NRv2():
                                     d(text='Tente novamente mais tarde') or 
                                     d(textContains="Ocorreu um erro de rede desconhecido") or
                                     d(textContains="feedback_required") or
-                                    d(textContains='Aguarde alguns minutos')
+                                    d(textContains='Aguarde alguns minutos') or
+                                    d(textContains='Fazer uma apelação') or
+                                    d(textContains='Ocorreu um problema com a sua')
 
 
                                 ):
