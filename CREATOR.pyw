@@ -1347,39 +1347,7 @@ def creator_2NRv2():
                 f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo 2NR')
             window.Refresh()
 
-            try:
-                scope = ["https://spreadsheets.google.com/feeds",
-                         "https://www.googleapis.com/auth/drive"]
-                creds = ServiceAccountCredentials.from_json_keyfile_name(
-                    'credentials.json', scope)
-                client = gspread.authorize(creds)
-                #
-                spreadsheet_id = config['spreadsheet']
-                sheet_name = 'contas'
-                # Insert user, password, and timestamp into first empty row
-                sheet = client.open_by_key(
-                    spreadsheet_id).worksheet(sheet_name)
-                values = sheet.col_values(1)
-                #
-                # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
-                rows = sheet.get_all_values()
-                #
-                # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
-                regex = re.compile(r'\S+\s\S+')
-                #
-                # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
-                num_rows = sum(1 for row in rows if regex.match(row[0]))
-                window['total'].update(num_rows)
-            except Exception as e:
-                print(e)
-                window['output'].print(
-                    f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro ao acessar a planilha.')
-                window.Refresh()
-                window['output'].print(
-                    f'[{datetime.now().strftime("%H:%M:%S")}] Tentando novamente em 1 minuto.')
-                window.Refresh()
-                time.sleep(60)
-                raise Exception('skip')
+            
 
             try:
                 subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
@@ -1994,6 +1962,9 @@ def creator_2NRv2():
 
                     elif d(text="Crie um nome de usuário"):
                         print('Tela de escolher user')
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
+                        window.Refresh()
                         escrever_devagar(d(className="android.widget.EditText"), user_completo, chunk_size=3)
                         time.sleep(5)
                         d(text="Avançar").click(timeout=30)
@@ -2401,7 +2372,8 @@ def creator_2NRv2():
                                     d(textContains="feedback_required") or
                                     d(textContains='Aguarde alguns minutos') or
                                     d(textContains='Fazer uma apelação') or
-                                    d(textContains='Ocorreu um problema com a sua')
+                                    d(textContains='Ocorreu um problema com a sua') or
+                                    d(textContains='Insira o código de confirmação')
 
 
                                 ):
