@@ -1419,19 +1419,9 @@ def creator_2NRv2():
 
                 spreadsheet_id = config['spreadsheet']
                 sheet_name = config['2nr']
-                try:
-                    sheet = client.open_by_key(
-                        spreadsheet_id).worksheet(sheet_name)
-                except Exception as e:
-                    print(e)
-                    window['output'].print(
-                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro ao acessar a planilha.')
-                    window.Refresh()
-                    window['output'].print(
-                        f'[{datetime.now().strftime("%H:%M:%S")}] Tentando novamente em 1 minuto.')
-                    window.Refresh()
-                    time.sleep(60)
-                    raise Exception('skip')
+
+                sheet = client.open_by_key(
+                    spreadsheet_id).worksheet(sheet_name)
                 # Obtém todas as células
                 cells = sheet.get_all_values()
 
@@ -1445,7 +1435,6 @@ def creator_2NRv2():
                     window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] Nenhuma conta do 2NR encontrada.\nTentando novamente em 5 min.')
                     window.Refresh()
-                    time.sleep(300)
                     scope = ["https://spreadsheets.google.com/feeds",
                             "https://www.googleapis.com/auth/drive"]
                     creds = ServiceAccountCredentials.from_json_keyfile_name(
@@ -1455,6 +1444,9 @@ def creator_2NRv2():
                     spreadsheet_id = config['spreadsheet']
 
                     sheet_name = config['2nr']
+                    sheet = client.open_by_key(
+                        spreadsheet_id).worksheet(sheet_name)
+                    # Insert user, password, and timestamp into first empty row
                     sheet = client.open_by_key(
                         spreadsheet_id).worksheet(sheet_name)
                     values = sheet.col_values(1)
@@ -1468,11 +1460,11 @@ def creator_2NRv2():
                     # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
                     try:
                         num_rows = sum(1 for row in rows if regex.match(row[0]))
-                        window['total'].update(num_rows)
                     except:
                         pass
-                    
+                    window['total'].update(num_rows)
 
+                    time.sleep(300)
                     cells = sheet.get_all_values()
 
                     # Armazena as células que correspondem à condição
