@@ -2381,9 +2381,8 @@ def creator_2NRv2():
                                     d(textContains='Aguarde alguns minutos') or
                                     d(textContains='Fazer uma apelação') or
                                     d(textContains='Ocorreu um problema com a sua') or
-                                    d(textContains='Insira o código de confirmação')
-
-
+                                    d(textContains='Insira o código de confirmação') or 
+                                    d(text='OK')
                                 ):
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
                                     window.Refresh()
