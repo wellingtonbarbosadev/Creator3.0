@@ -61235,6 +61235,7 @@ def executar_creator_2nr():
     import string
     import zipfile
 
+
     def acessar_url(url_2nr):
         try:
             from selenium import webdriver
@@ -61419,7 +61420,29 @@ def executar_creator_2nr():
         import requests
         time.sleep(10)
         import uiautomator2 as u2
-
+    try:
+        import soundcard as sc
+    except:
+        subprocess.run(['pip', 'install', 'soundcard'],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        import soundcard as sc
+    try:
+        import soundfile as sf
+    except:
+        subprocess.run(['pip', 'install', 'soundfile'],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        import soundfile as sf
+    import tempfile
+    try:
+        import speech_recognition as sr
+    except:
+        subprocess.run(['pip', 'install', 'SpeechRecognition'],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        import speech_recognition as sr
+    
     # use without parameters to create a new inbox
     # inbox = Inbox()
 
@@ -63823,6 +63846,7 @@ def executar_creator_2nr():
                                 if success == 'Successful verification':
                                     break
                         elif d(resourceId='recaptcha-audio-button') or d(resourceId='audio-response'):
+                            time.sleep(random.randint(1,30))
                             import soundcard as sc
                             import soundfile as sf
                             import tempfile
@@ -64017,6 +64041,7 @@ def executar_creator_2nr():
                                         if success == 'Successful verification':
                                             break
                                 elif d(resourceId='recaptcha-audio-button') or d(resourceId='audio-response'):
+                                    time.sleep(random.randint(1,30))
                                     import soundcard as sc
                                     import soundfile as sf
                                     import tempfile
@@ -65736,6 +65761,7 @@ def executar_creator_2nr():
                             if success == 'Successful verification':
                                 break
                     elif d(resourceId='recaptcha-audio-button') or d(resourceId='audio-response'):
+                        time.sleep(random.randint(1,30))
                         import soundcard as sc
                         import soundfile as sf
                         import tempfile
@@ -65929,6 +65955,7 @@ def executar_creator_2nr():
                                     if success == 'Successful verification':
                                         break
                             elif d(resourceId='recaptcha-audio-button') or d(resourceId='audio-response'):
+                                time.sleep(random.randint(1,30))
                                 import soundcard as sc
                                 import soundfile as sf
                                 import tempfile
