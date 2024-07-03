@@ -63446,8 +63446,17 @@ def executar_creator_2nr():
                                                     print(response.status_code)
                                                 else:
                                                     print(response.status_code)
-                                                    chrome.open(url)
+                                                    d.open_url(url)
+                                                    time.sleep(20)
                                                     print('Verificado com o chrome')
+                                                    d.app_start('pl.rs.sip.softphone.newapp')
+                                                    try:
+                                                        d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').wait(timeout=20)
+                                                    except:
+                                                        pass
+                                                    if d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton'):
+                                                        d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click()
+
                                             except requests.exceptions.RequestException as e:
                                                 print(
                                                     f"Erro na requisição: {e}")
@@ -63699,7 +63708,10 @@ def executar_creator_2nr():
                                     subject = True
 
                     troca_ip = 0
-                    d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
+                    try:
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
+                    except:
+                        pass
 
                     print(f"Requisição bem-sucedida!")
                     d.xpath(
@@ -64838,8 +64850,16 @@ def executar_creator_2nr():
                                                     print(response.status_code)
                                                 else:
                                                     print(response.status_code)
-                                                    chrome.open(url)
+                                                    d.open_url(url)
+                                                    time.sleep(20)
                                                     print('Verificado com o chrome')
+                                                    d.app_start('pl.rs.sip.softphone.newapp')
+                                                    try:
+                                                        d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').wait(timeout=20)
+                                                    except:
+                                                        pass
+                                                    if d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton'):
+                                                        d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click()
                                             except requests.exceptions.RequestException as e:
                                                 print(
                                                     f"Erro na requisição: {e}")
@@ -65527,7 +65547,10 @@ def executar_creator_2nr():
                                     subject = True
 
                     troca_ip += 1
-                    d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
+                    try:
+                        d(resourceId='pl.rs.sip.softphone.newapp:id/buttonOk').click()
+                    except:
+                        pass
 
                     print(f"Requisição bem-sucedida!")
                     d.xpath(
