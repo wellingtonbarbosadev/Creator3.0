@@ -55566,7 +55566,7 @@ def executar_2nr_insta():
     import requests
     import hashlib
     import subprocess
-
+   
     # verifica se o arquivo existe na pasta do bot
 
     try:
@@ -61235,7 +61235,15 @@ def executar_creator_2nr():
     from mailtm import Email
     import string
     import zipfile
-
+     try:
+        from fake_useragent import UserAgent
+        ua = UserAgent()
+    except:
+        subprocess.run(['venv/scripts/activate.bat'], shell=True)
+        subprocess.run(['pip', 'install', 'fake_useragent'])
+        subprocess.run(['deactivate'], shell=True)
+        from fake_useragent import UserAgent
+        ua = UserAgent()
 
     def acessar_url(url_2nr):
         try:
@@ -63316,8 +63324,10 @@ def executar_creator_2nr():
                                                 pass
                                             print("URL:", url +
                                                   '\n----------------------------')
+                                                
                                             headers = {
-                                                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+                                                ua.random}
+                                            print(headers)
                                             # d.open_url(url)
                                             # time.sleep(10)
                                             # d.app_start('pl.rs.sip.softphone.newapp', use_monkey=True)
@@ -64704,7 +64714,8 @@ def executar_creator_2nr():
                                             print("URL:", url +
                                                   '\n----------------------------')
                                             headers = {
-                                                'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+                                                ua.random}
+                                            print(headers)
                                             # d.open_url(url)
                                             # time.sleep(10)
                                             # d.app_start('pl.rs.sip.softphone.newapp', use_monkey=True)
