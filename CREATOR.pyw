@@ -1975,7 +1975,8 @@ def creator_2NRv2():
                         window.Refresh()
                         escrever_devagar(d(className="android.widget.EditText"), user_completo, chunk_size=3)
                         time.sleep(5)
-                        d(text="Avançar").click(timeout=30)
+                        try: d(text="Avançar").click(timeout=30)
+                        except: pass
                         time.sleep(5)
                     elif d(textContains="Aceite os termos e") or d(textContains="leia e concorde com nossos termos"):
                         print('Tela de termos e políticas')
