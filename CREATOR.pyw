@@ -63331,7 +63331,7 @@ def executar_creator_2nr():
                                                 url
                                             ]
 
-                                            api_url = "https://api.proxyscrape.com/v3/free-proxy-list/get?request=displayproxies&proxy_format=protocolipport&format=text&anonymity=Elite&timeout=1000"
+                                            api_url = "https://api.proxyscrape.com/v3/free-proxy-list/get?request=displayproxies&protocol=http&proxy_format=protocolipport&format=text&timeout=20000"
                                             #api_url = "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&proxy_format=protocolipport&timeout=10000&country=all&ssl=all&anonymity=all"
 
                                             # Função para obter proxies da API
@@ -63373,7 +63373,7 @@ def executar_creator_2nr():
                                                     successes = [False] * len(test_urls)  # Lista para acompanhar os sucessos em cada URL
                                                     try:
                                                         for i, test_url in enumerate(test_urls):
-                                                            response = requests.get(test_url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=2)
+                                                            response = requests.get(test_url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=5)
                                                             if response.status_code == 200:
                                                                 successes[i] = True
                                                                 print(response.status_code)
