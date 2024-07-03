@@ -2320,7 +2320,7 @@ def creator_2NRv2():
                                     break
                                 elif d(text='EXCLUIR'):
                                     d.press('back')
-                                elif d(textContains='Aguarde alguns minutos antes de tentar novamente'):
+                                elif d(textContains='Aguarde alguns minutos antes de tentar novamente') or d(textContains="Ocorreu um erro de rede desconhecido"):
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
                                     window.Refresh()
                                     conteudo = config['vpn']
@@ -2375,13 +2375,14 @@ def creator_2NRv2():
 
                             while True:
                                 if (
-                                    d(text='Tente novamente mais tarde') or 
+                                    d(text='Tente novamente mais tarde') or
                                     d(textContains="Ocorreu um erro de rede desconhecido") or
                                     d(textContains="feedback_required") or
                                     d(textContains='Aguarde alguns minutos') or
                                     d(textContains='Fazer uma apelação') or
                                     d(textContains='Ocorreu um problema com a sua') or
-                                    d(textContains='Insira o código de confirmação') or 
+                                    d(textContains='Insira o código de confirmação') or
+                                    d(resourceId="com.instagram.android:id/tab_avatar") or
                                     d(text='OK')
                                 ):
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
