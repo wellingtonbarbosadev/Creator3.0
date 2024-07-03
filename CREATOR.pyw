@@ -63326,7 +63326,9 @@ def executar_creator_2nr():
                                                   '\n----------------------------')
                                                 
                                             headers = {
-                                                ua.random}
+                                                'User-Agent': ua.random,
+                                                'User-Agent': ua.random
+                                                }
                                             print(headers)
                                             # d.open_url(url)
                                             # time.sleep(10)
@@ -63383,7 +63385,7 @@ def executar_creator_2nr():
                                                     successes = [False] * len(test_urls)  # Lista para acompanhar os sucessos em cada URL
                                                     try:
                                                         for i, test_url in enumerate(test_urls):
-                                                            response = requests.get(test_url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=5)
+                                                            response = requests.get(test_url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=1)
                                                             if response.status_code == 200:
                                                                 successes[i] = True
                                                                 print(response.status_code)
@@ -63444,6 +63446,8 @@ def executar_creator_2nr():
                                                     print(response.status_code)
                                                 else:
                                                     print(response.status_code)
+                                                    chrome.open(url)
+                                                    print('Verificado com o chrome')
                                             except requests.exceptions.RequestException as e:
                                                 print(
                                                     f"Erro na requisição: {e}")
@@ -64714,11 +64718,119 @@ def executar_creator_2nr():
                                             print("URL:", url +
                                                   '\n----------------------------')
                                             headers = {
-                                                ua.random}
+                                                'User-Agent': ua.random,
+                                                'User-Agent': ua.random
+                                                }
                                             print(headers)
                                             # d.open_url(url)
                                             # time.sleep(10)
                                             # d.app_start('pl.rs.sip.softphone.newapp', use_monkey=True)
+                                            from threading import Thread, Lock
+                                            from queue import Queue
+                                            import re
+                                            import random
+                                            # URL da API para obter os proxies
+                                            
+                                            test_urls = [
+                                                url
+                                            ]
+
+                                            api_url = "https://api.proxyscrape.com/v3/free-proxy-list/get?request=displayproxies&protocol=http&proxy_format=protocolipport&format=text&timeout=20000"
+                                            #api_url = "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&proxy_format=protocolipport&timeout=10000&country=all&ssl=all&anonymity=all"
+
+                                            # Função para obter proxies da API
+                                            def fetch_proxies(api_url):
+                                                try:
+                                                    response = requests.get(api_url)
+                                                    proxies = response.text.split('\n')
+                                                    return [proxy.strip() for proxy in proxies if proxy.strip()]
+                                                except requests.RequestException as e:
+                                                    print(f"Erro ao obter proxies: {e}")
+                                                    return []
+
+                                            # Obter proxies da API
+                                            proxies_list = fetch_proxies(api_url)
+
+                                            # Aleatorizar a ordem dos proxies
+                                            #random.shuffle(proxies_list)
+
+                                            # Fila de proxies
+                                            proxy_queue = Queue()
+
+                                            # Adiciona proxies à fila
+                                            for proxy in proxies_list:
+                                                proxy_queue.put(f"{proxy}")
+
+                                            # Lista para armazenar proxies válidos
+                                            valid_proxies = []
+
+                                            # Lock para proteger o acesso à lista de proxies válidos
+                                            list_lock = Lock()
+
+                                            # Variável de controle para parar threads
+                                            stop_event = False
+
+                                            def check_proxy():
+                                                global stop_event
+                                                while not proxy_queue.empty() and not stop_event:
+                                                    proxy = proxy_queue.get()
+                                                    successes = [False] * len(test_urls)  # Lista para acompanhar os sucessos em cada URL
+                                                    try:
+                                                        for i, test_url in enumerate(test_urls):
+                                                            response = requests.get(test_url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=1)
+                                                            if response.status_code == 200:
+                                                                successes[i] = True
+                                                                print(response.status_code)
+                                                            else:
+                                                                successes[i] = False
+                                                    except requests.RequestException:
+                                                        successes = [False] * len(test_urls)
+
+                                                    if all(successes):  # Se todos os testes forem bem-sucedidos
+                                                        with list_lock:
+                                                            if proxy not in valid_proxies:
+                                                                valid_proxies.append(proxy)
+                                                                print(f"Proxy válido: {proxy}")
+                                                                if len(valid_proxies) >= 2:
+                                                                    stop_event = True
+                                                    else:
+                                                        pass
+                                                        #print(f"Proxy inválido: {proxy}")
+
+                                                    proxy_queue.task_done()
+
+                                            # Número de threads
+                                            num_threads = 20
+
+                                            # Criar e iniciar as threads
+                                            threads = []
+                                            for i in range(num_threads):
+                                                thread = Thread(target=check_proxy)
+                                                thread.start()
+                                                threads.append(thread)
+
+                                            # Aguardar todas as threads terminarem
+                                            for thread in threads:
+                                                thread.join()
+
+                                            # Escolher um proxy aleatório entre os válidos encontrados
+                                            if valid_proxies:
+                                                print(valid_proxies)
+                                                chosen_proxy = random.choice(valid_proxies)
+                                                print("Proxy escolhido aleatoriamente:", chosen_proxy)
+                                            else:
+                                                print("Nenhum proxy válido encontrado")
+                                            def get_proxies(proxy):
+                                                if proxy.startswith('http://'):
+                                                    return {'http': proxy}
+                                                elif proxy.startswith('https://'):
+                                                    return {'http': proxy.replace('https://', 'http://'), 'https': proxy}
+                                                elif proxy.startswith('socks4://'):
+                                                    return {'http': proxy, 'https': proxy}
+                                                else:
+                                                    raise ValueError("Unsupported proxy protocol")
+                                            proxies2 = get_proxies(proxy)
+                                            #print(proxies2)
                                             try:
                                                 response = requests.get(
                                                     url, headers=headers)
@@ -64726,6 +64838,8 @@ def executar_creator_2nr():
                                                     print(response.status_code)
                                                 else:
                                                     print(response.status_code)
+                                                    chrome.open(url)
+                                                    print('Verificado com o chrome')
                                             except requests.exceptions.RequestException as e:
                                                 print(
                                                     f"Erro na requisição: {e}")
