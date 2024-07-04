@@ -62245,6 +62245,7 @@ def executar_creator_2nr():
         pass
     opcao_executar = config['opcao']
     troca_ip = 0
+    reconhecer_captcha = 0
     if opcao_executar == '-criarambos-':
         while True:
             window['output'].print(linha_ret)
@@ -63968,7 +63969,12 @@ def executar_creator_2nr():
                                         pass
                                 except sr.UnknownValueError:
                                     print("Não foi possível reconhecer a fala")
+                                    if reconhecer_captcha == 6:
+                                        reconhecer_captcha = 0
+                                        raise Exception('Não foi possível reconhecer a fala')
                                     d(resourceId='recaptcha-reload-button').click()
+                                    reconhecer_captcha += 1
+
                                 
                                 except sr.RequestError as e:
                                     print("Erro na requisição para o serviço de reconhecimento; {0}".format(e))
@@ -64163,7 +64169,11 @@ def executar_creator_2nr():
                                                 pass
                                         except sr.UnknownValueError:
                                             print("Não foi possível reconhecer a fala")
+                                            if reconhecer_captcha == 6:
+                                                reconhecer_captcha = 0
+                                                raise Exception('Não foi possível reconhecer a fala')
                                             d(resourceId='recaptcha-reload-button').click()
+                                            reconhecer_captcha += 1
                                         
                                         except sr.RequestError as e:
                                             print("Erro na requisição para o serviço de reconhecimento; {0}".format(e))
@@ -66005,7 +66015,11 @@ def executar_creator_2nr():
                                     pass
                             except sr.UnknownValueError:
                                 print("Não foi possível reconhecer a fala")
+                                if reconhecer_captcha == 6:
+                                    reconhecer_captcha = 0
+                                    raise Exception('Não foi possível reconhecer a fala')
                                 d(resourceId='recaptcha-reload-button').click()
+                                reconhecer_captcha += 1
                             
                             except sr.RequestError as e:
                                 print("Erro na requisição para o serviço de reconhecimento; {0}".format(e))
@@ -66199,7 +66213,11 @@ def executar_creator_2nr():
                                             pass
                                     except sr.UnknownValueError:
                                         print("Não foi possível reconhecer a fala")
+                                        if reconhecer_captcha == 6:
+                                            reconhecer_captcha = 0
+                                            raise Exception('Não foi possível reconhecer a fala')
                                         d(resourceId='recaptcha-reload-button').click()
+                                        reconhecer_captcha += 1
                                     
                                     except sr.RequestError as e:
                                         print("Erro na requisição para o serviço de reconhecimento; {0}".format(e))
