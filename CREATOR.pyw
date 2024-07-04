@@ -1687,7 +1687,7 @@ def creator_2NRv2():
                     elif d(text='Qual é o seu email?'):
                         d(text="Cadastrar-se com o número do celular").click()
                         time.sleep(3)
-                    elif d(textContains='Aguarde alguns minutos antes de tentar novamente') or d(textContains='Ocorreu um erro. Tente novamente mais tarde'):
+                    elif d(textContains='Aguarde alguns minutos antes de tentar novamente') or d(textContains='Ocorreu um erro. Tente novamente mais tarde') or d(textContains='Tente novamente mais tarde'):
                         print('Tela de restrição')
                         if tentativa is True:
                             window['output'].print(
@@ -1951,6 +1951,19 @@ def creator_2NRv2():
                         nome_completo_s = nome + sobrenome
                         numeros_concatenados = ''.join(
                             str(numero) for numero in lista_user)
+                        d(className="android.widget.EditText").set_text(nome_completo)
+                        #escrever_devagar(d(className="android.widget.EditText"), nome_completo, chunk_size=3)
+                        d(text="Avançar").click(timeout=30)
+                        time.sleep(5)
+
+                    elif d(text="Crie um nome de usuário") or d(textContains="Confira seu nome de us"):
+                        print('Tela de escolher user')
+                        lista_user = random.choices(range(0, 9), k=2)
+                        lista_letras = random.choices(letras, k=1)
+                        nome_completo = nome + ' ' + sobrenome
+                        nome_completo_s = nome + sobrenome
+                        numeros_concatenados = ''.join(
+                            str(numero) for numero in lista_user)
                         user_completo1 = nome_completo_s + '' + \
                             str(numeros_concatenados) + ''.join(lista_letras)
 
@@ -1963,13 +1976,7 @@ def creator_2NRv2():
                         escolha = random.choice(["_", "."])
                         user_completo = nome + escolha + sobrenome + \
                             str(numeros_concatenados) + ''.join(lista_letras)
-                        d(className="android.widget.EditText").set_text(nome_completo)
-                        #escrever_devagar(d(className="android.widget.EditText"), nome_completo, chunk_size=3)
-                        d(text="Avançar").click(timeout=30)
-                        time.sleep(5)
-
-                    elif d(text="Crie um nome de usuário") or d(textContains="Confira seu nome de us"):
-                        print('Tela de escolher user')
+                        
                         window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
                         window.Refresh()
@@ -2033,6 +2040,42 @@ def creator_2NRv2():
                                                 "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
                                             window.Refresh()
                                         raise Exception("Restrição")
+                                elif d(textContains='Tente novamente mais tarde'):
+                                    conteudo = config['vpn']
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
+                                    window.Refresh()
+                                    if conteudo == "AVG":
+                                        vpn_avg()
+                                    elif conteudo == "SurfShark":
+                                        vpn_surf()
+                                    elif conteudo == "Nenhuma":
+                                        nenhuma_vpn()
+                                    elif conteudo == "Avast":
+                                        vpn_avast()
+                                    elif conteudo == "ExpressVPN":
+                                        vpn_express()
+                                    elif conteudo == "PiaVPN":
+                                        vpn_pia()
+                                    elif conteudo == "TunnelBear":
+                                        vpn_tunnelbear()
+                                    elif conteudo == "BetterNet":
+                                        vpn_better()
+                                    elif conteudo == "CyberGhost":
+                                        vpn_cyberghost()
+                                    elif conteudo == "NordVPN":
+                                        vpn_nord()
+                                    elif conteudo == "HotspotShield":
+                                        vpn_hotspotshield()
+                                    elif conteudo == "WindscribeVPN":
+                                        vpn_windscribe()
+                                    elif conteudo == "HmaVPN":
+                                        vpn_hma()
+                                    else:
+                                        window['output'].print(
+                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                        window.Refresh()
+                                    raise Exception("Restrição")
                                 elif not d(textContains="Aceite os termos e"):
                                     break
                         except Exception as e:
