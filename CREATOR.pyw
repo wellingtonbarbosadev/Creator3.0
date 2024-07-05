@@ -63252,7 +63252,12 @@ def executar_creator_2nr():
 
                                 # Obter o valor do atributo 'value' do elemento
                                 email = input_element.get_attribute('value')
+                                email_antigo = email
                                 print(email)
+                                email_real = email
+                                log, dominio = email_real.split('@')
+                                numero_aleatorio = random.randint(0, 9999)
+                                email = f'{log}+{numero_aleatorio:04}@{dominio}'
                                 window['output'].print(
                                     f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
                                 window.Refresh()
@@ -63268,7 +63273,7 @@ def executar_creator_2nr():
                                     window['output'].print(
                                         f'[{datetime.now().strftime("%H:%M:%S")}] Email já utilizado.')
                                     window.Refresh()
-                                    email_real = email
+                                    email_real = email_antigo
                                     log, dominio = email_real.split('@')
                                     numero_aleatorio = random.randint(0, 9999)
                                     email = f'{log}+{numero_aleatorio:04}@{dominio}'
@@ -64675,7 +64680,12 @@ def executar_creator_2nr():
 
                                 # Obter o valor do atributo 'value' do elemento
                                 email = input_element.get_attribute('value')
+                                email_antigo = email
                                 print(email)
+                                email_real = email
+                                log, dominio = email_real.split('@')
+                                numero_aleatorio = random.randint(0, 9999)
+                                email = f'{log}+{numero_aleatorio:04}@{dominio}'
                                 window['output'].print(
                                     f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
                                 window.Refresh()
@@ -64691,7 +64701,7 @@ def executar_creator_2nr():
                                     window['output'].print(
                                         f'[{datetime.now().strftime("%H:%M:%S")}] Email já utilizado.')
                                     window.Refresh()
-                                    email_real = email
+                                    email_real = email_antigo
                                     log, dominio = email_real.split('@')
                                     numero_aleatorio = random.randint(0, 9999)
                                     email = f'{log}+{numero_aleatorio:04}@{dominio}'
