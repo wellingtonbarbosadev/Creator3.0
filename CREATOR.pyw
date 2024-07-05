@@ -63253,11 +63253,11 @@ def executar_creator_2nr():
                                 # Obter o valor do atributo 'value' do elemento
                                 email = input_element.get_attribute('value')
                                 email_antigo = email
-                                print(email)
                                 email_real = email
                                 log, dominio = email_real.split('@')
                                 numero_aleatorio = random.randint(0, 9999)
                                 email = f'{log}+{numero_aleatorio:04}@{dominio}'
+                                print(email)
                                 window['output'].print(
                                     f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
                                 window.Refresh()
@@ -63552,6 +63552,292 @@ def executar_creator_2nr():
                             except:
                                 pass
                             traceback.print_exc()
+
+                    elif email_escolhido == 'SmailProAPI':
+                        import time
+                        import requests
+                        import re
+                        import random
+                        try:
+                            url = "https://temp-gmail.p.rapidapi.com/list"
+
+                            querystring = {
+                                "page": random.randint(1, 500),
+                                "limit": "1"
+                            }
+
+                            headers = {
+                                "x-rapidapi-key": apismailpro,
+                                "x-rapidapi-host": "temp-gmail.p.rapidapi.com"
+                            }
+
+                            response = requests.get(url, headers=headers, params=querystring)
+
+                            data = response.json()['data'][0]
+                            email = data['email']
+                            timestamp2 = data['timestamp']
+
+                            email_antigo = email
+                            print(email)
+                            print(timestamp2)
+                            email_real = email
+                            log, dominio = email_real.split('@')
+                            numero_aleatorio = random.randint(0, 9999)
+                            email = f'{log}+{numero_aleatorio:04}@{dominio}'
+
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                            window.Refresh()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                            time.sleep(5)
+                            email_existente = d(
+                                resourceId='pl.rs.sip.softphone.newapp:id/buttonOk')
+                            if not email_existente:
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Email já utilizado.')
+                                window.Refresh()
+                                email_real = email_antigo
+                                log, dominio = email_real.split('@')
+                                numero_aleatorio = random.randint(0, 9999)
+                                email = f'{log}+{numero_aleatorio:04}@{dominio}'
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Novo email: {email}')
+                                window.Refresh()
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text('')
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                                time.sleep(10)
+                            # use with address and token to reuse an existing inbox
+
+                            # Obter o valor do atributo "value" do elemento
+                            #### VERIFICAR EMAILS
+                            data['textSubject'] = ''
+                            time.sleep(30)
+                            tentativa = 0
+                            while True:
+                                #time.sleep(30)
+                                url = "https://temp-gmail.p.rapidapi.com/inbox"
+
+                                querystring = {
+                                    "email":email_real,
+                                    "timestamp":timestamp2
+                                }
+
+                                headers = {
+                                    "x-rapidapi-key": apismailpro,
+                                    "x-rapidapi-host": "temp-gmail.p.rapidapi.com"
+                                }
+
+                                response = requests.get(url, headers=headers, params=querystring)
+                                print(response.json())
+                                try:
+                                    data = response.json()['messages'][0]
+                                    mid = data['mid']
+                                    textTo = data['textTo']
+                                    textFrom = data['textFrom']
+                                    textSubject = data['textSubject']
+                                    textDate = data['textDate']
+
+                                    print(mid)
+                                    print(textSubject)
+                                except Exception as e:
+                                    if 'list index out of range' in str(e):
+                                        print('Não chegou nenhum código')
+                                        tentativa += 1
+                                        if tentativa == 3:
+                                            window['output'].print(
+                                                f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
+                                            window.Refresh()
+                                            raise Exception('Email não chegou.')
+                                        time.sleep(30)
+                                    else:
+                                        print(e)
+                                if '2nr' in data['textSubject']:
+                                    print('Email chegou')
+
+                                    url = "https://temp-gmail.p.rapidapi.com/message"
+
+                                    querystring = {"email":email,"mid":mid}
+
+                                    headers = {
+                                        "x-rapidapi-key": apismailpro,
+                                        "x-rapidapi-host": "temp-gmail.p.rapidapi.com"
+                                    }
+
+                                    response = requests.get(url, headers=headers, params=querystring)
+                                    url = response.json()
+                                    url = url['body']
+                                    print(response.json())
+                                    break
+                                
+                                
+                                        
+                            
+                            print('----------------------------')
+                            import re
+                            #url = url['body']
+                            urls = re.findall(
+                                "(?P<url>https?://[^\s]+)", url)
+                            for url in urls:
+                                if url.startswith('https://api.2nr.xyz/register/?'):
+                                    try:
+                                        url = url.replace('</p></div>', '')
+                                        url = url.replace('&amp;', '&')
+                                    except:
+                                        pass
+                                    print(url)
+                                    print("URL:", url +
+                                        '\n----------------------------')
+
+                                    headers = {
+                                        'User-Agent': ua.random,
+                                        'User-Agent': ua.random
+                                        }
+                                    print(headers)
+                                    # d.open_url(url)
+                                    # time.sleep(10)
+                                    # d.app_start('pl.rs.sip.softphone.newapp', use_monkey=True)
+                                    from threading import Thread, Lock
+                                    from queue import Queue
+                                    import re
+                                    import random
+                                    # URL da API para obter os proxies
+
+                                    test_urls = [
+                                        url
+                                    ]
+
+                                    api_url = "https://api.proxyscrape.com/v3/free-proxy-list/get?request=displayproxies&protocol=http&proxy_format=protocolipport&format=text&timeout=20000"
+                                    #api_url = "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&proxy_format=protocolipport&timeout=10000&country=all&ssl=all&anonymity=all"
+
+                                    # Função para obter proxies da API
+                                    def fetch_proxies(api_url):
+                                        try:
+                                            response = requests.get(api_url)
+                                            proxies = response.text.split('\n')
+                                            return [proxy.strip() for proxy in proxies if proxy.strip()]
+                                        except requests.RequestException as e:
+                                            print(f"Erro ao obter proxies: {e}")
+                                            return []
+
+                                    # Obter proxies da API
+                                    proxies_list = fetch_proxies(api_url)
+
+                                    # Aleatorizar a ordem dos proxies
+                                    #random.shuffle(proxies_list)
+
+                                    # Fila de proxies
+                                    proxy_queue = Queue()
+
+                                    # Adiciona proxies à fila
+                                    for proxy in proxies_list:
+                                        proxy_queue.put(f"{proxy}")
+
+                                    # Lista para armazenar proxies válidos
+                                    valid_proxies = []
+
+                                    # Lock para proteger o acesso à lista de proxies válidos
+                                    list_lock = Lock()
+
+                                    # Variável de controle para parar threads
+                                    stop_event = False
+
+                                    def check_proxy():
+                                        global stop_event
+                                        while not proxy_queue.empty() and not stop_event:
+                                            proxy = proxy_queue.get()
+                                            successes = [False] * len(test_urls)  # Lista para acompanhar os sucessos em cada URL
+                                            try:
+                                                for i, test_url in enumerate(test_urls):
+                                                    response = requests.get(test_url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=1)
+                                                    if response.status_code == 200:
+                                                        successes[i] = True
+                                                        print(response.status_code)
+                                                    else:
+                                                        successes[i] = False
+                                            except requests.RequestException:
+                                                successes = [False] * len(test_urls)
+
+                                            if all(successes):  # Se todos os testes forem bem-sucedidos
+                                                with list_lock:
+                                                    if proxy not in valid_proxies:
+                                                        valid_proxies.append(proxy)
+                                                        print(f"Proxy válido: {proxy}")
+                                                        if len(valid_proxies) >= 2:
+                                                            stop_event = True
+                                            else:
+                                                pass
+                                                #print(f"Proxy inválido: {proxy}")
+
+                                            proxy_queue.task_done()
+
+                                    # Número de threads
+                                    num_threads = 20
+
+                                    # Criar e iniciar as threads
+                                    threads = []
+                                    for i in range(num_threads):
+                                        thread = Thread(target=check_proxy)
+                                        thread.start()
+                                        threads.append(thread)
+
+                                    # Aguardar todas as threads terminarem
+                                    for thread in threads:
+                                        thread.join()
+
+                                    # Escolher um proxy aleatório entre os válidos encontrados
+                                    if valid_proxies:
+                                        print(valid_proxies)
+                                        chosen_proxy = random.choice(valid_proxies)
+                                        print("Proxy escolhido aleatoriamente:", chosen_proxy)
+                                    else:
+                                        print("Nenhum proxy válido encontrado")
+                                    def get_proxies(proxy):
+                                        if proxy.startswith('http://'):
+                                            return {'http': proxy}
+                                        elif proxy.startswith('https://'):
+                                            return {'http': proxy.replace('https://', 'http://'), 'https': proxy}
+                                        elif proxy.startswith('socks4://'):
+                                            return {'http': proxy, 'https': proxy}
+                                        else:
+                                            raise ValueError("Unsupported proxy protocol")
+                                    proxies2 = get_proxies(proxy)
+                                    #print(proxies2)
+                                    try:
+                                        response = requests.get(
+                                            url, headers=headers)
+                                        if response.status_code == 200:
+                                            print(response.status_code)
+                                        else:
+                                            print(response.status_code)
+                                            d.open_url(url)
+                                            time.sleep(20)
+                                            print('Verificado com o chrome')
+                                            d.app_start('pl.rs.sip.softphone.newapp')
+                                            try:
+                                                d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').wait(timeout=20)
+                                            except:
+                                                pass
+                                            if d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton'):
+                                                d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click()
+
+                                    except requests.exceptions.RequestException as e:
+                                        print(
+                                            f"Erro na requisição: {e}")
+
+                                    chegou_cod = True
+
+                                
+
+                        except Exception as e:
+                            if 'Email não chegou.' in str(e):
+                                raise Exception('')
+                            traceback.print_exc()
+
 
                     elif email_escolhido == '1SecMail':
 
@@ -64681,11 +64967,11 @@ def executar_creator_2nr():
                                 # Obter o valor do atributo 'value' do elemento
                                 email = input_element.get_attribute('value')
                                 email_antigo = email
-                                print(email)
                                 email_real = email
                                 log, dominio = email_real.split('@')
                                 numero_aleatorio = random.randint(0, 9999)
                                 email = f'{log}+{numero_aleatorio:04}@{dominio}'
+                                print(email)
                                 window['output'].print(
                                     f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
                                 window.Refresh()
@@ -64978,7 +65264,289 @@ def executar_creator_2nr():
                             except:
                                 pass
                             traceback.print_exc()
+                    elif email_escolhido == 'SmailProAPI':
+                        import time
+                        import requests
+                        import re
+                        import random
+                        try:
+                            url = "https://temp-gmail.p.rapidapi.com/list"
 
+                            querystring = {
+                                "page": random.randint(1, 500),
+                                "limit": "1"
+                            }
+
+                            headers = {
+                                "x-rapidapi-key": apismailpro,
+                                "x-rapidapi-host": "temp-gmail.p.rapidapi.com"
+                            }
+
+                            response = requests.get(url, headers=headers, params=querystring)
+
+                            data = response.json()['data'][0]
+                            email = data['email']
+                            timestamp2 = data['timestamp']
+
+                            email_antigo = email
+                            print(email)
+                            print(timestamp2)
+                            email_real = email
+                            log, dominio = email_real.split('@')
+                            numero_aleatorio = random.randint(0, 9999)
+                            email = f'{log}+{numero_aleatorio:04}@{dominio}'
+
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
+                            window.Refresh()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/inputPasswordEditText').set_text(senha)
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/repeat_password_edit_text').set_text(senha)
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/checkPrivacyPolicy').click()
+                            d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                            time.sleep(5)
+                            email_existente = d(
+                                resourceId='pl.rs.sip.softphone.newapp:id/buttonOk')
+                            if not email_existente:
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Email já utilizado.')
+                                window.Refresh()
+                                email_real = email_antigo
+                                log, dominio = email_real.split('@')
+                                numero_aleatorio = random.randint(0, 9999)
+                                email = f'{log}+{numero_aleatorio:04}@{dominio}'
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Novo email: {email}')
+                                window.Refresh()
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text('')
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/inputEmailEditText').set_text(email)
+                                d(resourceId='pl.rs.sip.softphone.newapp:id/buttonRegister').click()
+                                time.sleep(10)
+                            # use with address and token to reuse an existing inbox
+
+                            time.sleep(30)
+                            # Obter o valor do atributo "value" do elemento
+                            #### VERIFICAR EMAILS
+                            data['textSubject'] = ''
+                            tentativa = 0
+                            while True:
+                                #time.sleep(30)
+                                url = "https://temp-gmail.p.rapidapi.com/inbox"
+
+                                querystring = {
+                                    "email":email_real,
+                                    "timestamp":timestamp2
+                                }
+
+                                headers = {
+                                    "x-rapidapi-key": apismailpro,
+                                    "x-rapidapi-host": "temp-gmail.p.rapidapi.com"
+                                }
+
+                                response = requests.get(url, headers=headers, params=querystring)
+                                print(response.json())
+                                try:
+                                    data = response.json()['messages'][0]
+                                    mid = data['mid']
+                                    textTo = data['textTo']
+                                    textFrom = data['textFrom']
+                                    textSubject = data['textSubject']
+                                    textDate = data['textDate']
+
+                                    print(mid)
+                                    print(textSubject)
+                                except Exception as e:
+                                    if 'list index out of range' in str(e):
+                                        print('Não chegou nenhum código')
+                                        tentativa += 1
+                                        if tentativa == 3:
+                                            window['output'].print(
+                                                f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou.')
+                                            window.Refresh()
+                                            raise Exception('Email não chegou.')
+                                        time.sleep(30)
+                                    else:
+                                        print(e)
+                                if '2nr' in data['textSubject']:
+                                    print('Email chegou')
+
+                                    url = "https://temp-gmail.p.rapidapi.com/message"
+
+                                    querystring = {"email":email,"mid":mid}
+
+                                    headers = {
+                                        "x-rapidapi-key": apismailpro,
+                                        "x-rapidapi-host": "temp-gmail.p.rapidapi.com"
+                                    }
+
+                                    response = requests.get(url, headers=headers, params=querystring)
+                                    url = response.json()
+                                    url = url['body']
+                                    print(response.json())
+                                    break
+                                        
+                            
+                            print('----------------------------')
+                            import re
+                            #url = url['body']
+                            urls = re.findall(
+                                "(?P<url>https?://[^\s]+)", url)
+                            for url in urls:
+                                if url.startswith('https://api.2nr.xyz/register/?'):
+                                    try:
+                                        url = url.replace('</p></div>', '')
+                                        url = url.replace('&amp;', '&')
+                                    except:
+                                        pass
+                                    print(url)
+                                    print("URL:", url +
+                                        '\n----------------------------')
+
+                                    headers = {
+                                        'User-Agent': ua.random,
+                                        'User-Agent': ua.random
+                                        }
+                                    print(headers)
+                                    # d.open_url(url)
+                                    # time.sleep(10)
+                                    # d.app_start('pl.rs.sip.softphone.newapp', use_monkey=True)
+                                    from threading import Thread, Lock
+                                    from queue import Queue
+                                    import re
+                                    import random
+                                    # URL da API para obter os proxies
+
+                                    test_urls = [
+                                        url
+                                    ]
+
+                                    api_url = "https://api.proxyscrape.com/v3/free-proxy-list/get?request=displayproxies&protocol=http&proxy_format=protocolipport&format=text&timeout=20000"
+                                    #api_url = "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&proxy_format=protocolipport&timeout=10000&country=all&ssl=all&anonymity=all"
+
+                                    # Função para obter proxies da API
+                                    def fetch_proxies(api_url):
+                                        try:
+                                            response = requests.get(api_url)
+                                            proxies = response.text.split('\n')
+                                            return [proxy.strip() for proxy in proxies if proxy.strip()]
+                                        except requests.RequestException as e:
+                                            print(f"Erro ao obter proxies: {e}")
+                                            return []
+
+                                    # Obter proxies da API
+                                    proxies_list = fetch_proxies(api_url)
+
+                                    # Aleatorizar a ordem dos proxies
+                                    #random.shuffle(proxies_list)
+
+                                    # Fila de proxies
+                                    proxy_queue = Queue()
+
+                                    # Adiciona proxies à fila
+                                    for proxy in proxies_list:
+                                        proxy_queue.put(f"{proxy}")
+
+                                    # Lista para armazenar proxies válidos
+                                    valid_proxies = []
+
+                                    # Lock para proteger o acesso à lista de proxies válidos
+                                    list_lock = Lock()
+
+                                    # Variável de controle para parar threads
+                                    stop_event = False
+
+                                    def check_proxy():
+                                        global stop_event
+                                        while not proxy_queue.empty() and not stop_event:
+                                            proxy = proxy_queue.get()
+                                            successes = [False] * len(test_urls)  # Lista para acompanhar os sucessos em cada URL
+                                            try:
+                                                for i, test_url in enumerate(test_urls):
+                                                    response = requests.get(test_url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=1)
+                                                    if response.status_code == 200:
+                                                        successes[i] = True
+                                                        print(response.status_code)
+                                                    else:
+                                                        successes[i] = False
+                                            except requests.RequestException:
+                                                successes = [False] * len(test_urls)
+
+                                            if all(successes):  # Se todos os testes forem bem-sucedidos
+                                                with list_lock:
+                                                    if proxy not in valid_proxies:
+                                                        valid_proxies.append(proxy)
+                                                        print(f"Proxy válido: {proxy}")
+                                                        if len(valid_proxies) >= 2:
+                                                            stop_event = True
+                                            else:
+                                                pass
+                                                #print(f"Proxy inválido: {proxy}")
+
+                                            proxy_queue.task_done()
+
+                                    # Número de threads
+                                    num_threads = 20
+
+                                    # Criar e iniciar as threads
+                                    threads = []
+                                    for i in range(num_threads):
+                                        thread = Thread(target=check_proxy)
+                                        thread.start()
+                                        threads.append(thread)
+
+                                    # Aguardar todas as threads terminarem
+                                    for thread in threads:
+                                        thread.join()
+
+                                    # Escolher um proxy aleatório entre os válidos encontrados
+                                    if valid_proxies:
+                                        print(valid_proxies)
+                                        chosen_proxy = random.choice(valid_proxies)
+                                        print("Proxy escolhido aleatoriamente:", chosen_proxy)
+                                    else:
+                                        print("Nenhum proxy válido encontrado")
+                                    def get_proxies(proxy):
+                                        if proxy.startswith('http://'):
+                                            return {'http': proxy}
+                                        elif proxy.startswith('https://'):
+                                            return {'http': proxy.replace('https://', 'http://'), 'https': proxy}
+                                        elif proxy.startswith('socks4://'):
+                                            return {'http': proxy, 'https': proxy}
+                                        else:
+                                            raise ValueError("Unsupported proxy protocol")
+                                    proxies2 = get_proxies(proxy)
+                                    #print(proxies2)
+                                    try:
+                                        response = requests.get(
+                                            url, headers=headers)
+                                        if response.status_code == 200:
+                                            print(response.status_code)
+                                        else:
+                                            print(response.status_code)
+                                            d.open_url(url)
+                                            time.sleep(20)
+                                            print('Verificado com o chrome')
+                                            d.app_start('pl.rs.sip.softphone.newapp')
+                                            try:
+                                                d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').wait(timeout=20)
+                                            except:
+                                                pass
+                                            if d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton'):
+                                                d(resourceId='pl.rs.sip.softphone.newapp:id/loginButton').click()
+
+                                    except requests.exceptions.RequestException as e:
+                                        print(
+                                            f"Erro na requisição: {e}")
+
+                                    
+                                    chegou_cod = True
+
+                                
+
+                        except Exception as e:
+                            if 'Email não chegou.' in str(e):
+                                raise Exception('')
+                            traceback.print_exc()
                     elif email_escolhido == 'wnmail.shop':
 
                         import requests
@@ -69198,7 +69766,40 @@ while True:
                         current_time = time.time() - start_time
                         window["-TIME-"].update(format_time(int(current_time)))
                         window.refresh()  # Atualiza a interface do usuário
+                try:
+                    with open('configuracoes\\config8.json', 'r') as file:
+                        config8 = json.load(file)
+                except FileNotFoundError:
+                    config8 = {}
+                dialog_layout = [
+                        [sg.Text("API KEY", font=('Open Sans', 10)),
+                        
+                        sg.InputText(key="-apismailpro-",
+                                      default_text=config8.get("apismailpro", "API KEY"))],
+                        [sg.Button('Executar', button_color='#1c2024')]
+                         ]
+                    
 
+                dialog_window = sg.Window(
+                    '...', dialog_layout, keep_on_top=False)
+
+                # Loop principal da janela de diálogo
+                while True:
+                    dialog_event, dialog_values = dialog_window.read(timeout=100)
+
+                    # Finaliza a janela de diálogo se o usuário fechar a janela
+                    if dialog_event == sg.WINDOW_CLOSED:
+                        raise Exception("Janela fechada")
+                    if dialog_event == 'Executar':
+                        config8 = {
+                            "apismailpro": dialog_values['-apismailpro-']
+                        }
+                        with open('configuracoes\\config8.json', 'w') as file:
+                            json.dump(config8, file)
+                        break
+                dialog_window.close()
+                apismailpro = dialog_values['-apismailpro-']
+                print(f'Key: {apismailpro}')
                 time_thread = threading.Thread(
                     target=update_time, args=(window,))
                 time_thread.start()
@@ -69251,7 +69852,7 @@ while True:
                 except FileNotFoundError:
                     config = {}
                 email_list = ["wnmail.shop", "MailTM", "GuerrilaMail", "MinuteInBox", "1SecMail", "GmailTemp",
-                              "GmailTemp2", "GmailTemp3"]
+                              "GmailTemp2", "GmailTemp3", "SmailProAPI"]
                 layout_configuracoes = [
                     [sg.Text("Senha dos perfis: ", font=('Open Sans', 12)),
                      sg.InputText(key="-senha2nr-", default_text=config.get("senha2nr", "@SenhaPadrao2023"))],
