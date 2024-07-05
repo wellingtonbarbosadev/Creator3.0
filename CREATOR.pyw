@@ -63204,6 +63204,7 @@ def executar_creator_2nr():
                                 url = f"https://emailnator.com/"
                                 chrome.set_window_size(1920, 1080)
                                 chrome.driver.uc_open_with_reconnect(url, 10)
+
                                 try:
                                     chrome.save_screenshot('erro_nav.png')
                                     chrome.switch_to_frame(
@@ -63219,8 +63220,16 @@ def executar_creator_2nr():
                                     print(e)
                                     print('Sem Captcha')
                                 chrome.switch_to_parent_frame()
-                                chrome.wait_for_element(
-                                    '#custom-switch-domain').click()
+                                try:
+                                    if chrome.wait_for_element('button.cf-btn.cf-btn-danger', timeout=10):
+                                        chrome.driver.uc_click('button.cf-btn.cf-btn-danger')
+                                except:
+                                    pass
+                                try:
+                                    chrome.wait_for_element(
+                                        '#custom-switch-domain').click()
+                                except:
+                                    raise Exception('Não abriu pagina do email')
 
                                 # Clicar no elemento com ID 'custom-switch-googleMail'
                                 chrome.wait_for_element(
@@ -63368,7 +63377,7 @@ def executar_creator_2nr():
                                                 pass
                                             print("URL:", url +
                                                   '\n----------------------------')
-                                                
+
                                             headers = {
                                                 'User-Agent': ua.random,
                                                 'User-Agent': ua.random
@@ -63382,7 +63391,7 @@ def executar_creator_2nr():
                                             import re
                                             import random
                                             # URL da API para obter os proxies
-                                            
+
                                             test_urls = [
                                                 url
                                             ]
@@ -63929,7 +63938,7 @@ def executar_creator_2nr():
                             # Criando um arquivo temporário para salvar o áudio.
                             with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_file:
                                 temp_file_name = temp_file.name
-                                
+
                                 with sc.get_microphone(id=str(sc.default_speaker().name), include_loopback=True).recorder(samplerate=SAMPLE_RATE) as mic:
                                     # Gravando áudio com loopback do alto-falante padrão.
                                     try:
@@ -63942,7 +63951,7 @@ def executar_creator_2nr():
                                     audio_thread = threading.Thread(target=clicar_captcha)
                                     audio_thread.start()
                                     data = mic.record(numframes=SAMPLE_RATE * RECORD_SEC)
-                                    
+
                                     # Salvando os dados de áudio no arquivo temporário.
                                     sf.write(file=temp_file_name, data=data[:, 0], samplerate=SAMPLE_RATE)
 
@@ -63952,7 +63961,7 @@ def executar_creator_2nr():
 
                             with sr.AudioFile(temp_file_name) as source:
                                 audio_data = r.record(source)  # Lê o áudio do arquivo
-                                
+
                                 try:
                                     text = r.recognize_google(audio_data, language='en-US')  # Reconhecimento usando Google Speech Recognition API
                                     print("Texto reconhecido:", text)
@@ -63975,7 +63984,7 @@ def executar_creator_2nr():
                                     d(resourceId='recaptcha-reload-button').click()
                                     reconhecer_captcha += 1
 
-                                
+
                                 except sr.RequestError as e:
                                     print("Erro na requisição para o serviço de reconhecimento; {0}".format(e))
 
@@ -64129,7 +64138,7 @@ def executar_creator_2nr():
                                     # Criando um arquivo temporário para salvar o áudio.
                                     with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as temp_file:
                                         temp_file_name = temp_file.name
-                                        
+
                                         with sc.get_microphone(id=str(sc.default_speaker().name), include_loopback=True).recorder(samplerate=SAMPLE_RATE) as mic:
                                             # Gravando áudio com loopback do alto-falante padrão.
                                             try:
@@ -64142,7 +64151,7 @@ def executar_creator_2nr():
                                             audio_thread = threading.Thread(target=clicar_captcha)
                                             audio_thread.start()
                                             data = mic.record(numframes=SAMPLE_RATE * RECORD_SEC)
-                                            
+
                                             # Salvando os dados de áudio no arquivo temporário.
                                             sf.write(file=temp_file_name, data=data[:, 0], samplerate=SAMPLE_RATE)
 
@@ -64152,7 +64161,7 @@ def executar_creator_2nr():
 
                                     with sr.AudioFile(temp_file_name) as source:
                                         audio_data = r.record(source)  # Lê o áudio do arquivo
-                                        
+
                                         try:
                                             text = r.recognize_google(audio_data, language='en-US')  # Reconhecimento usando Google Speech Recognition API
                                             print("Texto reconhecido:", text)
@@ -64174,7 +64183,7 @@ def executar_creator_2nr():
                                                 raise Exception('Não foi possível reconhecer a fala')
                                             d(resourceId='recaptcha-reload-button').click()
                                             reconhecer_captcha += 1
-                                        
+
                                         except sr.RequestError as e:
                                             print("Erro na requisição para o serviço de reconhecimento; {0}".format(e))
 
@@ -64618,6 +64627,7 @@ def executar_creator_2nr():
                                 url = f"https://emailnator.com/"
                                 chrome.set_window_size(1920, 1080)
                                 chrome.driver.uc_open_with_reconnect(url, 10)
+
                                 try:
                                     chrome.save_screenshot('erro_nav.png')
                                     chrome.switch_to_frame(
@@ -64633,8 +64643,16 @@ def executar_creator_2nr():
                                     print(e)
                                     print('Sem Captcha')
                                 chrome.switch_to_parent_frame()
-                                chrome.wait_for_element(
-                                    '#custom-switch-domain').click()
+                                try:
+                                    if chrome.wait_for_element('button.cf-btn.cf-btn-danger', timeout=10):
+                                        chrome.driver.uc_click('button.cf-btn.cf-btn-danger')
+                                except:
+                                    pass
+                                try:
+                                    chrome.wait_for_element(
+                                        '#custom-switch-domain').click()
+                                except:
+                                    raise Exception('Não abriu pagina do email')
 
                                 # Clicar no elemento com ID 'custom-switch-googleMail'
                                 chrome.wait_for_element(
