@@ -63654,6 +63654,12 @@ def executar_creator_2nr():
                                             window.Refresh()
                                             raise Exception('Email não chegou.')
                                         time.sleep(30)
+                                    if 'email address is under' in str(e):
+                                        window['output'].print(
+                                                f'[{datetime.now().strftime("%H:%M:%S")}] Email não disponivel.')
+                                        window.Refresh()
+                                        raise Exception('Email não disponivel.')
+
                                     else:
                                         print(e)
                                 if '2nr' in data['textSubject']:
@@ -65365,6 +65371,11 @@ def executar_creator_2nr():
                                             window.Refresh()
                                             raise Exception('Email não chegou.')
                                         time.sleep(30)
+                                    if 'email address is under' in str(e):
+                                        window['output'].print(
+                                                f'[{datetime.now().strftime("%H:%M:%S")}] Email não disponivel.')
+                                        window.Refresh()
+                                        raise Exception('Email não disponivel.')
                                     else:
                                         print(e)
                                 if '2nr' in data['textSubject']:
@@ -69766,40 +69777,42 @@ while True:
                         current_time = time.time() - start_time
                         window["-TIME-"].update(format_time(int(current_time)))
                         window.refresh()  # Atualiza a interface do usuário
+                
                 try:
                     with open('configuracoes\\config8.json', 'r') as file:
                         config8 = json.load(file)
                 except FileNotFoundError:
                     config8 = {}
-                dialog_layout = [
-                        [sg.Text("API KEY", font=('Open Sans', 10)),
+                if config8['apismailpro']:
+                    dialog_layout = [
+                            [sg.Text("API KEY", font=('Open Sans', 10)),
+                            
+                            sg.InputText(key="-apismailpro-",
+                                        default_text=config8.get("apismailpro", "API KEY"))],
+                            [sg.Button('Executar', button_color='#1c2024')]
+                            ]
                         
-                        sg.InputText(key="-apismailpro-",
-                                      default_text=config8.get("apismailpro", "API KEY"))],
-                        [sg.Button('Executar', button_color='#1c2024')]
-                         ]
-                    
 
-                dialog_window = sg.Window(
-                    '...', dialog_layout, keep_on_top=False)
+                    dialog_window = sg.Window(
+                        '...', dialog_layout, keep_on_top=False)
 
-                # Loop principal da janela de diálogo
-                while True:
-                    dialog_event, dialog_values = dialog_window.read(timeout=100)
+                    # Loop principal da janela de diálogo
+                    while True:
+                        dialog_event, dialog_values = dialog_window.read(timeout=100)
 
-                    # Finaliza a janela de diálogo se o usuário fechar a janela
-                    if dialog_event == sg.WINDOW_CLOSED:
-                        raise Exception("Janela fechada")
-                    if dialog_event == 'Executar':
-                        config8 = {
-                            "apismailpro": dialog_values['-apismailpro-']
-                        }
-                        with open('configuracoes\\config8.json', 'w') as file:
-                            json.dump(config8, file)
-                        break
-                dialog_window.close()
-                apismailpro = dialog_values['-apismailpro-']
-                print(f'Key: {apismailpro}')
+                        # Finaliza a janela de diálogo se o usuário fechar a janela
+                        if dialog_event == sg.WINDOW_CLOSED:
+                            raise Exception("Janela fechada")
+                        if dialog_event == 'Executar':
+                            config8 = {
+                                "apismailpro": dialog_values['-apismailpro-']
+                            }
+                            with open('configuracoes\\config8.json', 'w') as file:
+                                json.dump(config8, file)
+                            break
+                    dialog_window.close()
+                    apismailpro = dialog_values['-apismailpro-']
+                    print(f'Key: {apismailpro}')
                 time_thread = threading.Thread(
                     target=update_time, args=(window,))
                 time_thread.start()
