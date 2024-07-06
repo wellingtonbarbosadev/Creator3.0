@@ -2426,6 +2426,7 @@ def creator_2NRv2():
                                     d(textContains='Fazer uma apelação') or
                                     d(textContains='Ocorreu um problema com a sua') or
                                     d(textContains='Insira o código de confirmação') or
+                                    d(textContains='concluir a sua solicitação') or
                                     d(resourceId="com.instagram.android:id/tab_avatar") or
                                     d(text='OK')
                                 ):
