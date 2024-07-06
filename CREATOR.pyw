@@ -69784,7 +69784,12 @@ while True:
                         config8 = json.load(file)
                 except FileNotFoundError:
                     config8 = {}
-                if config8['apismailpro']:
+                try:
+                    with open("config2nr.json", "r") as f:
+                        config = json.load(f)
+                except FileNotFoundError:
+                    config = {}
+                if config['email_escolhido'] == 'SmailProAPI':
                     dialog_layout = [
                             [sg.Text("API KEY", font=('Open Sans', 10)),
                             
