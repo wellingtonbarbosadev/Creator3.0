@@ -1811,7 +1811,7 @@ def creator_2NRv2():
                             except:
                                 raise Exception('skip')
                             
-                    elif d(text='Qual é o número do seu celular?'):
+                    elif d(text='Qual é o número do seu celular?') or d(text='Qual é seu número de celular ou email?'):
                         print('Tela de adicionar número')
                         escrever_devagar(d(className="android.widget.EditText"), f'+48{num}', chunk_size=3)
                         d(text="Avançar").click()
@@ -2172,7 +2172,9 @@ def creator_2NRv2():
                                 raise Exception('skip')
                             except Exception as e:
                                 raise Exception('skip')
-
+                    elif d(resourceId="com.android.packageinstaller:id/permission_deny_button"):
+                        print('Tela de permissão')
+                        d(resourceId="com.android.packageinstaller:id/permission_deny_button").click()
                     elif d(textContains="Adicione uma foto") or d(resourceId="com.instagram.android:id/tab_avatar"):
                         if d(resourceId="com.instagram.android:id/tab_avatar"):
                             pass
@@ -2304,7 +2306,10 @@ def creator_2NRv2():
                             window['output'].print(f'{linha_ret}')
                             window.Refresh()
                             d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
-                            d(textContains="eguindo").click()
+                            d(textContains="Ver tudo").click()
+                            
+                            if d(textContains='Não permitir acesso').wait(timeout=15):
+                                d(textContains='Não permitir acesso').click()
                             seguir_sugeridos = 0
                             while seguir_sugeridos < 10:
                                 try:
