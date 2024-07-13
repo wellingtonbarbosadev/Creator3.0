@@ -591,6 +591,18 @@ def creator_2NRv2():
     conteudo = config['vpn']
     senha = gerar_senha(12)
     maquina = config['maquina']
+    removenum_addemail = config['removenum_addemail']
+    if removenum_addemail:
+        def obter_dominios():
+            import requests
+            url = "https://api.mail.tm/domains"
+            response = requests.get(url)
+            if response.status_code == 200:
+                return [domain['domain'] for domain in response.json()['hydra:member']]
+            else:
+                print("Erro ao obter os domínios:", response.json())
+                return []
+        dominios2 = obter_dominios()[0].replace("'", "")
     tentativa = False
     seguido = False
     regiao_vpn = 'Sem dados'
@@ -2002,7 +2014,6 @@ def creator_2NRv2():
                                     d(className="android.widget.EditText", instance=1).set_text(senha)
                                     d(text='Entrar').click()
                                     if d(text="Agora não").wait(timeout=10):
-                                        print('Conta criada')
                                         d(text="Agora não").click()
                                     else:
                                         conteudo = config['vpn']
@@ -2208,6 +2219,8 @@ def creator_2NRv2():
                                     spreadsheet_id).worksheet(sheet_name)
                                 values = sheet.col_values(1)
                                 last_row = len(values)
+                                if removenum_addemail:
+                                    email = f'{user_completo}@{dominios2}'
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
                                         conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(
@@ -2298,7 +2311,6 @@ def creator_2NRv2():
                         d(className="android.widget.EditText", instance=1).set_text(senha)
                         d(text='Entrar').click()
                         if d(text="Agora não").wait(timeout=10):
-                            print('Conta criada')
                             d(text="Agora não").click()
 
                         while True:
@@ -2328,6 +2340,159 @@ def creator_2NRv2():
                                     if not d(text="Seguir"):
                                         break
                             d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
+                            if removenum_addemail:
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Processo de adicionar email')
+                                window.Refresh()
+                                d.xpath('//*[@content-desc="Opções"]').click()
+                                d(text='Configurações e privacidade').click()
+                                d(text='Central de Contas').click()
+                                try: 
+                                    if d(text='Agora na Central de Contas').wait(timeout=5):
+                                        d(text='OK').click()
+                                except: pass
+                                d(text='Dados pessoais').click()
+                                d(text='Informações de contato').click()
+                                d(text='Adicionar novo contato').click()
+                                d(text='Adicionar email').click()
+                                d(text='Adicione um endereço de email').wait(timeout=30)
+                                # Função para obter os domínios disponíveis
+                                def obter_dominios():
+                                    url = "https://api.mail.tm/domains"
+                                    response = requests.get(url)
+                                    if response.status_code == 200:
+                                        return [domain['domain'] for domain in response.json()['hydra:member']]
+                                    else:
+                                        print("Erro ao obter os domínios:", response.json())
+                                        return []
+
+                                # Função para criar uma conta no Mail.tm
+                                def criar_conta(email_prefixo, senha, dominio):
+                                    global email_instagram
+                                    email_instagram = f"{email_prefixo}@{dominio}"
+                                    url = "https://api.mail.tm/accounts"
+                                    payload = {
+                                        "address": email_instagram,
+                                        "password": senha
+                                    }
+                                    headers = {
+                                        "Content-Type": "application/json"
+                                    }
+                                    response = requests.post(url, json=payload, headers=headers)
+                                    if response.status_code == 201:
+                                        print(f"Email criado com sucesso: {email_instagram}")
+                                        d.xpath('//android.widget.EditText').set_text(email_instagram)
+                                        d(text='Instagram').click()
+                                        d(text='Avançar').click()
+                                        d(text='Insira seu código de confirmação').wait(timeout=30)
+                                        return response.json()
+                                    else:
+                                        print("Erro ao criar o email:", response.json())
+                                        return None
+
+                                # Função para obter o token de autenticação
+                                def obter_token(email_instagram, senha):
+                                    url = "https://api.mail.tm/token"
+                                    payload = {
+                                        "address": email_instagram,
+                                        "password": senha
+                                    }
+                                    headers = {
+                                        "Content-Type": "application/json"
+                                    }
+                                    response = requests.post(url, json=payload, headers=headers)
+                                    if response.status_code == 200:
+                                        return response.json()['token']
+                                    else:
+                                        print("Erro ao obter o token:", response.json())
+                                        return None
+
+                                # Função para verificar se há emails recebidos com o assunto 'Confirmar email' e extrair os 6 primeiros algarismos do corpo do email
+                                def verificar_emails(token):
+                                    url = "https://api.mail.tm/messages"
+                                    headers = {
+                                        "Authorization": f"Bearer {token}"
+                                    }
+                                    response = requests.get(url, headers=headers)
+                                    if response.status_code == 200:
+                                        emails = response.json()["hydra:member"]
+                                        for email in emails:
+                                            if 'confirmar email' in email['subject'].lower():
+                                                # Obter o corpo do email
+                                                email_url = f"https://api.mail.tm/messages/{email['id']}"
+                                                email_response = requests.get(email_url, headers=headers)
+                                                if email_response.status_code == 200:
+                                                    email_body = email_response.json()['text']
+                                                    match = re.search(r'\d{6}', email_body)
+                                                    if match:
+                                                        return match.group(0)
+                                        return None
+                                    else:
+                                        print("Erro ao verificar os emails:", response.json())
+                                        return None
+
+                                # Parâmetros desejados
+                                email_prefixo = user_completo
+                                senha_desejada = senha
+                                # Obter domínios disponíveis
+                                dominios = obter_dominios()
+
+                                if dominios:
+                                    # Tentar criar a conta com os domínios disponíveis
+                                    conta = None
+                                    for dominio in dominios:
+                                        conta = criar_conta(email_prefixo, senha_desejada, dominio)
+                                        if conta:
+                                            break
+
+                                    if conta:
+                                        # Obter token de autenticação
+                                        token = obter_token(conta['address'], senha_desejada)
+
+                                        if token:
+                                            # Esperar até 1 minuto por um email com assunto 'Confirmar email'
+                                            start_time = time.time()
+                                            while time.time() - start_time < 60:
+                                                resultado = verificar_emails(token)
+                                                if resultado:
+                                                    print(f"Código recebido: {resultado}")
+                                                    break
+                                                time.sleep(5)  # Espera 5 segundos antes de verificar novamente
+                                            else:
+                                                print("Não foi possível receber o email dentro de 1 minuto.")
+                                else:
+                                    print("Nenhum domínio disponível foi encontrado.")
+
+
+
+                                d.xpath('//android.widget.EditText').set_text(resultado)
+                                d(text='Avançar').click()
+                                d(text='Você adicionou seu email às contas selecionadas').wait(timeout=30)
+                                print(f'Email adicionado: {email_instagram}')
+                                d(text='Fechar').click()
+                                time.sleep(3)
+                                d(textContains='+48').click()
+                                try:
+                                    d(text='Excluir número').click()
+                                except:
+                                    d(textContains='+48').click()
+                                    d(text='Excluir número').click()
+                                d(text='EXCLUIR').click()
+                                try:
+                                    if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                        print("Conta deslogou")
+                                        d.xpath('//android.widget.EditText').set_text(senha)
+                                        d(text='Continuar').click()
+                                except: pass
+                                d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                print("Número excluido")
+                                d(text='Fechar').click()
+                                d.app_stop('com.instagram.android')
+                                d.app_start('com.instagram.android')
+                                d(resourceId='com.instagram.android:id/profile_tab').click()
+                                print('Email adicionado')
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email adicionado: {email_instagram}')
+                                window.Refresh()
+                            
                             try:
                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                             except: 
@@ -2502,6 +2667,8 @@ def creator_2NRv2():
                                             spreadsheet_id).worksheet(sheet_name)
                                         values = sheet.col_values(1)
                                         last_row = len(values)
+                                        if removenum_addemail:
+                                            email = f'{user_completo}@{dominios2}'
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
                                                 conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(
@@ -69493,8 +69660,8 @@ while True:
                      sg.Radio('TWILIO', 'RADIO1', key='-twilio-',
                               default=config.get("email", "") == "-twilio-"),
                      sg.Radio('InstaFace', 'RADIO1', key='-instaface-',
-                              default=config.get("email", "") == "-instaface-"),
-                     sg.Radio('CLONER + EMAIL', 'RADIO1', key='-cloneremail-',
+                              default=config.get("email", "") == "-instaface-")],
+                     [sg.Radio('CLONER + EMAIL', 'RADIO1', key='-cloneremail-',
                               default=config.get("email", "") == "-cloneremail-"),
                      sg.Radio('CLONER + NUM', 'RADIO1', key='-clonernum-',
                               default=config.get("email", "") == "-clonernum-"),
@@ -69522,7 +69689,9 @@ while True:
                         key="2nr", default_text=config.get("2nr", ""))],
                     [sg.Button("Salvar", button_color='#1c2024'),
                      sg.Checkbox("Sempre no topo", key="-FIXED_TOP-", enable_events=True,
-                                 default=config.get("fixtop", ""))]
+                                 default=config.get("fixtop", "")),
+                     sg.Checkbox("Remover num e adicionar email (2NRv2)", key="-removenum_addemail-", enable_events=True,
+                                 default=config.get("removenum_addemail", ""))]
                 ]
 
                 # Criar a janela da GUI de configuração
@@ -69588,26 +69757,13 @@ while True:
                             "maquina": valores['maquina'],
                             "spreadsheet": valores['spreadsheet'],
                             "2nr": valores['2nr'],
-                            "fixtop": valores['-FIXED_TOP-']
+                            "fixtop": valores['-FIXED_TOP-'],
+                            "removenum_addemail": valores['-removenum_addemail-']
 
                         }
                         with open("config.json", "w") as f:
                             json.dump(config, f)
-                        # Atualizar os valores padrão dos campos na GUI de configuração
-                        layout_configuracoes[1][0].update(
-                            value=config.get("senha", ""))
-                        layout_configuracoes[2][0].update(
-                            value=config.get("vpn", ""))
-                        layout_configuracoes[3][0].update(
-                            value=config.get("email", ""))
-                        layout_configuracoes[4][0].update(
-                            value=config.get("app", ""))
-                        layout_configuracoes[5][0].update(
-                            value=config.get("maquina", ""))
-                        layout_configuracoes[6][0].update(
-                            value=config.get("spreadsheet", ""))
-                        layout_configuracoes[7][0].update(
-                            value=config.get("2nr", ""))
+                        
 
         window.close()
         try:
