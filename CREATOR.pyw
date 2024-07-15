@@ -2451,14 +2451,17 @@ def creator_2NRv2():
                                         if token:
                                             # Esperar até 1 minuto por um email com assunto 'Confirmar email'
                                             start_time = time.time()
-                                            while time.time() - start_time < 60:
+                                            while time.time() - start_time < 180:
                                                 resultado = verificar_emails(token)
                                                 if resultado:
                                                     print(f"Código recebido: {resultado}")
                                                     break
                                                 time.sleep(5)  # Espera 5 segundos antes de verificar novamente
                                             else:
-                                                print("Não foi possível receber o email dentro de 1 minuto.")
+                                                print("Não foi possível receber o email dentro de 3 minutos.")
+                                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou')
+                                                window.Refresh()
+                                                raise Exception('Email não chegou')
                                 else:
                                     print("Nenhum domínio disponível foi encontrado.")
 
@@ -2597,6 +2600,7 @@ def creator_2NRv2():
                                     d(textContains='Ocorreu um problema com a sua') or
                                     d(textContains='Insira o código de confirmação') or
                                     d(textContains='concluir a sua solicitação') or
+                                    d(textContains='Parâmetros inválidos') or
                                     d(resourceId="com.instagram.android:id/tab_avatar") or
                                     d(text='OK')
                                 ):
