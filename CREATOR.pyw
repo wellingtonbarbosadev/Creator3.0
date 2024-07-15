@@ -2220,7 +2220,8 @@ def creator_2NRv2():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 if removenum_addemail:
-                                    email = f'{user_completo}@{dominios2}'
+                                    email = f'{user_completo1}@{dominios2}'
+                                    print(email)
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
                                         conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(
@@ -2431,7 +2432,7 @@ def creator_2NRv2():
                                         return None
 
                                 # Parâmetros desejados
-                                email_prefixo = user_completo
+                                email_prefixo = user_completo1
                                 senha_desejada = senha
                                 # Obter domínios disponíveis
                                 dominios = obter_dominios()
