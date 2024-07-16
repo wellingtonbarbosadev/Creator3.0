@@ -2319,28 +2319,31 @@ def creator_2NRv2():
                             window['output'].print(f'{linha_ret}')
                             window.Refresh()
                             d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
-                            d(textContains="Ver tudo").click()
-                            
-                            if d(textContains='Não permitir acesso').wait(timeout=15):
-                                d(textContains='Não permitir acesso').click()
-                            seguir_sugeridos = 0
-                            while seguir_sugeridos < 10:
-                                try:
-                                    d(text="Seguir").click(timeout=2)
-                                    time.sleep(1)
-                                    seguir_sugeridos += 1
-                                except:
-                                    width, height = d.window_size()
-                                    start_x = width // 2
-                                    start_y = height * 3 // 4  # Comece no 75% da altura
-                                    end_x = width // 2
-                                    end_y = height // 4  # Termine no 25% da altura
+                            try:
+                                d(textContains="Ver tudo").click()
+                                
+                                if d(textContains='Não permitir acesso').wait(timeout=15):
+                                    d(textContains='Não permitir acesso').click()
+                                seguir_sugeridos = 0
+                                while seguir_sugeridos < 10:
+                                    try:
+                                        d(text="Seguir").click(timeout=2)
+                                        time.sleep(1)
+                                        seguir_sugeridos += 1
+                                    except:
+                                        width, height = d.window_size()
+                                        start_x = width // 2
+                                        start_y = height * 3 // 4  # Comece no 75% da altura
+                                        end_x = width // 2
+                                        end_y = height // 4  # Termine no 25% da altura
 
-                                    # Realize o swipe
-                                    d.swipe(start_x, start_y, end_x, end_y, duration=0.5)
-                                    if not d(text="Seguir"):
-                                        break
-                            d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
+                                        # Realize o swipe
+                                        d.swipe(start_x, start_y, end_x, end_y, duration=0.5)
+                                        if not d(text="Seguir"):
+                                            break
+                                d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
+                            except:
+                                print('Não foi possivel seguir sugeridos')
                             if removenum_addemail:
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Processo de adicionar email')
                                 window.Refresh()
