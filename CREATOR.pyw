@@ -2348,7 +2348,7 @@ def creator_2NRv2():
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Processo de adicionar email')
                                 window.Refresh()
                                 d.xpath('//*[@content-desc="Opções"]').click()
-                                time.sleep(3)
+                                time.sleep(5)
                                 d(text='Configurações e privacidade').click()
                                 try:
                                     d(text='Central de Contas').click()
