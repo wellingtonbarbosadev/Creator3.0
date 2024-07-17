@@ -579,6 +579,2252 @@ def contagem():
     window['contagem'].update(contagem)
     window.Refresh()
 
+def creator_temporary_phone_number_comv2():
+    try:
+        with open("config.json", "r") as f:
+            config = json.load(f)
+    except FileNotFoundError:
+        config = {}
+    global gerar_senha
+    global get_proxies
+    global stop_event
+    global data_clipboard_text
+    global num
+    global numeros
+    global encontrado
+    import traceback
+    SPREADSHEET_ID = config['spreadsheet']
+    conteudo = config['vpn']
+    senha = gerar_senha(12)
+    maquina = config['maquina']
+    removenum_addemail = config['removenum_addemail']
+    if removenum_addemail:
+        def obter_dominios():
+            import requests
+            url = "https://api.mail.tm/domains"
+            response = requests.get(url)
+            if response.status_code == 200:
+                return [domain['domain'] for domain in response.json()['hydra:member']]
+            else:
+                print("Erro ao obter os domínios:", response.json())
+                return []
+        dominios2 = obter_dominios()[0].replace("'", "")
+    tentativa = False
+    seguido = False
+    regiao_vpn = 'Sem dados'
+    app = 'temporary-phone-number.com v2'
+    global sms
+    global nomes
+    global sobrenomes
+    global nome
+    global contagem
+    global sobrenome
+    global lista_user
+    window['Executar'].update(disabled=True)
+    window.Refresh()
+    # Código que gera a saída
+    import os
+    import time
+    import requests
+    import hashlib
+    import subprocess
+    import phonenumbers
+    import httpx
+    from bs4 import BeautifulSoup
+    import random
+    import re
+    import time
+    from threading import Thread, Lock
+    from queue import Queue
+    import requests
+    # verifica se o arquivo existe na pasta do bot
+
+    try:
+        from rich.console import Console
+    except ModuleNotFoundError:
+        import subprocess
+        import sys
+
+        subprocess.run(['venv/scripts/activate.bat'], shell=True)
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Instalando dependências...')
+        window.Refresh()
+        subprocess.run(['pip', 'install', '-r', 'requirements.txt'])
+        subprocess.run(['deactivate'], shell=True)
+        from rich.console import Console
+    import os
+    import time
+    try:
+        import uiautomator2 as u2
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+    except:
+        subprocess.run(['venv/scripts/activate.bat'], shell=True)
+        subprocess.run(['pip', 'install', 'uiautomator2==2.16.25'])
+        subprocess.run(['deactivate'], shell=True)
+        subprocess.run(['pip', 'install', '--upgrade', 'requests'])
+        subprocess.run(['pip', 'install', 'packaging==21.3'],
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        import requests
+        time.sleep(10)
+        import uiautomator2 as u2
+    d = u2.connect(f'{porta}')
+    import requests
+    import hashlib
+    import subprocess
+    from colorama import init, Fore, Back, Style
+    from faker import Faker
+    # teste
+    init(autoreset=True)
+    console = Console()
+    from termcolor import colored
+
+    from rich.console import Console
+    from rich.panel import Panel
+    from rich.text import Text
+    from rich.rule import Rule
+
+    linha_ret = '_________________________________________________\n'
+    window.Refresh()
+    import random
+    from datetime import datetime
+    import string
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+    from selenium.webdriver.chrome.options import Options
+    from selenium.common.exceptions import NoSuchElementException
+    from mailtm import Email
+    import re
+    import logging
+
+    logger = logging.getLogger(__name__)
+
+    handler = logging.FileHandler('log.txt')
+    handler.setLevel(logging.ERROR)
+
+    logger.addHandler(handler)
+
+    # RANGE_NAME = 'contas!A:D'
+    #
+    # SCOPES = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+
+    def vpn_avast():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da Avast', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop("com.avast.android.vpn")
+            d.app_start("com.avast.android.vpn", ".app.wizard.WizardActivity")
+            time.sleep(10)
+        except Exception as e:
+            print(e)
+        abc = False
+
+    def nenhuma_vpn():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.facebook.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        time.sleep(10)
+
+    def vpn_hotspotshield():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da HotspotShield',
+                               text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop('hotspotshield.android.vpn')
+            d.app_start('hotspotshield.android.vpn')
+        except Exception as e:
+            print(e)
+        d(resourceId='hotspotshield.android.vpn:id/tryAgainButton').click()
+        time.sleep(5)
+        d(resourceId='hotspotshield.android.vpn:id/btnVpnConnect').click()
+
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        #            stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        abc = False
+
+    def vpn_pia():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da PiaVPN', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop('com.privateinternetaccess.android')
+            d.app_start('com.privateinternetaccess.android')
+        except:
+            pass
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        #            stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
+        time.sleep(3)
+        d(resourceId='com.privateinternetaccess.android:id/connection_background').click()
+
+        abc = False
+
+    def vpn_express():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da ExpressVPN', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop('com.expressvpn.vpn')
+            d.app_start('com.expressvpn.vpn')
+        except:
+            pass
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        #            stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        d(resourceId='com.expressvpn.vpn:id/obiButton').click()
+        time.sleep(3)
+        d(resourceId='com.expressvpn.vpn:id/obiButton').click()
+
+        abc = False
+
+    def vpn_nord():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da NordVPN', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop('com.nordvpn.android')
+            time.sleep(5)
+            d.app_start('com.nordvpn.android', use_monkey=True)
+        except:
+            pass
+        time.sleep(10)
+        time.sleep(5)
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        abc = False
+
+    def vpn_surf():
+        global nome
+        global sobrenome
+        global sms
+        sms = True
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da SurfShark', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+
+        try:
+            d.app_stop('com.surfshark.vpnclient.android')
+            d.app_start('com.surfshark.vpnclient.android')
+        except:
+            pass
+        time.sleep(15)
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        abc = False
+
+    def vpn_better():
+        global nome
+        global sobrenome
+        global sms
+        sms = True
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da BetterNet', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+
+        subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        try:
+            d.app_stop('com.freevpnintouch')
+            d.app_start('com.freevpnintouch')
+        except:
+            pass
+        time.sleep(10)
+        dialog = d(resourceId='com.freevpnintouch:id/dialogCtaPositive')
+        connect = d(
+            resourceId='com.freevpnintouch:id/buttonConnect').get_text(timeout=80)
+        if dialog.exists:
+            d(resourceId='com.freevpnintouch:id/dialogCtaPositive').click()
+            time.sleep(3)
+            d(resourceId='com.freevpnintouch:id/buttonConnect').click()
+            # time.sleep(5)
+            d(resourceId='com.freevpnintouch:id/buttonConnect').click()
+        while connect == 'CONNECT':
+            d(resourceId='com.freevpnintouch:id/buttonConnect').click()
+            time.sleep(4)
+            connect = d(
+                resourceId='com.freevpnintouch:id/buttonConnect').get_text(timeout=80)
+            # WebDriverWait(driver, 20).until(
+            # EC.element_to_be_clickable((By.ID, 'com.freevpnintouch:id/buttonConnect').click()
+        # time.sleep(5)
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+        ip = '127.0.0.1:' + porta
+
+        output = subprocess.check_output(
+            ['adb', '-s', ip, 'shell', 'ifconfig'])
+
+        # Verifica se a conexão VPN está ativa
+        if not "tun0" in str(output):
+            window['output'].print("Não conectado na BetterNet.")
+            window.Refresh()
+            try:
+                connect = d(
+                    resourceId='com.freevpnintouch:id/buttonConnect').get_text(timeout=80)
+                d.app_stop('com.freevpnintouch')
+                d.app_start('com.freevpnintouch')
+                while connect == 'CONNECT':
+                    d(resourceId='com.freevpnintouch:id/buttonConnect').click()
+                    time.sleep(4)
+                    connect = d(
+                        resourceId='com.freevpnintouch:id/buttonConnect').get_text(timeout=80)
+            except:
+                pass
+        abc = False
+
+    def vpn_cyberghost():
+        global nome
+        global sobrenome
+        global sms
+        sms = True
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da CyberGhost', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+
+        try:
+            d.app_stop('de.mobileconcepts.cyberghost')
+            d.app_start('de.mobileconcepts.cyberghost')
+        except:
+            pass
+        # time.sleep(3)
+        d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
+        rate = d(resourceId='de.mobileconcepts.cyberghost:id/rate_me_text')
+        if rate.exists:
+            d(resourceId='android:id/button2').click()
+        time.sleep(2)
+        d(resourceId='de.mobileconcepts.cyberghost:id/button').click()
+        # time.sleep(5)
+        subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+        abc = False
+
+    def vpn_tunnelbear():
+        global nome
+        global sobrenome
+        global sms
+        global regiao_vpn
+        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da TunnelBear',
+                               text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop('com.tunnelbear.android')
+            d.app_start("com.tunnelbear.android")
+            while True:
+                output = subprocess.check_output(
+                    ['adb', '-s', porta, 'shell', 'ifconfig'])
+                # print(str(output))
+                if "tun0" in str(output):
+                    print('Conectada')
+                    break
+                elif not "tun0" in str(output):
+                    print('Reconectando')
+                    try:
+                        d(resourceId='com.tunnelbear.android:id/switchVpn').click(timeout=60)
+                        time.sleep(10)
+                    except:
+                        pass
+        except Exception as e:
+            print(e)
+            pass
+
+    def vpn_avg():
+        global nome
+        global sobrenome
+        global sms
+        global regiao_vpn
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da AVG', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear pl.rs.sip.softphone.newapp',
+                           stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.lite', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            d.app_stop('com.avg.android.vpn')
+            d.app_start("com.avg.android.vpn",
+                        "com.avast.android.vpn.app.wizard.WizardActivity")
+            regiao_vpn = d(
+                resourceId='com.avg.android.vpn:id/location_title').get_text()
+
+        except Exception as e:
+            print(e)
+            pass
+        # subprocess.run(f'adb -s {porta} shell input keyevent KEYCODE_HOME', stdout=subprocess.DEVNULL,
+        #               stderr=subprocess.DEVNULL, check=True, shell=True)
+
+        time.sleep(30)
+
+    def vpn_windscribe():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da Windscribe', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            # subprocess.run(f'adb shell am start -n com.avg.android.vpn/com.avast.android.vpn.app.wizard.WizardActivity', shell=True)
+            d.app_stop("com.windscribe.vpn")
+            d.app_start("com.windscribe.vpn")
+        except:
+            pass
+        d(resourceId='com.windscribe.vpn:id/on_off_button').click()
+        time.sleep(10)
+        primeiro = d(
+            resourceId='com.windscribe.vpn:id/tv_connected_city_name').get_text()
+        segundo = d(
+            resourceId='com.windscribe.vpn:id/tv_connected_city_nick_name').get_text()
+        regiao_vpn = primeiro + ' ' + segundo
+
+    def vpn_hma():
+        global nome
+        global sobrenome
+        global sms
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Alterando IP da HMA', text_color='red')
+        window.Refresh()
+        window['output'].print(
+            f'[{datetime.now().strftime("%H:%M:%S")}] Limpando dados.')
+        window.Refresh()
+        gerar_id()
+        subprocess.run(
+            f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+        try:
+            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android', stdout=subprocess.DEVNULL,
+                           stderr=subprocess.DEVNULL, check=True, shell=True)
+        except:
+            pass
+        sms = True
+        try:
+            # subprocess.run(f'adb shell am start -n com.avg.android.vpn/com.avast.android.vpn.app.wizard.WizardActivity', shell=True)
+
+            d.app_stop("com.hidemyass.hidemyassprovpn")
+            time.sleep(3)
+            d.app_start('com.hidemyass.hidemyassprovpn',
+                        'com.avast.android.vpn.activity.HmaOnboardingActivity')
+        except:
+            pass
+        time.sleep(10)
+
+    def gerar_id():
+        chars = string.ascii_lowercase + string.digits
+        android_id = ''.join(random.choice(chars) for i in range(16))
+        return android_id
+
+    options = Options()
+    prefs = {"profile.managed_default_content_settings.images": 2}
+    options.page_load_strategy = 'none'
+    options.add_experimental_option("prefs", prefs)
+
+    window['output'].print(
+        f'[{datetime.now().strftime("%H:%M:%S")}] Senha sendo utilizada: {senha}')
+    window.Refresh()
+
+    try:
+        comando = f"adb connect {porta}"
+        subprocess.run(comando, stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, check=True, shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put global window_animation_scale 0',
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put global transition_animation_scale 0',
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+        subprocess.run(f'adb -s {porta} shell settings put global animator_duration_scale 0',
+                       stdout=subprocess.DEVNULL,
+                       stderr=subprocess.DEVNULL, shell=True)
+    except:
+        pass
+    gerar_id()
+    android_id = gerar_id()
+    subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL, shell=True)
+    time.sleep(2)
+    # subprocess.run(f'adb -s {porta} shell settings get secure android_id', shell=True, stdout=subprocess.DEVNULL,
+    #               stderr=subprocess.DEVNULL)
+
+    
+
+    window['output'].print(
+        f'[{datetime.now().strftime("%H:%M:%S")}] Efetuando troca de IP.')
+    window.Refresh()
+    try:
+        conteudo = config['vpn']
+        if conteudo == "AVG":
+            vpn_avg()
+        elif conteudo == "SurfShark":
+            vpn_surf()
+        elif conteudo == "Nenhuma":
+            nenhuma_vpn()
+        elif conteudo == "Avast":
+            vpn_avast()
+        elif conteudo == "ExpressVPN":
+            vpn_express()
+
+        elif conteudo == "PiaVPN":
+            vpn_pia()
+        elif conteudo == "TunnelBear":
+            vpn_tunnelbear()
+        elif conteudo == "BetterNet":
+            vpn_better()
+        elif conteudo == "CyberGhost":
+            vpn_cyberghost()
+        elif conteudo == "NordVPN":
+            vpn_nord()
+        elif conteudo == "HotspotShield":
+            vpn_hotspotshield()
+        elif conteudo == "WindscribeVPN":
+            vpn_windscribe()
+        elif conteudo == "HmaVPN":
+            vpn_hma()
+        else:
+            window['output'].print(
+                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+            window.Refresh()
+
+    except Exception as e:
+        print(e)
+        pass
+
+    window.Refresh()
+    window['output'].print(
+        f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando sistema inicializar.')
+    window.Refresh()
+
+    window['output'].print(
+        f'[{datetime.now().strftime("%H:%M:%S")}] Iniciando criação.\n')
+    window.Refresh()
+    d.implicitly_wait(30.0)
+    d.set_fastinput_ime(True)
+    if not os.path.exists('./erros'):
+        os.makedirs('./erros')
+    codigo_não_recebido_seguidos = 0
+    seguido = False
+    tentativa = False
+    while parar is False:
+        senha = gerar_senha(12)
+        if parar is True:
+            print('Parando Thread')
+            break
+        print(linha_ret)
+        # if codigo_não_recebido_seguidos == 3:
+        #    #tempo_aleatorio = random.randint(10, 40)
+        #    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] 3 códigos não recebidos seguidos.')
+        #    window.Refresh()
+        #    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando 1 hora para voltar novamente.')
+        #    window.Refresh()
+        #    time.sleep(3600)
+        #    codigo_não_recebido_seguidos = 0
+        try:
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
+                               stdout=subprocess.DEVNULL,
+                               stderr=subprocess.DEVNULL, check=True, shell=True)
+
+            except:
+                pass
+            gerar_id()
+            android_id = gerar_id()
+            subprocess.run(
+                f'adb -s {porta} shell settings put secure android_id {android_id}', shell=True)
+            window['output'].print(linha_ret)
+            window.Refresh()
+
+            
+
+            try:
+                subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
+                               stdout=subprocess.DEVNULL,
+                               stderr=subprocess.DEVNULL, check=True, shell=True)
+
+            except Exception as e:
+                print('Verifique se o Instagram está instalado.')
+                print(e)
+                pass
+            try:
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server.test',
+                               stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
+                subprocess.run(f'adb -s {porta} clear io.appium.uiautomator2.server',
+                               stdout=subprocess.DEVNULL,
+                               stderr=subprocess.DEVNULL, shell=True)
+            except:
+                pass
+            window.Refresh()
+
+            try:
+                # time.sleep(10)
+
+                gerar_id()
+                android_id = gerar_id()
+                subprocess.run(f'adb -s {porta} shell settings put secure android_id {android_id}',
+                               shell=True)
+                
+                scope = ["https://spreadsheets.google.com/feeds",
+                         "https://www.googleapis.com/auth/drive"]
+                creds = ServiceAccountCredentials.from_json_keyfile_name(
+                    'credentials.json', scope)
+                client = gspread.authorize(creds)
+
+                spreadsheet_id = config['spreadsheet']
+                sheet_name = config['2nr']
+                try:
+                    sheet = client.open_by_key(
+                        spreadsheet_id).worksheet(sheet_name)
+                except Exception as e:
+                    print(e)
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu algum erro ao acessar a planilha.')
+                    window.Refresh()
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] Tentando novamente em 1 minuto.')
+                    window.Refresh()
+                    time.sleep(60)
+                    raise Exception('skip')
+                
+                
+                window['output'].print(
+                    f'[{datetime.now().strftime("%H:%M:%S")}] Abrindo instagram.')
+                window.Refresh()
+                try:
+                    subprocess.run(
+                        f'adb -s {porta} shell pm grant com.instagram.android android.permission.READ_CONTACTS',
+                        stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True, shell=True)
+                except:
+                    pass
+
+
+                def escrever_devagar(element, text, delay=0.05, chunk_size=3):
+                    element.clear_text()
+                    current_text = ""
+                    for i in range(0, len(text), chunk_size):
+                        if d(text='EXCLUIR'):
+                            d.press('back')
+                        current_text += text[i:i+chunk_size]
+                        element.set_text(current_text)
+                        if d(text='EXCLUIR'):
+                            d.press('back')
+                def gerar_senha(tamanho=12):
+                    if tamanho < 6:
+                        raise ValueError("A senha deve ter pelo menos 6 caracteres.")
+
+                    # Define uma lista de letras maiúsculas e minúsculas
+                    letras_maiusculas = [random.choice(
+                        string.ascii_uppercase) for _ in range(tamanho // 2)]
+                    letras_minusculas = [random.choice(
+                        string.ascii_lowercase) for _ in range(tamanho // 2)]
+
+                    # Intercale as letras maiúsculas e minúsculas
+                    senha = ''.join(''.join(pair)
+                                    for pair in zip(letras_maiusculas, letras_minusculas))
+
+                    # Adiciona caracteres especiais, números e @
+                    caracteres_permitidos = string.ascii_letters + string.digits + string.punctuation
+                    caracteres_permitidos = caracteres_permitidos.replace(
+                        "~", "")  # Remove ~ e outros acentos
+
+                    senha += ''.join(random.choice(caracteres_permitidos)
+                                    for _ in range(tamanho - len(senha) - 3))
+                    # Adiciona pelo menos uma letra maiúscula
+                    senha += random.choice(string.ascii_uppercase)
+                    senha += random.choice(string.digits)  # Adiciona pelo menos um número
+                    senha += "@"
+
+                    # Mistura os caracteres
+                    senha = ''.join(random.sample(senha, len(senha)))
+
+                    return senha
+                
+                
+                d.app_clear('com.instagram.android')
+                d.app_start('com.instagram.android', use_monkey=True)
+                
+                while True:
+                    if d(text="Criar nova conta"):
+                        print('Tela de login')
+                        d(text="Criar nova conta").click()
+                    #elif d(text="Tentar novamente"):
+                    #    d(text="Tentar novamente").click()
+                    elif d(text='Qual é o seu email?'):
+                        d(text="Cadastrar-se com o número do celular").click()
+                        time.sleep(3)
+                    elif d(textContains='Aguarde alguns minutos antes de tentar novamente') or d(textContains='Ocorreu um erro. Tente novamente mais tarde') or d(textContains='Tente novamente mais tarde'):
+                        print('Tela de restrição')
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
+                        window.Refresh()
+                        try:
+                            subprocess.run(f'adb -s {porta} shell pm clear com.instagram.android',
+                                        stdout=subprocess.DEVNULL,
+                                        stderr=subprocess.DEVNULL, check=True, shell=True)
+
+                        except:
+                            pass
+                        try:
+                            conteudo = config['vpn']
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "TunnelBear":
+                                vpn_tunnelbear()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                            raise Exception('skip')
+                        except:
+                            raise Exception('skip')
+                            
+                    elif d(text='Qual é o número do seu celular?') or d(text='Qual é seu número de celular ou email?'):
+                        print('Tela de adicionar número')
+                        
+
+                        # URL do site
+                        url = "https://temporary-phone-number.com/"
+
+                        # Headers para simular um navegador
+                        headers = {
+                            'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36',
+                            'Accept-Language': 'en-US,en;q=0.9',
+                            'Accept-Encoding': 'gzip'
+                        }
+
+                        # Função para verificar se a string contém dígitos
+                        def has_digits(s):
+                            return any(char.isdigit() for char in s)
+
+                        # Função para obter proxies da API
+                        def fetch_proxies(api_url):
+                            try:
+                                response = requests.get(api_url)
+                                proxies = response.text.split('\n')
+                                return [proxy.strip() for proxy in proxies if proxy.strip()]
+                            except requests.RequestException as e:
+                                print(f"Erro ao obter proxies: {e}")
+                                return []
+
+                        # URL da API para obter os proxies
+                        api_url = "https://api.proxyscrape.com/v3/free-proxy-list/get?request=displayproxies&protocol=http&proxy_format=protocolipport&format=text&timeout=20000"
+                        test_urls = [
+                            'https://google.com/'
+                        ]
+                        # Obter proxies da API
+                        proxies_list = fetch_proxies(api_url)
+
+                        # Fila de proxies
+                        proxy_queue = Queue()
+
+                        # Adiciona proxies à fila
+                        for proxy in proxies_list:
+                            proxy_queue.put(f"{proxy}")
+
+                        # Lista para armazenar proxies válidos
+                        valid_proxies = []
+
+                        # Lock para proteger o acesso à lista de proxies válidos
+                        list_lock = Lock()
+
+                        # Variável de controle para parar threads
+                        stop_event = False
+
+                        def check_proxy():
+                            global stop_event
+                            while not proxy_queue.empty() and not stop_event:
+                                proxy = proxy_queue.get()
+                                successes = [False] * len(test_urls)  # Lista para acompanhar os sucessos em cada URL
+                                try:
+                                    for i, test_url in enumerate(test_urls):
+                                        response = requests.get(test_url, headers=headers, proxies={"http": proxy, "https": proxy}, timeout=1)
+                                        if response.status_code == 200:
+                                            successes[i] = True
+                                        else:
+                                            successes[i] = False
+                                except requests.RequestException:
+                                    successes = [False] * len(test_urls)
+
+                                if all(successes):  # Se todos os testes forem bem-sucedidos
+                                    with list_lock:
+                                        if proxy not in valid_proxies:
+                                            valid_proxies.append(proxy)
+                                            print(f"Proxy válido: {proxy}")
+                                            if len(valid_proxies) >= 2:
+                                                stop_event = True
+                                else:
+                                    pass
+
+                                proxy_queue.task_done()
+
+                        # Função para fazer a primeira parte do processo até o btn1_element
+                        def process_until_btn1_element(url, headers, proxies2):
+                            global data_clipboard_text
+                            try:
+                                # Fazendo a solicitação HTTP inicial com httpx
+                                response = httpx.get(url, headers=headers, proxies=proxies2)
+                                # Verificando se a solicitação foi bem-sucedida
+                                if response.status_code == 200:
+                                    # Analisando o HTML com BeautifulSoup
+                                    soup = BeautifulSoup(response.content, 'html.parser')
+                                    # Encontrando todos os links com 'href' contendo '-Phone-Number'
+                                    links = soup.find_all('a', href=lambda href: href and '-Phone-Number' in href)
+                                    # Selecionando um link aleatório com pelo menos um dígito no href
+                                    valid_links = []
+                                    for link in links:
+                                        href = link.get('href')
+                                        if has_digits(href) and not 'Russia-Phone-Number' in href:
+                                            valid_links.append(link)
+                                    if valid_links:
+                                        random_link = random.choice(valid_links)
+                                        href = random_link.get('href')
+                                        # Construindo o URL completo caso seja relativo
+                                        if not href.startswith('http'):
+                                            href = url + href.lstrip('/')
+                                        print(f"Link escolhido aleatoriamente: {href}")
+                                        # Fazendo uma nova solicitação para o link selecionado
+                                        response = httpx.get(href, headers=headers, proxies=proxies2)
+                                        if response.status_code == 200:
+                                            soup = BeautifulSoup(response.content, 'html.parser')
+                                            btn1_element = soup.find(class_='btn1')
+                                            if btn1_element:
+                                                # Extraindo o valor do atributo 'data-clipboard-text'
+                                                data_clipboard_text = btn1_element.get('data-clipboard-text')
+                                                print(f"Num: {data_clipboard_text}")
+                                                window['output'].print(
+                                                    f'[{datetime.now().strftime("%H:%M:%S")}] Número: {data_clipboard_text}')
+                                                window.Refresh()
+                                            else:
+                                                print("Nenhum elemento encontrado com a classe 'btn1'")
+                                            return soup, response, href
+                                        else:
+                                            print(f"Falha ao acessar o link. Status code: {response.status_code}")
+                                            return None, None, None
+                                    else:
+                                        print("Nenhum link válido encontrado com '-Phone-Number' que contenha dígitos")
+                                        return None, None, None
+                                else:
+                                    print(f"Falha ao acessar o site. Status code: {response.status_code}")
+                                    return None, None, None
+                            except httpx.RequestError as e:
+                                print(f"Erro durante a solicitação HTTP: {e}")
+                                return None, None, None
+                            except Exception as e:
+                                print(f"Ocorreu um erro: {e}")
+                                return None, None, None
+
+                        # Função para processar o restante do código após o btn1_element
+                        def process_after_btn1_element(soup, href, headers, proxies2):
+                            global numeros
+                            try:
+                                
+
+                                # Encontrando o elemento com a classe 'direct-chat-text'
+                                elemento = soup.find(class_='direct-chat-text').text.strip()
+                                # Encontrando o elemento com a classe 'timeago direct-chat-timestamp pull-left'
+                                time_second = soup.find(class_='timeago direct-chat-timestamp pull-left').text.strip()
+
+                                # Exemplo de loop de espera por 1 minuto
+                                timeout = time.time() + 80  # 1 minuto
+                                encontrado = False
+                                while time.time() < timeout and not encontrado:
+                                    print(f"'elemento': {elemento}")
+                                    print(f"'time_second': {time_second}")
+                                    if 'Instagram' in elemento and ('1 minute' in time_second or '1 minutes' in time_second or '2 minutes' in time_second or 'seconds' in time_second):
+                                        match = re.search(r'\d+\s*\d+\s*\d+\s*\d+\s*\d+\s*\d+', elemento)  # Extrai seis grupos de dígitos, permitindo espaços entre eles
+                                        if match:
+                                            numeros = ''.join(match.group().split())
+                                            print(numeros)
+                                            encontrado = True
+                                            break
+                                    else:
+                                        time.sleep(20)  # Espera 10 segundos antes da próxima verificação
+                                        response = httpx.get(href, headers=headers, proxies=proxies2)
+                                        if response.status_code == 200:
+                                            # Analisando o HTML da página selecionada
+                                            soup = BeautifulSoup(response.content, 'html.parser')
+                                            # Encontrando o elemento com a classe 'direct-chat-text'
+                                            elemento = soup.find(class_='direct-chat-text').text.strip()
+                                            # Encontrando o elemento com a classe 'timeago direct-chat-timestamp pull-left'
+                                            time_second = soup.find(class_='timeago direct-chat-timestamp pull-left').text.strip()
+
+                                if encontrado:
+                                    print(f"Condição atendida dentro do tempo limite. Números encontrados: {numeros}")
+                                else:
+                                    print("Condição não atendida dentro do tempo limite.")
+                                    raise Exception('Código não recebido')
+                            except Exception as e:
+                                print(f"Ocorreu um erro durante o processamento: {e}")
+                                raise Exception('Código não recebido')
+
+                        # Número de threads
+                        num_threads = 20
+
+                        # Criar e iniciar as threads
+                        threads = []
+                        for i in range(num_threads):
+                            thread = Thread(target=check_proxy)
+                            thread.start()
+                            threads.append(thread)
+
+                        # Aguardar todas as threads terminarem
+                        for thread in threads:
+                            thread.join()
+
+                        # Escolher um proxy aleatório entre os válidos encontrados
+                        if valid_proxies:
+                            chosen_proxy = random.choice(valid_proxies)
+                            print("Proxy escolhido aleatoriamente:", chosen_proxy)
+                        else:
+                            print("Nenhum proxy válido encontrado")
+
+                        # Formatando o proxy escolhido para httpx
+                        def get_proxies(proxy):
+                            if proxy.startswith('http://'):
+                                return {'http://': proxy, 'https://': proxy}
+                            elif proxy.startswith('https://'):
+                                return {'http://': proxy.replace('https://', 'http://'), 'https://': proxy}
+                            elif proxy.startswith('socks4://'):
+                                return {'http://': proxy, 'https://': proxy}
+                            else:
+                                raise ValueError("Unsupported proxy protocol")
+                        proxies2 = get_proxies(chosen_proxy)
+
+
+
+
+                        soup, response, href = process_until_btn1_element(url, headers, proxies2)
+                        num = data_clipboard_text
+                        escrever_devagar(d(className="android.widget.EditText"), f'{num}', chunk_size=3)
+                        d(text="Avançar").click()
+                        time.sleep(15)
+                        if d(textContains="Você está tentando entrar?").wait(timeout=15):
+                            d(text="Criar nova conta").click()
+                            time.sleep(3)
+                        if d(text="Enviar código por SMS"):
+                            d(text="Enviar código por SMS").click()
+                            d(text="Avançar").click(timeout=30)
+                        time.sleep(5)
+                    elif d(text="Insira o código de confirmação"):
+                        print('Tela de aguardar código')
+                        window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código')
+                        window.Refresh()
+                        time.sleep(10)
+                        try:
+                            if soup and response and href:
+                                process_after_btn1_element(soup, href, headers, proxies2)
+
+                        except:
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Código não recebido')
+                            window.Refresh()
+                            
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "TunnelBear":
+                                vpn_tunnelbear()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                            d.app_clear('com.instagram.android')
+                            raise Exception('Código não recebido')
+                        cod = numeros
+                        cod = cod.replace(' ', '')
+                        codigo = re.sub('[^0-9]', '', cod)[:6]
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] Codigo recebido: {codigo}')
+                        window.Refresh()
+                        d(text='Avançar').wait(timeout=30)
+                        escrever_devagar(d(className="android.widget.EditText"), codigo, chunk_size=3)
+                        d(text="Avançar").click(timeout=30)
+                        time.sleep(3)
+
+                    elif d(text="Crie uma senha"):
+                        print('Tela de criar senha')
+                        senha = gerar_senha(12)
+                        escrever_devagar(d(className="android.widget.EditText"), senha, chunk_size=3)
+                        time.sleep(1)
+                        d(text="Avançar").click(timeout=30)
+                        time.sleep(5)
+
+                    elif d(text="Salvar suas informações de login?"):
+                        print('Tela de salvar informações')
+                        d(text="Agora não").click()
+
+                    elif d(textContains="Definir data") or d(textContains="Qual é a sua data de nascimento?"):
+                        print('Tela de data de nascimento')
+                        if d(textContains="CANCELAR"):
+                            d(textContains="CANCELAR").click()
+                        d(text="Avançar").click(timeout=30)
+                        time.sleep(0.5)
+                        d(text="Avançar").click(timeout=30)
+                        d(text="Qual é a sua idade?").wait(timeout=30)
+                        idade_aleatoria = str(random.randint(18, 55))
+                        escrever_devagar(d(className="android.widget.EditText"), idade_aleatoria, chunk_size=3)
+                        d(text="Avançar").click(timeout=30)
+                        d(text="OK").click(timeout=30)
+
+                    elif d(text="Qual é o seu nome?"):
+                        print('Tela de escolher nome')
+                        
+                        lista_user = random.choices(range(0, 9), k=2)
+                        lista_letras = random.choices(letras, k=1)
+                        nomea = fake.first_name_male().replace(" ", "")
+                        nome = unicodedata.normalize('NFKD', nomea).encode(
+                            'ASCII', 'ignore').decode('ASCII')
+                        sobrenomea = fake.last_name().replace(" ", "").lower()
+                        sobrenome = unicodedata.normalize('NFKD', sobrenomea).encode(
+                            'ASCII', 'ignore').decode('ASCII')
+                        nome_completo = nome + ' ' + sobrenome
+                        nome_completo_s = nome + sobrenome
+                        numeros_concatenados = ''.join(
+                            str(numero) for numero in lista_user)
+                        d(className="android.widget.EditText").set_text(nome_completo)
+                        #escrever_devagar(d(className="android.widget.EditText"), nome_completo, chunk_size=3)
+                        d(text="Avançar").click(timeout=30)
+                        time.sleep(5)
+
+                    elif d(text="Crie um nome de usuário") or d(textContains="Confira seu nome de us"):
+                        print('Tela de escolher user')
+                        lista_user = random.choices(range(0, 9), k=2)
+                        lista_letras = random.choices(letras, k=1)
+                        nome_completo = nome + ' ' + sobrenome
+                        nome_completo_s = nome + sobrenome
+                        numeros_concatenados = ''.join(
+                            str(numero) for numero in lista_user)
+                        user_completo1 = nome_completo_s + '' + \
+                            str(numeros_concatenados) + ''.join(lista_letras)
+
+                        user_completo = random.randint(1, len(user_completo1))
+                        # Insira o ponto no índice aleatório
+                        string_with_dot = user_completo1[:user_completo] + \
+                            '_' + user_completo1[user_completo:]
+                        user_completo_antigo = string_with_dot.lower()
+
+                        escolha = random.choice(["_", "."])
+                        user_completo = nome + escolha + sobrenome + \
+                            str(numeros_concatenados) + ''.join(lista_letras)
+                        
+                        window['output'].print(
+                            f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
+                        window.Refresh()
+                        escrever_devagar(d(className="android.widget.EditText"), user_completo, chunk_size=3)
+                        time.sleep(5)
+                        try: d(text="Avançar").click(timeout=30)
+                        except: pass
+                        time.sleep(5)
+                    elif d(textContains="Aceite os termos e") or d(textContains="leia e concorde com nossos termos"):
+                        print('Tela de termos e políticas')
+                        try:
+                            d(text="Concordo").click()
+                            time.sleep(10)
+                            while True:
+                                if d(text="Concordo") and d(textContains="Aceite os termos e") or d(text="Concordo") and d(textContains="leia e concorde com nossos termos"):
+                                    #d(text="Já tem uma conta?").click(timeout=25)
+                                    d.app_stop('com.instagram.android')
+                                    d.app_clear('com.instagram.android')
+                                    d.app_start('com.instagram.android')
+                                    #d(text="ENTRAR").click(timeout=10)
+                                    d(className="android.widget.EditText").wait(timeout=40)
+                                    d(className="android.widget.EditText", instance=0).set_text(user_completo)
+                                    d(className="android.widget.EditText", instance=1).set_text(senha)
+                                    d(text='Entrar').click()
+                                    if d(text="Agora não").wait(timeout=10):
+                                        d(text="Agora não").click()
+                                    else:
+                                        conteudo = config['vpn']
+                                        window['output'].print(
+                                            f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
+                                        window.Refresh()
+                                        if conteudo == "AVG":
+                                            vpn_avg()
+                                        elif conteudo == "SurfShark":
+                                            vpn_surf()
+                                        elif conteudo == "Nenhuma":
+                                            nenhuma_vpn()
+                                        elif conteudo == "Avast":
+                                            vpn_avast()
+                                        elif conteudo == "ExpressVPN":
+                                            vpn_express()
+                                        elif conteudo == "PiaVPN":
+                                            vpn_pia()
+                                        elif conteudo == "TunnelBear":
+                                            vpn_tunnelbear()
+                                        elif conteudo == "BetterNet":
+                                            vpn_better()
+                                        elif conteudo == "CyberGhost":
+                                            vpn_cyberghost()
+                                        elif conteudo == "NordVPN":
+                                            vpn_nord()
+                                        elif conteudo == "HotspotShield":
+                                            vpn_hotspotshield()
+                                        elif conteudo == "WindscribeVPN":
+                                            vpn_windscribe()
+                                        elif conteudo == "HmaVPN":
+                                            vpn_hma()
+                                        else:
+                                            window['output'].print(
+                                                "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                            window.Refresh()
+                                        raise Exception("Restrição")
+                                elif d(textContains='Tente novamente mais tarde'):
+                                    conteudo = config['vpn']
+                                    window['output'].print(
+                                        f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
+                                    window.Refresh()
+                                    if conteudo == "AVG":
+                                        vpn_avg()
+                                    elif conteudo == "SurfShark":
+                                        vpn_surf()
+                                    elif conteudo == "Nenhuma":
+                                        nenhuma_vpn()
+                                    elif conteudo == "Avast":
+                                        vpn_avast()
+                                    elif conteudo == "ExpressVPN":
+                                        vpn_express()
+                                    elif conteudo == "PiaVPN":
+                                        vpn_pia()
+                                    elif conteudo == "TunnelBear":
+                                        vpn_tunnelbear()
+                                    elif conteudo == "BetterNet":
+                                        vpn_better()
+                                    elif conteudo == "CyberGhost":
+                                        vpn_cyberghost()
+                                    elif conteudo == "NordVPN":
+                                        vpn_nord()
+                                    elif conteudo == "HotspotShield":
+                                        vpn_hotspotshield()
+                                    elif conteudo == "WindscribeVPN":
+                                        vpn_windscribe()
+                                    elif conteudo == "HmaVPN":
+                                        vpn_hma()
+                                    else:
+                                        window['output'].print(
+                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                        window.Refresh()
+                                    raise Exception("Restrição")
+                                elif not d(textContains="Aceite os termos e"):
+                                    break
+                        except Exception as e:
+                            if d(resourceId="com.instagram.android:id/tab_avatar"): pass
+                            else: print(e)
+                            if str(e) == 'Restrição':
+                                raise Exception('')
+                                
+
+                    elif d(textContains="Ocorreu um erro") and d(textContains='Tentar novamente'):
+                        print('Tela de erro de tradução')
+                        d(textContains='Tentar novamente').click()
+                        time.sleep(10)
+                        if d(textContains='Tentar novamente'):
+                            print('Não foi possível passar da tela')
+                            try:
+                                conteudo = config['vpn']
+                        #
+                                # Executa a função correspondente ao conteúdo do arquivo
+                                if conteudo == "AVG":
+                                    vpn_avg()
+                                elif conteudo == "SurfShark":
+                                    vpn_surf()
+                                elif conteudo == "Nenhuma":
+                                    nenhuma_vpn()
+                                elif conteudo == "Avast":
+                                    vpn_avast()
+                                elif conteudo == "ExpressVPN":
+                                    vpn_express()
+                                elif conteudo == "PiaVPN":
+                                    vpn_pia()
+                                elif conteudo == "TunnelBear":
+                                    vpn_tunnelbear()
+                                elif conteudo == "BetterNet":
+                                    vpn_better()
+                                elif conteudo == "CyberGhost":
+                                    vpn_cyberghost()
+                                elif conteudo == "NordVPN":
+                                    vpn_nord()
+                                elif conteudo == "HotspotShield":
+                                    vpn_hotspotshield()
+                                elif conteudo == "WindscribeVPN":
+                                    vpn_windscribe()
+                                elif conteudo == "HmaVPN":
+                                    vpn_hma()
+                                else:
+                                    window['output'].print(
+                                        "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                    window.Refresh()
+                                raise Exception('skip')
+                            except Exception as e:
+                                raise Exception('skip')
+                    
+                    elif d(text="A Página não está disponível no momento"):
+                        print('Tela de página não disponível')
+                        d(text='Recarregar').click()
+                        time.sleep(5)
+                        if d(text="A Página não está disponível no momento"):
+                            print('Não foi possível passar da tela')
+                            try:
+                                conteudo = config['vpn']
+                        #
+                                # Executa a função correspondente ao conteúdo do arquivo
+                                if conteudo == "AVG":
+                                    vpn_avg()
+                                elif conteudo == "SurfShark":
+                                    vpn_surf()
+                                elif conteudo == "Nenhuma":
+                                    nenhuma_vpn()
+                                elif conteudo == "Avast":
+                                    vpn_avast()
+                                elif conteudo == "ExpressVPN":
+                                    vpn_express()
+                                elif conteudo == "PiaVPN":
+                                    vpn_pia()
+                                elif conteudo == "TunnelBear":
+                                    vpn_tunnelbear()
+                                elif conteudo == "BetterNet":
+                                    vpn_better()
+                                elif conteudo == "CyberGhost":
+                                    vpn_cyberghost()
+                                elif conteudo == "NordVPN":
+                                    vpn_nord()
+                                elif conteudo == "HotspotShield":
+                                    vpn_hotspotshield()
+                                elif conteudo == "WindscribeVPN":
+                                    vpn_windscribe()
+                                elif conteudo == "HmaVPN":
+                                    vpn_hma()
+                                else:
+                                    window['output'].print(
+                                        "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                    window.Refresh()
+                                raise Exception('skip')
+                            except Exception as e:
+                                raise Exception('skip')
+                    elif d(resourceId="com.android.packageinstaller:id/permission_deny_button"):
+                        print('Tela de permissão')
+                        d(resourceId="com.android.packageinstaller:id/permission_deny_button").click()
+                    elif d(textContains="Adicione uma foto") or d(resourceId="com.instagram.android:id/tab_avatar"):
+                        if d(resourceId="com.instagram.android:id/tab_avatar"):
+                            pass
+                        else:
+                            d(textContains="Pular").click()
+                        print('Conta criada')
+                        time.sleep(5)
+                        try:
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                                text_color=('lime'))
+                            window.Refresh()
+                            seguido = False
+                            contagem += 1
+                            window['criadas'].update(contagem)
+                            window.Refresh()
+                            now = datetime.now()
+                            now_brasilia = tz.localize(now)
+                            timestamp = now_brasilia.strftime(
+                                "%d/%m/%Y %H:%M:%S")
+                            try:
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                        "https://www.googleapis.com/auth/drive"]
+                                creds = ServiceAccountCredentials.from_json_keyfile_name(
+                                    'credentials.json', scope)
+                                client = gspread.authorize(creds)
+                        
+                                spreadsheet_id = config['spreadsheet']
+                                sheet_name = 'contas'
+                                # Insert user, password, and timestamp into first empty row
+                                sheet = client.open_by_key(
+                                    spreadsheet_id).worksheet(sheet_name)
+                                values = sheet.col_values(1)
+                                last_row = len(values)
+                                if removenum_addemail:
+                                    email = f'{user_completo1}@{dominios2}'
+                                    print(email)
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                        conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                cell_list = sheet.range(
+                                    f'A{last_row + 1}:G{last_row + 1}')
+                                for i, val in enumerate(values):
+                                    cell_list[i].value = val
+                                sheet.update_cells(cell_list)
+                        
+                                rows = sheet.get_all_values()
+                        
+                                # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                                regex = re.compile(r'\S+\s\S+')
+                        
+                                # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                                num_rows = sum(
+                                    1 for row in rows if regex.match(row[0]))
+                            except Exception as e:
+                                print(e)
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                tempo_aleatorio = random.randint(10, 40)
+                                window['output'].print(
+                                    f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                time.sleep(tempo_aleatorio)
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                        "https://www.googleapis.com/auth/drive"]
+                                creds = ServiceAccountCredentials.from_json_keyfile_name(
+                                    'credentials.json', scope)
+                                client = gspread.authorize(creds)
+                        
+                                spreadsheet_id = config['spreadsheet']
+                                sheet_name = 'contas'
+                                # Insert user, password, and timestamp into first empty row
+                                sheet = client.open_by_key(
+                                    spreadsheet_id).worksheet(sheet_name)
+                                values = sheet.col_values(1)
+                                last_row = len(values)
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                        conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                cell_list = sheet.range(
+                                    f'A{last_row + 1}:G{last_row + 1}')
+                                for i, val in enumerate(values):
+                                    cell_list[i].value = val
+                                sheet.update_cells(cell_list)
+                        
+                                rows = sheet.get_all_values()
+                        
+                                # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                                regex = re.compile(r'\S+\s\S+')
+                        
+                                # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                                num_rows = sum(
+                                    1 for row in rows if regex.match(row[0]))
+                            window['total'].update(num_rows)
+                            random_number = random.random()
+                        
+                            # Definir a chance desejada (10%)
+                            chance = 0.2
+                        
+                            # Verificar se o número aleatório está abaixo da chance
+                            if random_number < chance and not user_mysql == "wn3":
+                                scope = ["https://spreadsheets.google.com/feeds",
+                                        "https://www.googleapis.com/auth/drive"]
+                                creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                    funcionamento, scope)
+                                client = gspread.authorize(creds)
+                        
+                                spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
+                                sheet_name = 'relatorio_geral'
+                                # Insert user, password, and timestamp into first empty row
+                                sheet = client.open_by_key(
+                                    spreadsheet_id).worksheet(sheet_name)
+                                values = sheet.col_values(1)
+                                last_row = len(values)
+                                values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                        conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                cell_list = sheet.range(
+                                    f'A{last_row + 1}:G{last_row + 1}')
+                                for i, val in enumerate(values):
+                                    cell_list[i].value = val
+                                sheet.update_cells(cell_list)
+                        except Exception as e:
+                            print(e)
+                            pass
+                        d.app_clear('com.instagram.android')
+                        d.app_start('com.instagram.android', use_monkey=True)
+                        d(className="android.widget.EditText", instance=0).set_text(user_completo)
+                        d(className="android.widget.EditText", instance=1).set_text(senha)
+                        d(text='Entrar').click()
+                        if d(text="Agora não").wait(timeout=10):
+                            d(text="Agora não").click()
+
+                        while True:
+                            print('Criar por cima')
+                            window['output'].print(f'{linha_ret}')
+                            window.Refresh()
+                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                            try:
+                                d(textContains="Ver tudo").click()
+                                
+                                if d(textContains='Não permitir acesso').wait(timeout=15):
+                                    d(textContains='Não permitir acesso').click()
+                                seguir_sugeridos = 0
+                                while seguir_sugeridos < 10:
+                                    try:
+                                        d(text="Seguir").click(timeout=2)
+                                        time.sleep(1)
+                                        seguir_sugeridos += 1
+                                    except:
+                                        width, height = d.window_size()
+                                        start_x = width // 2
+                                        start_y = height * 3 // 4  # Comece no 75% da altura
+                                        end_x = width // 2
+                                        end_y = height // 4  # Termine no 25% da altura
+
+                                        # Realize o swipe
+                                        d.swipe(start_x, start_y, end_x, end_y, duration=0.5)
+                                        if not d(text="Seguir"):
+                                            break
+                                d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
+                            except:
+                                print('Não foi possivel seguir sugeridos')
+                            if removenum_addemail:
+                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Processo de adicionar email')
+                                window.Refresh()
+                                d.xpath('//*[@content-desc="Opções"]').click()
+                                while True:
+                                    time.sleep(5)
+                                    if d(text='Configurações e privacidade') and d(text='Sua atividade'):
+                                        print('Tela de Configurações e privacidade')
+                                        d(text='Configurações e privacidade').click()
+                                    elif d(text='Central de Contas') and d(text='Bloqueados'):
+                                        print('Tela de Central de Contas')
+                                        d(text='Central de Contas').click()
+                                    elif d(text='Agora na Central de Contas') and d(text='OK'):
+                                        print('Tela de Agora na Central de Contas')
+                                        d(text='OK').click()
+                                    elif d(text='Dados pessoais') and d(text='Senha e segurança'):
+                                        print('Dados pessoais')
+                                        d(text='Dados pessoais').click()
+                                    elif d(text='Informações de contato') and d(text='Data de nascimento'):
+                                        print('Informações de contato')
+                                        d(text='Informações de contato').click()
+                                    elif d(text='Adicionar novo contato') and d(text='Informações de contato'):
+                                        print('Adicionar novo contato')
+                                        d(text='Adicionar novo contato').click()
+                                    elif d(text='Adicionar email'):
+                                        print('Adicionar email')
+                                        d(text='Adicionar email').click()
+                                    elif d(text='Adicione um endereço de email'):
+                                        # Função para obter os domínios disponíveis
+                                        def obter_dominios():
+                                            url = "https://api.mail.tm/domains"
+                                            response = requests.get(url)
+                                            if response.status_code == 200:
+                                                return [domain['domain'] for domain in response.json()['hydra:member']]
+                                            else:
+                                                print("Erro ao obter os domínios:", response.json())
+                                                return []
+
+                                        # Função para criar uma conta no Mail.tm
+                                        def criar_conta(email_prefixo, senha, dominio):
+                                            global email_instagram
+                                            email_instagram = f"{email_prefixo}@{dominio}"
+                                            url = "https://api.mail.tm/accounts"
+                                            payload = {
+                                                "address": email_instagram,
+                                                "password": senha
+                                            }
+                                            headers = {
+                                                "Content-Type": "application/json"
+                                            }
+                                            response = requests.post(url, json=payload, headers=headers)
+                                            if response.status_code == 201:
+                                                print(f"Email criado com sucesso: {email_instagram}")
+                                                d.xpath('//android.widget.EditText').set_text(email_instagram)
+                                                time.sleep(1)
+                                                botao_avancar = str(d.xpath('//*[@content-desc="Avançar"]').info)
+                                                if "'enabled': 'false'" in botao_avancar:
+                                                    d(text='Instagram').click()
+                                                time.sleep(1)
+                                                d(text='Avançar').click()
+                                                d(text='Insira seu código de confirmação').wait(timeout=30)
+                                                return response.json()
+                                            else:
+                                                print("Erro ao criar o email:", response.json())
+                                                return None
+
+                                        # Função para obter o token de autenticação
+                                        def obter_token(email_instagram, senha):
+                                            url = "https://api.mail.tm/token"
+                                            payload = {
+                                                "address": email_instagram,
+                                                "password": senha
+                                            }
+                                            headers = {
+                                                "Content-Type": "application/json"
+                                            }
+                                            response = requests.post(url, json=payload, headers=headers)
+                                            if response.status_code == 200:
+                                                return response.json()['token']
+                                            else:
+                                                print("Erro ao obter o token:", response.json())
+                                                return None
+
+                                        # Função para verificar se há emails recebidos com o assunto 'Confirmar email' e extrair os 6 primeiros algarismos do corpo do email
+                                        def verificar_emails(token):
+                                            url = "https://api.mail.tm/messages"
+                                            headers = {
+                                                "Authorization": f"Bearer {token}"
+                                            }
+                                            response = requests.get(url, headers=headers)
+                                            if response.status_code == 200:
+                                                emails = response.json()["hydra:member"]
+                                                for email in emails:
+                                                    if 'confirmar email' in email['subject'].lower():
+                                                        # Obter o corpo do email
+                                                        email_url = f"https://api.mail.tm/messages/{email['id']}"
+                                                        email_response = requests.get(email_url, headers=headers)
+                                                        if email_response.status_code == 200:
+                                                            email_body = email_response.json()['text']
+                                                            match = re.search(r'\d{6}', email_body)
+                                                            if match:
+                                                                return match.group(0)
+                                                return None
+                                            else:
+                                                print("Erro ao verificar os emails:", response.json())
+                                                return None
+
+                                        # Parâmetros desejados
+                                        email_prefixo = user_completo1
+                                        senha_desejada = senha
+                                        # Obter domínios disponíveis
+                                        dominios = obter_dominios()
+
+                                        if dominios:
+                                            # Tentar criar a conta com os domínios disponíveis
+                                            conta = None
+                                            for dominio in dominios:
+                                                conta = criar_conta(email_prefixo, senha_desejada, dominio)
+                                                if conta:
+                                                    break
+
+                                            if conta:
+                                                # Obter token de autenticação
+                                                token = obter_token(conta['address'], senha_desejada)
+
+                                                if token:
+                                                    # Esperar até 1 minuto por um email com assunto 'Confirmar email'
+                                                    start_time = time.time()
+                                                    while time.time() - start_time < 180:
+                                                        resultado = verificar_emails(token)
+                                                        if resultado:
+                                                            print(f"Código recebido: {resultado}")
+                                                            break
+                                                        time.sleep(5)  # Espera 5 segundos antes de verificar novamente
+                                                    else:
+                                                        print("Não foi possível receber o email dentro de 3 minutos.")
+                                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou')
+                                                        window.Refresh()
+                                                        raise Exception('Email não chegou')
+                                        else:
+                                            print("Nenhum domínio disponível foi encontrado.")
+
+
+
+                                        d.xpath('//android.widget.EditText').set_text(resultado)
+                                        d(text='Avançar').click()
+                                        d(text='Você adicionou seu email às contas selecionadas').wait(timeout=30)
+                                        print(f'Email adicionado: {email_instagram}')
+                                        d(text='Fechar').click()
+                                        time.sleep(3)
+                                        d(textContains='+48').click()
+                                        try:
+                                            d(text='Excluir número').click()
+                                        except:
+                                            d(textContains='+48').click()
+                                            d(text='Excluir número').click()
+                                        d(text='EXCLUIR').click()
+                                        try:
+                                            if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                                print("Conta deslogou")
+                                                d.xpath('//android.widget.EditText').set_text(senha)
+                                                d(text='Continuar').click()
+                                        except: pass
+                                        d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                        print("Número excluido")
+                                        d(text='Fechar').click()
+                                        d.app_stop('com.instagram.android')
+                                        d.app_start('com.instagram.android')
+                                        d(resourceId='com.instagram.android:id/profile_tab').click()
+                                        print('Email adicionado')
+                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email adicionado: {email_instagram}')
+                                        window.Refresh()
+                                        break
+                                
+                            try:
+                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                            except: 
+                                d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                            d(textContains="Adicionar conta").click(timeout=30)
+                            d(text="Criar nova conta").click(timeout=20)
+                            lista_user = random.choices(range(0, 9), k=2)
+                            lista_letras = random.choices(letras, k=2)
+                            nomea = fake.first_name_male().replace(" ", "")
+                            nome = unicodedata.normalize('NFKD', nomea).encode(
+                                'ASCII', 'ignore').decode('ASCII')
+                            sobrenomea = fake.last_name().replace(" ", "").lower()
+                            sobrenome = unicodedata.normalize('NFKD', sobrenomea).encode(
+                                'ASCII', 'ignore').decode('ASCII')
+                            nome_completo = nome + ' ' + sobrenome
+                            nome_completo_s = nome + sobrenome
+                            numeros_concatenados = ''.join(str(numero)
+                                                        for numero in lista_user)
+                            user_completo1 = nome_completo_s + '' + \
+                                str(numeros_concatenados) + ''.join(lista_letras)
+                            user_completo = random.randint(1, len(user_completo1))
+                            string_with_dot = user_completo1[:user_completo] + \
+                                '_' + user_completo1[user_completo:]
+                            user_completo_antigo = string_with_dot.lower()
+                            escolha = random.choice(["_", "."])
+                            user_completo = nome + escolha + sobrenome + \
+                                str(numeros_concatenados) + ''.join(lista_letras)
+                            print(user_completo)
+
+                            d(text="Escolha um nome de usuário").wait(timeout=30)
+                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] User: {user_completo}')
+                            window.Refresh()
+                            d(className="android.widget.EditText").set_text(user_completo)
+                            while True:
+                                if d(textContains='não está disponível.'):
+                                    d(resourceId='com.instagram.android:id/username_suggestion_text').click()
+                                elif d(resourceId="com.instagram.android:id/username_valid_icon"):
+                                    break
+                                elif d(text='EXCLUIR'):
+                                    d.press('back')
+                                elif d(textContains='Aguarde alguns minutos antes de tentar novamente') or d(textContains="Ocorreu um erro de rede desconhecido"):
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
+                                    window.Refresh()
+                                    conteudo = config['vpn']
+                                    if conteudo == "AVG":
+                                        vpn_avg()
+                                    elif conteudo == "SurfShark":
+                                        vpn_surf()
+                                    elif conteudo == "Nenhuma":
+                                        nenhuma_vpn()
+                                    elif conteudo == "Avast":
+                                        vpn_avast()
+                                    elif conteudo == "ExpressVPN":
+                                        vpn_express()
+                                    elif conteudo == "PiaVPN":
+                                        vpn_pia()
+                                    elif conteudo == "TunnelBear":
+                                        vpn_tunnelbear()
+                                    elif conteudo == "BetterNet":
+                                        vpn_better()
+                                    elif conteudo == "CyberGhost":
+                                        vpn_cyberghost()
+                                    elif conteudo == "NordVPN":
+                                        vpn_nord()
+                                    elif conteudo == "HotspotShield":
+                                        vpn_hotspotshield()
+                                    elif conteudo == "WindscribeVPN":
+                                        vpn_windscribe()
+                                    elif conteudo == "HmaVPN":
+                                        vpn_hma()
+                                    else:
+                                        window['output'].print(
+                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                        window.Refresh()
+                                    raise Exception("Restrição")
+                            try:
+                                d(text="Avançar", enabled=True).click(timeout=10)
+                            except:
+                                if d(text='EXCLUIR'):
+                                    d.press('back')
+                            d(text="Crie uma senha").wait(timeout=20)
+                            senha = gerar_senha(12)
+                            
+                            escrever_devagar(d(className="android.widget.EditText"), senha, chunk_size=4)
+                            time.sleep(2)
+                            d(text="Avançar", enabled=True).click()
+                            time.sleep(3)
+                            d(text='Adicionar novo telefone ou email').click(timeout=20)
+                            d(text="Adicionar telefone ou email").wait(timeout=30)
+                            if removenum_addemail:
+                                def obter_ddi(numero_telefone):
+                                    try:
+                                        parsed_numero = phonenumbers.parse(numero_telefone, None)
+                                        pais_codigo = phonenumbers.region_code_for_number(parsed_numero)
+                                        if pais_codigo:
+                                            return phonenumbers.country_code_for_region(pais_codigo)
+                                        else:
+                                            return None
+                                    except phonenumbers.phonenumberutil.NumberParseException:
+                                        return None
+                                ddi = obter_ddi(num)
+                                if ddi:
+                                    print(f"DDI do número {numero}: +{ddi}")
+                                    num_sem_ddi = num.replace(f'+{ddi}', '')
+                                else:
+                                    print(f"Não foi possível obter o DDI para o número {numero}")
+
+                                try:
+                                    if not ddi in d(resourceId='com.instagram.android:id/country_code_picker').get_text(timeout=1):
+                                        d(resourceId='com.instagram.android:id/country_code_picker').click()
+                                except: pass
+                                while True:
+                                    if d(textContains=f'(+{ddi})'):
+                                        #print('sim')
+                                        time.sleep(3)
+                                        d(textContains=f'(+{ddi})').click()
+                                        break
+                                    elif not d(textContains=f'(+{ddi})'):
+                                        width, height = d.window_size()
+                                        # Coordenadas de início (centro da tela)
+                                        start_x = width // 2
+                                        start_y = height // 2
+
+                                        # Coordenadas de término (50% acima do ponto de início)
+                                        end_x = width // 2
+                                        end_y = height // 4
+
+                                        # Realize o swipe
+                                        d.swipe(start_x, start_y, end_x, end_y, duration=0.05)
+                                        time.sleep(0.5)
+                            escrever_devagar(d(className="android.widget.EditText"), num_sem_ddi, chunk_size=2)
+                            time.sleep(1)
+                            d(text="Avançar", enabled=True).click()
+
+                            while True:
+                                if (
+                                    d(text='Tente novamente mais tarde') or
+                                    d(textContains="Ocorreu um erro de rede desconhecido") or
+                                    d(textContains="feedback_required") or
+                                    d(textContains='Aguarde alguns minutos') or
+                                    d(textContains='Fazer uma apelação') or
+                                    d(textContains='Ocorreu um problema com a sua') or
+                                    d(textContains='Insira o código de confirmação') or
+                                    d(textContains='concluir a sua solicitação') or
+                                    d(textContains='Parâmetros inválidos') or
+                                    d(resourceId="com.instagram.android:id/tab_avatar") or
+                                    d(text='OK')
+                                ):
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
+                                    window.Refresh()
+                                    conteudo = config['vpn']
+                                    if conteudo == "AVG":
+                                        vpn_avg()
+                                    elif conteudo == "SurfShark":
+                                        vpn_surf()
+                                    elif conteudo == "Nenhuma":
+                                        nenhuma_vpn()
+                                    elif conteudo == "Avast":
+                                        vpn_avast()
+                                    elif conteudo == "ExpressVPN":
+                                        vpn_express()
+                                    elif conteudo == "PiaVPN":
+                                        vpn_pia()
+                                    elif conteudo == "TunnelBear":
+                                        vpn_tunnelbear()
+                                    elif conteudo == "BetterNet":
+                                        vpn_better()
+                                    elif conteudo == "CyberGhost":
+                                        vpn_cyberghost()
+                                    elif conteudo == "NordVPN":
+                                        vpn_nord()
+                                    elif conteudo == "HotspotShield":
+                                        vpn_hotspotshield()
+                                    elif conteudo == "WindscribeVPN":
+                                        vpn_windscribe()
+                                    elif conteudo == "HmaVPN":
+                                        vpn_hma()
+                                    else:
+                                        window['output'].print(
+                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                        window.Refresh()
+                                    raise Exception("Restrição")
+                                
+                                elif d(text='Pular'): break
+                            time.sleep(5)
+                            d(text='Pular').wait(timeout=30)
+                            time.sleep(5)
+                            if d(text="Pular"):
+                                print("Conta criada")
+                                try:
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
+                                                        text_color=('lime'))
+                                    window.Refresh()
+                                    seguido = False
+                                    contagem += 1
+                                    window['criadas'].update(contagem)
+                                    window.Refresh()
+                                    now = datetime.now()
+                                    now_brasilia = tz.localize(now)
+                                    timestamp = now_brasilia.strftime(
+                                        "%d/%m/%Y %H:%M:%S")
+                                    try:
+                                        scope = ["https://spreadsheets.google.com/feeds",
+                                                "https://www.googleapis.com/auth/drive"]
+                                        creds = ServiceAccountCredentials.from_json_keyfile_name(
+                                            'credentials.json', scope)
+                                        client = gspread.authorize(creds)
+                        #
+                                        spreadsheet_id = config['spreadsheet']
+                                        sheet_name = 'contas'
+                                        # Insert user, password, and timestamp into first empty row
+                                        sheet = client.open_by_key(
+                                            spreadsheet_id).worksheet(sheet_name)
+                                        values = sheet.col_values(1)
+                                        last_row = len(values)
+                                        if removenum_addemail:
+                                            email = f'{user_completo1}@{dominios2}'
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                                conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        cell_list = sheet.range(
+                                            f'A{last_row + 1}:G{last_row + 1}')
+                                        for i, val in enumerate(values):
+                                            cell_list[i].value = val
+                                        sheet.update_cells(cell_list)
+                        #
+                                        rows = sheet.get_all_values()
+                        #
+                                        # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                                        regex = re.compile(r'\S+\s\S+')
+                        #
+                                        # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                                        num_rows = sum(
+                                            1 for row in rows if regex.match(row[0]))
+                                    except Exception as e:
+                                        print(e)
+                                        window['output'].print(
+                                            f'[{datetime.now().strftime("%H:%M:%S")}] Ocorreu um erro ao salvar a conta na planilha.')
+                                        tempo_aleatorio = random.randint(10, 40)
+                                        window['output'].print(
+                                            f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando {tempo_aleatorio} segundos para tentar novamente.')
+                                        time.sleep(tempo_aleatorio)
+                                        scope = ["https://spreadsheets.google.com/feeds",
+                                                "https://www.googleapis.com/auth/drive"]
+                                        creds = ServiceAccountCredentials.from_json_keyfile_name(
+                                            'credentials.json', scope)
+                                        client = gspread.authorize(creds)
+                        #
+                                        spreadsheet_id = config['spreadsheet']
+                                        sheet_name = 'contas'
+                                        # Insert user, password, and timestamp into first empty row
+                                        sheet = client.open_by_key(
+                                            spreadsheet_id).worksheet(sheet_name)
+                                        values = sheet.col_values(1)
+                                        last_row = len(values)
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                                conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        cell_list = sheet.range(
+                                            f'A{last_row + 1}:G{last_row + 1}')
+                                        for i, val in enumerate(values):
+                                            cell_list[i].value = val
+                                        sheet.update_cells(cell_list)
+                        #
+                                        rows = sheet.get_all_values()
+                        #
+                                        # Definir uma expressão regular para filtrar as linhas que atendem ao formato especificado
+                                        regex = re.compile(r'\S+\s\S+')
+                        #
+                                        # Filtrar as linhas que atendem à expressão regular e contar o número de linhas
+                                        num_rows = sum(
+                                            1 for row in rows if regex.match(row[0]))
+                                    window['total'].update(num_rows)
+                                    random_number = random.random()
+                        #
+                                    # Definir a chance desejada (10%)
+                                    chance = 0.2
+                        #
+                                    # Verificar se o número aleatório está abaixo da chance
+                                    if random_number < chance and not user_mysql == "wn3":
+                                        scope = ["https://spreadsheets.google.com/feeds",
+                                                "https://www.googleapis.com/auth/drive"]
+                                        creds = ServiceAccountCredentials.from_json_keyfile_dict(
+                                            funcionamento, scope)
+                                        client = gspread.authorize(creds)
+                        #
+                                        spreadsheet_id = '1qQHRYiycNm1PXpMbOioOJ9sdMX1oFpnB6-x7WSGjuP4'
+                                        sheet_name = 'relatorio_geral'
+                                        # Insert user, password, and timestamp into first empty row
+                                        sheet = client.open_by_key(
+                                            spreadsheet_id).worksheet(sheet_name)
+                                        values = sheet.col_values(1)
+                                        last_row = len(values)
+                                        values = [user_completo + ' ' + senha, email, timestamp, maquina,
+                                                conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        cell_list = sheet.range(
+                                            f'A{last_row + 1}:G{last_row + 1}')
+                                        for i, val in enumerate(values):
+                                            cell_list[i].value = val
+                                        sheet.update_cells(cell_list)
+                                except Exception as e:
+                                    print(e)
+                                    pass
+                                d.app_stop('com.instagram.android')
+                                d.app_start('com.instagram.android', use_monkey=True)
+
+                            elif d(text="Fazer uma apelação") or d(textContains='Aguarde alguns minutos'):
+                                print('Conta suspensa')
+                                d.app_clear('com.instagram.android')
+                                try:
+                                    conteudo = config['vpn']
+                        #
+                                    # Executa a função correspondente ao conteúdo do arquivo
+                                    if conteudo == "AVG":
+                                        vpn_avg()
+                                    elif conteudo == "SurfShark":
+                                        vpn_surf()
+                                    elif conteudo == "Nenhuma":
+                                        nenhuma_vpn()
+                                    elif conteudo == "Avast":
+                                        vpn_avast()
+                                    elif conteudo == "ExpressVPN":
+                                        vpn_express()
+                                    elif conteudo == "PiaVPN":
+                                        vpn_pia()
+                                    elif conteudo == "TunnelBear":
+                                        vpn_tunnelbear()
+                                    elif conteudo == "BetterNet":
+                                        vpn_better()
+                                    elif conteudo == "CyberGhost":
+                                        vpn_cyberghost()
+                                    elif conteudo == "NordVPN":
+                                        vpn_nord()
+                                    elif conteudo == "HotspotShield":
+                                        vpn_hotspotshield()
+                                    elif conteudo == "WindscribeVPN":
+                                        vpn_windscribe()
+                                    elif conteudo == "HmaVPN":
+                                        vpn_hma()
+                                    else:
+                                        window['output'].print(
+                                            "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                        window.Refresh()
+                                    raise Exception('skip')
+                                except Exception as e:
+                                    raise Exception('skip')
+                    
+                        
+                        
+                    elif d(text="Fazer uma apelação"):
+                        print('Conta suspensa')
+                        d.app_clear('com.instagram.android')
+                        
+                        try:
+                            conteudo = config['vpn']
+                #
+                            # Executa a função correspondente ao conteúdo do arquivo
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "TunnelBear":
+                                vpn_tunnelbear()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                            raise Exception('skip')
+                            
+                        except Exception as e:
+                            raise Exception('skip')
+                            sms = True
+                    time.sleep(3)
+
+            except Exception as e:
+                print(e)
+                import traceback
+                if not str(e) == '' or not str(e) == ' ' or not str(e) == 'skip':
+                    traceback.print_exc()
+                if not e == 'skip' or not e == 'Manutenção.':
+                    try:
+                        d.screenshot(
+                            f'./erros/{datetime.now().strftime("%H_%M_%S")}.png')
+                    except Exception as e:
+                        print(e)
+                        pass
+                pass
+        except Exception as e:
+            print(e)
+            import traceback
+            if not str(e) == '' or not str(e) == ' ' or not str(e) == 'skip':
+                traceback.print_exc()
+            if not e == 'skip' or not e == 'Manutenção.':
+                try:
+                    d.screenshot(
+                        f'./erros/{datetime.now().strftime("%H_%M_%S")}.png')
+                except Exception as e:
+                    print(e)
+                    pass
+            pass
+
 def creator_2NRv2():
     try:
         with open("config.json", "r") as f:
@@ -2142,7 +4388,7 @@ def creator_2NRv2():
                     
                     elif d(text="A Página não está disponível no momento"):
                         print('Tela de página não disponível')
-                        d.press('back')
+                        d(text='Recarregar').click()
                         time.sleep(5)
                         if d(text="A Página não está disponível no momento"):
                             print('Não foi possível passar da tela')
@@ -2348,165 +4594,176 @@ def creator_2NRv2():
                                 window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Processo de adicionar email')
                                 window.Refresh()
                                 d.xpath('//*[@content-desc="Opções"]').click()
-                                time.sleep(5)
-                                d(text='Configurações e privacidade').click()
-                                try:
-                                    d(text='Central de Contas').click()
-                                except:
-                                    print('Erro ao clicar em Central de Contas')
-                                    time.sleep(999999)
-                                try: 
-                                    if d(text='Agora na Central de Contas').wait(timeout=5):
+                                while True:
+                                    time.sleep(5)
+                                    if d(text='Configurações e privacidade') and d(text='Sua atividade'):
+                                        print('Tela de Configurações e privacidade')
+                                        d(text='Configurações e privacidade').click()
+                                    elif d(text='Central de Contas') and d(text='Bloqueados'):
+                                        print('Tela de Central de Contas')
+                                        d(text='Central de Contas').click()
+                                    elif d(text='Agora na Central de Contas') and d(text='OK'):
+                                        print('Tela de Agora na Central de Contas')
                                         d(text='OK').click()
-                                except: pass
-                                d(text='Dados pessoais').click()
-                                d(text='Informações de contato').click()
-                                d(text='Adicionar novo contato').click()
-                                d(text='Adicionar email').click()
-                                d(text='Adicione um endereço de email').wait(timeout=30)
-                                # Função para obter os domínios disponíveis
-                                def obter_dominios():
-                                    url = "https://api.mail.tm/domains"
-                                    response = requests.get(url)
-                                    if response.status_code == 200:
-                                        return [domain['domain'] for domain in response.json()['hydra:member']]
-                                    else:
-                                        print("Erro ao obter os domínios:", response.json())
-                                        return []
-
-                                # Função para criar uma conta no Mail.tm
-                                def criar_conta(email_prefixo, senha, dominio):
-                                    global email_instagram
-                                    email_instagram = f"{email_prefixo}@{dominio}"
-                                    url = "https://api.mail.tm/accounts"
-                                    payload = {
-                                        "address": email_instagram,
-                                        "password": senha
-                                    }
-                                    headers = {
-                                        "Content-Type": "application/json"
-                                    }
-                                    response = requests.post(url, json=payload, headers=headers)
-                                    if response.status_code == 201:
-                                        print(f"Email criado com sucesso: {email_instagram}")
-                                        d.xpath('//android.widget.EditText').set_text(email_instagram)
-                                        time.sleep(1)
-                                        d(text='Instagram').click()
-                                        time.sleep(1)
-                                        d(text='Avançar').click()
-                                        d(text='Insira seu código de confirmação').wait(timeout=30)
-                                        return response.json()
-                                    else:
-                                        print("Erro ao criar o email:", response.json())
-                                        return None
-
-                                # Função para obter o token de autenticação
-                                def obter_token(email_instagram, senha):
-                                    url = "https://api.mail.tm/token"
-                                    payload = {
-                                        "address": email_instagram,
-                                        "password": senha
-                                    }
-                                    headers = {
-                                        "Content-Type": "application/json"
-                                    }
-                                    response = requests.post(url, json=payload, headers=headers)
-                                    if response.status_code == 200:
-                                        return response.json()['token']
-                                    else:
-                                        print("Erro ao obter o token:", response.json())
-                                        return None
-
-                                # Função para verificar se há emails recebidos com o assunto 'Confirmar email' e extrair os 6 primeiros algarismos do corpo do email
-                                def verificar_emails(token):
-                                    url = "https://api.mail.tm/messages"
-                                    headers = {
-                                        "Authorization": f"Bearer {token}"
-                                    }
-                                    response = requests.get(url, headers=headers)
-                                    if response.status_code == 200:
-                                        emails = response.json()["hydra:member"]
-                                        for email in emails:
-                                            if 'confirmar email' in email['subject'].lower():
-                                                # Obter o corpo do email
-                                                email_url = f"https://api.mail.tm/messages/{email['id']}"
-                                                email_response = requests.get(email_url, headers=headers)
-                                                if email_response.status_code == 200:
-                                                    email_body = email_response.json()['text']
-                                                    match = re.search(r'\d{6}', email_body)
-                                                    if match:
-                                                        return match.group(0)
-                                        return None
-                                    else:
-                                        print("Erro ao verificar os emails:", response.json())
-                                        return None
-
-                                # Parâmetros desejados
-                                email_prefixo = user_completo1
-                                senha_desejada = senha
-                                # Obter domínios disponíveis
-                                dominios = obter_dominios()
-
-                                if dominios:
-                                    # Tentar criar a conta com os domínios disponíveis
-                                    conta = None
-                                    for dominio in dominios:
-                                        conta = criar_conta(email_prefixo, senha_desejada, dominio)
-                                        if conta:
-                                            break
-
-                                    if conta:
-                                        # Obter token de autenticação
-                                        token = obter_token(conta['address'], senha_desejada)
-
-                                        if token:
-                                            # Esperar até 1 minuto por um email com assunto 'Confirmar email'
-                                            start_time = time.time()
-                                            while time.time() - start_time < 180:
-                                                resultado = verificar_emails(token)
-                                                if resultado:
-                                                    print(f"Código recebido: {resultado}")
-                                                    break
-                                                time.sleep(5)  # Espera 5 segundos antes de verificar novamente
+                                    elif d(text='Dados pessoais') and d(text='Senha e segurança'):
+                                        print('Dados pessoais')
+                                        d(text='Dados pessoais').click()
+                                    elif d(text='Informações de contato') and d(text='Data de nascimento'):
+                                        print('Informações de contato')
+                                        d(text='Informações de contato').click()
+                                    elif d(text='Adicionar novo contato') and d(text='Informações de contato'):
+                                        print('Adicionar novo contato')
+                                        d(text='Adicionar novo contato').click()
+                                    elif d(text='Adicionar email'):
+                                        print('Adicionar email')
+                                        d(text='Adicionar email').click()
+                                    elif d(text='Adicione um endereço de email'):
+                                        # Função para obter os domínios disponíveis
+                                        def obter_dominios():
+                                            url = "https://api.mail.tm/domains"
+                                            response = requests.get(url)
+                                            if response.status_code == 200:
+                                                return [domain['domain'] for domain in response.json()['hydra:member']]
                                             else:
-                                                print("Não foi possível receber o email dentro de 3 minutos.")
-                                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou')
-                                                window.Refresh()
-                                                raise Exception('Email não chegou')
-                                else:
-                                    print("Nenhum domínio disponível foi encontrado.")
+                                                print("Erro ao obter os domínios:", response.json())
+                                                return []
+
+                                        # Função para criar uma conta no Mail.tm
+                                        def criar_conta(email_prefixo, senha, dominio):
+                                            global email_instagram
+                                            email_instagram = f"{email_prefixo}@{dominio}"
+                                            url = "https://api.mail.tm/accounts"
+                                            payload = {
+                                                "address": email_instagram,
+                                                "password": senha
+                                            }
+                                            headers = {
+                                                "Content-Type": "application/json"
+                                            }
+                                            response = requests.post(url, json=payload, headers=headers)
+                                            if response.status_code == 201:
+                                                print(f"Email criado com sucesso: {email_instagram}")
+                                                d.xpath('//android.widget.EditText').set_text(email_instagram)
+                                                time.sleep(1)
+                                                botao_avancar = str(d.xpath('//*[@content-desc="Avançar"]').info)
+                                                if "'enabled': 'false'" in botao_avancar:
+                                                    d(text='Instagram').click()
+                                                time.sleep(1)
+                                                d(text='Avançar').click()
+                                                d(text='Insira seu código de confirmação').wait(timeout=30)
+                                                return response.json()
+                                            else:
+                                                print("Erro ao criar o email:", response.json())
+                                                return None
+
+                                        # Função para obter o token de autenticação
+                                        def obter_token(email_instagram, senha):
+                                            url = "https://api.mail.tm/token"
+                                            payload = {
+                                                "address": email_instagram,
+                                                "password": senha
+                                            }
+                                            headers = {
+                                                "Content-Type": "application/json"
+                                            }
+                                            response = requests.post(url, json=payload, headers=headers)
+                                            if response.status_code == 200:
+                                                return response.json()['token']
+                                            else:
+                                                print("Erro ao obter o token:", response.json())
+                                                return None
+
+                                        # Função para verificar se há emails recebidos com o assunto 'Confirmar email' e extrair os 6 primeiros algarismos do corpo do email
+                                        def verificar_emails(token):
+                                            url = "https://api.mail.tm/messages"
+                                            headers = {
+                                                "Authorization": f"Bearer {token}"
+                                            }
+                                            response = requests.get(url, headers=headers)
+                                            if response.status_code == 200:
+                                                emails = response.json()["hydra:member"]
+                                                for email in emails:
+                                                    if 'confirmar email' in email['subject'].lower():
+                                                        # Obter o corpo do email
+                                                        email_url = f"https://api.mail.tm/messages/{email['id']}"
+                                                        email_response = requests.get(email_url, headers=headers)
+                                                        if email_response.status_code == 200:
+                                                            email_body = email_response.json()['text']
+                                                            match = re.search(r'\d{6}', email_body)
+                                                            if match:
+                                                                return match.group(0)
+                                                return None
+                                            else:
+                                                print("Erro ao verificar os emails:", response.json())
+                                                return None
+
+                                        # Parâmetros desejados
+                                        email_prefixo = user_completo1
+                                        senha_desejada = senha
+                                        # Obter domínios disponíveis
+                                        dominios = obter_dominios()
+
+                                        if dominios:
+                                            # Tentar criar a conta com os domínios disponíveis
+                                            conta = None
+                                            for dominio in dominios:
+                                                conta = criar_conta(email_prefixo, senha_desejada, dominio)
+                                                if conta:
+                                                    break
+
+                                            if conta:
+                                                # Obter token de autenticação
+                                                token = obter_token(conta['address'], senha_desejada)
+
+                                                if token:
+                                                    # Esperar até 1 minuto por um email com assunto 'Confirmar email'
+                                                    start_time = time.time()
+                                                    while time.time() - start_time < 180:
+                                                        resultado = verificar_emails(token)
+                                                        if resultado:
+                                                            print(f"Código recebido: {resultado}")
+                                                            break
+                                                        time.sleep(5)  # Espera 5 segundos antes de verificar novamente
+                                                    else:
+                                                        print("Não foi possível receber o email dentro de 3 minutos.")
+                                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou')
+                                                        window.Refresh()
+                                                        raise Exception('Email não chegou')
+                                        else:
+                                            print("Nenhum domínio disponível foi encontrado.")
 
 
 
-                                d.xpath('//android.widget.EditText').set_text(resultado)
-                                d(text='Avançar').click()
-                                d(text='Você adicionou seu email às contas selecionadas').wait(timeout=30)
-                                print(f'Email adicionado: {email_instagram}')
-                                d(text='Fechar').click()
-                                time.sleep(3)
-                                d(textContains='+48').click()
-                                try:
-                                    d(text='Excluir número').click()
-                                except:
-                                    d(textContains='+48').click()
-                                    d(text='Excluir número').click()
-                                d(text='EXCLUIR').click()
-                                try:
-                                    if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
-                                        print("Conta deslogou")
-                                        d.xpath('//android.widget.EditText').set_text(senha)
-                                        d(text='Continuar').click()
-                                except: pass
-                                d(text='Você excluiu seu número anterior').wait(timeout=30)
-                                print("Número excluido")
-                                d(text='Fechar').click()
-                                d.app_stop('com.instagram.android')
-                                d.app_start('com.instagram.android')
-                                d(resourceId='com.instagram.android:id/profile_tab').click()
-                                print('Email adicionado')
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email adicionado: {email_instagram}')
-                                window.Refresh()
-                            
+                                        d.xpath('//android.widget.EditText').set_text(resultado)
+                                        d(text='Avançar').click()
+                                        d(text='Você adicionou seu email às contas selecionadas').wait(timeout=30)
+                                        print(f'Email adicionado: {email_instagram}')
+                                        d(text='Fechar').click()
+                                        time.sleep(3)
+                                        d(textContains='+48').click()
+                                        try:
+                                            d(text='Excluir número').click()
+                                        except:
+                                            d(textContains='+48').click()
+                                            d(text='Excluir número').click()
+                                        d(text='EXCLUIR').click()
+                                        try:
+                                            if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                                print("Conta deslogou")
+                                                d.xpath('//android.widget.EditText').set_text(senha)
+                                                d(text='Continuar').click()
+                                        except: pass
+                                        d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                        print("Número excluido")
+                                        d(text='Fechar').click()
+                                        d.app_stop('com.instagram.android')
+                                        d.app_start('com.instagram.android')
+                                        d(resourceId='com.instagram.android:id/profile_tab').click()
+                                        print('Email adicionado')
+                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email adicionado: {email_instagram}')
+                                        window.Refresh()
+                                        break
+                                
                             try:
                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                             except: 
@@ -2706,7 +4963,7 @@ def creator_2NRv2():
                                         values = sheet.col_values(1)
                                         last_row = len(values)
                                         if removenum_addemail:
-                                            email = f'{user_completo}@{dominios2}'
+                                            email = f'{user_completo1}@{dominios2}'
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
                                                 conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(
@@ -4469,7 +6726,7 @@ def creator_TWILIO_INSTA():
                     
                     elif d(text="A Página não está disponível no momento"):
                         print('Tela de página não disponível')
-                        d.press('back')
+                        d(text='Recarregar').click()
                         time.sleep(5)
                         if d(text="A Página não está disponível no momento"):
                             print('Não foi possível passar da tela')
@@ -63710,7 +65967,7 @@ def executar_creator_2nr():
                                             #print(proxies2)
                                             try:
                                                 response = requests.get(
-                                                    url, headers=headers)
+                                                    url, headers=headers, proxies=proxies2)
                                                 if response.status_code == 200:
                                                     print(response.status_code)
                                                 else:
@@ -64026,7 +66283,7 @@ def executar_creator_2nr():
                                     #print(proxies2)
                                     try:
                                         response = requests.get(
-                                            url, headers=headers)
+                                            url, headers=headers, proxies=proxies2)
                                         if response.status_code == 200:
                                             print(response.status_code)
                                         else:
@@ -65429,7 +67686,7 @@ def executar_creator_2nr():
                                             #print(proxies2)
                                             try:
                                                 response = requests.get(
-                                                    url, headers=headers)
+                                                    url, headers=headers, proxies=proxies2)
                                                 if response.status_code == 200:
                                                     print(response.status_code)
                                                 else:
@@ -65740,7 +67997,7 @@ def executar_creator_2nr():
                                     #print(proxies2)
                                     try:
                                         response = requests.get(
-                                            url, headers=headers)
+                                            url, headers=headers, proxies=proxies2)
                                         if response.status_code == 200:
                                             print(response.status_code)
                                         else:
@@ -69372,6 +71629,12 @@ while True:
                     window.Refresh()
                     minha_thread = threading.Thread(target=creator_2NRv2)
                     minha_thread.start()
+                elif config['email'] == '-temporary-phone-number.comv2-':
+                    window['output'].print(
+                        f'[{datetime.now().strftime("%H:%M:%S")}] temporary-phone-number.com v2 selecionado.')
+                    window.Refresh()
+                    minha_thread = threading.Thread(target=creator_temporary_phone_number_comv2)
+                    minha_thread.start()
                 elif config['email'] == '-twilio-':
                     window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] TWILIO selecionado.')
@@ -69695,6 +71958,8 @@ while True:
                               default=config.get("email", "") == "-2nr-"),
                      sg.Radio('2NRv2', 'RADIO1', key='-2nrv2-',
                               default=config.get("email", "") == "-2nrv2-"),
+                     sg.Radio('temporary-phone-number.com v2', 'RADIO1', key='-temporary-phone-number.comv2-',
+                              default=config.get("email", "") == "-temporary-phone-number.comv2-"),
                      sg.Radio('TWILIO', 'RADIO1', key='-twilio-',
                               default=config.get("email", "") == "-twilio-"),
                      sg.Radio('InstaFace', 'RADIO1', key='-instaface-',
@@ -69728,7 +71993,7 @@ while True:
                     [sg.Button("Salvar", button_color='#1c2024'),
                      sg.Checkbox("Sempre no topo", key="-FIXED_TOP-", enable_events=True,
                                  default=config.get("fixtop", "")),
-                     sg.Checkbox("Remover num e adicionar email (2NRv2)", key="-removenum_addemail-", enable_events=True,
+                     sg.Checkbox("Remover num e adicionar email (2NRv2, temporary-phone-number.com v2)", key="-removenum_addemail-", enable_events=True,
                                  default=config.get("removenum_addemail", ""))]
                 ]
 
@@ -69765,6 +72030,8 @@ while True:
                             email = '-2nr-'
                         elif valores['-2nrv2-']:
                             email = '-2nrv2-'
+                        elif valores['-temporary-phone-number.comv2-']:
+                            email = '-temporary-phone-number.comv2-'
                         elif valores['-twilio-']:
                             email = '-twilio-'
                         elif valores['-instaface-']:
