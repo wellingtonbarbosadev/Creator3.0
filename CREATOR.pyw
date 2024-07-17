@@ -2109,6 +2109,8 @@ def creator_temporary_phone_number_comv2():
                                 if removenum_addemail:
                                     email = f'{user_completo1}@{dominios2}'
                                     print(email)
+                                elif
+                                    email = num
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
                                         conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(
@@ -2623,6 +2625,8 @@ def creator_temporary_phone_number_comv2():
                                         last_row = len(values)
                                         if removenum_addemail:
                                             email = f'{user_completo1}@{dominios2}'
+                                        elif
+                                            email = num
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
                                                 conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(
@@ -4468,6 +4472,8 @@ def creator_2NRv2():
                                 if removenum_addemail:
                                     email = f'{user_completo1}@{dominios2}'
                                     print(email)
+                                elif
+                                    email = num
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
                                         conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(
@@ -4964,6 +4970,8 @@ def creator_2NRv2():
                                         last_row = len(values)
                                         if removenum_addemail:
                                             email = f'{user_completo1}@{dominios2}'
+                                        elif
+                                            email = num
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
                                                 conteudo + ' - ' + app, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(
