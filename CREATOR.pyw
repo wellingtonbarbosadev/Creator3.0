@@ -2109,7 +2109,7 @@ def creator_temporary_phone_number_comv2():
                                 if removenum_addemail:
                                     email = f'{user_completo1}@{dominios2}'
                                     print(email)
-                                elif
+                                else:
                                     email = num
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
                                         conteudo + ' - ' + app, regiao_vpn, user_mysql]
@@ -2497,47 +2497,46 @@ def creator_temporary_phone_number_comv2():
                             time.sleep(3)
                             d(text='Adicionar novo telefone ou email').click(timeout=20)
                             d(text="Adicionar telefone ou email").wait(timeout=30)
-                            if removenum_addemail:
-                                def obter_ddi(numero_telefone):
-                                    try:
-                                        parsed_numero = phonenumbers.parse(numero_telefone, None)
-                                        pais_codigo = phonenumbers.region_code_for_number(parsed_numero)
-                                        if pais_codigo:
-                                            return phonenumbers.country_code_for_region(pais_codigo)
-                                        else:
-                                            return None
-                                    except phonenumbers.phonenumberutil.NumberParseException:
-                                        return None
-                                ddi = obter_ddi(num)
-                                if ddi:
-                                    print(f"DDI do número {numero}: +{ddi}")
-                                    num_sem_ddi = num.replace(f'+{ddi}', '')
-                                else:
-                                    print(f"Não foi possível obter o DDI para o número {numero}")
-
+                            def obter_ddi(numero_telefone):
                                 try:
-                                    if not ddi in d(resourceId='com.instagram.android:id/country_code_picker').get_text(timeout=1):
-                                        d(resourceId='com.instagram.android:id/country_code_picker').click()
-                                except: pass
-                                while True:
-                                    if d(textContains=f'(+{ddi})'):
-                                        #print('sim')
-                                        time.sleep(3)
-                                        d(textContains=f'(+{ddi})').click()
-                                        break
-                                    elif not d(textContains=f'(+{ddi})'):
-                                        width, height = d.window_size()
-                                        # Coordenadas de início (centro da tela)
-                                        start_x = width // 2
-                                        start_y = height // 2
+                                    parsed_numero = phonenumbers.parse(numero_telefone, None)
+                                    pais_codigo = phonenumbers.region_code_for_number(parsed_numero)
+                                    if pais_codigo:
+                                        return phonenumbers.country_code_for_region(pais_codigo)
+                                    else:
+                                        return None
+                                except phonenumbers.phonenumberutil.NumberParseException:
+                                    return None
+                            ddi = obter_ddi(num)
+                            if ddi:
+                                print(f"DDI do número {numero}: +{ddi}")
+                                num_sem_ddi = num.replace(f'+{ddi}', '')
+                            else:
+                                print(f"Não foi possível obter o DDI para o número {numero}")
 
-                                        # Coordenadas de término (50% acima do ponto de início)
-                                        end_x = width // 2
-                                        end_y = height // 4
+                            try:
+                                if not ddi in d(resourceId='com.instagram.android:id/country_code_picker').get_text(timeout=1):
+                                    d(resourceId='com.instagram.android:id/country_code_picker').click()
+                            except: pass
+                            while True:
+                                if d(textContains=f'(+{ddi})'):
+                                    #print('sim')
+                                    time.sleep(3)
+                                    d(textContains=f'(+{ddi})').click()
+                                    break
+                                elif not d(textContains=f'(+{ddi})'):
+                                    width, height = d.window_size()
+                                    # Coordenadas de início (centro da tela)
+                                    start_x = width // 2
+                                    start_y = height // 2
 
-                                        # Realize o swipe
-                                        d.swipe(start_x, start_y, end_x, end_y, duration=0.05)
-                                        time.sleep(0.5)
+                                    # Coordenadas de término (50% acima do ponto de início)
+                                    end_x = width // 2
+                                    end_y = height // 4
+
+                                    # Realize o swipe
+                                    d.swipe(start_x, start_y, end_x, end_y, duration=0.05)
+                                    time.sleep(0.5)
                             escrever_devagar(d(className="android.widget.EditText"), num_sem_ddi, chunk_size=2)
                             time.sleep(1)
                             d(text="Avançar", enabled=True).click()
@@ -2625,7 +2624,7 @@ def creator_temporary_phone_number_comv2():
                                         last_row = len(values)
                                         if removenum_addemail:
                                             email = f'{user_completo1}@{dominios2}'
-                                        elif
+                                        else:
                                             email = num
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
                                                 conteudo + ' - ' + app, regiao_vpn, user_mysql]
@@ -4472,7 +4471,7 @@ def creator_2NRv2():
                                 if removenum_addemail:
                                     email = f'{user_completo1}@{dominios2}'
                                     print(email)
-                                elif
+                                else:
                                     email = num
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
                                         conteudo + ' - ' + app, regiao_vpn, user_mysql]
@@ -4970,7 +4969,7 @@ def creator_2NRv2():
                                         last_row = len(values)
                                         if removenum_addemail:
                                             email = f'{user_completo1}@{dominios2}'
-                                        elif
+                                        else:
                                             email = num
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
                                                 conteudo + ' - ' + app, regiao_vpn, user_mysql]
