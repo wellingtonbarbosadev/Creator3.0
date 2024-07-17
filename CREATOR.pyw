@@ -2509,7 +2509,7 @@ def creator_temporary_phone_number_comv2():
                                     return None
                             ddi = obter_ddi(num)
                             if ddi:
-                                print(f"DDI do número {numero}: +{ddi}")
+                                print(f"DDI do número {num}: +{ddi}")
                                 num_sem_ddi = num.replace(f'+{ddi}', '')
                             else:
                                 print(f"Não foi possível obter o DDI para o número {numero}")
