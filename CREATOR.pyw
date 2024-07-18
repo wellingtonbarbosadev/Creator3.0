@@ -2228,7 +2228,7 @@ def creator_temporary_phone_number_comv2():
                                         end_y = height // 4  # Termine no 25% da altura
 
                                         # Realize o swipe
-                                        d.swipe(start_x, start_y, end_x, end_y, duration=0.5)
+                                        d.swipe(start_x, start_y, end_x, end_y, duration=0.1)
                                         if not d(text="Seguir"):
                                             break
                                 d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
@@ -4591,7 +4591,7 @@ def creator_2NRv2():
                                         end_y = height // 4  # Termine no 25% da altura
 
                                         # Realize o swipe
-                                        d.swipe(start_x, start_y, end_x, end_y, duration=0.5)
+                                        d.swipe(start_x, start_y, end_x, end_y, duration=0.1)
                                         if not d(text="Seguir"):
                                             break
                                 d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
