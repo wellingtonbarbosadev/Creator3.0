@@ -1655,6 +1655,7 @@ def creator_temporary_phone_number_comv2():
                                     return None, None, None
                             except httpx.RequestError as e:
                                 print(f"Erro durante a solicitação HTTP: {e}")
+                                raise Exception('Erro durante a solicitação HTTP')
                                 return None, None, None
                             except Exception as e:
                                 print(f"Ocorreu um erro: {e}")
@@ -2238,7 +2239,7 @@ def creator_temporary_phone_number_comv2():
                                 window.Refresh()
                                 d.xpath('//*[@content-desc="Opções"]').click()
                                 while True:
-                                    time.sleep(5)
+                                    time.sleep(3)
                                     if d(text='Configurações e privacidade') and d(text='Sua atividade'):
                                         print('Tela de Configurações e privacidade')
                                         d(text='Configurações e privacidade').click()
@@ -2383,22 +2384,22 @@ def creator_temporary_phone_number_comv2():
                                         print(f'Email adicionado: {email_instagram}')
                                         d(text='Fechar').click()
                                         time.sleep(3)
-                                        d(textContains='+48').click()
-                                        try:
-                                            d(text='Excluir número').click()
-                                        except:
-                                            d(textContains='+48').click()
-                                            d(text='Excluir número').click()
-                                        d(text='EXCLUIR').click()
-                                        try:
-                                            if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
-                                                print("Conta deslogou")
-                                                d.xpath('//android.widget.EditText').set_text(senha)
-                                                d(text='Continuar').click()
-                                        except: pass
-                                        d(text='Você excluiu seu número anterior').wait(timeout=30)
-                                        print("Número excluido")
-                                        d(text='Fechar').click()
+                                        #d(textContains='+48').click()
+                                        #try:
+                                        #    d(text='Excluir número').click()
+                                        #except:
+                                        #    d(textContains='+48').click()
+                                        #    d(text='Excluir número').click()
+                                        #d(text='EXCLUIR').click()
+                                        #try:
+                                        #    if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                        #        print("Conta deslogou")
+                                        #        d.xpath('//android.widget.EditText').set_text(senha)
+                                        #        d(text='Continuar').click()
+                                        #except: pass
+                                        #d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                        #print("Número excluido")
+                                        #d(text='Fechar').click()
                                         d.app_stop('com.instagram.android')
                                         d.app_start('com.instagram.android')
                                         d(resourceId='com.instagram.android:id/profile_tab').click()
@@ -2517,26 +2518,27 @@ def creator_temporary_phone_number_comv2():
                             try:
                                 if not ddi in d(resourceId='com.instagram.android:id/country_code_picker').get_text(timeout=1):
                                     d(resourceId='com.instagram.android:id/country_code_picker').click()
+                                    while True:
+                                        if d(textContains=f'(+{ddi})'):
+                                            #print('sim')
+                                            time.sleep(3)
+                                            d(textContains=f'(+{ddi})').click()
+                                            break
+                                        elif not d(textContains=f'(+{ddi})'):
+                                            width, height = d.window_size()
+                                            # Coordenadas de início (centro da tela)
+                                            start_x = width // 2
+                                            start_y = height // 2
+
+                                            # Coordenadas de término (50% acima do ponto de início)
+                                            end_x = width // 2
+                                            end_y = height // 4
+
+                                            # Realize o swipe
+                                            d.swipe(start_x, start_y, end_x, end_y, duration=0.05)
+                                            time.sleep(0.5)
                             except: pass
-                            while True:
-                                if d(textContains=f'(+{ddi})'):
-                                    #print('sim')
-                                    time.sleep(3)
-                                    d(textContains=f'(+{ddi})').click()
-                                    break
-                                elif not d(textContains=f'(+{ddi})'):
-                                    width, height = d.window_size()
-                                    # Coordenadas de início (centro da tela)
-                                    start_x = width // 2
-                                    start_y = height // 2
-
-                                    # Coordenadas de término (50% acima do ponto de início)
-                                    end_x = width // 2
-                                    end_y = height // 4
-
-                                    # Realize o swipe
-                                    d.swipe(start_x, start_y, end_x, end_y, duration=0.05)
-                                    time.sleep(0.5)
+                            
                             escrever_devagar(d(className="android.widget.EditText"), num_sem_ddi, chunk_size=2)
                             time.sleep(1)
                             d(text="Avançar", enabled=True).click()
@@ -4600,7 +4602,7 @@ def creator_2NRv2():
                                 window.Refresh()
                                 d.xpath('//*[@content-desc="Opções"]').click()
                                 while True:
-                                    time.sleep(5)
+                                    time.sleep(3)
                                     if d(text='Configurações e privacidade') and d(text='Sua atividade'):
                                         print('Tela de Configurações e privacidade')
                                         d(text='Configurações e privacidade').click()
@@ -4745,22 +4747,22 @@ def creator_2NRv2():
                                         print(f'Email adicionado: {email_instagram}')
                                         d(text='Fechar').click()
                                         time.sleep(3)
-                                        d(textContains='+48').click()
-                                        try:
-                                            d(text='Excluir número').click()
-                                        except:
-                                            d(textContains='+48').click()
-                                            d(text='Excluir número').click()
-                                        d(text='EXCLUIR').click()
-                                        try:
-                                            if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
-                                                print("Conta deslogou")
-                                                d.xpath('//android.widget.EditText').set_text(senha)
-                                                d(text='Continuar').click()
-                                        except: pass
-                                        d(text='Você excluiu seu número anterior').wait(timeout=30)
-                                        print("Número excluido")
-                                        d(text='Fechar').click()
+                                        #d(textContains='+48').click()
+                                        #try:
+                                        #    d(text='Excluir número').click()
+                                        #except:
+                                        #    d(textContains='+48').click()
+                                        #    d(text='Excluir número').click()
+                                        #d(text='EXCLUIR').click()
+                                        #try:
+                                        #    if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                        #        print("Conta deslogou")
+                                        #        d.xpath('//android.widget.EditText').set_text(senha)
+                                        #        d(text='Continuar').click()
+                                        #except: pass
+                                        #d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                        #print("Número excluido")
+                                        #d(text='Fechar').click()
                                         d.app_stop('com.instagram.android')
                                         d.app_start('com.instagram.android')
                                         d(resourceId='com.instagram.android:id/profile_tab').click()
