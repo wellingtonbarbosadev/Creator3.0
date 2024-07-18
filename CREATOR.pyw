@@ -2243,9 +2243,15 @@ def creator_temporary_phone_number_comv2():
                                     if d(text='Configurações e privacidade') and d(text='Sua atividade'):
                                         print('Tela de Configurações e privacidade')
                                         d(text='Configurações e privacidade').click()
+                                    elif d(text='Configurações') and d(text='Sua atividade'):
+                                        print('Tela de Configurações e privacidade')
+                                        d(text='Configurações').click()
                                     elif d(text='Central de Contas') and d(text='Bloqueados'):
                                         print('Tela de Central de Contas')
                                         d(text='Central de Contas').click()
+                                    elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
+                                        print('Tela de Central de Contas')
+                                        d(textContains='Ver mais na Central de Contas').click()
                                     elif d(text='Agora na Central de Contas') and d(text='OK'):
                                         print('Tela de Agora na Central de Contas')
                                         d(text='OK').click()
@@ -4607,9 +4613,15 @@ def creator_2NRv2():
                                     if d(text='Configurações e privacidade') and d(text='Sua atividade'):
                                         print('Tela de Configurações e privacidade')
                                         d(text='Configurações e privacidade').click()
+                                    elif d(text='Configurações') and d(text='Sua atividade'):
+                                        print('Tela de Configurações e privacidade')
+                                        d(text='Configurações').click()
                                     elif d(text='Central de Contas') and d(text='Bloqueados'):
                                         print('Tela de Central de Contas')
                                         d(text='Central de Contas').click()
+                                    elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
+                                        print('Tela de Central de Contas')
+                                        d(textContains='Ver mais na Central de Contas').click()
                                     elif d(text='Agora na Central de Contas') and d(text='OK'):
                                         print('Tela de Agora na Central de Contas')
                                         d(text='OK').click()
