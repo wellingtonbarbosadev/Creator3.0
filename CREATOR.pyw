@@ -4878,26 +4878,27 @@ def creator_2NRv2():
                             try:
                                 if not '+48' in d(resourceId='com.instagram.android:id/country_code_picker').get_text(timeout=1):
                                     d(resourceId='com.instagram.android:id/country_code_picker').click()
+                                    while True:
+                                        if d(textContains='(+48)'):
+                                            #print('sim')
+                                            time.sleep(3)
+                                            d(textContains='(+48)').click()
+                                            break
+                                        elif not d(textContains='(+48)'):
+                                            width, height = d.window_size()
+                                            # Coordenadas de início (centro da tela)
+                                            start_x = width // 2
+                                            start_y = height // 2
+
+                                            # Coordenadas de término (50% acima do ponto de início)
+                                            end_x = width // 2
+                                            end_y = height // 4
+
+                                            # Realize o swipe
+                                            d.swipe(start_x, start_y, end_x, end_y, duration=0.05)
+                                            time.sleep(0.5)
                             except: pass
-                            while True:
-                                if d(textContains='(+48)'):
-                                    #print('sim')
-                                    time.sleep(3)
-                                    d(textContains='(+48)').click()
-                                    break
-                                elif not d(textContains='(+48)'):
-                                    width, height = d.window_size()
-                                    # Coordenadas de início (centro da tela)
-                                    start_x = width // 2
-                                    start_y = height // 2
-
-                                    # Coordenadas de término (50% acima do ponto de início)
-                                    end_x = width // 2
-                                    end_y = height // 4
-
-                                    # Realize o swipe
-                                    d.swipe(start_x, start_y, end_x, end_y, duration=0.05)
-                                    time.sleep(0.5)
+                            
                             escrever_devagar(d(className="android.widget.EditText"), num, chunk_size=2)
                             time.sleep(1)
                             d(text="Avançar", enabled=True).click()
