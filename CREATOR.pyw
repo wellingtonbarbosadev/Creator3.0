@@ -628,9 +628,25 @@ def creator_temporary_phone_number_comv2():
     import requests
     import hashlib
     import subprocess
-    import phonenumbers
-    import httpx
-    from bs4 import BeautifulSoup
+    try:
+        import phonenumbers
+    except:
+        subprocess.run(['venv/scripts/activate.bat'], shell=True)
+        subprocess.run(['pip', 'install', 'phonenumbers'])
+        import phonenumbers
+    try:
+        import httpx
+    except:
+        subprocess.run(['venv/scripts/activate.bat'], shell=True)
+        subprocess.run(['pip', 'install', 'httpx'])
+        import httpx
+    try:
+        from bs4 import BeautifulSoup
+    except:
+        subprocess.run(['venv/scripts/activate.bat'], shell=True)
+        subprocess.run(['pip', 'install', 'bs4'])
+        from bs4 import BeautifulSoup
+    
     import random
     import re
     import time
@@ -1467,7 +1483,7 @@ def creator_temporary_phone_number_comv2():
                 
                 d.app_clear('com.instagram.android')
                 d.app_start('com.instagram.android', use_monkey=True)
-                
+                tentativa_cod = 1
                 while True:
                     if d(text="Criar nova conta"):
                         print('Tela de login')
@@ -1752,9 +1768,56 @@ def creator_temporary_phone_number_comv2():
                         if d(text="Enviar código por SMS"):
                             d(text="Enviar código por SMS").click()
                             d(text="Avançar").click(timeout=30)
+                        if not d(textContains='Qual é') and not (d(textContains="Você está tentando entrar?") or
+                                                                 d(text="Enviar código por SMS") or
+                                                                 d(text="Insira o código de confirmação")):
+                            try:
+                                d(textContains='Qual é').info
+                            except:
+                                d.press('back')
+
                         time.sleep(5)
                     elif d(text="Insira o código de confirmação"):
                         print('Tela de aguardar código')
+                        if tentativa_cod == 3:
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel receber o código')
+                            window.Refresh()
+                            tentativa_cod = 1
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "TunnelBear":
+                                vpn_tunnelbear()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                            d.app_clear('com.instagram.android')
+                            raise Exception('Não foi possivel receber o código')
+                        else:
+                            tentativa_cod += 1
                         window['output'].print(
                                 f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código')
                         window.Refresh()
