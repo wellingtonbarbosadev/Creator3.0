@@ -2687,6 +2687,7 @@ def creator_temporary_phone_number_comv2():
                                     if removenum_addemail:
                                         for conta_atual in contas_criadas_lista:
                                             user_atual, senha_atual = conta_atual.split()
+                                            user_atual = user_atual.lower()
                                             print(user_atual)
                                             try:
                                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
@@ -5209,6 +5210,7 @@ def creator_2NRv2():
                                     if removenum_addemail:
                                         for conta_atual in contas_criadas_lista:
                                             user_atual, senha_atual = conta_atual.split()
+                                            user_atual = user_atual.lower()
                                             print(user_atual)
                                             try:
                                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
