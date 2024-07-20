@@ -2187,9 +2187,12 @@ def creator_temporary_phone_number_comv2():
                             d(textContains="Pular").click()
                         print('Conta criada')
                         time.sleep(5)
+                        contas_criadas_lista = []
                         try:
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
                                                 text_color=('lime'))
+                            contas_criadas_lista.append(f'{user_completo} {senha}')
+                            print(f'{user_completo} adicionado a lista')
                             window.Refresh()
                             seguido = False
                             contagem += 1
@@ -2672,6 +2675,79 @@ def creator_temporary_phone_number_comv2():
                                 ):
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
                                     window.Refresh()
+                                    
+                                    window['output'].print(f'{linha_ret}')
+                                    window.Refresh()
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Apagando número das contas criadas')
+                                    window.Refresh()
+                                    d.app_stop('com.instagram.android')
+                                    time.sleep(3)
+                                    d.app_start('com.instagram.android')
+                                    d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
+                                    if removenum_addemail:
+                                        for conta_atual in contas_criadas_lista:
+                                            user_atual, senha_atual = conta_atual.split()
+                                            print(user_atual)
+                                            try:
+                                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                            except: 
+                                                d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                            d(text=user_atual).click()
+                                            d.xpath('//*[@content-desc="Opções"]').click()
+                                            while True:
+                                                time.sleep(2)
+                                                if d(text='Configurações e privacidade') and d(text='Sua atividade'):
+                                                    print('Tela de Configurações e privacidade')
+                                                    d(text='Configurações e privacidade').click()
+                                                elif d(text='Configurações') and d(text='Sua atividade'):
+                                                    print('Tela de Configurações e privacidade')
+                                                    d(text='Configurações').click()
+                                                elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
+                                                    print('Tela de Central de Contas')
+                                                    d(text='Central de Contas').click()
+                                                elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
+                                                    print('Tela de Central de Contas')
+                                                    d(textContains='Ver mais na Central de Contas').click()
+                                                elif d(text='Agora na Central de Contas') and d(text='OK'):
+                                                    print('Tela de Agora na Central de Contas')
+                                                    d(text='OK').click()
+                                                elif d(text='Dados pessoais') and d(text='Senha e segurança'):
+                                                    print('Dados pessoais')
+                                                    d(text='Dados pessoais').click()
+                                                elif d(text='Informações de contato') and d(text='Data de nascimento'):
+                                                    print('Informações de contato')
+                                                    d(text='Informações de contato').click()
+                                                elif d(text='Adicionar novo contato'):
+                                                    d(textContains='+').click()
+                                                    try:
+                                                        d(text='Excluir número').click()
+                                                    except:
+                                                        d(textContains='+48').click()
+                                                        d(text='Excluir número').click()
+                                                    d(text='EXCLUIR').click()
+                                                    try:
+                                                        if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                                            print("Conta deslogou")
+                                                            d.xpath('//android.widget.EditText').set_text(senha_atual)
+                                                            d(text='Continuar').click()
+                                                    except: pass
+                                                    d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                                    d(text='Fechar').click()
+                                                    d.app_stop('com.instagram.android')
+                                                    time.sleep(3)
+                                                    d.app_start('com.instagram.android')
+                                                    d(resourceId='com.instagram.android:id/profile_tab').click()
+                                                    print("Número excluido")
+                                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número do {user_atual} excluído')
+                                                    window.Refresh()
+                                                    print(f'Número do {user_atual} excluído')
+                                                    break
+                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
+                                                        text_color=('cyan'))
+                                        window.Refresh()
+                                        contas_criadas_lista.clear()
+
                                     conteudo = config['vpn']
                                     if conteudo == "AVG":
                                         vpn_avg()
@@ -2714,6 +2790,9 @@ def creator_temporary_phone_number_comv2():
                                 try:
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
                                                         text_color=('lime'))
+                                    
+                                    contas_criadas_lista.append(f'{user_completo} {senha}')
+                                    print(f'{user_completo} adicionado a lista')
                                     window.Refresh()
                                     seguido = False
                                     contagem += 1
@@ -2970,7 +3049,7 @@ def creator_2NRv2():
     tentativa = False
     seguido = False
     regiao_vpn = 'Sem dados'
-    app = 'Normal 2NRv2'
+    app = '2NRv2'
     global sms
     global nomes
     global sobrenomes
@@ -4647,9 +4726,12 @@ def creator_2NRv2():
                             d(textContains="Pular").click()
                         print('Conta criada')
                         time.sleep(5)
+                        contas_criadas_lista = []
                         try:
                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
                                                 text_color=('lime'))
+                            contas_criadas_lista.append(f'{user_completo} {senha}')
+                            print(f'{user_completo} adicionado a lista')
                             window.Refresh()
                             seguido = False
                             contagem += 1
@@ -4679,7 +4761,7 @@ def creator_2NRv2():
                                 else:
                                     email = num
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                        conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        conteudo + ' - ' + app - {num}, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(
                                     f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
@@ -4716,7 +4798,7 @@ def creator_2NRv2():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                        conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        conteudo + ' - ' + app - {num}, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(
                                     f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
@@ -4753,7 +4835,7 @@ def creator_2NRv2():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                        conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                        conteudo + ' - ' + app - {num}, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(
                                     f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
@@ -5115,6 +5197,79 @@ def creator_2NRv2():
                                 ):
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
                                     window.Refresh()
+                                    
+                                    window['output'].print(f'{linha_ret}')
+                                    window.Refresh()
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Apagando número das contas criadas')
+                                    window.Refresh()
+                                    d.app_stop('com.instagram.android')
+                                    time.sleep(3)
+                                    d.app_start('com.instagram.android')
+                                    d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
+                                    if removenum_addemail:
+                                        for conta_atual in contas_criadas_lista:
+                                            user_atual, senha_atual = conta_atual.split()
+                                            print(user_atual)
+                                            try:
+                                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                            except: 
+                                                d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                            d(text=user_atual).click()
+                                            d.xpath('//*[@content-desc="Opções"]').click()
+                                            while True:
+                                                time.sleep(2)
+                                                if d(text='Configurações e privacidade') and d(text='Sua atividade'):
+                                                    print('Tela de Configurações e privacidade')
+                                                    d(text='Configurações e privacidade').click()
+                                                elif d(text='Configurações') and d(text='Sua atividade'):
+                                                    print('Tela de Configurações e privacidade')
+                                                    d(text='Configurações').click()
+                                                elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
+                                                    print('Tela de Central de Contas')
+                                                    d(text='Central de Contas').click()
+                                                elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
+                                                    print('Tela de Central de Contas')
+                                                    d(textContains='Ver mais na Central de Contas').click()
+                                                elif d(text='Agora na Central de Contas') and d(text='OK'):
+                                                    print('Tela de Agora na Central de Contas')
+                                                    d(text='OK').click()
+                                                elif d(text='Dados pessoais') and d(text='Senha e segurança'):
+                                                    print('Dados pessoais')
+                                                    d(text='Dados pessoais').click()
+                                                elif d(text='Informações de contato') and d(text='Data de nascimento'):
+                                                    print('Informações de contato')
+                                                    d(text='Informações de contato').click()
+                                                elif d(text='Adicionar novo contato'):
+                                                    d(textContains='+').click()
+                                                    try:
+                                                        d(text='Excluir número').click()
+                                                    except:
+                                                        d(textContains='+48').click()
+                                                        d(text='Excluir número').click()
+                                                    d(text='EXCLUIR').click()
+                                                    try:
+                                                        if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                                            print("Conta deslogou")
+                                                            d.xpath('//android.widget.EditText').set_text(senha_atual)
+                                                            d(text='Continuar').click()
+                                                    except: pass
+                                                    d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                                    d(text='Fechar').click()
+                                                    d.app_stop('com.instagram.android')
+                                                    time.sleep(3)
+                                                    d.app_start('com.instagram.android')
+                                                    d(resourceId='com.instagram.android:id/profile_tab').click()
+                                                    print("Número excluido")
+                                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número do {user_atual} excluído')
+                                                    window.Refresh()
+                                                    print(f'Número do {user_atual} excluído')
+                                                    break
+                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
+                                                        text_color=('cyan'))
+                                        window.Refresh()
+                                        contas_criadas_lista.clear()
+
                                     conteudo = config['vpn']
                                     if conteudo == "AVG":
                                         vpn_avg()
@@ -5157,6 +5312,8 @@ def creator_2NRv2():
                                 try:
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Conta criada com sucesso.',
                                                         text_color=('lime'))
+                                    contas_criadas_lista.append(f'{user_completo} {senha}')
+                                    print(f'{user_completo} adicionado a lista')
                                     window.Refresh()
                                     seguido = False
                                     contagem += 1
@@ -5185,7 +5342,7 @@ def creator_2NRv2():
                                         else:
                                             email = num
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                                conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                                conteudo + ' - ' + app - {num}, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(
                                             f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
@@ -5222,7 +5379,7 @@ def creator_2NRv2():
                                         values = sheet.col_values(1)
                                         last_row = len(values)
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                                conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                                conteudo + ' - ' + app - {num}, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(
                                             f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
@@ -5259,7 +5416,7 @@ def creator_2NRv2():
                                         values = sheet.col_values(1)
                                         last_row = len(values)
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                                conteudo + ' - ' + app, regiao_vpn, user_mysql]
+                                                conteudo + ' - ' + app - {num}, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(
                                             f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
