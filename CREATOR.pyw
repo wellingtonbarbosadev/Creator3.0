@@ -1484,6 +1484,7 @@ def creator_temporary_phone_number_comv2():
                 d.app_clear('com.instagram.android')
                 d.app_start('com.instagram.android', use_monkey=True)
                 tentativa_cod = 1
+                tentativa_user = 1
                 while True:
                     if d(text="Criar nova conta"):
                         print('Tela de login')
@@ -1947,7 +1948,46 @@ def creator_temporary_phone_number_comv2():
                         time.sleep(5)
                         try: d(text="Avançar").click(timeout=30)
                         except: pass
-                        time.sleep(5)
+                        time.sleep(10)
+                        if tentativa_user == 4:
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel criar um user')
+                            window.Refresh()
+                            tentativa_user = 1
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "TunnelBear":
+                                vpn_tunnelbear()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                            d.app_clear('com.instagram.android')
+                            raise Exception('Não foi possivel receber o código')
+                        else:
+                            tentativa_user += 1
                     elif d(textContains="Aceite os termos e") or d(textContains="leia e concorde com nossos termos"):
                         print('Tela de termos e políticas')
                         try:
@@ -2137,6 +2177,9 @@ def creator_temporary_phone_number_comv2():
                     elif d(resourceId="com.android.packageinstaller:id/permission_deny_button"):
                         print('Tela de permissão')
                         d(resourceId="com.android.packageinstaller:id/permission_deny_button").click()
+                    elif d(textContains="Concluir a criação da sua conta?") or d(textContains="Talvez você já tenha uma conta do Instagram"):
+                        print('Tela de confirmar criação da conta')
+                        d(text="Criar conta").click()
                     elif d(textContains="Adicione uma foto") or d(resourceId="com.instagram.android:id/tab_avatar"):
                         if d(resourceId="com.instagram.android:id/tab_avatar"):
                             pass
@@ -2309,7 +2352,7 @@ def creator_temporary_phone_number_comv2():
                                     elif d(text='Configurações') and d(text='Sua atividade'):
                                         print('Tela de Configurações e privacidade')
                                         d(text='Configurações').click()
-                                    elif d(text='Central de Contas') and d(text='Bloqueados'):
+                                    elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                         print('Tela de Central de Contas')
                                         d(text='Central de Contas').click()
                                     elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
@@ -4010,6 +4053,8 @@ def creator_2NRv2():
                 
                 d.app_clear('com.instagram.android')
                 d.app_start('com.instagram.android', use_monkey=True)
+                tentativa_cod = 1
+                tentativa_user = 1
                 
                 while True:
                     if d(text="Criar nova conta"):
@@ -4155,8 +4200,54 @@ def creator_2NRv2():
                         if d(text="Enviar código por SMS"):
                             d(text="Enviar código por SMS").click()
                             d(text="Avançar").click(timeout=30)
+                        if not d(textContains='Qual é') and not (d(textContains="Você está tentando entrar?") or
+                                                                 d(text="Enviar código por SMS") or
+                                                                 d(text="Insira o código de confirmação")):
+                            try:
+                                d(textContains='Qual é').info
+                            except:
+                                d.press('back')
                         time.sleep(5)
                     elif d(text="Insira o código de confirmação"):
+                        if tentativa_cod == 3:
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel receber o código')
+                            window.Refresh()
+                            tentativa_cod = 1
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "TunnelBear":
+                                vpn_tunnelbear()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                            d.app_clear('com.instagram.android')
+                            raise Exception('Não foi possivel receber o código')
+                        else:
+                            tentativa_cod += 1
                         print('Tela de aguardar código')
                         window['output'].print(
                                 f'[{datetime.now().strftime("%H:%M:%S")}] Aguardando código')
@@ -4317,7 +4408,46 @@ def creator_2NRv2():
                         time.sleep(5)
                         try: d(text="Avançar").click(timeout=30)
                         except: pass
-                        time.sleep(5)
+                        time.sleep(10)
+                        if tentativa_user == 4:
+                            window['output'].print(
+                                f'[{datetime.now().strftime("%H:%M:%S")}] Não foi possivel criar um user')
+                            window.Refresh()
+                            tentativa_user = 1
+                            if conteudo == "AVG":
+                                vpn_avg()
+                            elif conteudo == "SurfShark":
+                                vpn_surf()
+                            elif conteudo == "Nenhuma":
+                                nenhuma_vpn()
+                            elif conteudo == "Avast":
+                                vpn_avast()
+                            elif conteudo == "ExpressVPN":
+                                vpn_express()
+                            elif conteudo == "PiaVPN":
+                                vpn_pia()
+                            elif conteudo == "TunnelBear":
+                                vpn_tunnelbear()
+                            elif conteudo == "BetterNet":
+                                vpn_better()
+                            elif conteudo == "CyberGhost":
+                                vpn_cyberghost()
+                            elif conteudo == "NordVPN":
+                                vpn_nord()
+                            elif conteudo == "HotspotShield":
+                                vpn_hotspotshield()
+                            elif conteudo == "WindscribeVPN":
+                                vpn_windscribe()
+                            elif conteudo == "HmaVPN":
+                                vpn_hma()
+                            else:
+                                window['output'].print(
+                                    "Verifique se escreveu certo a VPN que deseja.\nOBS: Não pode conter espaços e o conteúdo tem que ser todo minúsculo")
+                                window.Refresh()
+                            d.app_clear('com.instagram.android')
+                            raise Exception('Não foi possivel receber o código')
+                        else:
+                            tentativa_user += 1
                     elif d(textContains="Aceite os termos e") or d(textContains="leia e concorde com nossos termos"):
                         print('Tela de termos e políticas')
                         try:
@@ -4507,6 +4637,9 @@ def creator_2NRv2():
                     elif d(resourceId="com.android.packageinstaller:id/permission_deny_button"):
                         print('Tela de permissão')
                         d(resourceId="com.android.packageinstaller:id/permission_deny_button").click()
+                    elif d(textContains="Concluir a criação da sua conta?") or d(textContains="Talvez você já tenha uma conta do Instagram"):
+                        print('Tela de confirmar criação da conta')
+                        d(text="Criar conta").click()
                     elif d(textContains="Adicione uma foto") or d(resourceId="com.instagram.android:id/tab_avatar"):
                         if d(resourceId="com.instagram.android:id/tab_avatar"):
                             pass
@@ -4679,7 +4812,7 @@ def creator_2NRv2():
                                     elif d(text='Configurações') and d(text='Sua atividade'):
                                         print('Tela de Configurações e privacidade')
                                         d(text='Configurações').click()
-                                    elif d(text='Central de Contas') and d(text='Bloqueados'):
+                                    elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                         print('Tela de Central de Contas')
                                         d(text='Central de Contas').click()
                                     elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
