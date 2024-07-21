@@ -2500,11 +2500,11 @@ def creator_temporary_phone_number_comv2():
                                             print(f'Email adicionado: {email_instagram}')
                                             d(text='Fechar').click()
                                             time.sleep(3)
-                                            #d(textContains='+48').click()
+                                            #d(textContains='+').click()
                                             #try:
                                             #    d(text='Excluir número').click()
                                             #except:
-                                            #    d(textContains='+48').click()
+                                            #    d(textContains='+').click()
                                             #    d(text='Excluir número').click()
                                             #d(text='EXCLUIR').click()
                                             #try:
@@ -2690,66 +2690,70 @@ def creator_temporary_phone_number_comv2():
                                         d.app_start('com.instagram.android')
                                         d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                         for conta_atual in contas_criadas_lista:
-                                            user_atual, senha_atual = conta_atual.split()
-                                            user_atual = user_atual.lower()
-                                            print(user_atual)
                                             try:
-                                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                                            except: 
-                                                d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
-                                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                                            d(text=user_atual).click()
-                                            d.xpath('//*[@content-desc="Opções"]').click()
-                                            while True:
-                                                time.sleep(2)
-                                                if d(text='Configurações e privacidade') and d(text='Sua atividade'):
-                                                    print('Tela de Configurações e privacidade')
-                                                    d(text='Configurações e privacidade').click()
-                                                elif d(text='Configurações') and d(text='Sua atividade'):
-                                                    print('Tela de Configurações e privacidade')
-                                                    d(text='Configurações').click()
-                                                elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
-                                                    print('Tela de Central de Contas')
-                                                    d(text='Central de Contas').click()
-                                                elif d.xpath('//*[@content-desc="Opções"]'):
-                                                    d.xpath('//*[@content-desc="Opções"]').click()
-                                                elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
-                                                    print('Tela de Central de Contas')
-                                                    d(textContains='Ver mais na Central de Contas').click()
-                                                elif d(text='Agora na Central de Contas') and d(text='OK'):
-                                                    print('Tela de Agora na Central de Contas')
-                                                    d(text='OK').click()
-                                                elif d(text='Dados pessoais') and d(text='Senha e segurança'):
-                                                    print('Dados pessoais')
-                                                    d(text='Dados pessoais').click()
-                                                elif d(text='Informações de contato') and d(text='Data de nascimento'):
-                                                    print('Informações de contato')
-                                                    d(text='Informações de contato').click()
-                                                elif d(text='Adicionar novo contato'):
-                                                    d(textContains='+').click()
-                                                    try:
-                                                        d(text='Excluir número').click()
-                                                    except:
-                                                        d(textContains='+48').click()
-                                                        d(text='Excluir número').click()
-                                                    d(text='EXCLUIR').click()
-                                                    try:
-                                                        if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
-                                                            print("Conta deslogou")
-                                                            d.xpath('//android.widget.EditText').set_text(senha_atual)
-                                                            d(text='Continuar').click()
-                                                    except: pass
-                                                    d(text='Você excluiu seu número anterior').wait(timeout=30)
-                                                    d(text='Fechar').click()
-                                                    d.app_stop('com.instagram.android')
-                                                    time.sleep(3)
-                                                    d.app_start('com.instagram.android')
-                                                    d(resourceId='com.instagram.android:id/profile_tab').click()
-                                                    print("Número excluido")
-                                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número do {user_atual} excluído')
-                                                    window.Refresh()
-                                                    print(f'Número do {user_atual} excluído')
-                                                    break
+                                                user_atual, senha_atual = conta_atual.split()
+                                                user_atual = user_atual.lower()
+                                                print(user_atual)
+                                                try:
+                                                    d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                                except: 
+                                                    d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                                                    d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                                d(text=user_atual).click()
+                                                d.xpath('//*[@content-desc="Opções"]').click()
+                                                while True:
+                                                    time.sleep(2)
+                                                    if d(text='Configurações e privacidade') and d(text='Sua atividade'):
+                                                        print('Tela de Configurações e privacidade')
+                                                        d(text='Configurações e privacidade').click()
+                                                    elif d(text='Configurações') and d(text='Sua atividade'):
+                                                        print('Tela de Configurações e privacidade')
+                                                        d(text='Configurações').click()
+                                                    elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
+                                                        print('Tela de Central de Contas')
+                                                        d(text='Central de Contas').click()
+                                                    elif d.xpath('//*[@content-desc="Opções"]'):
+                                                        d.xpath('//*[@content-desc="Opções"]').click()
+                                                    elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
+                                                        print('Tela de Central de Contas')
+                                                        d(textContains='Ver mais na Central de Contas').click()
+                                                    elif d(text='Agora na Central de Contas') and d(text='OK'):
+                                                        print('Tela de Agora na Central de Contas')
+                                                        d(text='OK').click()
+                                                    elif d(text='Dados pessoais') and d(text='Senha e segurança'):
+                                                        print('Dados pessoais')
+                                                        d(text='Dados pessoais').click()
+                                                    elif d(text='Informações de contato') and d(text='Data de nascimento'):
+                                                        print('Informações de contato')
+                                                        d(text='Informações de contato').click()
+                                                    elif d(text='Adicionar novo contato'):
+                                                        d(textContains='+').click()
+                                                        try:
+                                                            d(text='Excluir número').click()
+                                                        except:
+                                                            d(textContains='+').click()
+                                                            d(text='Excluir número').click()
+                                                        d(text='EXCLUIR').click()
+                                                        try:
+                                                            if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                                                print("Conta deslogou")
+                                                                d.xpath('//android.widget.EditText').set_text(senha_atual)
+                                                                d(text='Continuar').click()
+                                                        except: pass
+                                                        d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                                        d(text='Fechar').click()
+                                                        d.app_stop('com.instagram.android')
+                                                        time.sleep(3)
+                                                        d.app_start('com.instagram.android')
+                                                        d(resourceId='com.instagram.android:id/profile_tab').click()
+                                                        print("Número excluido")
+                                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número do {user_atual} excluído')
+                                                        window.Refresh()
+                                                        print(f'Número do {user_atual} excluído')
+                                                        break
+                                            except Exception as e:
+                                                print(e)
+                                                print('Erro no processo de exclusão do número')
                                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                         text_color=('cyan'))
                                         window.Refresh()
@@ -2926,66 +2930,71 @@ def creator_temporary_phone_number_comv2():
                                     d.app_start('com.instagram.android')
                                     d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                     for conta_atual in contas_criadas_lista:
-                                        user_atual, senha_atual = conta_atual.split()
-                                        user_atual = user_atual.lower()
-                                        print(user_atual)
                                         try:
-                                            d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                                        except: 
-                                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
-                                            d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                                        d(text=user_atual).click()
-                                        d.xpath('//*[@content-desc="Opções"]').click()
-                                        while True:
-                                            time.sleep(2)
-                                            if d(text='Configurações e privacidade') and d(text='Sua atividade'):
-                                                print('Tela de Configurações e privacidade')
-                                                d(text='Configurações e privacidade').click()
-                                            elif d(text='Configurações') and d(text='Sua atividade'):
-                                                print('Tela de Configurações e privacidade')
-                                                d(text='Configurações').click()
-                                            elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
-                                                print('Tela de Central de Contas')
-                                                d(text='Central de Contas').click()
-                                            elif d.xpath('//*[@content-desc="Opções"]'):
-                                                d.xpath('//*[@content-desc="Opções"]').click()
-                                            elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
-                                                print('Tela de Central de Contas')
-                                                d(textContains='Ver mais na Central de Contas').click()
-                                            elif d(text='Agora na Central de Contas') and d(text='OK'):
-                                                print('Tela de Agora na Central de Contas')
-                                                d(text='OK').click()
-                                            elif d(text='Dados pessoais') and d(text='Senha e segurança'):
-                                                print('Dados pessoais')
-                                                d(text='Dados pessoais').click()
-                                            elif d(text='Informações de contato') and d(text='Data de nascimento'):
-                                                print('Informações de contato')
-                                                d(text='Informações de contato').click()
-                                            elif d(text='Adicionar novo contato'):
-                                                d(textContains='+').click()
-                                                try:
-                                                    d(text='Excluir número').click()
-                                                except:
-                                                    d(textContains='+48').click()
-                                                    d(text='Excluir número').click()
-                                                d(text='EXCLUIR').click()
-                                                try:
-                                                    if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
-                                                        print("Conta deslogou")
-                                                        d.xpath('//android.widget.EditText').set_text(senha_atual)
-                                                        d(text='Continuar').click()
-                                                except: pass
-                                                d(text='Você excluiu seu número anterior').wait(timeout=30)
-                                                d(text='Fechar').click()
-                                                d.app_stop('com.instagram.android')
-                                                time.sleep(3)
-                                                d.app_start('com.instagram.android')
-                                                d(resourceId='com.instagram.android:id/profile_tab').click()
-                                                print("Número excluido")
-                                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número do {user_atual} excluído')
-                                                window.Refresh()
-                                                print(f'Número do {user_atual} excluído')
-                                                break
+                                            user_atual, senha_atual = conta_atual.split()
+                                            user_atual = user_atual.lower()
+                                            print(user_atual)
+                                            try:
+                                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                            except: 
+                                                d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                            d(text=user_atual).click()
+                                            d.xpath('//*[@content-desc="Opções"]').click()
+                                            while True:
+                                                time.sleep(2)
+                                                if d(text='Configurações e privacidade') and d(text='Sua atividade'):
+                                                    print('Tela de Configurações e privacidade')
+                                                    d(text='Configurações e privacidade').click()
+                                                elif d(text='Configurações') and d(text='Sua atividade'):
+                                                    print('Tela de Configurações e privacidade')
+                                                    d(text='Configurações').click()
+                                                elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
+                                                    print('Tela de Central de Contas')
+                                                    d(text='Central de Contas').click()
+                                                elif d.xpath('//*[@content-desc="Opções"]'):
+                                                    d.xpath('//*[@content-desc="Opções"]').click()
+                                                elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
+                                                    print('Tela de Central de Contas')
+                                                    d(textContains='Ver mais na Central de Contas').click()
+                                                elif d(text='Agora na Central de Contas') and d(text='OK'):
+                                                    print('Tela de Agora na Central de Contas')
+                                                    d(text='OK').click()
+                                                elif d(text='Dados pessoais') and d(text='Senha e segurança'):
+                                                    print('Dados pessoais')
+                                                    d(text='Dados pessoais').click()
+                                                elif d(text='Informações de contato') and d(text='Data de nascimento'):
+                                                    print('Informações de contato')
+                                                    d(text='Informações de contato').click()
+                                                elif d(text='Adicionar novo contato'):
+                                                    d(textContains='+').click()
+                                                    try:
+                                                        d(text='Excluir número').click()
+                                                    except:
+                                                        d(textContains='+').click()
+                                                        d(text='Excluir número').click()
+                                                    d(text='EXCLUIR').click()
+                                                    try:
+                                                        if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                                            print("Conta deslogou")
+                                                            d.xpath('//android.widget.EditText').set_text(senha_atual)
+                                                            d(text='Continuar').click()
+                                                    except: pass
+                                                    d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                                    d(text='Fechar').click()
+                                                    d.app_stop('com.instagram.android')
+                                                    time.sleep(3)
+                                                    d.app_start('com.instagram.android')
+                                                    d(resourceId='com.instagram.android:id/profile_tab').click()
+                                                    print("Número excluido")
+                                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número do {user_atual} excluído')
+                                                    window.Refresh()
+                                                    print(f'Número do {user_atual} excluído')
+                                                    break
+                                        except Exception as e:
+                                            print(e)
+                                            print('Erro no processo de exclusão do número')
+
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                     text_color=('cyan'))
                                     window.Refresh()
@@ -5120,11 +5129,11 @@ def creator_2NRv2():
                                             print(f'Email adicionado: {email_instagram}')
                                             d(text='Fechar').click()
                                             time.sleep(3)
-                                            #d(textContains='+48').click()
+                                            #d(textContains='+').click()
                                             #try:
                                             #    d(text='Excluir número').click()
                                             #except:
-                                            #    d(textContains='+48').click()
+                                            #    d(textContains='+').click()
                                             #    d(text='Excluir número').click()
                                             #d(text='EXCLUIR').click()
                                             #try:
@@ -5293,66 +5302,70 @@ def creator_2NRv2():
                                         d.app_start('com.instagram.android')
                                         d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                         for conta_atual in contas_criadas_lista:
-                                            user_atual, senha_atual = conta_atual.split()
-                                            user_atual = user_atual.lower()
-                                            print(user_atual)
                                             try:
-                                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                                            except: 
-                                                d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
-                                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                                            d(text=user_atual).click()
-                                            d.xpath('//*[@content-desc="Opções"]').click()
-                                            while True:
-                                                time.sleep(2)
-                                                if d(text='Configurações e privacidade') and d(text='Sua atividade'):
-                                                    print('Tela de Configurações e privacidade')
-                                                    d(text='Configurações e privacidade').click()
-                                                elif d(text='Configurações') and d(text='Sua atividade'):
-                                                    print('Tela de Configurações e privacidade')
-                                                    d(text='Configurações').click()
-                                                elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
-                                                    print('Tela de Central de Contas')
-                                                    d(text='Central de Contas').click()
-                                                elif d.xpath('//*[@content-desc="Opções"]'):
-                                                    d.xpath('//*[@content-desc="Opções"]').click()
-                                                elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
-                                                    print('Tela de Central de Contas')
-                                                    d(textContains='Ver mais na Central de Contas').click()
-                                                elif d(text='Agora na Central de Contas') and d(text='OK'):
-                                                    print('Tela de Agora na Central de Contas')
-                                                    d(text='OK').click()
-                                                elif d(text='Dados pessoais') and d(text='Senha e segurança'):
-                                                    print('Dados pessoais')
-                                                    d(text='Dados pessoais').click()
-                                                elif d(text='Informações de contato') and d(text='Data de nascimento'):
-                                                    print('Informações de contato')
-                                                    d(text='Informações de contato').click()
-                                                elif d(text='Adicionar novo contato'):
-                                                    d(textContains='+').click()
-                                                    try:
-                                                        d(text='Excluir número').click()
-                                                    except:
-                                                        d(textContains='+48').click()
-                                                        d(text='Excluir número').click()
-                                                    d(text='EXCLUIR').click()
-                                                    try:
-                                                        if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
-                                                            print("Conta deslogou")
-                                                            d.xpath('//android.widget.EditText').set_text(senha_atual)
-                                                            d(text='Continuar').click()
-                                                    except: pass
-                                                    d(text='Você excluiu seu número anterior').wait(timeout=30)
-                                                    d(text='Fechar').click()
-                                                    d.app_stop('com.instagram.android')
-                                                    time.sleep(3)
-                                                    d.app_start('com.instagram.android')
-                                                    d(resourceId='com.instagram.android:id/profile_tab').click()
-                                                    print("Número excluido")
-                                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número do {user_atual} excluído')
-                                                    window.Refresh()
-                                                    print(f'Número do {user_atual} excluído')
-                                                    break
+                                                user_atual, senha_atual = conta_atual.split()
+                                                user_atual = user_atual.lower()
+                                                print(user_atual)
+                                                try:
+                                                    d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                                except: 
+                                                    d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                                                    d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                                d(text=user_atual).click()
+                                                d.xpath('//*[@content-desc="Opções"]').click()
+                                                while True:
+                                                    time.sleep(2)
+                                                    if d(text='Configurações e privacidade') and d(text='Sua atividade'):
+                                                        print('Tela de Configurações e privacidade')
+                                                        d(text='Configurações e privacidade').click()
+                                                    elif d(text='Configurações') and d(text='Sua atividade'):
+                                                        print('Tela de Configurações e privacidade')
+                                                        d(text='Configurações').click()
+                                                    elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
+                                                        print('Tela de Central de Contas')
+                                                        d(text='Central de Contas').click()
+                                                    elif d.xpath('//*[@content-desc="Opções"]'):
+                                                        d.xpath('//*[@content-desc="Opções"]').click()
+                                                    elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
+                                                        print('Tela de Central de Contas')
+                                                        d(textContains='Ver mais na Central de Contas').click()
+                                                    elif d(text='Agora na Central de Contas') and d(text='OK'):
+                                                        print('Tela de Agora na Central de Contas')
+                                                        d(text='OK').click()
+                                                    elif d(text='Dados pessoais') and d(text='Senha e segurança'):
+                                                        print('Dados pessoais')
+                                                        d(text='Dados pessoais').click()
+                                                    elif d(text='Informações de contato') and d(text='Data de nascimento'):
+                                                        print('Informações de contato')
+                                                        d(text='Informações de contato').click()
+                                                    elif d(text='Adicionar novo contato'):
+                                                        d(textContains='+').click()
+                                                        try:
+                                                            d(text='Excluir número').click()
+                                                        except:
+                                                            d(textContains='+').click()
+                                                            d(text='Excluir número').click()
+                                                        d(text='EXCLUIR').click()
+                                                        try:
+                                                            if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                                                print("Conta deslogou")
+                                                                d.xpath('//android.widget.EditText').set_text(senha_atual)
+                                                                d(text='Continuar').click()
+                                                        except: pass
+                                                        d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                                        d(text='Fechar').click()
+                                                        d.app_stop('com.instagram.android')
+                                                        time.sleep(3)
+                                                        d.app_start('com.instagram.android')
+                                                        d(resourceId='com.instagram.android:id/profile_tab').click()
+                                                        print("Número excluido")
+                                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número do {user_atual} excluído')
+                                                        window.Refresh()
+                                                        print(f'Número do {user_atual} excluído')
+                                                        break
+                                            except Exception as e:
+                                                print(e)
+                                                print('Erro no processo de exclusão do número')
                                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                         text_color=('cyan'))
                                         window.Refresh()
@@ -5528,66 +5541,70 @@ def creator_2NRv2():
                                     d.app_start('com.instagram.android')
                                     d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                     for conta_atual in contas_criadas_lista:
-                                        user_atual, senha_atual = conta_atual.split()
-                                        user_atual = user_atual.lower()
-                                        print(user_atual)
                                         try:
-                                            d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                                        except: 
-                                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
-                                            d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                                        d(text=user_atual).click()
-                                        d.xpath('//*[@content-desc="Opções"]').click()
-                                        while True:
-                                            time.sleep(2)
-                                            if d(text='Configurações e privacidade') and d(text='Sua atividade'):
-                                                print('Tela de Configurações e privacidade')
-                                                d(text='Configurações e privacidade').click()
-                                            elif d(text='Configurações') and d(text='Sua atividade'):
-                                                print('Tela de Configurações e privacidade')
-                                                d(text='Configurações').click()
-                                            elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
-                                                print('Tela de Central de Contas')
-                                                d(text='Central de Contas').click()
-                                            elif d.xpath('//*[@content-desc="Opções"]'):
-                                                d.xpath('//*[@content-desc="Opções"]').click()
-                                            elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
-                                                print('Tela de Central de Contas')
-                                                d(textContains='Ver mais na Central de Contas').click()
-                                            elif d(text='Agora na Central de Contas') and d(text='OK'):
-                                                print('Tela de Agora na Central de Contas')
-                                                d(text='OK').click()
-                                            elif d(text='Dados pessoais') and d(text='Senha e segurança'):
-                                                print('Dados pessoais')
-                                                d(text='Dados pessoais').click()
-                                            elif d(text='Informações de contato') and d(text='Data de nascimento'):
-                                                print('Informações de contato')
-                                                d(text='Informações de contato').click()
-                                            elif d(text='Adicionar novo contato'):
-                                                d(textContains='+').click()
-                                                try:
-                                                    d(text='Excluir número').click()
-                                                except:
-                                                    d(textContains='+48').click()
-                                                    d(text='Excluir número').click()
-                                                d(text='EXCLUIR').click()
-                                                try:
-                                                    if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
-                                                        print("Conta deslogou")
-                                                        d.xpath('//android.widget.EditText').set_text(senha_atual)
-                                                        d(text='Continuar').click()
-                                                except: pass
-                                                d(text='Você excluiu seu número anterior').wait(timeout=30)
-                                                d(text='Fechar').click()
-                                                d.app_stop('com.instagram.android')
-                                                time.sleep(3)
-                                                d.app_start('com.instagram.android')
-                                                d(resourceId='com.instagram.android:id/profile_tab').click()
-                                                print("Número excluido")
-                                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número do {user_atual} excluído')
-                                                window.Refresh()
-                                                print(f'Número do {user_atual} excluído')
-                                                break
+                                            user_atual, senha_atual = conta_atual.split()
+                                            user_atual = user_atual.lower()
+                                            print(user_atual)
+                                            try:
+                                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                            except: 
+                                                d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                                                d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                            d(text=user_atual).click()
+                                            d.xpath('//*[@content-desc="Opções"]').click()
+                                            while True:
+                                                time.sleep(2)
+                                                if d(text='Configurações e privacidade') and d(text='Sua atividade'):
+                                                    print('Tela de Configurações e privacidade')
+                                                    d(text='Configurações e privacidade').click()
+                                                elif d(text='Configurações') and d(text='Sua atividade'):
+                                                    print('Tela de Configurações e privacidade')
+                                                    d(text='Configurações').click()
+                                                elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
+                                                    print('Tela de Central de Contas')
+                                                    d(text='Central de Contas').click()
+                                                elif d.xpath('//*[@content-desc="Opções"]'):
+                                                    d.xpath('//*[@content-desc="Opções"]').click()
+                                                elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
+                                                    print('Tela de Central de Contas')
+                                                    d(textContains='Ver mais na Central de Contas').click()
+                                                elif d(text='Agora na Central de Contas') and d(text='OK'):
+                                                    print('Tela de Agora na Central de Contas')
+                                                    d(text='OK').click()
+                                                elif d(text='Dados pessoais') and d(text='Senha e segurança'):
+                                                    print('Dados pessoais')
+                                                    d(text='Dados pessoais').click()
+                                                elif d(text='Informações de contato') and d(text='Data de nascimento'):
+                                                    print('Informações de contato')
+                                                    d(text='Informações de contato').click()
+                                                elif d(text='Adicionar novo contato'):
+                                                    d(textContains='+').click()
+                                                    try:
+                                                        d(text='Excluir número').click()
+                                                    except:
+                                                        d(textContains='+').click()
+                                                        d(text='Excluir número').click()
+                                                    d(text='EXCLUIR').click()
+                                                    try:
+                                                        if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                                            print("Conta deslogou")
+                                                            d.xpath('//android.widget.EditText').set_text(senha_atual)
+                                                            d(text='Continuar').click()
+                                                    except: pass
+                                                    d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                                    d(text='Fechar').click()
+                                                    d.app_stop('com.instagram.android')
+                                                    time.sleep(3)
+                                                    d.app_start('com.instagram.android')
+                                                    d(resourceId='com.instagram.android:id/profile_tab').click()
+                                                    print("Número excluido")
+                                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número do {user_atual} excluído')
+                                                    window.Refresh()
+                                                    print(f'Número do {user_atual} excluído')
+                                                    break
+                                        except Exception as e:
+                                            print(e)
+                                            print('Erro no processo de exclusão do número')
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                     text_color=('cyan'))
                                     window.Refresh()
