@@ -5443,7 +5443,7 @@ def creator_2NRv2():
                                         else:
                                             email = num
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                                conteudo + ' - ' + app + '- num, regiao_vpn, user_mysql]
+                                                conteudo + ' - ' + app + ' - ' + num, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(
                                             f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
