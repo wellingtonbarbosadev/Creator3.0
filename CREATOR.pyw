@@ -2344,186 +2344,189 @@ def creator_temporary_phone_number_comv2():
                             except:
                                 print('Não foi possivel seguir sugeridos')
                             if removenum_addemail:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Processo de adicionar email')
-                                window.Refresh()
-                                d.xpath('//*[@content-desc="Opções"]').click()
-                                while True:
-                                    time.sleep(3)
-                                    if d(text='Configurações e privacidade') and d(text='Sua atividade'):
-                                        print('Tela de Configurações e privacidade')
-                                        d(text='Configurações e privacidade').click()
-                                    elif d(text='Configurações') and d(text='Sua atividade'):
-                                        print('Tela de Configurações e privacidade')
-                                        d(text='Configurações').click()
-                                    elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
-                                        print('Tela de Central de Contas')
-                                        d(text='Central de Contas').click()
-                                    elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
-                                        print('Tela de Central de Contas')
-                                        d(textContains='Ver mais na Central de Contas').click()
-                                    elif d(text='Agora na Central de Contas') and d(text='OK'):
-                                        print('Tela de Agora na Central de Contas')
-                                        d(text='OK').click()
-                                    elif d(text='Dados pessoais') and d(text='Senha e segurança'):
-                                        print('Dados pessoais')
-                                        d(text='Dados pessoais').click()
-                                    elif d(text='Informações de contato') and d(text='Data de nascimento'):
-                                        print('Informações de contato')
-                                        d(text='Informações de contato').click()
-                                    elif d(text='Adicionar novo contato') and d(text='Informações de contato'):
-                                        print('Adicionar novo contato')
-                                        d(text='Adicionar novo contato').click()
-                                    elif d(text='Adicionar email'):
-                                        print('Adicionar email')
-                                        d(text='Adicionar email').click()
-                                    elif d(text='Adicione um endereço de email'):
-                                        # Função para obter os domínios disponíveis
-                                        def obter_dominios():
-                                            url = "https://api.mail.tm/domains"
-                                            response = requests.get(url)
-                                            if response.status_code == 200:
-                                                return [domain['domain'] for domain in response.json()['hydra:member']]
-                                            else:
-                                                print("Erro ao obter os domínios:", response.json())
-                                                return []
-
-                                        # Função para criar uma conta no Mail.tm
-                                        def criar_conta(email_prefixo, senha, dominio):
-                                            global email_instagram
-                                            email_instagram = f"{email_prefixo}@{dominio}"
-                                            url = "https://api.mail.tm/accounts"
-                                            payload = {
-                                                "address": email_instagram,
-                                                "password": senha
-                                            }
-                                            headers = {
-                                                "Content-Type": "application/json"
-                                            }
-                                            response = requests.post(url, json=payload, headers=headers)
-                                            if response.status_code == 201:
-                                                print(f"Email criado com sucesso: {email_instagram}")
-                                                d.xpath('//android.widget.EditText').set_text(email_instagram)
-                                                time.sleep(1)
-                                                botao_avancar = str(d.xpath('//*[@content-desc="Avançar"]').info)
-                                                if "'enabled': 'false'" in botao_avancar:
-                                                    d(text='Instagram').click()
-                                                time.sleep(1)
-                                                d(text='Avançar').click()
-                                                d(text='Insira seu código de confirmação').wait(timeout=30)
-                                                return response.json()
-                                            else:
-                                                print("Erro ao criar o email:", response.json())
-                                                return None
-
-                                        # Função para obter o token de autenticação
-                                        def obter_token(email_instagram, senha):
-                                            url = "https://api.mail.tm/token"
-                                            payload = {
-                                                "address": email_instagram,
-                                                "password": senha
-                                            }
-                                            headers = {
-                                                "Content-Type": "application/json"
-                                            }
-                                            response = requests.post(url, json=payload, headers=headers)
-                                            if response.status_code == 200:
-                                                return response.json()['token']
-                                            else:
-                                                print("Erro ao obter o token:", response.json())
-                                                return None
-
-                                        # Função para verificar se há emails recebidos com o assunto 'Confirmar email' e extrair os 6 primeiros algarismos do corpo do email
-                                        def verificar_emails(token):
-                                            url = "https://api.mail.tm/messages"
-                                            headers = {
-                                                "Authorization": f"Bearer {token}"
-                                            }
-                                            response = requests.get(url, headers=headers)
-                                            if response.status_code == 200:
-                                                emails = response.json()["hydra:member"]
-                                                for email in emails:
-                                                    if 'confirmar email' in email['subject'].lower():
-                                                        # Obter o corpo do email
-                                                        email_url = f"https://api.mail.tm/messages/{email['id']}"
-                                                        email_response = requests.get(email_url, headers=headers)
-                                                        if email_response.status_code == 200:
-                                                            email_body = email_response.json()['text']
-                                                            match = re.search(r'\d{6}', email_body)
-                                                            if match:
-                                                                return match.group(0)
-                                                return None
-                                            else:
-                                                print("Erro ao verificar os emails:", response.json())
-                                                return None
-
-                                        # Parâmetros desejados
-                                        email_prefixo = user_completo1
-                                        senha_desejada = senha
-                                        # Obter domínios disponíveis
-                                        dominios = obter_dominios()
-
-                                        if dominios:
-                                            # Tentar criar a conta com os domínios disponíveis
-                                            conta = None
-                                            for dominio in dominios:
-                                                conta = criar_conta(email_prefixo, senha_desejada, dominio)
-                                                if conta:
-                                                    break
-
-                                            if conta:
-                                                # Obter token de autenticação
-                                                token = obter_token(conta['address'], senha_desejada)
-
-                                                if token:
-                                                    # Esperar até 1 minuto por um email com assunto 'Confirmar email'
-                                                    start_time = time.time()
-                                                    while time.time() - start_time < 180:
-                                                        resultado = verificar_emails(token)
-                                                        if resultado:
-                                                            print(f"Código recebido: {resultado}")
-                                                            break
-                                                        time.sleep(5)  # Espera 5 segundos antes de verificar novamente
-                                                    else:
-                                                        print("Não foi possível receber o email dentro de 3 minutos.")
-                                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou')
-                                                        window.Refresh()
-                                                        raise Exception('Email não chegou')
-                                        else:
-                                            print("Nenhum domínio disponível foi encontrado.")
-
-
-
-                                        d.xpath('//android.widget.EditText').set_text(resultado)
-                                        d(text='Avançar').click()
-                                        d(text='Você adicionou seu email às contas selecionadas').wait(timeout=30)
-                                        print(f'Email adicionado: {email_instagram}')
-                                        d(text='Fechar').click()
+                                try:
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Processo de adicionar email')
+                                    window.Refresh()
+                                    d.xpath('//*[@content-desc="Opções"]').click()
+                                    while True:
                                         time.sleep(3)
-                                        #d(textContains='+48').click()
-                                        #try:
-                                        #    d(text='Excluir número').click()
-                                        #except:
-                                        #    d(textContains='+48').click()
-                                        #    d(text='Excluir número').click()
-                                        #d(text='EXCLUIR').click()
-                                        #try:
-                                        #    if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
-                                        #        print("Conta deslogou")
-                                        #        d.xpath('//android.widget.EditText').set_text(senha)
-                                        #        d(text='Continuar').click()
-                                        #except: pass
-                                        #d(text='Você excluiu seu número anterior').wait(timeout=30)
-                                        #print("Número excluido")
-                                        #d(text='Fechar').click()
-                                        d.app_stop('com.instagram.android')
-                                        time.sleep(2)
-                                        d.app_start('com.instagram.android')
-                                        d(resourceId='com.instagram.android:id/profile_tab').click()
-                                        print('Email adicionado')
-                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email adicionado: {email_instagram}')
-                                        window.Refresh()
-                                        break
-                                
+                                        if d(text='Configurações e privacidade') and d(text='Sua atividade'):
+                                            print('Tela de Configurações e privacidade')
+                                            d(text='Configurações e privacidade').click()
+                                        elif d(text='Configurações') and d(text='Sua atividade'):
+                                            print('Tela de Configurações e privacidade')
+                                            d(text='Configurações').click()
+                                        elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
+                                            print('Tela de Central de Contas')
+                                            d(text='Central de Contas').click()
+                                        elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
+                                            print('Tela de Central de Contas')
+                                            d(textContains='Ver mais na Central de Contas').click()
+                                        elif d(text='Agora na Central de Contas') and d(text='OK'):
+                                            print('Tela de Agora na Central de Contas')
+                                            d(text='OK').click()
+                                        elif d(text='Dados pessoais') and d(text='Senha e segurança'):
+                                            print('Dados pessoais')
+                                            d(text='Dados pessoais').click()
+                                        elif d(text='Informações de contato') and d(text='Data de nascimento'):
+                                            print('Informações de contato')
+                                            d(text='Informações de contato').click()
+                                        elif d(text='Adicionar novo contato') and d(text='Informações de contato'):
+                                            print('Adicionar novo contato')
+                                            d(text='Adicionar novo contato').click()
+                                        elif d(text='Adicionar email'):
+                                            print('Adicionar email')
+                                            d(text='Adicionar email').click()
+                                        elif d(text='Adicione um endereço de email'):
+                                            # Função para obter os domínios disponíveis
+                                            def obter_dominios():
+                                                url = "https://api.mail.tm/domains"
+                                                response = requests.get(url)
+                                                if response.status_code == 200:
+                                                    return [domain['domain'] for domain in response.json()['hydra:member']]
+                                                else:
+                                                    print("Erro ao obter os domínios:", response.json())
+                                                    return []
+
+                                            # Função para criar uma conta no Mail.tm
+                                            def criar_conta(email_prefixo, senha, dominio):
+                                                global email_instagram
+                                                email_instagram = f"{email_prefixo}@{dominio}"
+                                                url = "https://api.mail.tm/accounts"
+                                                payload = {
+                                                    "address": email_instagram,
+                                                    "password": senha
+                                                }
+                                                headers = {
+                                                    "Content-Type": "application/json"
+                                                }
+                                                response = requests.post(url, json=payload, headers=headers)
+                                                if response.status_code == 201:
+                                                    print(f"Email criado com sucesso: {email_instagram}")
+                                                    d.xpath('//android.widget.EditText').set_text(email_instagram)
+                                                    time.sleep(1)
+                                                    botao_avancar = str(d.xpath('//*[@content-desc="Avançar"]').info)
+                                                    if "'enabled': 'false'" in botao_avancar:
+                                                        d(text='Instagram').click()
+                                                    time.sleep(1)
+                                                    d(text='Avançar').click()
+                                                    d(text='Insira seu código de confirmação').wait(timeout=30)
+                                                    return response.json()
+                                                else:
+                                                    print("Erro ao criar o email:", response.json())
+                                                    return None
+
+                                            # Função para obter o token de autenticação
+                                            def obter_token(email_instagram, senha):
+                                                url = "https://api.mail.tm/token"
+                                                payload = {
+                                                    "address": email_instagram,
+                                                    "password": senha
+                                                }
+                                                headers = {
+                                                    "Content-Type": "application/json"
+                                                }
+                                                response = requests.post(url, json=payload, headers=headers)
+                                                if response.status_code == 200:
+                                                    return response.json()['token']
+                                                else:
+                                                    print("Erro ao obter o token:", response.json())
+                                                    return None
+
+                                            # Função para verificar se há emails recebidos com o assunto 'Confirmar email' e extrair os 6 primeiros algarismos do corpo do email
+                                            def verificar_emails(token):
+                                                url = "https://api.mail.tm/messages"
+                                                headers = {
+                                                    "Authorization": f"Bearer {token}"
+                                                }
+                                                response = requests.get(url, headers=headers)
+                                                if response.status_code == 200:
+                                                    emails = response.json()["hydra:member"]
+                                                    for email in emails:
+                                                        if 'confirmar email' in email['subject'].lower():
+                                                            # Obter o corpo do email
+                                                            email_url = f"https://api.mail.tm/messages/{email['id']}"
+                                                            email_response = requests.get(email_url, headers=headers)
+                                                            if email_response.status_code == 200:
+                                                                email_body = email_response.json()['text']
+                                                                match = re.search(r'\d{6}', email_body)
+                                                                if match:
+                                                                    return match.group(0)
+                                                    return None
+                                                else:
+                                                    print("Erro ao verificar os emails:", response.json())
+                                                    return None
+
+                                            # Parâmetros desejados
+                                            email_prefixo = user_completo1
+                                            senha_desejada = senha
+                                            # Obter domínios disponíveis
+                                            dominios = obter_dominios()
+
+                                            if dominios:
+                                                # Tentar criar a conta com os domínios disponíveis
+                                                conta = None
+                                                for dominio in dominios:
+                                                    conta = criar_conta(email_prefixo, senha_desejada, dominio)
+                                                    if conta:
+                                                        break
+
+                                                if conta:
+                                                    # Obter token de autenticação
+                                                    token = obter_token(conta['address'], senha_desejada)
+
+                                                    if token:
+                                                        # Esperar até 1 minuto por um email com assunto 'Confirmar email'
+                                                        start_time = time.time()
+                                                        while time.time() - start_time < 180:
+                                                            resultado = verificar_emails(token)
+                                                            if resultado:
+                                                                print(f"Código recebido: {resultado}")
+                                                                break
+                                                            time.sleep(5)  # Espera 5 segundos antes de verificar novamente
+                                                        else:
+                                                            print("Não foi possível receber o email dentro de 3 minutos.")
+                                                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou')
+                                                            window.Refresh()
+                                                            raise Exception('Email não chegou')
+                                            else:
+                                                print("Nenhum domínio disponível foi encontrado.")
+
+
+
+                                            d.xpath('//android.widget.EditText').set_text(resultado)
+                                            d(text='Avançar').click()
+                                            d(text='Você adicionou seu email às contas selecionadas').wait(timeout=30)
+                                            print(f'Email adicionado: {email_instagram}')
+                                            d(text='Fechar').click()
+                                            time.sleep(3)
+                                            #d(textContains='+48').click()
+                                            #try:
+                                            #    d(text='Excluir número').click()
+                                            #except:
+                                            #    d(textContains='+48').click()
+                                            #    d(text='Excluir número').click()
+                                            #d(text='EXCLUIR').click()
+                                            #try:
+                                            #    if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                            #        print("Conta deslogou")
+                                            #        d.xpath('//android.widget.EditText').set_text(senha)
+                                            #        d(text='Continuar').click()
+                                            #except: pass
+                                            #d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                            #print("Número excluido")
+                                            #d(text='Fechar').click()
+                                            d.app_stop('com.instagram.android')
+                                            time.sleep(2)
+                                            d.app_start('com.instagram.android')
+                                            d(resourceId='com.instagram.android:id/profile_tab').click()
+                                            print('Email adicionado')
+                                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email adicionado: {email_instagram}')
+                                            window.Refresh()
+                                            break
+                                except:
+                                    print('Erro no processo de adicionar email')
+
                             try:
                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                             except: 
@@ -2676,15 +2679,16 @@ def creator_temporary_phone_number_comv2():
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
                                     window.Refresh()
                                     
-                                    window['output'].print(f'{linha_ret}')
-                                    window.Refresh()
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Apagando número das contas criadas')
-                                    window.Refresh()
-                                    d.app_stop('com.instagram.android')
-                                    time.sleep(3)
-                                    d.app_start('com.instagram.android')
-                                    d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
+                                    
                                     if removenum_addemail:
+                                        window['output'].print(f'{linha_ret}')
+                                        window.Refresh()
+                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Apagando número das contas criadas')
+                                        window.Refresh()
+                                        d.app_stop('com.instagram.android')
+                                        time.sleep(3)
+                                        d.app_start('com.instagram.android')
+                                        d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                         for conta_atual in contas_criadas_lista:
                                             user_atual, senha_atual = conta_atual.split()
                                             user_atual = user_atual.lower()
@@ -2707,6 +2711,8 @@ def creator_temporary_phone_number_comv2():
                                                 elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                                     print('Tela de Central de Contas')
                                                     d(text='Central de Contas').click()
+                                                elif d.xpath('//*[@content-desc="Opções"]'):
+                                                    d.xpath('//*[@content-desc="Opções"]').click()
                                                 elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
                                                     print('Tela de Central de Contas')
                                                     d(textContains='Ver mais na Central de Contas').click()
@@ -2910,6 +2916,80 @@ def creator_temporary_phone_number_comv2():
 
                             elif d(text="Fazer uma apelação") or d(textContains='Aguarde alguns minutos'):
                                 print('Conta suspensa')
+                                if removenum_addemail:
+                                    window['output'].print(f'{linha_ret}')
+                                    window.Refresh()
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Apagando número das contas criadas')
+                                    window.Refresh()
+                                    d.app_stop('com.instagram.android')
+                                    time.sleep(3)
+                                    d.app_start('com.instagram.android')
+                                    d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
+                                    for conta_atual in contas_criadas_lista:
+                                        user_atual, senha_atual = conta_atual.split()
+                                        user_atual = user_atual.lower()
+                                        print(user_atual)
+                                        try:
+                                            d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                        except: 
+                                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                                            d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                        d(text=user_atual).click()
+                                        d.xpath('//*[@content-desc="Opções"]').click()
+                                        while True:
+                                            time.sleep(2)
+                                            if d(text='Configurações e privacidade') and d(text='Sua atividade'):
+                                                print('Tela de Configurações e privacidade')
+                                                d(text='Configurações e privacidade').click()
+                                            elif d(text='Configurações') and d(text='Sua atividade'):
+                                                print('Tela de Configurações e privacidade')
+                                                d(text='Configurações').click()
+                                            elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
+                                                print('Tela de Central de Contas')
+                                                d(text='Central de Contas').click()
+                                            elif d.xpath('//*[@content-desc="Opções"]'):
+                                                d.xpath('//*[@content-desc="Opções"]').click()
+                                            elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
+                                                print('Tela de Central de Contas')
+                                                d(textContains='Ver mais na Central de Contas').click()
+                                            elif d(text='Agora na Central de Contas') and d(text='OK'):
+                                                print('Tela de Agora na Central de Contas')
+                                                d(text='OK').click()
+                                            elif d(text='Dados pessoais') and d(text='Senha e segurança'):
+                                                print('Dados pessoais')
+                                                d(text='Dados pessoais').click()
+                                            elif d(text='Informações de contato') and d(text='Data de nascimento'):
+                                                print('Informações de contato')
+                                                d(text='Informações de contato').click()
+                                            elif d(text='Adicionar novo contato'):
+                                                d(textContains='+').click()
+                                                try:
+                                                    d(text='Excluir número').click()
+                                                except:
+                                                    d(textContains='+48').click()
+                                                    d(text='Excluir número').click()
+                                                d(text='EXCLUIR').click()
+                                                try:
+                                                    if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                                        print("Conta deslogou")
+                                                        d.xpath('//android.widget.EditText').set_text(senha_atual)
+                                                        d(text='Continuar').click()
+                                                except: pass
+                                                d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                                d(text='Fechar').click()
+                                                d.app_stop('com.instagram.android')
+                                                time.sleep(3)
+                                                d.app_start('com.instagram.android')
+                                                d(resourceId='com.instagram.android:id/profile_tab').click()
+                                                print("Número excluido")
+                                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número do {user_atual} excluído')
+                                                window.Refresh()
+                                                print(f'Número do {user_atual} excluído')
+                                                break
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
+                                                    text_color=('cyan'))
+                                    window.Refresh()
+                                    contas_criadas_lista.clear()
                                 d.app_clear('com.instagram.android')
                                 try:
                                     conteudo = config['vpn']
@@ -4762,7 +4842,7 @@ def creator_2NRv2():
                                 else:
                                     email = num
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                        conteudo + ' - ' + app - {num}, regiao_vpn, user_mysql]
+                                        conteudo + ' - ' + app + ' - ' + num, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(
                                     f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
@@ -4799,7 +4879,7 @@ def creator_2NRv2():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                        conteudo + ' - ' + app - {num}, regiao_vpn, user_mysql]
+                                        conteudo + ' - ' + app + ' - ' + num, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(
                                     f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
@@ -4836,7 +4916,7 @@ def creator_2NRv2():
                                 values = sheet.col_values(1)
                                 last_row = len(values)
                                 values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                        conteudo + ' - ' + app - {num}, regiao_vpn, user_mysql]
+                                        conteudo + ' - ' + app + ' - ' + num, regiao_vpn, user_mysql]
                                 cell_list = sheet.range(
                                     f'A{last_row + 1}:G{last_row + 1}')
                                 for i, val in enumerate(values):
@@ -4888,181 +4968,184 @@ def creator_2NRv2():
                                 window.Refresh()
                                 d.xpath('//*[@content-desc="Opções"]').click()
                                 while True:
-                                    time.sleep(3)
-                                    if d(text='Configurações e privacidade') and d(text='Sua atividade'):
-                                        print('Tela de Configurações e privacidade')
-                                        d(text='Configurações e privacidade').click()
-                                    elif d(text='Configurações') and d(text='Sua atividade'):
-                                        print('Tela de Configurações e privacidade')
-                                        d(text='Configurações').click()
-                                    elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
-                                        print('Tela de Central de Contas')
-                                        d(text='Central de Contas').click()
-                                    elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
-                                        print('Tela de Central de Contas')
-                                        d(textContains='Ver mais na Central de Contas').click()
-                                    elif d(text='Agora na Central de Contas') and d(text='OK'):
-                                        print('Tela de Agora na Central de Contas')
-                                        d(text='OK').click()
-                                    elif d(text='Dados pessoais') and d(text='Senha e segurança'):
-                                        print('Dados pessoais')
-                                        d(text='Dados pessoais').click()
-                                    elif d(text='Informações de contato') and d(text='Data de nascimento'):
-                                        print('Informações de contato')
-                                        d(text='Informações de contato').click()
-                                    elif d(text='Adicionar novo contato') and d(text='Informações de contato'):
-                                        print('Adicionar novo contato')
-                                        d(text='Adicionar novo contato').click()
-                                    elif d(text='Adicionar email'):
-                                        print('Adicionar email')
-                                        d(text='Adicionar email').click()
-                                    elif d(text='Adicione um endereço de email'):
-                                        # Função para obter os domínios disponíveis
-                                        def obter_dominios():
-                                            url = "https://api.mail.tm/domains"
-                                            response = requests.get(url)
-                                            if response.status_code == 200:
-                                                return [domain['domain'] for domain in response.json()['hydra:member']]
-                                            else:
-                                                print("Erro ao obter os domínios:", response.json())
-                                                return []
-
-                                        # Função para criar uma conta no Mail.tm
-                                        def criar_conta(email_prefixo, senha, dominio):
-                                            global email_instagram
-                                            email_instagram = f"{email_prefixo}@{dominio}"
-                                            url = "https://api.mail.tm/accounts"
-                                            payload = {
-                                                "address": email_instagram,
-                                                "password": senha
-                                            }
-                                            headers = {
-                                                "Content-Type": "application/json"
-                                            }
-                                            response = requests.post(url, json=payload, headers=headers)
-                                            if response.status_code == 201:
-                                                print(f"Email criado com sucesso: {email_instagram}")
-                                                d.xpath('//android.widget.EditText').set_text(email_instagram)
-                                                time.sleep(1)
-                                                botao_avancar = str(d.xpath('//*[@content-desc="Avançar"]').info)
-                                                if "'enabled': 'false'" in botao_avancar:
-                                                    d(text='Instagram').click()
-                                                time.sleep(1)
-                                                d(text='Avançar').click()
-                                                d(text='Insira seu código de confirmação').wait(timeout=30)
-                                                return response.json()
-                                            else:
-                                                print("Erro ao criar o email:", response.json())
-                                                return None
-
-                                        # Função para obter o token de autenticação
-                                        def obter_token(email_instagram, senha):
-                                            url = "https://api.mail.tm/token"
-                                            payload = {
-                                                "address": email_instagram,
-                                                "password": senha
-                                            }
-                                            headers = {
-                                                "Content-Type": "application/json"
-                                            }
-                                            response = requests.post(url, json=payload, headers=headers)
-                                            if response.status_code == 200:
-                                                return response.json()['token']
-                                            else:
-                                                print("Erro ao obter o token:", response.json())
-                                                return None
-
-                                        # Função para verificar se há emails recebidos com o assunto 'Confirmar email' e extrair os 6 primeiros algarismos do corpo do email
-                                        def verificar_emails(token):
-                                            url = "https://api.mail.tm/messages"
-                                            headers = {
-                                                "Authorization": f"Bearer {token}"
-                                            }
-                                            response = requests.get(url, headers=headers)
-                                            if response.status_code == 200:
-                                                emails = response.json()["hydra:member"]
-                                                for email in emails:
-                                                    if 'confirmar email' in email['subject'].lower():
-                                                        # Obter o corpo do email
-                                                        email_url = f"https://api.mail.tm/messages/{email['id']}"
-                                                        email_response = requests.get(email_url, headers=headers)
-                                                        if email_response.status_code == 200:
-                                                            email_body = email_response.json()['text']
-                                                            match = re.search(r'\d{6}', email_body)
-                                                            if match:
-                                                                return match.group(0)
-                                                return None
-                                            else:
-                                                print("Erro ao verificar os emails:", response.json())
-                                                return None
-
-                                        # Parâmetros desejados
-                                        email_prefixo = user_completo1
-                                        senha_desejada = senha
-                                        # Obter domínios disponíveis
-                                        dominios = obter_dominios()
-
-                                        if dominios:
-                                            # Tentar criar a conta com os domínios disponíveis
-                                            conta = None
-                                            for dominio in dominios:
-                                                conta = criar_conta(email_prefixo, senha_desejada, dominio)
-                                                if conta:
-                                                    break
-
-                                            if conta:
-                                                # Obter token de autenticação
-                                                token = obter_token(conta['address'], senha_desejada)
-
-                                                if token:
-                                                    # Esperar até 1 minuto por um email com assunto 'Confirmar email'
-                                                    start_time = time.time()
-                                                    while time.time() - start_time < 180:
-                                                        resultado = verificar_emails(token)
-                                                        if resultado:
-                                                            print(f"Código recebido: {resultado}")
-                                                            break
-                                                        time.sleep(5)  # Espera 5 segundos antes de verificar novamente
-                                                    else:
-                                                        print("Não foi possível receber o email dentro de 3 minutos.")
-                                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou')
-                                                        window.Refresh()
-                                                        raise Exception('Email não chegou')
-                                        else:
-                                            print("Nenhum domínio disponível foi encontrado.")
-
-
-
-                                        d.xpath('//android.widget.EditText').set_text(resultado)
-                                        d(text='Avançar').click()
-                                        d(text='Você adicionou seu email às contas selecionadas').wait(timeout=30)
-                                        print(f'Email adicionado: {email_instagram}')
-                                        d(text='Fechar').click()
+                                    try:
                                         time.sleep(3)
-                                        #d(textContains='+48').click()
-                                        #try:
-                                        #    d(text='Excluir número').click()
-                                        #except:
-                                        #    d(textContains='+48').click()
-                                        #    d(text='Excluir número').click()
-                                        #d(text='EXCLUIR').click()
-                                        #try:
-                                        #    if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
-                                        #        print("Conta deslogou")
-                                        #        d.xpath('//android.widget.EditText').set_text(senha)
-                                        #        d(text='Continuar').click()
-                                        #except: pass
-                                        #d(text='Você excluiu seu número anterior').wait(timeout=30)
-                                        #print("Número excluido")
-                                        #d(text='Fechar').click()
-                                        d.app_stop('com.instagram.android')
-                                        time.sleep(2)
-                                        d.app_start('com.instagram.android')
-                                        d(resourceId='com.instagram.android:id/profile_tab').click()
-                                        print('Email adicionado')
-                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email adicionado: {email_instagram}')
-                                        window.Refresh()
-                                        break
+                                        if d(text='Configurações e privacidade') and d(text='Sua atividade'):
+                                            print('Tela de Configurações e privacidade')
+                                            d(text='Configurações e privacidade').click()
+                                        elif d(text='Configurações') and d(text='Sua atividade'):
+                                            print('Tela de Configurações e privacidade')
+                                            d(text='Configurações').click()
+                                        elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
+                                            print('Tela de Central de Contas')
+                                            d(text='Central de Contas').click()
+                                        elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
+                                            print('Tela de Central de Contas')
+                                            d(textContains='Ver mais na Central de Contas').click()
+                                        elif d(text='Agora na Central de Contas') and d(text='OK'):
+                                            print('Tela de Agora na Central de Contas')
+                                            d(text='OK').click()
+                                        elif d(text='Dados pessoais') and d(text='Senha e segurança'):
+                                            print('Dados pessoais')
+                                            d(text='Dados pessoais').click()
+                                        elif d(text='Informações de contato') and d(text='Data de nascimento'):
+                                            print('Informações de contato')
+                                            d(text='Informações de contato').click()
+                                        elif d(text='Adicionar novo contato') and d(text='Informações de contato'):
+                                            print('Adicionar novo contato')
+                                            d(text='Adicionar novo contato').click()
+                                        elif d(text='Adicionar email'):
+                                            print('Adicionar email')
+                                            d(text='Adicionar email').click()
+                                        elif d(text='Adicione um endereço de email'):
+                                            # Função para obter os domínios disponíveis
+                                            def obter_dominios():
+                                                url = "https://api.mail.tm/domains"
+                                                response = requests.get(url)
+                                                if response.status_code == 200:
+                                                    return [domain['domain'] for domain in response.json()['hydra:member']]
+                                                else:
+                                                    print("Erro ao obter os domínios:", response.json())
+                                                    return []
+
+                                            # Função para criar uma conta no Mail.tm
+                                            def criar_conta(email_prefixo, senha, dominio):
+                                                global email_instagram
+                                                email_instagram = f"{email_prefixo}@{dominio}"
+                                                url = "https://api.mail.tm/accounts"
+                                                payload = {
+                                                    "address": email_instagram,
+                                                    "password": senha
+                                                }
+                                                headers = {
+                                                    "Content-Type": "application/json"
+                                                }
+                                                response = requests.post(url, json=payload, headers=headers)
+                                                if response.status_code == 201:
+                                                    print(f"Email criado com sucesso: {email_instagram}")
+                                                    d.xpath('//android.widget.EditText').set_text(email_instagram)
+                                                    time.sleep(1)
+                                                    botao_avancar = str(d.xpath('//*[@content-desc="Avançar"]').info)
+                                                    if "'enabled': 'false'" in botao_avancar:
+                                                        d(text='Instagram').click()
+                                                    time.sleep(1)
+                                                    d(text='Avançar').click()
+                                                    d(text='Insira seu código de confirmação').wait(timeout=30)
+                                                    return response.json()
+                                                else:
+                                                    print("Erro ao criar o email:", response.json())
+                                                    return None
+
+                                            # Função para obter o token de autenticação
+                                            def obter_token(email_instagram, senha):
+                                                url = "https://api.mail.tm/token"
+                                                payload = {
+                                                    "address": email_instagram,
+                                                    "password": senha
+                                                }
+                                                headers = {
+                                                    "Content-Type": "application/json"
+                                                }
+                                                response = requests.post(url, json=payload, headers=headers)
+                                                if response.status_code == 200:
+                                                    return response.json()['token']
+                                                else:
+                                                    print("Erro ao obter o token:", response.json())
+                                                    return None
+
+                                            # Função para verificar se há emails recebidos com o assunto 'Confirmar email' e extrair os 6 primeiros algarismos do corpo do email
+                                            def verificar_emails(token):
+                                                url = "https://api.mail.tm/messages"
+                                                headers = {
+                                                    "Authorization": f"Bearer {token}"
+                                                }
+                                                response = requests.get(url, headers=headers)
+                                                if response.status_code == 200:
+                                                    emails = response.json()["hydra:member"]
+                                                    for email in emails:
+                                                        if 'confirmar email' in email['subject'].lower():
+                                                            # Obter o corpo do email
+                                                            email_url = f"https://api.mail.tm/messages/{email['id']}"
+                                                            email_response = requests.get(email_url, headers=headers)
+                                                            if email_response.status_code == 200:
+                                                                email_body = email_response.json()['text']
+                                                                match = re.search(r'\d{6}', email_body)
+                                                                if match:
+                                                                    return match.group(0)
+                                                    return None
+                                                else:
+                                                    print("Erro ao verificar os emails:", response.json())
+                                                    return None
+
+                                            # Parâmetros desejados
+                                            email_prefixo = user_completo1
+                                            senha_desejada = senha
+                                            # Obter domínios disponíveis
+                                            dominios = obter_dominios()
+
+                                            if dominios:
+                                                # Tentar criar a conta com os domínios disponíveis
+                                                conta = None
+                                                for dominio in dominios:
+                                                    conta = criar_conta(email_prefixo, senha_desejada, dominio)
+                                                    if conta:
+                                                        break
+
+                                                if conta:
+                                                    # Obter token de autenticação
+                                                    token = obter_token(conta['address'], senha_desejada)
+
+                                                    if token:
+                                                        # Esperar até 1 minuto por um email com assunto 'Confirmar email'
+                                                        start_time = time.time()
+                                                        while time.time() - start_time < 180:
+                                                            resultado = verificar_emails(token)
+                                                            if resultado:
+                                                                print(f"Código recebido: {resultado}")
+                                                                break
+                                                            time.sleep(5)  # Espera 5 segundos antes de verificar novamente
+                                                        else:
+                                                            print("Não foi possível receber o email dentro de 3 minutos.")
+                                                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email não chegou')
+                                                            window.Refresh()
+                                                            raise Exception('Email não chegou')
+                                            else:
+                                                print("Nenhum domínio disponível foi encontrado.")
+
+
+
+                                            d.xpath('//android.widget.EditText').set_text(resultado)
+                                            d(text='Avançar').click()
+                                            d(text='Você adicionou seu email às contas selecionadas').wait(timeout=30)
+                                            print(f'Email adicionado: {email_instagram}')
+                                            d(text='Fechar').click()
+                                            time.sleep(3)
+                                            #d(textContains='+48').click()
+                                            #try:
+                                            #    d(text='Excluir número').click()
+                                            #except:
+                                            #    d(textContains='+48').click()
+                                            #    d(text='Excluir número').click()
+                                            #d(text='EXCLUIR').click()
+                                            #try:
+                                            #    if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                            #        print("Conta deslogou")
+                                            #        d.xpath('//android.widget.EditText').set_text(senha)
+                                            #        d(text='Continuar').click()
+                                            #except: pass
+                                            #d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                            #print("Número excluido")
+                                            #d(text='Fechar').click()
+                                            d.app_stop('com.instagram.android')
+                                            time.sleep(2)
+                                            d.app_start('com.instagram.android')
+                                            d(resourceId='com.instagram.android:id/profile_tab').click()
+                                            print('Email adicionado')
+                                            window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email adicionado: {email_instagram}')
+                                            window.Refresh()
+                                            break
+                                    except:
+                                        print('Erro no processo de adicionar email')
                                 
                             try:
                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
@@ -5199,15 +5282,16 @@ def creator_2NRv2():
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Restrição')
                                     window.Refresh()
                                     
-                                    window['output'].print(f'{linha_ret}')
-                                    window.Refresh()
-                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Apagando número das contas criadas')
-                                    window.Refresh()
-                                    d.app_stop('com.instagram.android')
-                                    time.sleep(3)
-                                    d.app_start('com.instagram.android')
-                                    d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
+                                    
                                     if removenum_addemail:
+                                        window['output'].print(f'{linha_ret}')
+                                        window.Refresh()
+                                        window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Apagando número das contas criadas')
+                                        window.Refresh()
+                                        d.app_stop('com.instagram.android')
+                                        time.sleep(3)
+                                        d.app_start('com.instagram.android')
+                                        d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                         for conta_atual in contas_criadas_lista:
                                             user_atual, senha_atual = conta_atual.split()
                                             user_atual = user_atual.lower()
@@ -5230,6 +5314,8 @@ def creator_2NRv2():
                                                 elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                                     print('Tela de Central de Contas')
                                                     d(text='Central de Contas').click()
+                                                elif d.xpath('//*[@content-desc="Opções"]'):
+                                                    d.xpath('//*[@content-desc="Opções"]').click()
                                                 elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
                                                     print('Tela de Central de Contas')
                                                     d(textContains='Ver mais na Central de Contas').click()
@@ -5344,7 +5430,7 @@ def creator_2NRv2():
                                         else:
                                             email = num
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                                conteudo + ' - ' + app - {num}, regiao_vpn, user_mysql]
+                                                conteudo + ' - ' + app + '- num, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(
                                             f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
@@ -5381,7 +5467,7 @@ def creator_2NRv2():
                                         values = sheet.col_values(1)
                                         last_row = len(values)
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                                conteudo + ' - ' + app - {num}, regiao_vpn, user_mysql]
+                                                conteudo + ' - ' + app + ' - ' + num, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(
                                             f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
@@ -5418,7 +5504,7 @@ def creator_2NRv2():
                                         values = sheet.col_values(1)
                                         last_row = len(values)
                                         values = [user_completo + ' ' + senha, email, timestamp, maquina,
-                                                conteudo + ' - ' + app - {num}, regiao_vpn, user_mysql]
+                                                conteudo + ' - ' + app + ' - ' + num, regiao_vpn, user_mysql]
                                         cell_list = sheet.range(
                                             f'A{last_row + 1}:G{last_row + 1}')
                                         for i, val in enumerate(values):
@@ -5432,6 +5518,80 @@ def creator_2NRv2():
 
                             elif d(text="Fazer uma apelação") or d(textContains='Aguarde alguns minutos'):
                                 print('Conta suspensa')
+                                if removenum_addemail:
+                                    window['output'].print(f'{linha_ret}')
+                                    window.Refresh()
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Apagando número das contas criadas')
+                                    window.Refresh()
+                                    d.app_stop('com.instagram.android')
+                                    time.sleep(3)
+                                    d.app_start('com.instagram.android')
+                                    d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
+                                    for conta_atual in contas_criadas_lista:
+                                        user_atual, senha_atual = conta_atual.split()
+                                        user_atual = user_atual.lower()
+                                        print(user_atual)
+                                        try:
+                                            d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                        except: 
+                                            d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
+                                            d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
+                                        d(text=user_atual).click()
+                                        d.xpath('//*[@content-desc="Opções"]').click()
+                                        while True:
+                                            time.sleep(2)
+                                            if d(text='Configurações e privacidade') and d(text='Sua atividade'):
+                                                print('Tela de Configurações e privacidade')
+                                                d(text='Configurações e privacidade').click()
+                                            elif d(text='Configurações') and d(text='Sua atividade'):
+                                                print('Tela de Configurações e privacidade')
+                                                d(text='Configurações').click()
+                                            elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
+                                                print('Tela de Central de Contas')
+                                                d(text='Central de Contas').click()
+                                            elif d.xpath('//*[@content-desc="Opções"]'):
+                                                d.xpath('//*[@content-desc="Opções"]').click()
+                                            elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
+                                                print('Tela de Central de Contas')
+                                                d(textContains='Ver mais na Central de Contas').click()
+                                            elif d(text='Agora na Central de Contas') and d(text='OK'):
+                                                print('Tela de Agora na Central de Contas')
+                                                d(text='OK').click()
+                                            elif d(text='Dados pessoais') and d(text='Senha e segurança'):
+                                                print('Dados pessoais')
+                                                d(text='Dados pessoais').click()
+                                            elif d(text='Informações de contato') and d(text='Data de nascimento'):
+                                                print('Informações de contato')
+                                                d(text='Informações de contato').click()
+                                            elif d(text='Adicionar novo contato'):
+                                                d(textContains='+').click()
+                                                try:
+                                                    d(text='Excluir número').click()
+                                                except:
+                                                    d(textContains='+48').click()
+                                                    d(text='Excluir número').click()
+                                                d(text='EXCLUIR').click()
+                                                try:
+                                                    if d(text='Para sua segurança, insira sua senha novamente para continuar').wait(timeout=5):
+                                                        print("Conta deslogou")
+                                                        d.xpath('//android.widget.EditText').set_text(senha_atual)
+                                                        d(text='Continuar').click()
+                                                except: pass
+                                                d(text='Você excluiu seu número anterior').wait(timeout=30)
+                                                d(text='Fechar').click()
+                                                d.app_stop('com.instagram.android')
+                                                time.sleep(3)
+                                                d.app_start('com.instagram.android')
+                                                d(resourceId='com.instagram.android:id/profile_tab').click()
+                                                print("Número excluido")
+                                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Número do {user_atual} excluído')
+                                                window.Refresh()
+                                                print(f'Número do {user_atual} excluído')
+                                                break
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
+                                                    text_color=('cyan'))
+                                    window.Refresh()
+                                    contas_criadas_lista.clear()
                                 d.app_clear('com.instagram.android')
                                 try:
                                     conteudo = config['vpn']
