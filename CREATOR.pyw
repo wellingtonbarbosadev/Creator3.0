@@ -4973,11 +4973,11 @@ def creator_2NRv2():
                             except:
                                 print('Não foi possivel seguir sugeridos')
                             if removenum_addemail:
-                                window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Processo de adicionar email')
-                                window.Refresh()
-                                d.xpath('//*[@content-desc="Opções"]').click()
-                                while True:
-                                    try:
+                                try:
+                                    window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Processo de adicionar email')
+                                    window.Refresh()
+                                    d.xpath('//*[@content-desc="Opções"]').click()
+                                    while True:
                                         time.sleep(3)
                                         if d(text='Configurações e privacidade') and d(text='Sua atividade'):
                                             print('Tela de Configurações e privacidade')
@@ -5153,8 +5153,8 @@ def creator_2NRv2():
                                             window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Email adicionado: {email_instagram}')
                                             window.Refresh()
                                             break
-                                    except:
-                                        print('Erro no processo de adicionar email')
+                                except:
+                                    print('Erro no processo de adicionar email')
                                 
                             try:
                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
