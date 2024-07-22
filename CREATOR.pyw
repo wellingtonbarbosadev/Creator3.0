@@ -2180,7 +2180,7 @@ def creator_temporary_phone_number_comv2():
                     elif d(textContains="Concluir a criação da sua conta?") or d(textContains="Talvez você já tenha uma conta do Instagram"):
                         print('Tela de confirmar criação da conta')
                         d(text="Criar conta").click()
-                    elif d(textContains="Adicione uma foto") or d(resourceId="com.instagram.android:id/tab_avatar"):
+                    elif d(textContains="Adicione uma foto") or d(textContains="Receba sugestões do Facebook") or d(resourceId="com.instagram.android:id/tab_avatar"):
                         if d(resourceId="com.instagram.android:id/tab_avatar"):
                             pass
                         else:
@@ -2377,6 +2377,13 @@ def creator_temporary_phone_number_comv2():
                                         elif d(text='Adicionar email'):
                                             print('Adicionar email')
                                             d(text='Adicionar email').click()
+                                        elif d(text="A Página não está disponível no momento"):
+                                            print('Tela de página não disponível')
+                                            d.press('back')
+                                            time.sleep(5)
+                                            if d(text="A Página não está disponível no momento"):
+                                                print('Não foi possível passar da tela')
+                                                raise Exception('A Página não está disponível no momento')
                                         elif d(text='Adicione um endereço de email'):
                                             # Função para obter os domínios disponíveis
                                             def obter_dominios():
@@ -2526,6 +2533,12 @@ def creator_temporary_phone_number_comv2():
                                             break
                                 except:
                                     print('Erro no processo de adicionar email')
+                                    try:
+                                        d.screenshot(
+                                            f'./erros/ErroProcessoAdicionarEmail{datetime.now().strftime("%H_%M_%S")}.png')
+                                    except Exception as e:
+                                        print(e)
+                                        pass
 
                             try:
                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
@@ -2754,6 +2767,12 @@ def creator_temporary_phone_number_comv2():
                                             except Exception as e:
                                                 print(e)
                                                 print('Erro no processo de exclusão do número')
+                                                try:
+                                                    d.screenshot(
+                                                        f'./erros/ErroProcessoExclusaoNumero{datetime.now().strftime("%H_%M_%S")}.png')
+                                                except Exception as e:
+                                                    print(e)
+                                                    pass
                                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                         text_color=('cyan'))
                                         window.Refresh()
@@ -2994,6 +3013,12 @@ def creator_temporary_phone_number_comv2():
                                         except Exception as e:
                                             print(e)
                                             print('Erro no processo de exclusão do número')
+                                            try:
+                                                d.screenshot(
+                                                    f'./erros/ErroProcessoExclusaoNumero{datetime.now().strftime("%H_%M_%S")}.png')
+                                            except Exception as e:
+                                                print(e)
+                                                pass
 
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                     text_color=('cyan'))
@@ -4809,7 +4834,7 @@ def creator_2NRv2():
                     elif d(textContains="Concluir a criação da sua conta?") or d(textContains="Talvez você já tenha uma conta do Instagram"):
                         print('Tela de confirmar criação da conta')
                         d(text="Criar conta").click()
-                    elif d(textContains="Adicione uma foto") or d(resourceId="com.instagram.android:id/tab_avatar"):
+                    elif d(textContains="Adicione uma foto") or d(textContains="Receba sugestões do Facebook") or d(resourceId="com.instagram.android:id/tab_avatar"):
                         if d(resourceId="com.instagram.android:id/tab_avatar"):
                             pass
                         else:
@@ -5006,6 +5031,13 @@ def creator_2NRv2():
                                         elif d(text='Adicionar email'):
                                             print('Adicionar email')
                                             d(text='Adicionar email').click()
+                                        elif d(text="A Página não está disponível no momento"):
+                                            print('Tela de página não disponível')
+                                            d.press('back')
+                                            time.sleep(5)
+                                            if d(text="A Página não está disponível no momento"):
+                                                print('Não foi possível passar da tela')
+                                                raise Exception('A Página não está disponível no momento')
                                         elif d(text='Adicione um endereço de email'):
                                             # Função para obter os domínios disponíveis
                                             def obter_dominios():
@@ -5155,6 +5187,12 @@ def creator_2NRv2():
                                             break
                                 except:
                                     print('Erro no processo de adicionar email')
+                                    try:
+                                        d.screenshot(
+                                            f'./erros/ErroProcessoAdicionarEmail{datetime.now().strftime("%H_%M_%S")}.png')
+                                    except Exception as e:
+                                        print(e)
+                                        pass
                                 
                             try:
                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
@@ -5366,6 +5404,12 @@ def creator_2NRv2():
                                             except Exception as e:
                                                 print(e)
                                                 print('Erro no processo de exclusão do número')
+                                                try:
+                                                    d.screenshot(
+                                                        f'./erros/ErroProcessoExclusaoNumero{datetime.now().strftime("%H_%M_%S")}.png')
+                                                except Exception as e:
+                                                    print(e)
+                                                    pass
                                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                         text_color=('cyan'))
                                         window.Refresh()
@@ -5605,6 +5649,12 @@ def creator_2NRv2():
                                         except Exception as e:
                                             print(e)
                                             print('Erro no processo de exclusão do número')
+                                            try:
+                                                d.screenshot(
+                                                    f'./erros/ErroProcessoExclusaoNumero{datetime.now().strftime("%H_%M_%S")}.png')
+                                            except Exception as e:
+                                                print(e)
+                                                pass
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                     text_color=('cyan'))
                                     window.Refresh()
