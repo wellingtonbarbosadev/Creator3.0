@@ -1494,7 +1494,7 @@ def creator_temporary_phone_number_comv2():
                     elif d(text='Qual é o seu email?'):
                         d(text="Cadastrar-se com o número do celular").click()
                         time.sleep(3)
-                    elif d(textContains='Aguarde alguns minutos antes de tentar novamente') or d(textContains='Ocorreu um erro. Tente novamente mais tarde') or d(textContains='Tente novamente mais tarde'):
+                    elif d(textContains='Aguarde alguns minutos antes de tentar novamente') or d(textContains='Ocorreu um erro. Tente novamente mais tarde') or d(textContains='Parece que seu número de celular está incorreto.'):
                         print('Tela de restrição')
                         window['output'].print(
                             f'[{datetime.now().strftime("%H:%M:%S")}] Restrição.')
@@ -4287,7 +4287,7 @@ def creator_2NRv2():
                     elif d(text='Qual é o seu email?'):
                         d(text="Cadastrar-se com o número do celular").click()
                         time.sleep(3)
-                    elif d(textContains='Aguarde alguns minutos antes de tentar novamente') or d(textContains='Ocorreu um erro. Tente novamente mais tarde') or d(textContains='Tente novamente mais tarde'):
+                    elif d(textContains='Aguarde alguns minutos antes de tentar novamente') or d(textContains='Ocorreu um erro. Tente novamente mais tarde') or d(textContains='Parece que seu número de celular está incorreto.'):
                         print('Tela de restrição')
                         if tentativa is True:
                             window['output'].print(
@@ -6921,7 +6921,7 @@ def creator_TWILIO_INSTA():
                     elif d(text='Qual é o seu email?'):
                         d(text="Cadastrar-se com o número do celular").click()
                         time.sleep(3)
-                    elif d(textContains='Aguarde alguns minutos antes de tentar novamente') or d(textContains='Ocorreu um erro. Tente novamente mais tarde'):
+                    elif d(textContains='Aguarde alguns minutos antes de tentar novamente') or d(textContains='Ocorreu um erro. Tente novamente mais tarde') or d(textContains='Parece que seu número de celular está incorreto.'):
                         print('Tela de restrição')
                         if tentativa is True:
                             window['output'].print(
