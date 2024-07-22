@@ -2415,8 +2415,9 @@ def creator_temporary_phone_number_comv2():
                                                     botao_avancar = str(d.xpath('//*[@content-desc="Avançar"]').info)
                                                     if "'enabled': 'false'" in botao_avancar:
                                                         d(text='Instagram').click()
-                                                    time.sleep(1)
+                                                    time.sleep(3)
                                                     d(text='Avançar').click()
+                                                    time.sleep(10)
                                                     d(text='Insira seu código de confirmação').wait(timeout=30)
                                                     return response.json()
                                                 else:
@@ -2702,20 +2703,6 @@ def creator_temporary_phone_number_comv2():
                                         time.sleep(3)
                                         d.app_start('com.instagram.android')
                                         time.sleep(10)
-                                        if d(textContains='Fazer uma apelação'):
-                                            d.xpath('//*[@content-desc="Menu"]').click()
-                                            time.sleep(2)
-                                            d(textContains='Sair de').click()
-                                            d(text='Sair').click()
-                                            time.sleep(7)
-                                            d.app_stop('com.instagram.android')
-                                            time.sleep(3)
-                                            d.app_start('com.instagram.android')
-                                            try: 
-                                                d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
-                                            except:
-                                                pass
-                                        d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                         for conta_atual in contas_criadas_lista:
                                             try:
                                                 user_atual, senha_atual = conta_atual.split()
@@ -2727,12 +2714,24 @@ def creator_temporary_phone_number_comv2():
                                                     d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                                                     d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                                 d(text=user_atual).click()
-                                                d.xpath('//*[@content-desc="Opções"]').click()
                                                 while True:
                                                     time.sleep(2)
                                                     if d(text='Configurações e privacidade') and d(text='Sua atividade'):
                                                         print('Tela de Configurações e privacidade')
                                                         d(text='Configurações e privacidade').click()
+                                                    elif d(textContains='Fazer uma apelação'):
+                                                        d.xpath('//*[@content-desc="Menu"]').click()
+                                                        time.sleep(2)
+                                                        d(textContains='Sair de').click()
+                                                        d(text='Sair').click()
+                                                        time.sleep(7)
+                                                        d.app_stop('com.instagram.android')
+                                                        time.sleep(3)
+                                                        d.app_start('com.instagram.android')
+                                                        try: 
+                                                            d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
+                                                        except:
+                                                            pass
                                                     elif d(text='Configurações') and d(text='Sua atividade'):
                                                         print('Tela de Configurações e privacidade')
                                                         d(text='Configurações').click()
@@ -2744,6 +2743,8 @@ def creator_temporary_phone_number_comv2():
                                                     elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
                                                         print('Tela de Central de Contas')
                                                         d(textContains='Ver mais na Central de Contas').click()
+                                                    elif d(resourceId="com.instagram.android:id/profile_tab"):
+                                                        d(resourceId="com.instagram.android:id/profile_tab").click()
                                                     elif d(text='Agora na Central de Contas') and d(text='OK'):
                                                         print('Tela de Agora na Central de Contas')
                                                         d(text='OK').click()
@@ -2962,20 +2963,6 @@ def creator_temporary_phone_number_comv2():
                                     time.sleep(3)
                                     d.app_start('com.instagram.android')
                                     time.sleep(10)
-                                    if d(textContains='Fazer uma apelação'):
-                                        d.xpath('//*[@content-desc="Menu"]').click()
-                                        time.sleep(2)
-                                        d(textContains='Sair de').click()
-                                        d(text='Sair').click()
-                                        time.sleep(7)
-                                        d.app_stop('com.instagram.android')
-                                        time.sleep(3)
-                                        d.app_start('com.instagram.android')
-                                        try: 
-                                            d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
-                                        except:
-                                            pass
-                                    d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                     for conta_atual in contas_criadas_lista:
                                         try:
                                             user_atual, senha_atual = conta_atual.split()
@@ -2987,12 +2974,24 @@ def creator_temporary_phone_number_comv2():
                                                 d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                             d(text=user_atual).click()
-                                            d.xpath('//*[@content-desc="Opções"]').click()
                                             while True:
                                                 time.sleep(2)
                                                 if d(text='Configurações e privacidade') and d(text='Sua atividade'):
                                                     print('Tela de Configurações e privacidade')
                                                     d(text='Configurações e privacidade').click()
+                                                elif d(textContains='Fazer uma apelação'):
+                                                    d.xpath('//*[@content-desc="Menu"]').click()
+                                                    time.sleep(2)
+                                                    d(textContains='Sair de').click()
+                                                    d(text='Sair').click()
+                                                    time.sleep(7)
+                                                    d.app_stop('com.instagram.android')
+                                                    time.sleep(3)
+                                                    d.app_start('com.instagram.android')
+                                                    try: 
+                                                        d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
+                                                    except:
+                                                        pass
                                                 elif d(text='Configurações') and d(text='Sua atividade'):
                                                     print('Tela de Configurações e privacidade')
                                                     d(text='Configurações').click()
@@ -3004,6 +3003,8 @@ def creator_temporary_phone_number_comv2():
                                                 elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
                                                     print('Tela de Central de Contas')
                                                     d(textContains='Ver mais na Central de Contas').click()
+                                                elif d(resourceId="com.instagram.android:id/profile_tab"):
+                                                    d(resourceId="com.instagram.android:id/profile_tab").click()
                                                 elif d(text='Agora na Central de Contas') and d(text='OK'):
                                                     print('Tela de Agora na Central de Contas')
                                                     d(text='OK').click()
@@ -3047,7 +3048,6 @@ def creator_temporary_phone_number_comv2():
                                             except Exception as e:
                                                 print(e)
                                                 pass
-
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                     text_color=('cyan'))
                                     window.Refresh()
@@ -5097,8 +5097,9 @@ def creator_2NRv2():
                                                     botao_avancar = str(d.xpath('//*[@content-desc="Avançar"]').info)
                                                     if "'enabled': 'false'" in botao_avancar:
                                                         d(text='Instagram').click()
-                                                    time.sleep(1)
+                                                    time.sleep(3)
                                                     d(text='Avançar').click()
+                                                    time.sleep(10)
                                                     d(text='Insira seu código de confirmação').wait(timeout=30)
                                                     return response.json()
                                                 else:
@@ -5367,20 +5368,6 @@ def creator_2NRv2():
                                         time.sleep(3)
                                         d.app_start('com.instagram.android')
                                         time.sleep(10)
-                                        if d(textContains='Fazer uma apelação'):
-                                            d.xpath('//*[@content-desc="Menu"]').click()
-                                            time.sleep(2)
-                                            d(textContains='Sair de').click()
-                                            d(text='Sair').click()
-                                            time.sleep(7)
-                                            d.app_stop('com.instagram.android')
-                                            time.sleep(3)
-                                            d.app_start('com.instagram.android')
-                                            try: 
-                                                d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
-                                            except:
-                                                pass
-                                        d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                         for conta_atual in contas_criadas_lista:
                                             try:
                                                 user_atual, senha_atual = conta_atual.split()
@@ -5392,12 +5379,24 @@ def creator_2NRv2():
                                                     d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                                                     d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                                 d(text=user_atual).click()
-                                                d.xpath('//*[@content-desc="Opções"]').click()
                                                 while True:
                                                     time.sleep(2)
                                                     if d(text='Configurações e privacidade') and d(text='Sua atividade'):
                                                         print('Tela de Configurações e privacidade')
                                                         d(text='Configurações e privacidade').click()
+                                                    elif d(textContains='Fazer uma apelação'):
+                                                        d.xpath('//*[@content-desc="Menu"]').click()
+                                                        time.sleep(2)
+                                                        d(textContains='Sair de').click()
+                                                        d(text='Sair').click()
+                                                        time.sleep(7)
+                                                        d.app_stop('com.instagram.android')
+                                                        time.sleep(3)
+                                                        d.app_start('com.instagram.android')
+                                                        try: 
+                                                            d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
+                                                        except:
+                                                            pass
                                                     elif d(text='Configurações') and d(text='Sua atividade'):
                                                         print('Tela de Configurações e privacidade')
                                                         d(text='Configurações').click()
@@ -5409,6 +5408,8 @@ def creator_2NRv2():
                                                     elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
                                                         print('Tela de Central de Contas')
                                                         d(textContains='Ver mais na Central de Contas').click()
+                                                    elif d(resourceId="com.instagram.android:id/profile_tab"):
+                                                        d(resourceId="com.instagram.android:id/profile_tab").click()
                                                     elif d(text='Agora na Central de Contas') and d(text='OK'):
                                                         print('Tela de Agora na Central de Contas')
                                                         d(text='OK').click()
@@ -5626,20 +5627,6 @@ def creator_2NRv2():
                                     time.sleep(3)
                                     d.app_start('com.instagram.android')
                                     time.sleep(10)
-                                    if d(textContains='Fazer uma apelação'):
-                                        d.xpath('//*[@content-desc="Menu"]').click()
-                                        time.sleep(2)
-                                        d(textContains='Sair de').click()
-                                        d(text='Sair').click()
-                                        time.sleep(7)
-                                        d.app_stop('com.instagram.android')
-                                        time.sleep(3)
-                                        d.app_start('com.instagram.android')
-                                        try: 
-                                            d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
-                                        except:
-                                            pass
-                                    d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                     for conta_atual in contas_criadas_lista:
                                         try:
                                             user_atual, senha_atual = conta_atual.split()
@@ -5651,12 +5638,24 @@ def creator_2NRv2():
                                                 d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                             d(text=user_atual).click()
-                                            d.xpath('//*[@content-desc="Opções"]').click()
                                             while True:
                                                 time.sleep(2)
                                                 if d(text='Configurações e privacidade') and d(text='Sua atividade'):
                                                     print('Tela de Configurações e privacidade')
                                                     d(text='Configurações e privacidade').click()
+                                                elif d(textContains='Fazer uma apelação'):
+                                                    d.xpath('//*[@content-desc="Menu"]').click()
+                                                    time.sleep(2)
+                                                    d(textContains='Sair de').click()
+                                                    d(text='Sair').click()
+                                                    time.sleep(7)
+                                                    d.app_stop('com.instagram.android')
+                                                    time.sleep(3)
+                                                    d.app_start('com.instagram.android')
+                                                    try: 
+                                                        d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
+                                                    except:
+                                                        pass
                                                 elif d(text='Configurações') and d(text='Sua atividade'):
                                                     print('Tela de Configurações e privacidade')
                                                     d(text='Configurações').click()
@@ -5668,6 +5667,8 @@ def creator_2NRv2():
                                                 elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
                                                     print('Tela de Central de Contas')
                                                     d(textContains='Ver mais na Central de Contas').click()
+                                                elif d(resourceId="com.instagram.android:id/profile_tab"):
+                                                    d(resourceId="com.instagram.android:id/profile_tab").click()
                                                 elif d(text='Agora na Central de Contas') and d(text='OK'):
                                                     print('Tela de Agora na Central de Contas')
                                                     d(text='OK').click()
