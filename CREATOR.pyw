@@ -2701,6 +2701,20 @@ def creator_temporary_phone_number_comv2():
                                         d.app_stop('com.instagram.android')
                                         time.sleep(3)
                                         d.app_start('com.instagram.android')
+                                        time.sleep(10)
+                                        if d(textContains='Fazer uma apelação'):
+                                            d.xpath('//*[@content-desc="Menu"]').click()
+                                            time.sleep(2)
+                                            d(textContains='Sair de').click()
+                                            d(text='Sair').click()
+                                            time.sleep(7)
+                                            d.app_stop('com.instagram.android')
+                                            time.sleep(3)
+                                            d.app_start('com.instagram.android')
+                                            try: 
+                                                d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
+                                            except:
+                                                pass
                                         d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                         for conta_atual in contas_criadas_lista:
                                             try:
@@ -2947,6 +2961,20 @@ def creator_temporary_phone_number_comv2():
                                     d.app_stop('com.instagram.android')
                                     time.sleep(3)
                                     d.app_start('com.instagram.android')
+                                    time.sleep(10)
+                                    if d(textContains='Fazer uma apelação'):
+                                        d.xpath('//*[@content-desc="Menu"]').click()
+                                        time.sleep(2)
+                                        d(textContains='Sair de').click()
+                                        d(text='Sair').click()
+                                        time.sleep(7)
+                                        d.app_stop('com.instagram.android')
+                                        time.sleep(3)
+                                        d.app_start('com.instagram.android')
+                                        try: 
+                                            d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
+                                        except:
+                                            pass
                                     d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                     for conta_atual in contas_criadas_lista:
                                         try:
@@ -5338,6 +5366,20 @@ def creator_2NRv2():
                                         d.app_stop('com.instagram.android')
                                         time.sleep(3)
                                         d.app_start('com.instagram.android')
+                                        time.sleep(10)
+                                        if d(textContains='Fazer uma apelação'):
+                                            d.xpath('//*[@content-desc="Menu"]').click()
+                                            time.sleep(2)
+                                            d(textContains='Sair de').click()
+                                            d(text='Sair').click()
+                                            time.sleep(7)
+                                            d.app_stop('com.instagram.android')
+                                            time.sleep(3)
+                                            d.app_start('com.instagram.android')
+                                            try: 
+                                                d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
+                                            except:
+                                                pass
                                         d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                         for conta_atual in contas_criadas_lista:
                                             try:
@@ -5583,6 +5625,20 @@ def creator_2NRv2():
                                     d.app_stop('com.instagram.android')
                                     time.sleep(3)
                                     d.app_start('com.instagram.android')
+                                    time.sleep(10)
+                                    if d(textContains='Fazer uma apelação'):
+                                        d.xpath('//*[@content-desc="Menu"]').click()
+                                        time.sleep(2)
+                                        d(textContains='Sair de').click()
+                                        d(text='Sair').click()
+                                        time.sleep(7)
+                                        d.app_stop('com.instagram.android')
+                                        time.sleep(3)
+                                        d.app_start('com.instagram.android')
+                                        try: 
+                                            d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
+                                        except:
+                                            pass
                                     d(resourceId="com.instagram.android:id/profile_tab").click(timeout=60)
                                     for conta_atual in contas_criadas_lista:
                                         try:
