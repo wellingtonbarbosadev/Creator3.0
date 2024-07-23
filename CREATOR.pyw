@@ -2710,7 +2710,15 @@ def creator_temporary_phone_number_comv2():
                                                 print(user_atual)
                                                 try:
                                                     d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                                                except: 
+                                                except:
+                                                    if d(textContains='Configurações') and d(text='Sua atividade'):
+                                                        d.app_stop('com.instagram.android')
+                                                        time.sleep(3)
+                                                        d.app_start('com.instagram.android')
+                                                        try: 
+                                                            d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
+                                                        except:
+                                                            pass
                                                     d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                                                     d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                                 d(text=user_atual).click()
@@ -2781,6 +2789,7 @@ def creator_temporary_phone_number_comv2():
                                                         break
                                             except Exception as e:
                                                 print(e)
+                                                traceback.print_exc()
                                                 print('Erro no processo de exclusão do número')
                                                 try:
                                                     d.screenshot(
@@ -2788,6 +2797,10 @@ def creator_temporary_phone_number_comv2():
                                                 except Exception as e:
                                                     print(e)
                                                     pass
+                                                d.app_stop('com.instagram.android')
+                                                time.sleep(3)
+                                                d.app_start('com.instagram.android')
+                                                d(resourceId='com.instagram.android:id/profile_tab').click(timeout=30)
                                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                         text_color=('cyan'))
                                         window.Refresh()
@@ -2970,7 +2983,15 @@ def creator_temporary_phone_number_comv2():
                                             print(user_atual)
                                             try:
                                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                                            except: 
+                                            except:
+                                                if d(textContains='Configurações') and d(text='Sua atividade'):
+                                                    d.app_stop('com.instagram.android')
+                                                    time.sleep(3)
+                                                    d.app_start('com.instagram.android')
+                                                    try: 
+                                                        d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
+                                                    except:
+                                                        pass
                                                 d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                             d(text=user_atual).click()
@@ -3041,6 +3062,7 @@ def creator_temporary_phone_number_comv2():
                                                     break
                                         except Exception as e:
                                             print(e)
+                                            traceback.print_exc()
                                             print('Erro no processo de exclusão do número')
                                             try:
                                                 d.screenshot(
@@ -3048,6 +3070,10 @@ def creator_temporary_phone_number_comv2():
                                             except Exception as e:
                                                 print(e)
                                                 pass
+                                            d.app_stop('com.instagram.android')
+                                            time.sleep(3)
+                                            d.app_start('com.instagram.android')
+                                            d(resourceId='com.instagram.android:id/profile_tab').click(timeout=30)
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                     text_color=('cyan'))
                                     window.Refresh()
@@ -5375,7 +5401,15 @@ def creator_2NRv2():
                                                 print(user_atual)
                                                 try:
                                                     d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                                                except: 
+                                                except:
+                                                    if d(textContains='Configurações') and d(text='Sua atividade'):
+                                                        d.app_stop('com.instagram.android')
+                                                        time.sleep(3)
+                                                        d.app_start('com.instagram.android')
+                                                        try: 
+                                                            d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
+                                                        except:
+                                                            pass
                                                     d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                                                     d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                                 d(text=user_atual).click()
@@ -5446,6 +5480,7 @@ def creator_2NRv2():
                                                         break
                                             except Exception as e:
                                                 print(e)
+                                                traceback.print_exc()
                                                 print('Erro no processo de exclusão do número')
                                                 try:
                                                     d.screenshot(
@@ -5453,6 +5488,10 @@ def creator_2NRv2():
                                                 except Exception as e:
                                                     print(e)
                                                     pass
+                                                d.app_stop('com.instagram.android')
+                                                time.sleep(3)
+                                                d.app_start('com.instagram.android')
+                                                d(resourceId='com.instagram.android:id/profile_tab').click(timeout=30)
                                         window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                         text_color=('cyan'))
                                         window.Refresh()
@@ -5634,7 +5673,15 @@ def creator_2NRv2():
                                             print(user_atual)
                                             try:
                                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
-                                            except: 
+                                            except:
+                                                if d(textContains='Configurações') and d(text='Sua atividade'):
+                                                    d.app_stop('com.instagram.android')
+                                                    time.sleep(3)
+                                                    d.app_start('com.instagram.android')
+                                                    try: 
+                                                        d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
+                                                    except:
+                                                        pass
                                                 d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                             d(text=user_atual).click()
@@ -5705,6 +5752,7 @@ def creator_2NRv2():
                                                     break
                                         except Exception as e:
                                             print(e)
+                                            traceback.print_exc()
                                             print('Erro no processo de exclusão do número')
                                             try:
                                                 d.screenshot(
@@ -5712,6 +5760,10 @@ def creator_2NRv2():
                                             except Exception as e:
                                                 print(e)
                                                 pass
+                                            d.app_stop('com.instagram.android')
+                                            time.sleep(3)
+                                            d.app_start('com.instagram.android')
+                                            d(resourceId='com.instagram.android:id/profile_tab').click(timeout=30)
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Todos os números excluídos',
                                                     text_color=('cyan'))
                                     window.Refresh()
