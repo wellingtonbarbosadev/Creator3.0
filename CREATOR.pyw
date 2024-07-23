@@ -2740,6 +2740,10 @@ def creator_temporary_phone_number_comv2():
                                                             d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
                                                         except:
                                                             pass
+                                                    elif d(textContains='Ocorreu um erro inesperado.'):
+                                                        print('Conta com bloqueio')
+                                                        d.press('back')
+                                                        raise Exception('Conta com bloqueio')
                                                     elif d(text='Configurações') and d(text='Sua atividade'):
                                                         print('Tela de Configurações e privacidade')
                                                         d(text='Configurações').click()
@@ -3013,6 +3017,10 @@ def creator_temporary_phone_number_comv2():
                                                         d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
                                                     except:
                                                         pass
+                                                elif d(textContains='Ocorreu um erro inesperado.'):
+                                                    print('Conta com bloqueio')
+                                                    d.press('back')
+                                                    raise Exception('Conta com bloqueio')
                                                 elif d(text='Configurações') and d(text='Sua atividade'):
                                                     print('Tela de Configurações e privacidade')
                                                     d(text='Configurações').click()
@@ -5431,6 +5439,10 @@ def creator_2NRv2():
                                                             d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
                                                         except:
                                                             pass
+                                                    elif d(textContains='Ocorreu um erro inesperado.'):
+                                                        print('Conta com bloqueio')
+                                                        d.press('back')
+                                                        raise Exception('Conta com bloqueio')
                                                     elif d(text='Configurações') and d(text='Sua atividade'):
                                                         print('Tela de Configurações e privacidade')
                                                         d(text='Configurações').click()
@@ -5703,6 +5715,10 @@ def creator_2NRv2():
                                                         d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
                                                     except:
                                                         pass
+                                                elif d(textContains='Ocorreu um erro inesperado.'):
+                                                    print('Conta com bloqueio')
+                                                    d.press('back')
+                                                    raise Exception('Conta com bloqueio')
                                                 elif d(text='Configurações') and d(text='Sua atividade'):
                                                     print('Tela de Configurações e privacidade')
                                                     d(text='Configurações').click()
