@@ -2711,7 +2711,7 @@ def creator_temporary_phone_number_comv2():
                                                 try:
                                                     d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                                 except:
-                                                    if d(textContains='Configurações') and d(text='Sua atividade'):
+                                                    if d(text='Dados pessoais') and d(text='Senha e segurança'):
                                                         d.app_stop('com.instagram.android')
                                                         time.sleep(3)
                                                         d.app_start('com.instagram.android')
@@ -2746,7 +2746,7 @@ def creator_temporary_phone_number_comv2():
                                                     elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                                         print('Tela de Central de Contas')
                                                         d(text='Central de Contas').click()
-                                                    elif d.xpath('//*[@content-desc="Opções"]'):
+                                                    elif d.xpath('//*[@content-desc="Opções"]').exists:
                                                         d.xpath('//*[@content-desc="Opções"]').click()
                                                     elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
                                                         print('Tela de Central de Contas')
@@ -2984,7 +2984,7 @@ def creator_temporary_phone_number_comv2():
                                             try:
                                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                             except:
-                                                if d(textContains='Configurações') and d(text='Sua atividade'):
+                                                if d(text='Dados pessoais') and d(text='Senha e segurança'):
                                                     d.app_stop('com.instagram.android')
                                                     time.sleep(3)
                                                     d.app_start('com.instagram.android')
@@ -3019,7 +3019,7 @@ def creator_temporary_phone_number_comv2():
                                                 elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                                     print('Tela de Central de Contas')
                                                     d(text='Central de Contas').click()
-                                                elif d.xpath('//*[@content-desc="Opções"]'):
+                                                elif d.xpath('//*[@content-desc="Opções"]').exists:
                                                     d.xpath('//*[@content-desc="Opções"]').click()
                                                 elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
                                                     print('Tela de Central de Contas')
@@ -5402,7 +5402,7 @@ def creator_2NRv2():
                                                 try:
                                                     d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                                 except:
-                                                    if d(textContains='Configurações') and d(text='Sua atividade'):
+                                                    if d(text='Dados pessoais') and d(text='Senha e segurança'):
                                                         d.app_stop('com.instagram.android')
                                                         time.sleep(3)
                                                         d.app_start('com.instagram.android')
@@ -5437,7 +5437,7 @@ def creator_2NRv2():
                                                     elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                                         print('Tela de Central de Contas')
                                                         d(text='Central de Contas').click()
-                                                    elif d.xpath('//*[@content-desc="Opções"]'):
+                                                    elif d.xpath('//*[@content-desc="Opções"]').exists:
                                                         d.xpath('//*[@content-desc="Opções"]').click()
                                                     elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
                                                         print('Tela de Central de Contas')
@@ -5674,7 +5674,7 @@ def creator_2NRv2():
                                             try:
                                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                             except:
-                                                if d(textContains='Configurações') and d(text='Sua atividade'):
+                                                if d(text='Dados pessoais') and d(text='Senha e segurança'):
                                                     d.app_stop('com.instagram.android')
                                                     time.sleep(3)
                                                     d.app_start('com.instagram.android')
@@ -5709,7 +5709,7 @@ def creator_2NRv2():
                                                 elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                                     print('Tela de Central de Contas')
                                                     d(text='Central de Contas').click()
-                                                elif d.xpath('//*[@content-desc="Opções"]'):
+                                                elif d.xpath('//*[@content-desc="Opções"]').exists:
                                                     d.xpath('//*[@content-desc="Opções"]').click()
                                                 elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
                                                     print('Tela de Central de Contas')
