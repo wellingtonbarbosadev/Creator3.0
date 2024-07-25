@@ -2348,6 +2348,7 @@ def creator_temporary_phone_number_comv2():
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Processo de adicionar email')
                                     window.Refresh()
                                     d.xpath('//*[@content-desc="Opções"]').click()
+                                    tentativa_centralcontas = 1
                                     while True:
                                         time.sleep(3)
                                         if d(text='Configurações e privacidade') and d(text='Sua atividade'):
@@ -2358,6 +2359,11 @@ def creator_temporary_phone_number_comv2():
                                             d(text='Configurações').click()
                                         elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                             print('Tela de Central de Contas')
+                                            if tentativa_centralcontas == 3:
+                                                d.press('back')
+                                                break
+                                            else:
+                                                tentativa_centralcontas += 1
                                             d(text='Central de Contas').click()
                                         elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
                                             print('Tela de Central de Contas')
@@ -2722,6 +2728,7 @@ def creator_temporary_phone_number_comv2():
                                                     d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                                                     d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                                 d(text=user_atual).click()
+                                                tentativa_centralcontas = 1
                                                 while True:
                                                     time.sleep(2)
                                                     if d(text='Configurações e privacidade') and d(text='Sua atividade'):
@@ -2740,6 +2747,12 @@ def creator_temporary_phone_number_comv2():
                                                             d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
                                                         except:
                                                             pass
+                                                    elif d(textContains='Set up profile'):
+                                                        d.app_stop('com.instagram.android')
+                                                        time.sleep(3)
+                                                        d.app_start('com.instagram.android')
+                                                    elif d(textContains='Permitir todos os cookies'):
+                                                        d(textContains='Permitir todos os cookies').click()
                                                     elif d(textContains='Ocorreu um erro inesperado.'):
                                                         print('Conta com bloqueio')
                                                         d.press('back')
@@ -2749,6 +2762,11 @@ def creator_temporary_phone_number_comv2():
                                                         d(text='Configurações').click()
                                                     elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                                         print('Tela de Central de Contas')
+                                                        if tentativa_centralcontas == 3:
+                                                            d.press('back')
+                                                            break
+                                                        else:
+                                                            tentativa_centralcontas += 1
                                                         d(text='Central de Contas').click()
                                                     elif d.xpath('//*[@content-desc="Opções"]').exists:
                                                         d.xpath('//*[@content-desc="Opções"]').click()
@@ -2999,6 +3017,7 @@ def creator_temporary_phone_number_comv2():
                                                 d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                             d(text=user_atual).click()
+                                            tentativa_centralcontas = 1
                                             while True:
                                                 time.sleep(2)
                                                 if d(text='Configurações e privacidade') and d(text='Sua atividade'):
@@ -3017,6 +3036,12 @@ def creator_temporary_phone_number_comv2():
                                                         d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
                                                     except:
                                                         pass
+                                                elif d(textContains='Set up profile'):
+                                                    d.app_stop('com.instagram.android')
+                                                    time.sleep(3)
+                                                    d.app_start('com.instagram.android')
+                                                elif d(textContains='Permitir todos os cookies'):
+                                                    d(textContains='Permitir todos os cookies').click()
                                                 elif d(textContains='Ocorreu um erro inesperado.'):
                                                     print('Conta com bloqueio')
                                                     d.press('back')
@@ -3026,6 +3051,11 @@ def creator_temporary_phone_number_comv2():
                                                     d(text='Configurações').click()
                                                 elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                                     print('Tela de Central de Contas')
+                                                    if tentativa_centralcontas == 3:
+                                                        d.press('back')
+                                                        break
+                                                    else:
+                                                        tentativa_centralcontas += 1
                                                     d(text='Central de Contas').click()
                                                 elif d.xpath('//*[@content-desc="Opções"]').exists:
                                                     d.xpath('//*[@content-desc="Opções"]').click()
@@ -5059,11 +5089,13 @@ def creator_2NRv2():
                                 d(resourceId="com.instagram.android:id/action_bar_button_back").click(timeout=10)
                             except:
                                 print('Não foi possivel seguir sugeridos')
+
                             if removenum_addemail:
                                 try:
                                     window['output'].print(f'[{datetime.now().strftime("%H:%M:%S")}] Processo de adicionar email')
                                     window.Refresh()
                                     d.xpath('//*[@content-desc="Opções"]').click()
+                                    tentativa_centralcontas = 1
                                     while True:
                                         time.sleep(3)
                                         if d(text='Configurações e privacidade') and d(text='Sua atividade'):
@@ -5074,6 +5106,11 @@ def creator_2NRv2():
                                             d(text='Configurações').click()
                                         elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                             print('Tela de Central de Contas')
+                                            if tentativa_centralcontas == 3:
+                                                d.press('back')
+                                                break
+                                            else:
+                                                tentativa_centralcontas += 1
                                             d(text='Central de Contas').click()
                                         elif d(textContains='Ver mais na Central de Contas') and d(textContains='Notificações'):
                                             print('Tela de Central de Contas')
@@ -5421,6 +5458,7 @@ def creator_2NRv2():
                                                     d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                                                     d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                                 d(text=user_atual).click()
+                                                tentativa_centralcontas = 1
                                                 while True:
                                                     time.sleep(2)
                                                     if d(text='Configurações e privacidade') and d(text='Sua atividade'):
@@ -5439,6 +5477,12 @@ def creator_2NRv2():
                                                             d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
                                                         except:
                                                             pass
+                                                    elif d(textContains='Set up profile'):
+                                                        d.app_stop('com.instagram.android')
+                                                        time.sleep(3)
+                                                        d.app_start('com.instagram.android')
+                                                    elif d(textContains='Permitir todos os cookies'):
+                                                        d(textContains='Permitir todos os cookies').click()
                                                     elif d(textContains='Ocorreu um erro inesperado.'):
                                                         print('Conta com bloqueio')
                                                         d.press('back')
@@ -5448,6 +5492,11 @@ def creator_2NRv2():
                                                         d(text='Configurações').click()
                                                     elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                                         print('Tela de Central de Contas')
+                                                        if tentativa_centralcontas == 3:
+                                                            d.press('back')
+                                                            break
+                                                        else:
+                                                            tentativa_centralcontas += 1
                                                         d(text='Central de Contas').click()
                                                     elif d.xpath('//*[@content-desc="Opções"]').exists:
                                                         d.xpath('//*[@content-desc="Opções"]').click()
@@ -5697,6 +5746,7 @@ def creator_2NRv2():
                                                 d(resourceId="com.instagram.android:id/tab_avatar").click(timeout=30)
                                                 d(resourceId="com.instagram.android:id/action_bar_title_chevron").click(timeout=10)
                                             d(text=user_atual).click()
+                                            tentativa_centralcontas = 1
                                             while True:
                                                 time.sleep(2)
                                                 if d(text='Configurações e privacidade') and d(text='Sua atividade'):
@@ -5715,6 +5765,12 @@ def creator_2NRv2():
                                                         d(resourceId="com.instagram.android:id/profile_tab").wait(timeout=30)
                                                     except:
                                                         pass
+                                                elif d(textContains='Set up profile'):
+                                                    d.app_stop('com.instagram.android')
+                                                    time.sleep(3)
+                                                    d.app_start('com.instagram.android')
+                                                elif d(textContains='Permitir todos os cookies'):
+                                                    d(textContains='Permitir todos os cookies').click()
                                                 elif d(textContains='Ocorreu um erro inesperado.'):
                                                     print('Conta com bloqueio')
                                                     d.press('back')
@@ -5724,6 +5780,11 @@ def creator_2NRv2():
                                                     d(text='Configurações').click()
                                                 elif d(text='Central de Contas') and (d(text='Bloqueados') or d(text='Segurança')):
                                                     print('Tela de Central de Contas')
+                                                    if tentativa_centralcontas == 3:
+                                                        d.press('back')
+                                                        break
+                                                    else:
+                                                        tentativa_centralcontas += 1
                                                     d(text='Central de Contas').click()
                                                 elif d.xpath('//*[@content-desc="Opções"]').exists:
                                                     d.xpath('//*[@content-desc="Opções"]').click()
