@@ -14753,7 +14753,8 @@ def creator_CLONER_EMAIL():
                         raise Exception("IP Bloqueado")
             d(text='Cadastrar-se com o email').click(timeout=30)
             cod_chegou = False
-            email_escolhido = random.choice(["MailTM", "1SecMail"])
+            email_escolhido = random.choice(["MailTM"])
+            senha = gerar_senha(12)
             if email_escolhido == "MailTM":
                 window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] MailTM sendo utilizado')
@@ -14906,7 +14907,7 @@ def creator_CLONER_EMAIL():
                 domain = get_domain()
                 if domain:
                     email = generate_random_email(domain)
-                    password = ''.join(random.choices(string.ascii_letters + string.digits, k=12))
+                    password = senha
                     print(f"Criando conta com e-mail: {email} e senha: {password}")
                     window['output'].print(
                         f'[{datetime.now().strftime("%H:%M:%S")}] Email: {email}')
@@ -15027,7 +15028,6 @@ def creator_CLONER_EMAIL():
             #d(className="android.widget.EditText").set_text(codigo)
             d(text="Avançar").click(timeout=30)
             d(text='Crie uma senha').wait(timeout=30)
-            senha = gerar_senha(12)
             escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05)
             #escrever_devagar(d(className="android.widget.EditText"), senha, delay=0.05)
             d(text="Avançar").click(timeout=30)
