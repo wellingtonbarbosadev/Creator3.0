@@ -1,0 +1,16 @@
+{
+    "vpns": {
+        "PIA": {
+            "email": "p5292499",
+            "senha": "dZizE2fXo9"
+        },
+        "TunnelBear": {
+            "email": "usuario_nord@email.com",
+            "senha": "senha_nord"
+        },
+        "ExpressVPN": {
+            "email": "usuario_express@email.com",
+            "senha": "senha_express"
+        }
+    }
+}
